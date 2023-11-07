@@ -44,6 +44,16 @@ struct RequestAudioPermissionPopover: View {
                     .multilineTextAlignment(.center)
                 HPButton(type: .blockFill(8), size: .medium, color: .HPPrimary.dark) {
                     /// 개인정보 보호 및 보안 바로가기
+                    /// import Cocoa
+                    let workspace = NSWorkspace.shared
+                    if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone") {
+                        if workspace.open(url) {
+                            print("보안 및 개인정보 설정 중 '마이크' 섹션으로 이동되었습니다.")
+                        } else {
+                            print("설정 앱을 열 수 없습니다.")
+                        }
+                    }
+
                 } label: { type, size, color, expandable in
                     HPLabel(
                         content: (label: "개인정보 보호 및 보안 바로가기", icon: nil),

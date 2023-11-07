@@ -9,9 +9,6 @@ import SwiftUI
 import AVKit
 
 struct PracticeView: View {
-    @Environment(ProjectManager.self)
-    private var projectManager
-    
     @State
     var viewStore: PracticeViewStore
     

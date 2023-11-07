@@ -13,13 +13,13 @@ final class ScriptVM {
 }
 
 struct ScriptView: View {
-    @Environment(MediaManager.self)
-    private var mediaManager
+    @Environment(PracticeViewStore.self)
+    private var viewStore
     @Environment(PracticeManager.self)
     private var practiceManager
     var sentences: [SentenceModel]
     var words: [WordModel]
-    @Binding
+    @State
     var practice: PracticeModel
     @State
     private var wordSizes: [CGSize] = []
@@ -80,10 +80,10 @@ struct ScriptView: View {
                                     nowSentece: practiceManager.nowSentence,
                                     sentenceIndex: index
                                 ) { sentenceIndex in
-                                    mediaManager.pausePlaying()
-                                    mediaManager.playAt(atTime: Double(sentences[sentenceIndex].startAt))
+                                    viewStore.mediaManager.pausePlaying()
+                                    viewStore.mediaManager.playAt(atTime: Double(sentences[sentenceIndex].startAt))
                                     practiceManager.nowSentence = sentenceIndex
-                                    mediaManager.play()
+                                    viewStore.mediaManager.play()
                                 }
                                 .id(sentence.index)
                             }
@@ -124,7 +124,7 @@ struct ScriptView: View {
             }
             
         }
-        .onChange(of: mediaManager.currentTime, { _, newValue in
+        .onChange(of: viewStore.mediaManager.currentTime, { _, newValue in
             
             print(#line, newValue)
             if practiceManager.nowSentence < sentences.count {
@@ -138,6 +138,6 @@ struct ScriptView: View {
 
 extension ScriptView {
     private func play(startAt: Double, index: Int) {
-        mediaManager.pausePlaying()
+        viewStore.mediaManager.pausePlaying()
     }
 }

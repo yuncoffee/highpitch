@@ -26,6 +26,7 @@
 		11EF719B2ADADBA400D991E6 /* FillerWordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719A2ADADBA400D991E6 /* FillerWordList.swift */; };
 		11EF719D2ADE3F0E00D991E6 /* FillerWordDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719C2ADE3F0E00D991E6 /* FillerWordDetail.swift */; };
 		11EF719F2ADEAA2C00D991E6 /* FastSentReplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719E2ADEAA2C00D991E6 /* FastSentReplay.swift */; };
+		1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0467C72AFA281D003EF427 /* FillerWordSheet.swift */; };
 		1D09AF682AD98A1700C1400E /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09AF672AD98A1700C1400E /* ProjectView.swift */; };
 		1D09AF6A2AD98A4000C1400E /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09AF692AD98A4000C1400E /* PracticeView.swift */; };
 		1D09AF6E2AD98B0100C1400E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09AF6D2AD98B0100C1400E /* NotificationManager.swift */; };
@@ -142,6 +143,7 @@
 		11EF719A2ADADBA400D991E6 /* FillerWordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordList.swift; sourceTree = "<group>"; };
 		11EF719C2ADE3F0E00D991E6 /* FillerWordDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordDetail.swift; sourceTree = "<group>"; };
 		11EF719E2ADEAA2C00D991E6 /* FastSentReplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastSentReplay.swift; sourceTree = "<group>"; };
+		1D0467C72AFA281D003EF427 /* FillerWordSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordSheet.swift; sourceTree = "<group>"; };
 		1D09AF672AD98A1700C1400E /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		1D09AF692AD98A4000C1400E /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		1D09AF6D2AD98B0100C1400E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -253,6 +255,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D0467C62AFA27F3003EF427 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				1D0467C72AFA281D003EF427 /* FillerWordSheet.swift */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
 		1D09AF5C2AD9892500C1400E /* ProjectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +279,7 @@
 		1D09AF642AD989DA00C1400E /* PracticeView */ = {
 			isa = PBXGroup;
 			children = (
+				1D0467C62AFA27F3003EF427 /* Sheet */,
 				1D600BA52AF9DCAC001FC5EB /* Store */,
 				1D09AF692AD98A4000C1400E /* PracticeView.swift */,
 				1D09AF9A2ADA6BA900C1400E /* AudioControllerView */,
@@ -937,6 +948,7 @@
 				1DF659BB2AD5959200AE5601 /* HighPitchApp.swift in Sources */,
 				1D0ECD7C2ADE010500B95A74 /* HPTooltip.swift in Sources */,
 				1DE8B6452AECD0C500E0746E /* HPButton.swift in Sources */,
+				1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */,
 				1DE8B6532AED1C7B00E0746E /* HPButtonStyle.swift in Sources */,
 				1D09AF682AD98A1700C1400E /* ProjectView.swift in Sources */,
 				1DDB9D502AF75529001CA7CC /* GAManager.swift in Sources */,

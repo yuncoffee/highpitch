@@ -35,10 +35,9 @@ struct AudioControllerView: View {
         .border(.HPComponent.stroke, width: 1, edges: [.top])
         .onAppear {
             settingAudio(filePath: audioPath)
-        }.onChange(of: audioPlayer.currentTime) { oldValue , newValue in
+        }.onChange(of: audioPlayer.currentTime) { _, newValue in
             self.currentTime = newValue
             if newValue == 0 {
-                
                 audioPlayer.pausePlaying()
             }
         }.onChange(of: isDragging) { _, newValue in
@@ -170,9 +169,3 @@ extension AudioControllerView {
         .buttonStyle(.plain)
     }
 }
-// #Preview {
-//    @State var practice = PracticeModel(practiceName: "", index: 0, isVisited: <#Bool#>, creatAt: "", utterances: [], summary: PracticeSummaryModel())
-//    return AudioControllerView(practice: $practice)
-//        .environment(MediaManager())
-//        .environment(ProjectManager())
-// }

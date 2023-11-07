@@ -29,6 +29,7 @@
 		1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0467C72AFA281D003EF427 /* FillerWordSheet.swift */; };
 		1D0467CC2AFA9A5B003EF427 /* EPMSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0467CB2AFA9A5B003EF427 /* EPMSheet.swift */; };
 		1D0467CF2AFA9B2A003EF427 /* PracticeInfoPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0467CE2AFA9B2A003EF427 /* PracticeInfoPopover.swift */; };
+		1D0467D42AFAA404003EF427 /* FillerWordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0467D32AFAA404003EF427 /* FillerWordDetailCell.swift */; };
 		1D09AF682AD98A1700C1400E /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09AF672AD98A1700C1400E /* ProjectView.swift */; };
 		1D09AF6A2AD98A4000C1400E /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09AF692AD98A4000C1400E /* PracticeView.swift */; };
 		1D09AF6E2AD98B0100C1400E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D09AF6D2AD98B0100C1400E /* NotificationManager.swift */; };
@@ -148,6 +149,7 @@
 		1D0467C72AFA281D003EF427 /* FillerWordSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordSheet.swift; sourceTree = "<group>"; };
 		1D0467CB2AFA9A5B003EF427 /* EPMSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPMSheet.swift; sourceTree = "<group>"; };
 		1D0467CE2AFA9B2A003EF427 /* PracticeInfoPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeInfoPopover.swift; sourceTree = "<group>"; };
+		1D0467D32AFAA404003EF427 /* FillerWordDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordDetailCell.swift; sourceTree = "<group>"; };
 		1D09AF672AD98A1700C1400E /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		1D09AF692AD98A4000C1400E /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		1D09AF6D2AD98B0100C1400E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -274,6 +276,36 @@
 				1D0467CE2AFA9B2A003EF427 /* PracticeInfoPopover.swift */,
 			);
 			path = Popover;
+			sourceTree = "<group>";
+		};
+		1D0467D02AFAA3AB003EF427 /* FillerWordChart */ = {
+			isa = PBXGroup;
+			children = (
+				1D0467D22AFAA3F1003EF427 /* FillerWordDetail */,
+				11EF719A2ADADBA400D991E6 /* FillerWordList.swift */,
+				1D09AFA42ADA785100C1400E /* UsagePercentChart.swift */,
+				1D09AFA62ADA78A800C1400E /* UsageTopTierChart.swift */,
+			);
+			path = FillerWordChart;
+			sourceTree = "<group>";
+		};
+		1D0467D12AFAA3B9003EF427 /* SpeedChart */ = {
+			isa = PBXGroup;
+			children = (
+				1D09AFA82ADA78DF00C1400E /* SpeedAverageChart.swift */,
+				11EF719E2ADEAA2C00D991E6 /* FastSentReplay.swift */,
+				1142DDEC2AF4C7F8003DBE81 /* SlowSentReplay.swift */,
+			);
+			path = SpeedChart;
+			sourceTree = "<group>";
+		};
+		1D0467D22AFAA3F1003EF427 /* FillerWordDetail */ = {
+			isa = PBXGroup;
+			children = (
+				11EF719C2ADE3F0E00D991E6 /* FillerWordDetail.swift */,
+				1D0467D32AFAA404003EF427 /* FillerWordDetailCell.swift */,
+			);
+			path = FillerWordDetail;
 			sourceTree = "<group>";
 		};
 		1D09AF5C2AD9892500C1400E /* ProjectView */ = {
@@ -407,13 +439,8 @@
 		1D09AFA12ADA77CF00C1400E /* FeedbackCharts */ = {
 			isa = PBXGroup;
 			children = (
-				1D09AFA42ADA785100C1400E /* UsagePercentChart.swift */,
-				1D09AFA62ADA78A800C1400E /* UsageTopTierChart.swift */,
-				11EF719C2ADE3F0E00D991E6 /* FillerWordDetail.swift */,
-				1D09AFA82ADA78DF00C1400E /* SpeedAverageChart.swift */,
-				11EF719E2ADEAA2C00D991E6 /* FastSentReplay.swift */,
-				11EF719A2ADADBA400D991E6 /* FillerWordList.swift */,
-				1142DDEC2AF4C7F8003DBE81 /* SlowSentReplay.swift */,
+				1D0467D12AFAA3B9003EF427 /* SpeedChart */,
+				1D0467D02AFAA3AB003EF427 /* FillerWordChart */,
 			);
 			path = FeedbackCharts;
 			sourceTree = "<group>";
@@ -1022,6 +1049,7 @@
 				1D8C5AF52AD7BEDB00B01F10 /* Utterance.swift in Sources */,
 				1DDB9D0A2AF3147B001CA7CC /* OverlayView.swift in Sources */,
 				107034FE2AF258070097A685 /* FeedbackSettingView.swift in Sources */,
+				1D0467D42AFAA404003EF427 /* FillerWordDetailCell.swift in Sources */,
 				1D09AFB12ADAD08E00C1400E /* FileSystemManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

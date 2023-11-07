@@ -65,3 +65,8 @@ extension PracticeViewStore {
         practice.summary.fillerWordCount > 0
     }
 }
+
+// MARK: - UsageTopTierChart
+extension PracticeViewStore {
+    
+}

@@ -12,7 +12,9 @@ import SwiftUI
 import Charts
 
 struct UsageTopTierChart: View {
-    var summary: PracticeSummaryModel
+    var fillerWordCount: Int
+    var fillerWords: [FillerWordModel]
+    
     @State
     var data: [FillerCountData] = []
     @State
@@ -31,9 +33,8 @@ struct UsageTopTierChart: View {
                 } else {
                     (chartSize: maxHeight * 0.6, offset: geometry.size.height * 0.45)
                 }
-                
                 ZStack {
-                    if (summary.fillerWordCount > 0) {
+                    if (fillerWordCount > 0) {
                         VStack(spacing: 0) {
                             Text("\(fillerTypeCount)가지")
                                 .systemFont(.title)
@@ -78,13 +79,13 @@ struct UsageTopTierChart: View {
                         .offset(CGSize(width: each.offset.width, height: each.offset.height))
                     }
                 }
-                .onChange(of: breakPoint.offset, { _, newValue in
-                    self.fillerOffset = fillerWordOffset(size: newValue)
-                })
                 .onAppear {
                     self.fillerOffset = fillerWordOffset(size: breakPoint.offset)
                     self.fillerTypeCount = getFillerTypeCount()
                 }
+                .onChange(of: breakPoint.offset, { _, newValue in
+                    self.fillerOffset = fillerWordOffset(size: newValue)
+                })
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: geometry.size.height,
@@ -141,10 +142,9 @@ struct FillerCountOffset: Identifiable {
 }
 
 extension UsageTopTierChart {
-    
     /// 습관어 사용 횟수를 '순서대로' 반환합니다.
     func getFillerCount() -> [FillerCountData] {
-        if summary.fillerWordCount == 0 {
+        if fillerWordCount == 0 {
             return [FillerCountData(
                 index: 0,
                 value: 1,
@@ -153,8 +153,7 @@ extension UsageTopTierChart {
             )]
         }
         
-        let eachFillerCount = summary.eachFillerWordCount
-            .sorted(by: { $0.count > $1.count })
+        let eachFillerCount = fillerWords
         var returnFillerCount: [FillerCountData] = []
         var index = -1, temp = 0
         for fillerWord in eachFillerCount {
@@ -195,7 +194,7 @@ extension UsageTopTierChart {
     /// 사용된 습관어의 종류 수를 반환합니다.
     func getFillerTypeCount() -> Int {
         var fillerTypeCnt = 0
-        let eachFillerCount = summary.eachFillerWordCount
+        let eachFillerCount = fillerWords
         for fillerWord in eachFillerCount where fillerWord.count > 0 {
             fillerTypeCnt += 1
         }
@@ -204,7 +203,7 @@ extension UsageTopTierChart {
     
     /// annotation의 offset을 반환합니다.
     func fillerWordOffset(size: CGFloat) -> [FillerCountOffset] {
-        if summary.fillerWordCount == 0 {
+        if fillerWordCount == 0 {
             return []
         }
         

@@ -62,7 +62,10 @@ extension FeedbackChartView {
             )
             .padding(.bottom, .HPSpacing.xsmall)
             UsagePercentChart(practiceModel: $practice)
-            UsageTopTierChart(summary: practice.summary)
+            UsageTopTierChart(
+                fillerWordCount: viewStore.practice.summary.fillerWordCount,
+                fillerWords: viewStore.getSortedFillerWord()
+            )
             if viewStore.hasFillerWord() {
                 FillerWordDetail(fillerWords: viewStore.getSortedFillerWord())
                     .padding(.bottom, .HPSpacing.medium)

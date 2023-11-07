@@ -43,4 +43,25 @@ extension PracticeViewStore {
     func getSortedWords() -> [WordModel] {
         practice.words.sorted(by: { $0.index < $1.index })
     }
+    
+    func getSortedFillerWord() -> [FillerWordModel] {
+        practice.summary.eachFillerWordCount.sorted(by: {$0.count > $1.count})
+    }
+    
+    func getEpmRange() -> [Double] {
+        let sortedSentences = practice.sentences.sorted(by: { $0.epmValue < $1.epmValue })
+        return [sortedSentences.first!.epmValue, sortedSentences.last!.epmValue]
+    }
+        
+    func isFastSentenceEmpty() -> Bool {
+        practice.summary.fastSentenceIndex.isEmpty
+    }
+    
+    func isSlowSentenceEmpty() -> Bool {
+        practice.summary.slowSentenceIndex.isEmpty
+    }
+    
+    func hasFillerWord() -> Bool {
+        practice.summary.fillerWordCount > 0
+    }
 }

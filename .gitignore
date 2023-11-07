@@ -4,7 +4,7 @@
 
 ## User settings
 xcuserdata/
-*/*.xcconfig
+highpitch/*/*.xcconfig
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
@@ -94,3 +94,4 @@ iOSInjectionProject/
 .DS_Store
 
 highpitch/SecretKey.plist
+highpitch/GoogleService-Info.plist

@@ -1171,7 +1171,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = highpitch;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "마이크 사용 허가";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "highpitch는 음성 녹음을 통해 사용자의 음성을 분석하고 개선된 서비스를 제공합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1223,7 +1223,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = highpitch;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "마이크 사용 허가";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "highpitch는 음성 녹음을 통해 사용자의 음성을 분석하고 개선된 서비스를 제공합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

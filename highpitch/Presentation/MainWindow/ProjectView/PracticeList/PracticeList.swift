@@ -15,7 +15,7 @@ struct PracticeList: View {
     @Environment(ProjectManager.self)
     private var projectManager
     
-    @State 
+    @State
     var practices: [PracticeModel] = []
     
     @Query(sort: \PracticeModel.creatAt)
@@ -51,8 +51,12 @@ struct PracticeList: View {
                     .padding(.leading, .HPSpacing.medium + .HPSpacing.xxxxsmall)
                     .padding(.trailing, .HPSpacing.large)
                     .navigationDestination(for: PracticeModel.self) { practice in
-                        PracticeView(practice: practice)
-                        .environment(MediaManager())
+                        PracticeView(
+                            viewStore: PracticeViewStore(
+                                practice: practice,
+                                mediaManager: MediaManager()
+                            )
+                        )
                     }
                 }
             }

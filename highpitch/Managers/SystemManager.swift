@@ -16,7 +16,8 @@ final class SystemManager {
     var isDarkMode = false
     var isAnalyzing = false
     var hasUnVisited = false
-
+    var isRequsetAudioPermissionPopoverActive = true
+    
     var isOverlayView1Active = true
     var isOverlayView2Active = true
     var isOverlayView3Active = true

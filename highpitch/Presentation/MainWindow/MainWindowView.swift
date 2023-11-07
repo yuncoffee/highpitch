@@ -51,6 +51,7 @@ struct MainWindowView: View {
     }
     
     var body: some View {
+        @Bindable var systemManager = SystemManager.shared
         NavigationSplitView(columnVisibility: $columnVisibility) {
             navigationSidebar
         } detail: {
@@ -87,6 +88,9 @@ struct MainWindowView: View {
             if let currnet = newValue {
                 localProjectName = currnet.projectName
             }
+        }
+        .sheet(isPresented: $systemManager.isRequsetAudioPermissionPopoverActive) {
+            RequestAudioPermissionPopover()
         }
     }
 }

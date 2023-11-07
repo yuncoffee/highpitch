@@ -1,0 +1,11 @@
+//
+//  firebase.xcconfig
+//  highpitch
+//
+//  Created by yuncoffee on 11/7/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+FIREBASE_API_KEY = AIzaSyDdaDUDE09-Fmk5B_zJpCQDkJ8SfSSS_RE

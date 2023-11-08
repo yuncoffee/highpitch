@@ -12,7 +12,7 @@ struct SentenceCell: View {
     var sentence: String
     var isLast = false
     @State
-    private var isPlay = false
+    var isPlay = false
     
     @Binding
     var selectedIndex: Int
@@ -51,6 +51,7 @@ struct SentenceCell: View {
         .padding(.horizontal, .HPSpacing.xsmall + .HPSpacing.xxxxsmall)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(isPlay ? Color.HPComponent.Section.point : .clear)
+        .padding(.horizontal, 2)
         .onChange(of: selectedIndex) { _, newValue in
             isPlay = newValue == index
         }
@@ -68,6 +69,6 @@ extension SentenceCell {
     }
 }
 
-//#Preview {
+// #Preview {
 //    SentenceCell()
-//}
+// }

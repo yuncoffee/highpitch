@@ -11,58 +11,18 @@ struct FastSentReplay: View {
     @Environment(PracticeViewStore.self)
     var viewStore
     
-    @Environment(MediaManager.self)
-    private var mediaManager
-    var practice: PracticeModel
     @State
     var isDetailActive = false
     @State
     var selectedIndex = -1
     @State
-    var selectedSentenceInfo: (index: Int, startAt: Double, endAt: Double)?
+    var selectedSentenceInfo: SentenceInfo?
     
-    @Environment(PracticeManager.self)
-    private var practiceManager
-        
     var body: some View {
         VStack(spacing: 0) {
             header
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    withAnimation {
-                        isDetailActive.toggle()
-                    }
-                }
             if isDetailActive {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        ForEach(
-                            Array(practice.sentences.sorted(by: {$0.index < $1.index }).enumerated()),
-                            id: \.1.id
-                        ) { index, each in
-                            if practice.summary.fastSentenceIndex.contains(each.index) {
-                                SentenceCell(
-                                    index: index,
-                                    sentence: each.sentence,
-                                    isLast: index == viewStore.practice.sentences.count - 1,
-                                    isPlay: selectedIndex == index,
-                                    selectedIndex: $selectedIndex
-                                ) {
-                                    let _startAt = Double(each.startAt)
-                                    let _endAt = Double(each.endAt)
-                                    viewStore.mediaManager.playAt(atTime: _startAt)
-                                    viewStore.mediaManager.play()
-                                    viewStore.mediaManager.stopPoint = _endAt
-                                    viewStore.nowSentence = each.index
-                                    selectedIndex = index
-                                    selectedSentenceInfo = (index, _startAt, _endAt)
-                                } stopCompletion: {
-                                    viewStore.mediaManager.pausePlaying()
-                                }
-                            }
-                        }
-                    }
-                }
+                detailView
             }
         }
         .frame(
@@ -81,33 +41,51 @@ struct FastSentReplay: View {
         .padding(.bottom, .HPSpacing.xsmall)
         .padding(.trailing, .HPSpacing.xxxlarge)
         .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
-            if viewStore.mediaManager.stopPoint != nil {
-                if newValue > (viewStore.mediaManager.stopPoint!)/1000 {
-                    viewStore.mediaManager.stopPoint = nil
-                    selectedIndex = -1
-                    viewStore.mediaManager.pausePlaying()
-                }
-            }
+            updateSelectedIndex(timer: newValue)
         }
-        .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
-            if let selectedSentenceInfo = selectedSentenceInfo {
-                if selectedSentenceInfo.startAt.isLessThanOrEqualTo(newValue*1000), !selectedSentenceInfo.endAt.isLess(than: newValue*1000) {
-                    selectedIndex = selectedSentenceInfo.index
-                }
-            }
-        }.onChange(of: viewStore.mediaManager.isPlaying) { _, _ in
-            if !viewStore.mediaManager.isPlaying {
-                selectedIndex = -1
-            }
+        .onChange(of: viewStore.mediaManager.isPlaying) { _, _ in
+            resetSelectedSentence()
         }
     }
 }
 
 extension FastSentReplay {
-    private func play(startAt: Double, endAt: Double) {
-        mediaManager.playAt(atTime: startAt)
-        mediaManager.play()
-        mediaManager.stopPoint = endAt
+    private func resetSelectedSentence() {
+        if !viewStore.mediaManager.isPlaying {
+            selectedIndex = -1
+            selectedSentenceInfo = nil
+        }
+    }
+    
+    private func updateSelectedIndex(timer: TimeInterval) {
+        if viewStore.mediaManager.stopPoint != nil {
+            if timer > (viewStore.mediaManager.stopPoint!)/1000 {
+                viewStore.mediaManager.stopPoint = nil
+                selectedIndex = -1
+                viewStore.mediaManager.pausePlaying()
+            }
+        }
+        
+        if let selectedSentenceInfo = selectedSentenceInfo {
+            if selectedSentenceInfo.startAt.isLessThanOrEqualTo(timer*1000), !selectedSentenceInfo.endAt.isLess(than: timer*1000) {
+                selectedIndex = selectedSentenceInfo.index
+            }
+        }
+    }
+    
+    private func play(at: Int, sentenceInfo: SentenceInfo) {
+        viewStore.mediaManager.playAt(atTime: sentenceInfo.startAt)
+        viewStore.mediaManager.play()
+        viewStore.mediaManager.stopPoint = sentenceInfo.endAt
+        viewStore.nowSentence = at
+        
+        selectedIndex = sentenceInfo.index
+        selectedSentenceInfo = sentenceInfo
+    }
+    
+    private func stop() {
+        viewStore.mediaManager.pausePlaying()
+        selectedSentenceInfo = nil
     }
 }
 
@@ -128,5 +106,37 @@ extension FastSentReplay {
         .padding(.top, .HPSpacing.xsmall + .HPSpacing.xxxxsmall)
         .padding(.bottom, isDetailActive ? .HPSpacing.xsmall + .HPSpacing.xxxxsmall : 0)
         .padding(.horizontal, .HPSpacing.xsmall + .HPSpacing.xxxxsmall)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation {
+                isDetailActive.toggle()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var detailView: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(Array(viewStore.getSortedSentences().enumerated()), id: \.1.id) { index, each in
+                    if viewStore.practice.summary.fastSentenceIndex.contains(each.index) {
+                        SentenceCell(
+                            index: index,
+                            sentence: each.sentence,
+                            isLast: index == viewStore.practice.sentences.count - 1,
+                            isPlay: selectedIndex == index,
+                            selectedIndex: $selectedIndex) {
+                            let _selectedSentenceInfo = SentenceInfo(index: index,
+                                startAt: Double(each.endAt),
+                                endAt: Double(each.startAt)
+                            )
+                            play(at: each.index, sentenceInfo: _selectedSentenceInfo)
+                        } stopCompletion: {
+                            stop()
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -17,6 +17,8 @@ final class PracticeViewStore {
     var practice: PracticeModel
     var mediaManager: MediaManager
     var toolbarInfo: (title: String, subTitle: String) = (title: "", subTitle: "")
+    /// 현재 선택된 문장의 인덱스
+    var nowSentence = 0
     
     init(practice: PracticeModel, mediaManager: MediaManager) {
         self.practice = practice

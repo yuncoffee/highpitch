@@ -105,10 +105,10 @@ extension FeedbackChartView {
                 maxHeight: .infinity,
                 alignment: .leading
             )
-            if (!practice.summary.fastSentenceIndex.isEmpty) {
+            if (!viewStore.isFastSentenceEmpty()) {
                 FastSentReplay(practice: practice)
             }
-            if (!practice.summary.slowSentenceIndex.isEmpty) {
+            if (!viewStore.isSlowSentenceEmpty()) {
                 SlowSentReplay(practice: practice)
             }
         }

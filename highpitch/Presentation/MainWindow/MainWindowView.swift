@@ -68,6 +68,7 @@ struct MainWindowView: View {
         .background(Color.HPComponent.Sidebar.background)
         .onAppear {
             NotificationManager.shared.requestAuthorization()
+            checkAudioPermission()
             receiveNotificationAndRouting()
             setup()
         }
@@ -120,12 +121,17 @@ extension MainWindowView {
             SystemManager.shared.isDarkMode = false
         }
     }
+    private func checkAudioPermission() {
+        if(!mediaManager.checkMicrophonePermission()) {
+            SystemManager.shared.isRequsetAudioPermissionPopoverActive = true
+        }
+    }
     private func receiveNotificationAndRouting() {
         NotificationCenter.default.addObserver(forName: Notification.Name("projectName"),
                                                object: nil, queue: nil) { value in
             
-            let thisPractice = projects.flatMap{$0.practices}
-                .first(where: {$0.creatAt == value.object as! String})
+            let thisPractice = projects.flatMap { $0.practices }
+                .first(where: { $0.creatAt == value.object as! String })
             if let practice = thisPractice {
                 projectManager.currentTabItem = 1
                 if !projectManager.path.isEmpty {

@@ -38,6 +38,7 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
 
 // MARK: - 음성메모 녹음 관련 메서드
 extension MediaManager: Recordable {
+    
     func checkMicrophonePermission() -> Bool {
         switch AVCaptureDevice.authorizationStatus(for: .audio) {
         case .authorized:

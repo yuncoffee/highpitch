@@ -15,11 +15,8 @@ final class ScriptVM {
 struct ScriptView: View {
     @Environment(PracticeViewStore.self)
     private var viewStore
-    @Environment(PracticeManager.self)
-    private var practiceManager
     var sentences: [SentenceModel]
     var words: [WordModel]
-    @State
     var practice: PracticeModel
     @State
     private var wordSizes: [CGSize] = []

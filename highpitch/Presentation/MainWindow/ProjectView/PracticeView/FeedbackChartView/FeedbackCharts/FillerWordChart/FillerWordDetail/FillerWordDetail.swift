@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FillerWordDetail: View {
-    @State
     var fillerWords: [FillerWordModel]
 
     @State

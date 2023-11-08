@@ -12,8 +12,6 @@
 		10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */; };
 		10C7D1B22ADCD4AB008691CD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */; };
 		10C7D1F82ADD8E6A008691CD /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1F72ADD8E6A008691CD /* AuthManager.swift */; };
-		10C7D1F92ADD8F1C008691CD /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1F72ADD8E6A008691CD /* AuthManager.swift */; };
-		10C7D1FA2ADD9457008691CD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */; };
 		10C7D1FD2ADE12B3008691CD /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1FC2ADE12B3008691CD /* TokenData.swift */; };
 		10C7D1FE2ADE12BF008691CD /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1FC2ADE12B3008691CD /* TokenData.swift */; };
 		10C7D2942AE62054008691CD /* ReturnzeroAPIV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D2932AE62054008691CD /* ReturnzeroAPIV2.swift */; };
@@ -498,12 +496,57 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		1D1EC6882AFB349800CB72E9 /* PracticeModels */ = {
+		1D1EC68D2AFB628600CB72E9 /* ProjectModels */ = {
 			isa = PBXGroup;
 			children = (
+				1D30E6342AD6EE3300623A58 /* AppleScript.swift */,
+				1D7A3ED72ADC0FBD0084E962 /* OpendKeynote.swift */,
+				1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */,
 				1D1EC68B2AFB351800CB72E9 /* SentenceInfo.swift */,
 			);
-			path = PracticeModels;
+			path = ProjectModels;
+			sourceTree = "<group>";
+		};
+		1D1EC68E2AFB62E100CB72E9 /* ReturnZeroModels */ = {
+			isa = PBXGroup;
+			children = (
+				10C7D1FC2ADE12B3008691CD /* TokenData.swift */,
+			);
+			path = ReturnZeroModels;
+			sourceTree = "<group>";
+		};
+		1D1EC68F2AFB62F000CB72E9 /* APIModels */ = {
+			isa = PBXGroup;
+			children = (
+				1D1EC68E2AFB62E100CB72E9 /* ReturnZeroModels */,
+			);
+			path = APIModels;
+			sourceTree = "<group>";
+		};
+		1D1EC6902AFB63F700CB72E9 /* SystemManagers */ = {
+			isa = PBXGroup;
+			children = (
+				1DDB9D062AF2B1D4001CA7CC /* SystemManager.swift */,
+				1D09AFB02ADAD08E00C1400E /* FileSystemManager.swift */,
+				1D09AF6D2AD98B0100C1400E /* NotificationManager.swift */,
+				1D30E6242AD6117F00623A58 /* MediaManager.swift */,
+				1D09AF702AD98BB700C1400E /* SpeechRecognizerManager.swift */,
+				10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */,
+				10C7D1F72ADD8E6A008691CD /* AuthManager.swift */,
+				1DDB9D4F2AF75529001CA7CC /* GAManager.swift */,
+			);
+			path = SystemManagers;
+			sourceTree = "<group>";
+		};
+		1D1EC6912AFB642000CB72E9 /* ProjectManagers */ = {
+			isa = PBXGroup;
+			children = (
+				1D09AF822AD9963E00C1400E /* ProjectManager.swift */,
+				1DBF145B2AE0A75600B28CED /* PracticeManager.swift */,
+				1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */,
+				1DB132302AD771A6006711B9 /* KeynoteManager.swift */,
+			);
+			path = ProjectManagers;
 			sourceTree = "<group>";
 		};
 		1D30E6162AD59E0C00623A58 /* Models */ = {
@@ -518,18 +561,8 @@
 		1D30E6222AD6113C00623A58 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */,
-				1D09AFB02ADAD08E00C1400E /* FileSystemManager.swift */,
-				1DB132302AD771A6006711B9 /* KeynoteManager.swift */,
-				1D30E6242AD6117F00623A58 /* MediaManager.swift */,
-				1D09AF6D2AD98B0100C1400E /* NotificationManager.swift */,
-				1D09AF822AD9963E00C1400E /* ProjectManager.swift */,
-				1D09AF702AD98BB700C1400E /* SpeechRecognizerManager.swift */,
-				10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */,
-				10C7D1F72ADD8E6A008691CD /* AuthManager.swift */,
-				1DBF145B2AE0A75600B28CED /* PracticeManager.swift */,
-				1DDB9D062AF2B1D4001CA7CC /* SystemManager.swift */,
-				1DDB9D4F2AF75529001CA7CC /* GAManager.swift */,
+				1D1EC6912AFB642000CB72E9 /* ProjectManagers */,
+				1D1EC6902AFB63F700CB72E9 /* SystemManagers */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -559,11 +592,8 @@
 		1D30E6322AD6EC0700623A58 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				1D1EC6882AFB349800CB72E9 /* PracticeModels */,
-				1D30E6342AD6EE3300623A58 /* AppleScript.swift */,
-				1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */,
-				1D7A3ED72ADC0FBD0084E962 /* OpendKeynote.swift */,
-				10C7D1FC2ADE12B3008691CD /* TokenData.swift */,
+				1D1EC68F2AFB62F000CB72E9 /* APIModels */,
+				1D1EC68D2AFB628600CB72E9 /* ProjectModels */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -1076,8 +1106,6 @@
 			files = (
 				10C7D1FE2ADE12BF008691CD /* TokenData.swift in Sources */,
 				1DF6599F2AD594BF00AE5601 /* highpitchTests.swift in Sources */,
-				10C7D1FA2ADD9457008691CD /* KeychainManager.swift in Sources */,
-				10C7D1F92ADD8F1C008691CD /* AuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

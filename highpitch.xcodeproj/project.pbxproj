@@ -60,6 +60,7 @@
 		1D0ECD7C2ADE010500B95A74 /* HPTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0ECD7B2ADE010500B95A74 /* HPTooltip.swift */; };
 		1D0ECD7E2ADE05D500B95A74 /* HPStyledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0ECD7D2ADE05D500B95A74 /* HPStyledLabel.swift */; };
 		1D1EC68C2AFB351800CB72E9 /* SentenceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1EC68B2AFB351800CB72E9 /* SentenceInfo.swift */; };
+		1D1EC6962AFB6DC500CB72E9 /* PracticeContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1EC6952AFB6DC500CB72E9 /* PracticeContentContainer.swift */; };
 		1D30E6252AD6117F00623A58 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E6242AD6117F00623A58 /* MediaManager.swift */; };
 		1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1D30E62B2AD6E88500623A58 /* .swiftlint.yml */; };
 		1D30E62F2AD6EA7500623A58 /* AppleScriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */; };
@@ -182,6 +183,7 @@
 		1D0ECD7B2ADE010500B95A74 /* HPTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPTooltip.swift; sourceTree = "<group>"; };
 		1D0ECD7D2ADE05D500B95A74 /* HPStyledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPStyledLabel.swift; sourceTree = "<group>"; };
 		1D1EC68B2AFB351800CB72E9 /* SentenceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceInfo.swift; sourceTree = "<group>"; };
+		1D1EC6952AFB6DC500CB72E9 /* PracticeContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContentContainer.swift; sourceTree = "<group>"; };
 		1D30E6242AD6117F00623A58 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		1D30E62B2AD6E88500623A58 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScriptManager.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 		1D09AF642AD989DA00C1400E /* PracticeView */ = {
 			isa = PBXGroup;
 			children = (
+				1D1EC6942AFB6D8900CB72E9 /* v0.2.0 */,
 				1D0467CD2AFA9B06003EF427 /* Popover */,
 				1D0467C62AFA27F3003EF427 /* Sheet */,
 				1D600BA52AF9DCAC001FC5EB /* Store */,
@@ -547,6 +550,14 @@
 				1DB132302AD771A6006711B9 /* KeynoteManager.swift */,
 			);
 			path = ProjectManagers;
+			sourceTree = "<group>";
+		};
+		1D1EC6942AFB6D8900CB72E9 /* v0.2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				1D1EC6952AFB6DC500CB72E9 /* PracticeContentContainer.swift */,
+			);
+			path = v0.2.0;
 			sourceTree = "<group>";
 		};
 		1D30E6162AD59E0C00623A58 /* Models */ = {
@@ -1084,6 +1095,7 @@
 				1D09AFA72ADA78A800C1400E /* UsageTopTierChart.swift in Sources */,
 				1D09AF922ADA34B100C1400E /* ShapeModifier.swift in Sources */,
 				10C7D1FD2ADE12B3008691CD /* TokenData.swift in Sources */,
+				1D1EC6962AFB6DC500CB72E9 /* PracticeContentContainer.swift in Sources */,
 				1D98941F2AE6199000DE57A1 /* PracticeList.swift in Sources */,
 				1D600BA72AF9DCBA001FC5EB /* PracticeViewStore.swift in Sources */,
 				1D09AF6E2AD98B0100C1400E /* NotificationManager.swift in Sources */,

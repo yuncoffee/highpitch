@@ -12,7 +12,6 @@ import SwiftUI
 import Charts
 
 struct SpeedAverageChart: View {
-    @State
     var sentences: [SentenceModel]
     var practice: PracticeModel
     var epmRange: [Double]

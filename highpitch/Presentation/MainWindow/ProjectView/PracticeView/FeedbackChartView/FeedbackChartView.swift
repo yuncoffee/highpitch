@@ -53,10 +53,7 @@ extension FeedbackChartView {
                     .foregroundStyle(Color.HPTextStyle.darker)
                 tooltipFillerWord
             }
-            .frame(
-                maxWidth: .infinity,
-                alignment: .leading
-            )
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, .HPSpacing.xsmall)
             UsagePercentChart(practiceModel: viewStore.practice)
             UsageTopTierChart(
@@ -68,11 +65,7 @@ extension FeedbackChartView {
                     .padding(.bottom, .HPSpacing.medium)
             }
         }
-        .frame(
-            maxWidth: 720,
-            maxHeight: .infinity,
-            alignment: .leading
-        )
+        .frame(maxWidth: 720, maxHeight: .infinity, alignment: .leading)
     }
     
     @ViewBuilder
@@ -91,7 +84,7 @@ extension FeedbackChartView {
                     alignment: .leading
                 )
                 SpeedAverageChart(
-                    sentences: viewStore.practice.sentences,
+                    sentences: viewStore.getSortedSentences(),
                     practice: viewStore.practice,
                     epmRange: viewStore.getEpmRange()
                 )
@@ -102,10 +95,10 @@ extension FeedbackChartView {
                 maxHeight: .infinity,
                 alignment: .leading
             )
-            if (!viewStore.isFastSentenceEmpty()) {
+            if !viewStore.isFastSentenceEmpty() {
                 FastSentReplay()
             }
-            if (!viewStore.isSlowSentenceEmpty()) {
+            if !viewStore.isSlowSentenceEmpty() {
                 SlowSentReplay()
             }
         }
@@ -128,7 +121,6 @@ extension FeedbackChartView {
         .frame(width: 20, height: 20)
         .sheet(isPresented: $isFillerWordTooltipActive) {
             FillerWordSheet(isFillerWordTooltipActive: $isFillerWordTooltipActive)
-            
         }
         .offset(y: -2)
     }

@@ -16,8 +16,6 @@ struct SlowSentReplay: View {
     var isDetailActive = false
     @State
     var selectedIndex = -1
-    @Environment(PracticeManager.self)
-    private var practiceManager
         
     var body: some View {
         VStack(spacing: 0) {
@@ -30,25 +28,25 @@ struct SlowSentReplay: View {
                 }
             if isDetailActive {
                 ScrollView {
-                    VStack(spacing: 0) {
-                        ForEach(
-                            Array(practice.sentences.sorted(by: {$0.index < $1.index }).enumerated()),
-                            id: \.1.id
-                        ) { index, each in
-                            if practice.summary.slowSentenceIndex.contains(each.index) {
-                                FastSentReplayCell(
-                                    sentenceIndex: each.index,
-                                    index: index,
-                                    startAt: Double(each.startAt),
-                                    endAt: Double(each.endAt),
-                                    sentence: each.sentence,
-                                    isLast: index == practice.sentences.count - 1,
-                                    selectedIndex: $selectedIndex
-                                )
-                                .padding(.horizontal, 2)
-                            }
-                        }
-                    }
+//                    VStack(spacing: 0) {
+//                        ForEach(
+//                            Array(practice.sentences.sorted(by: {$0.index < $1.index }).enumerated()),
+//                            id: \.1.id
+//                        ) { index, each in
+//                            if practice.summary.slowSentenceIndex.contains(each.index) {
+//                                FastSentReplayCell(
+//                                    sentenceIndex: each.index,
+//                                    index: index,
+//                                    startAt: Double(each.startAt),
+//                                    endAt: Double(each.endAt),
+//                                    sentence: each.sentence,
+//                                    isLast: index == practice.sentences.count - 1,
+//                                    selectedIndex: $selectedIndex
+//                                )
+//                                .padding(.horizontal, 2)
+//                            }
+//                        }
+//                    }
                 }
             }
         }

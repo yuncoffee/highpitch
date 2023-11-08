@@ -48,7 +48,7 @@ extension PracticeView {
     private var practiceContentsContainer: some View {
         HStack(spacing: 0) {
             /// 피드백 뷰
-            FeedbackChartView(practice: viewStore.practice)
+            FeedbackChartView()
             /// 스크립트 뷰
             ScriptView(
                 sentences: viewStore.getSortedSentences(),

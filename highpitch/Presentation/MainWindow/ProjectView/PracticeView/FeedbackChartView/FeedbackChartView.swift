@@ -10,13 +10,10 @@ import SwiftUI
 struct FeedbackChartView: View {
     @Environment(PracticeViewStore.self)
     var viewStore
-    
     @State
-    var practice: PracticeModel
+    private var isFillerWordTooltipActive = false
     @State
-    var isFillerWordTooltipActive = false
-    @State
-    var isSpeedTooltipActive = false
+    private var isSpeedTooltipActive = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -61,7 +58,7 @@ extension FeedbackChartView {
                 alignment: .leading
             )
             .padding(.bottom, .HPSpacing.xsmall)
-            UsagePercentChart(practiceModel: $practice)
+            UsagePercentChart(practiceModel: viewStore.practice)
             UsageTopTierChart(
                 fillerWordCount: viewStore.practice.summary.fillerWordCount,
                 fillerWords: viewStore.getSortedFillerWord()
@@ -106,10 +103,10 @@ extension FeedbackChartView {
                 alignment: .leading
             )
             if (!viewStore.isFastSentenceEmpty()) {
-                FastSentReplay(practice: practice)
+                FastSentReplay()
             }
             if (!viewStore.isSlowSentenceEmpty()) {
-                SlowSentReplay(practice: practice)
+                SlowSentReplay()
             }
         }
     }

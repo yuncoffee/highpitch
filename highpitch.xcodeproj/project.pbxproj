@@ -59,6 +59,7 @@
 		1D0ECD7A2ADDA35400B95A74 /* HPTopToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0ECD792ADDA35400B95A74 /* HPTopToolbar.swift */; };
 		1D0ECD7C2ADE010500B95A74 /* HPTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0ECD7B2ADE010500B95A74 /* HPTooltip.swift */; };
 		1D0ECD7E2ADE05D500B95A74 /* HPStyledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0ECD7D2ADE05D500B95A74 /* HPStyledLabel.swift */; };
+		1D1EC68C2AFB351800CB72E9 /* SentenceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1EC68B2AFB351800CB72E9 /* SentenceInfo.swift */; };
 		1D30E6252AD6117F00623A58 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E6242AD6117F00623A58 /* MediaManager.swift */; };
 		1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1D30E62B2AD6E88500623A58 /* .swiftlint.yml */; };
 		1D30E62F2AD6EA7500623A58 /* AppleScriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */; };
@@ -180,6 +181,7 @@
 		1D0ECD792ADDA35400B95A74 /* HPTopToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPTopToolbar.swift; sourceTree = "<group>"; };
 		1D0ECD7B2ADE010500B95A74 /* HPTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPTooltip.swift; sourceTree = "<group>"; };
 		1D0ECD7D2ADE05D500B95A74 /* HPStyledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPStyledLabel.swift; sourceTree = "<group>"; };
+		1D1EC68B2AFB351800CB72E9 /* SentenceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceInfo.swift; sourceTree = "<group>"; };
 		1D30E6242AD6117F00623A58 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		1D30E62B2AD6E88500623A58 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScriptManager.swift; sourceTree = "<group>"; };
@@ -496,6 +498,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		1D1EC6882AFB349800CB72E9 /* PracticeModels */ = {
+			isa = PBXGroup;
+			children = (
+				1D1EC68B2AFB351800CB72E9 /* SentenceInfo.swift */,
+			);
+			path = PracticeModels;
+			sourceTree = "<group>";
+		};
 		1D30E6162AD59E0C00623A58 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +559,7 @@
 		1D30E6322AD6EC0700623A58 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				1D1EC6882AFB349800CB72E9 /* PracticeModels */,
 				1D30E6342AD6EE3300623A58 /* AppleScript.swift */,
 				1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */,
 				1D7A3ED72ADC0FBD0084E962 /* OpendKeynote.swift */,
@@ -1023,6 +1034,7 @@
 				118D56392AE15572003072E9 /* FillerWordModel.swift in Sources */,
 				1D9894212AE61A4B00DE57A1 /* PracticeListCell.swift in Sources */,
 				1DF659C52AD5992C00AE5601 /* SettingsView.swift in Sources */,
+				1D1EC68C2AFB351800CB72E9 /* SentenceInfo.swift in Sources */,
 				43556EAB2ADE80A900B3E7B7 /* UtteranceModel.swift in Sources */,
 				1DDB9D072AF2B1D4001CA7CC /* SystemManager.swift in Sources */,
 				1DDB9D052AF25013001CA7CC /* ScriptCell.swift in Sources */,

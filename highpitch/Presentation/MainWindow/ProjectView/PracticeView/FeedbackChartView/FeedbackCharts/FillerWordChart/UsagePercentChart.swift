@@ -46,7 +46,7 @@ enum EnumFillerUsagePercent: CaseIterable {
 }
 
 struct UsagePercentChart: View {
-    @Binding
+    @State
     var practiceModel: PracticeModel
 
     // MARK: - ProjectManager 종속성

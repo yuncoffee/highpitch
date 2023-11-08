@@ -49,28 +49,28 @@ struct ScriptView: View {
             ScrollView {
                 ScrollViewReader { scrollViewProxy in
                     VStack(alignment: .leading, spacing: 0) {
-//                        ForEach(Array(sentences.enumerated()), id: \.1.id) { index, sentence in
-//                            if !range.isEmpty {
-//                                ScriptCell(
-//                                    words: words[range[index].start...range[index].end],
-//                                    startAt: range[index].start,
-//                                    endAt: range[index].end,
-//                                    containerWidth: SCRIPT_CONTAINER_WIDTH,
-//                                    isFastSentence: 
-//                                        practice.summary.fastSentenceIndex.contains(sentence.index),
-//                                    isSlowSentence:
-//                                        practice.summary.slowSentenceIndex.contains(sentence.index),
-//                                    nowSentece: practiceManager.nowSentence,
-//                                    sentenceIndex: index
-//                                ) { sentenceIndex in
-//                                    viewStore.mediaManager.pausePlaying()
-//                                    viewStore.mediaManager.playAt(atTime: Double(sentences[sentenceIndex].startAt))
-//                                    practiceManager.nowSentence = sentenceIndex
-//                                    viewStore.mediaManager.play()
-//                                }
-//                                .id(sentence.index)
-//                            }
-//                        }
+                        ForEach(Array(sentences.enumerated()), id: \.1.id) { index, sentence in
+                            if !range.isEmpty {
+                                ScriptCell(
+                                    words: words[range[index].start...range[index].end],
+                                    startAt: range[index].start,
+                                    endAt: range[index].end,
+                                    containerWidth: SCRIPT_CONTAINER_WIDTH,
+                                    isFastSentence: 
+                                        practice.summary.fastSentenceIndex.contains(sentence.index),
+                                    isSlowSentence:
+                                        practice.summary.slowSentenceIndex.contains(sentence.index),
+                                    nowSentece: viewStore.nowSentence,
+                                    sentenceIndex: index
+                                ) { sentenceIndex in
+                                    viewStore.mediaManager.pausePlaying()
+                                    viewStore.mediaManager.playAt(atTime: Double(sentences[sentenceIndex].startAt))
+                                    viewStore.nowSentence = sentenceIndex
+                                    viewStore.mediaManager.play()
+                                }
+                                .id(sentence.index)
+                            }
+                        }
                     }
                     .frame(
                         minWidth: SCRIPT_CONTAINER_WIDTH,
@@ -79,18 +79,18 @@ struct ScriptView: View {
                     )
                     .padding(.bottom, .HPSpacing.xxxlarge + .HPSpacing.xxxsmall)
                     .padding(.horizontal, .HPSpacing.medium)
-//                    .onChange(of: practiceManager.nowSentence) { _, newValue in
-//                        withAnimation {
-//                            scrollViewProxy.scrollTo(newValue, anchor: .center)
-//                        }
-//                    }
+                    .onChange(of: viewStore.nowSentence) { _, newValue in
+                        withAnimation {
+                            scrollViewProxy.scrollTo(newValue, anchor: .center)
+                        }
+                    }
                 }
             }
             .padding(.bottom, 100)
         }
         .border(Color.HPComponent.stroke, width: 1, edges: [.leading])
         .onAppear {
-//            practiceManager.nowSentence = 0
+            viewStore.nowSentence = 0
             sentences.forEach { sentence in
                 var result = (start: 0, end: 0)
                 result.start = startIndex
@@ -107,15 +107,13 @@ struct ScriptView: View {
             }
             
         }
-//        .onChange(of: viewStore.mediaManager.currentTime, { _, newValue in
-//            
-//            print(#line, newValue)
-//            if practiceManager.nowSentence < sentences.count {
-//                if newValue > Double(sentences[practiceManager.nowSentence].endAt)/1000 {
-//                    practiceManager.nowSentence += 1
-//                }
-//            }
-//        })
+        .onChange(of: viewStore.mediaManager.currentTime, { _, newValue in
+            if viewStore.nowSentence < sentences.count {
+                if newValue > Double(sentences[viewStore.nowSentence].endAt)/1000 {
+                    viewStore.nowSentence += 1
+                }
+            }
+        })
     }
 }
 

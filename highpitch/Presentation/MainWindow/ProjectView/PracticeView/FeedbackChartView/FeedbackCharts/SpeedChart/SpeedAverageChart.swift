@@ -145,11 +145,7 @@ struct SpeedAverageChart: View {
                 .padding(.trailing, .HPSpacing.xxxlarge)
             }
         }
-        .onAppear {
-            sentences = sentences.sorted(by: { $0.index < $1.index })
-        }
     }
-        
 }
 
 extension SpeedAverageChart {

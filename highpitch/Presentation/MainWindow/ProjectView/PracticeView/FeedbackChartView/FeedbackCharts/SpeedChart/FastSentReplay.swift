@@ -10,7 +10,6 @@ import SwiftUI
 struct FastSentReplay: View {
     @Environment(PracticeViewStore.self)
     var viewStore
-    
     @State
     var isDetailActive = false
     @State
@@ -67,7 +66,8 @@ extension FastSentReplay {
         }
         
         if let selectedSentenceInfo = selectedSentenceInfo {
-            if selectedSentenceInfo.startAt.isLessThanOrEqualTo(timer*1000), !selectedSentenceInfo.endAt.isLess(than: timer*1000) {
+            if selectedSentenceInfo.startAt.isLessThanOrEqualTo(timer*1000),
+               !selectedSentenceInfo.endAt.isLess(than: timer*1000) {
                 selectedIndex = selectedSentenceInfo.index
             }
         }

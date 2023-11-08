@@ -26,12 +26,13 @@ struct PracticeView: View {
                 subTitle: viewStore.toolbarInfo.subTitle,
                 completion: nil
             )
-            ZStack(alignment: .bottom) {
-                practiceContentsContainer
-                if let audioPath = viewStore.practice.audioPath {
-                    AudioControllerView(audioPlayer: viewStore.mediaManager, audioPath: audioPath)
-                }
-            }
+            PracticeContentContainer()
+//            ZStack(alignment: .bottom) {
+//                practiceContentsContainer
+//                if let audioPath = viewStore.practice.audioPath {
+//                    AudioControllerView(audioPlayer: viewStore.mediaManager, audioPath: audioPath)
+//                }
+//            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.HPGray.systemWhite)

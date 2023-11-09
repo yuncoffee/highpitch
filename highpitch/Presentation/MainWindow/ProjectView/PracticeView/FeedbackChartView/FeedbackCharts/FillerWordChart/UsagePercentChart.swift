@@ -46,8 +46,10 @@ enum EnumFillerUsagePercent: CaseIterable {
 }
 
 struct UsagePercentChart: View {
-    @Binding
     var practiceModel: PracticeModel
+
+    // MARK: - ProjectManager 종속성
+    @Environment(ProjectManager.self)
     var projectManager: ProjectManager
     
     var body: some View {

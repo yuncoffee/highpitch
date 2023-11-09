@@ -13,10 +13,10 @@ import HotKey
 import Firebase
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        print("set up.")
-        FirebaseApp.configure()
-    }
+//    func applicationDidFinishLaunching(_ notification: Notification) {
+//        print("set up.")
+//        FirebaseApp.configure()
+//    }
 }
 
 @main

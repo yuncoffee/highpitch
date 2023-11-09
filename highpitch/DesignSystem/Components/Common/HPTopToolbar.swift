@@ -11,7 +11,7 @@ struct HPTopToolbar<T: View>: View {
     var title: String
     var subTitle: String?
     var backButtonCompletion: (() -> Void)?
-    var completion: (() -> Void)
+    var completion: (() -> Void)?
     var popOverContent: (() -> T)?
     
     @State
@@ -96,7 +96,7 @@ extension HPTopToolbar where T == EmptyView {
         title: String,
         subTitle: String?,
         backButtonCompletion: (() -> Void)?,
-        completion: @escaping (() -> Void)
+        completion: (() -> Void)?
     ) {
         self.init(
             title: title,
@@ -109,7 +109,7 @@ extension HPTopToolbar where T == EmptyView {
     init(
         title: String,
         subTitle: String?,
-        completion: @escaping (() -> Void)
+        completion: (() -> Void)?
     ) {
         self.init(
             title: title,
@@ -121,7 +121,7 @@ extension HPTopToolbar where T == EmptyView {
     }
     init(
         title: String,
-        completion: @escaping (() -> Void)
+        completion: (() -> Void)?
     ) {
         self.init(
             title: title,

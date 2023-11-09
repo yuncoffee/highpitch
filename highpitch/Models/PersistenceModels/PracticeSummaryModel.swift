@@ -14,7 +14,8 @@ class PracticeSummaryModel {
     var durationSum: Int
     var wordCount: Int
     var fillerWordCount: Int
-    @Relationship(deleteRule: .cascade) var eachFillerWordCount: [FillerWordModel]
+    @Relationship(deleteRule: .cascade) 
+    var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]
     var fillerWordPercentage: Double

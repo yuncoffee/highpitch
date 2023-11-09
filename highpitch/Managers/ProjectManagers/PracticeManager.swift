@@ -10,7 +10,6 @@ import Foundation
 @Observable
 final class PracticeManager {
     static var shared = PracticeManager()
-    var nowSentence = 0
 }
 
 extension PracticeManager {

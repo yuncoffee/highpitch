@@ -12,7 +12,6 @@ import SwiftUI
 import Charts
 
 struct SpeedAverageChart: View {
-    @State
     var sentences: [SentenceModel]
     var practice: PracticeModel
     var epmRange: [Double]
@@ -145,11 +144,7 @@ struct SpeedAverageChart: View {
                 .padding(.trailing, .HPSpacing.xxxlarge)
             }
         }
-        .onAppear {
-            sentences = sentences.sorted(by: { $0.index < $1.index })
-        }
     }
-        
 }
 
 extension SpeedAverageChart {

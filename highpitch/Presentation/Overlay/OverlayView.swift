@@ -44,12 +44,13 @@ class OverlayStore {
     var window: NSWindow
     
     init(window: NSWindow) {
-        window.level = NSWindow.Level(rawValue: 1000)
+        window.level = NSWindow.Level(rawValue: 9999)
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
-        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        window.standardWindowButton(.closeButton)?.isHidden = true
-        window.standardWindowButton(.zoomButton)?.isHidden = true
+//        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+//        window.standardWindowButton(.closeButton)?.isHidden = true
+//        window.standardWindowButton(.zoomButton)?.isHidden = true
+        window.collectionBehavior = .canJoinAllSpaces
         self.window = window
         self.window.isOpaque = false
         self.window.backgroundColor = NSColor.clear

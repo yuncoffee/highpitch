@@ -47,7 +47,6 @@ struct ComponentStyle {
         /// cornerRadius: 100
         /// ```
         case round
-        
 //        var cornerRadius: CGFloat {
 //            switch self {
 //            case .block(let radius):

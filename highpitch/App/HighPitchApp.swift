@@ -12,16 +12,9 @@ import SettingsAccess
 import HotKey
 import Firebase
 
-class AppDelegate: NSObject, NSApplicationDelegate {
-//    func applicationDidFinishLaunching(_ notification: Notification) {
-//        print("set up.")
-//        FirebaseApp.configure()
-//    }
-}
-
 @main
 struct HighpitchApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) var openWindow
@@ -308,5 +301,58 @@ extension HighpitchApp {
         }
         
         return HotKey(key: tempKey, modifiers: tempModifiers)
+    }
+}
+
+// MARK: 항상 맨 위에 떠 있는 뷰 (NSPanel)을 추가하기 위한 코드들
+class AppDelegate: NSObject, NSApplicationDelegate {
+    var floatingPanelController: FloatingPanelController?
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        floatingPanelController = FloatingPanelController()
+        floatingPanelController?.panel?.contentView = NSHostingView(rootView: FloatingView())
+        floatingPanelController?.showPanel(self)
+    }
+}
+
+class FloatingPanelController: NSWindowController {
+    var panel: NSPanel?
+
+    init() {
+        let panel = NSPanel(
+            // x, y값을 통해서 실행했을때 위치 설정.
+            contentRect: NSRect(x: 200, y: 200, width: 400, height: 200),
+            // .titled 옵션을 지우면 NSPanel 움직이기 불가, .resizable 옵션 추가하면 사이즈 조절 가능
+            styleMask: [.titled, .nonactivatingPanel],
+            backing: .buffered,
+            defer: false
+        )
+        panel.backgroundColor = NSColor(.clear)
+        panel.level = .mainMenu
+        // .canJoinAllSpaces를 통해서 모든 Space 및 전체화면 위에도 띄울 수 있게
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.orderFrontRegardless()
+        
+        super.init(window: panel)
+        self.panel = panel
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func showPanel(_ sender: Any?) {
+        self.panel?.makeKeyAndOrderFront(sender)
+    }
+}
+
+struct FloatingView: View {
+    var body: some View {
+        Text("항상 위에 떠 있는 뷰")
+            .font(.title)
+            .foregroundColor(.black)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.white.opacity(0.4))
+            .edgesIgnoringSafeArea(.all)
     }
 }

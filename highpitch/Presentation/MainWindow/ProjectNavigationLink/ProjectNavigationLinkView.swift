@@ -59,6 +59,14 @@ struct ProjectNavigationLink: View {
                             }
                     
                         }
+                        // MARK: [임시] 프로젝트 전체 삭제하는 버튼 (나중에 삭제 가능한 기능)
+                        Button("Delete All") {
+                            do {
+                                try modelContext.delete(model: ProjectModel.self)
+                            } catch {
+                                print("Failed to delete projects.")
+                            }
+                        }
                     }
                     .padding(.leading, .HPSpacing.xxxsmall)
                     .padding(.trailing, .HPSpacing.xxsmall)

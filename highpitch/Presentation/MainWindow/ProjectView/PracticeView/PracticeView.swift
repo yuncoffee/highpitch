@@ -27,6 +27,7 @@ struct PracticeView: View {
                 completion: nil
             )
             PracticeContentContainer()
+                .clipped()
 //            ZStack(alignment: .bottom) {
 //                practiceContentsContainer
 //                if let audioPath = viewStore.practice.audioPath {

@@ -43,6 +43,5 @@ extension CGFloat {
         static let xxlarge: CGFloat = 56
         /// rawValue: 64
         static let xxxlarge: CGFloat = 64
-        
     }
 }

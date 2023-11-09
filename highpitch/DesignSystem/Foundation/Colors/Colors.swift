@@ -16,7 +16,7 @@ extension Color {
         static let dark = Color.primary600
         /// #8B6DFF, 1
         static let base = Color.primary500
-        /// #AD99FF, 1
+        /// #AD99FF, 1 
         static let light = Color.primary400
         /// #D0C5FF, 1
         static let lighter = Color.primary300

@@ -15,6 +15,7 @@ struct HPLabel: View, StyleEssential, LabelStyleEssential {
     
     var alignStyle: LabelAlignStyle = .textOnly
     var iconSize: CGFloat?
+    var contentColor: Color?
     
     var expandable: Bool = false
     var fontStyle: HPFont = .system(.caption)
@@ -29,6 +30,7 @@ struct HPLabel: View, StyleEssential, LabelStyleEssential {
                 color: color,
                 alignStyle: (content.icon != nil) ? alignStyle : .textOnly,
                 iconSize: iconSize,
+                contentColor: contentColor,
                 expandable: expandable,
                 fontStyle: fontStyle,
                 width: width,

@@ -11,6 +11,7 @@ import SwiftUI
 protocol LabelStyleEssential {
     var alignStyle: LabelAlignStyle { get }
     var iconSize: CGFloat? { get }
+    var contentColor: Color? { get }
 }
 
 enum LabelAlignStyle {
@@ -104,6 +105,7 @@ struct HPLabelStyle: LabelStyle, StyleEssential, LabelStyleEssential {
     
     var alignStyle: LabelAlignStyle = .textOnly
     var iconSize: CGFloat?
+    var contentColor: Color?
     
     var expandable: Bool = false
     var fontStyle: HPFont = .system(.caption)
@@ -136,7 +138,10 @@ struct HPLabelStyle: LabelStyle, StyleEssential, LabelStyleEssential {
                     : .clear
                 )
                 .foregroundColor(
-                    style.fillStyle.isLook(.fill)
+                    contentColor != nil
+                    ?
+                    contentColor
+                    : style.fillStyle.isLook(.fill)
                     ? .HPGray.systemWhite
                     : color
                 )
@@ -175,7 +180,10 @@ struct HPLabelStyle: LabelStyle, StyleEssential, LabelStyleEssential {
                     : .clear
                 )
                 .foregroundColor(
-                    style.fillStyle.isLook(.fill)
+                    contentColor != nil
+                    ?
+                    contentColor
+                    : style.fillStyle.isLook(.fill)
                     ? .HPGray.systemWhite
                     : color
                 )
@@ -209,6 +217,7 @@ struct HPLabelContent: View, StyleConfiguration, LabelStyleEssential {
     var color: Color
     var alignStyle: LabelAlignStyle
     var iconSize: CGFloat?
+    var contentColor: Color?
     
     var body: some View {
         if alignStyle == .iconWithTextVertical {

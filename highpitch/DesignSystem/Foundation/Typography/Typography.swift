@@ -63,6 +63,7 @@ enum HPFont {
 enum HPStyledFont {
     case largeTitleLv
     case labeldButton
+    case detailTimeFeedback
 }
 
 extension HPStyledFont {
@@ -72,6 +73,8 @@ extension HPStyledFont {
             28
         case .labeldButton:
             10
+        case .detailTimeFeedback:
+            12
         }
     }
     var lineHeight: CGFloat {
@@ -79,6 +82,8 @@ extension HPStyledFont {
         case .largeTitleLv:
             ((self.fontSize*1.68) - self.fontSize) / 2
         case .labeldButton:
+            ((self.fontSize*1.48) - self.fontSize) / 2
+        case .detailTimeFeedback:
             ((self.fontSize*1.48) - self.fontSize) / 2
         }
     }
@@ -88,6 +93,8 @@ extension HPStyledFont {
             .bold
         case .labeldButton:
             .semibold
+        case .detailTimeFeedback:
+            .semibold
         }
     }
     var relateTo: Font.TextStyle {
@@ -95,6 +102,8 @@ extension HPStyledFont {
         case .largeTitleLv:
             .largeTitle
         case .labeldButton:
+            .caption2
+        case .detailTimeFeedback:
             .caption2
         }
     }

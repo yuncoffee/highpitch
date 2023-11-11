@@ -115,6 +115,22 @@ extension Date {
         
         return result
     }
+    
+    static func createAtToYearMonthDayWithTime(input: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+        
+        if let date = inputFormatter.date(from: input) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "yyyy년 M월 d일 • HH:mm"
+            
+            let dateString = outputFormatter.string(from: date)
+            
+            return dateString
+        } else {
+            return "Invalid Date"
+        }
+    }
 }
 
 extension Date {

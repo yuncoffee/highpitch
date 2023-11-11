@@ -109,6 +109,7 @@ extension Color {
     }
 }
 
+// swiftlint disable nesting type_name
 // MARK: - Components
 extension Color {
     /// 특정 컴포넌트용 컬러를 위해 사용되는 네임스페이스
@@ -152,5 +153,13 @@ extension Color {
             private init() {}
             static let background = Color.tagbackground
         }
+        
+        // MARK: - 스타일 정리 필요...
+        struct TimeFeedback {
+            private init() {}
+            static let text = Color.timefeedbacktext
+            static let background = Color.timefeedbackbackground
+        }
     }
 }
+// swiftlint enable nesting type_name

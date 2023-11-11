@@ -50,7 +50,8 @@ extension VideoContainer {
     }
     
     private func calcAudioIndicatorSize() -> CGFloat {
-        viewStore.currentFeedbackViewType != .every ? viewStore.AUDIO_INDICATOR_HEIGHT : .zero
+//        viewStore.currentFeedbackViewType != .every ? viewStore.AUDIO_INDICATOR_HEIGHT : .zero
+        .zero
     }
 }
 

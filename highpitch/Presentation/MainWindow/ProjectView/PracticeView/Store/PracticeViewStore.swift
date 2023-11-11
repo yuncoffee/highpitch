@@ -111,13 +111,13 @@ extension PracticeViewStore {
     // MARK: Practice이 보여주는 Feedback 종류에 따라 다른 처리를 하기 위함
 }
 
-enum FeedbackViewType {
-    case every
-    case fillerWord
-    case speed
+enum FeedbackViewType: String, CaseIterable {
+    case every = "전체 보기"
+    case fillerWord = "습관어"
+    case speed = "말 빠르기"
 }
 
-extension FeedbackViewType {
+extension FeedbackViewType {    
     @ViewBuilder
     var audioIndicator: some View {
         switch self {

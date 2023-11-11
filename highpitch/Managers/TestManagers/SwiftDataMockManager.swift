@@ -25,14 +25,6 @@ class SwiftDataMockManager {
                 summary: PracticeSummaryModel()
             )
             container.mainContext.insert(samplePractice)
-            
-//            sampleProject.
-//            sampleProject.practices
-            
-//            for i in 1...9 {
-//                let user = User(name: "Example User \(i)")
-//                container.mainContext.insert(user)
-//            }
 
             return container
         } catch {
@@ -454,5 +446,8 @@ class SwiftDataMockManager {
             level: 5
         )
     )
+    static var SamplePracticeModelID = {
+        SamplePracticeModel.persistentModelID
+    }
 }
 // swiftlint: enable type_body_length line_length

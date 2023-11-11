@@ -54,6 +54,8 @@ final class PracticeViewStore {
     
     var currentFeedbackViewType: FeedbackViewType = .fillerWord
     
+    let AUDIO_INDICATOR_HEIGHT = 32.0
+    
     // ************* V2 ************* //
     
     init(practice: PracticeModel, mediaManager: MediaManager) {

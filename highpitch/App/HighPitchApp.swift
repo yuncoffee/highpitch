@@ -96,24 +96,24 @@ struct HighpitchApp: App {
     var body: some Scene {
         #if os(macOS)
 //        // MARK: - MainWindow Scene
-        Window("overlay", id: "overlay") {
-            @Bindable var systemManager = SystemManager.shared
-                OverlayView(isActive: $systemManager.isOverlayView1Active)
-            
-        }
-        .windowResizability(.contentSize)
-        Window("overlay2", id: "overlay2") {
-            @Bindable var systemManager = SystemManager.shared
-                OverlayView(isActive: $systemManager.isOverlayView2Active)
-            
-        }
-        .windowResizability(.contentSize)
-        Window("overlay3", id: "overlay3") {
-            @Bindable var systemManager = SystemManager.shared
-                OverlayView(isActive: $systemManager.isOverlayView3Active)
-            
-        }
-        .windowResizability(.contentSize)
+//        Window("overlay", id: "overlay") {
+//            @Bindable var systemManager = SystemManager.shared
+//                OverlayView(isActive: $systemManager.isOverlayView1Active)
+//            
+//        }
+//        .windowResizability(.contentSize)
+//        Window("overlay2", id: "overlay2") {
+//            @Bindable var systemManager = SystemManager.shared
+//                OverlayView(isActive: $systemManager.isOverlayView2Active)
+//            
+//        }
+//        .windowResizability(.contentSize)
+//        Window("overlay3", id: "overlay3") {
+//            @Bindable var systemManager = SystemManager.shared
+//                OverlayView(isActive: $systemManager.isOverlayView3Active)
+//            
+//        }
+//        .windowResizability(.contentSize)
         Window("mainwindow", id: "main") {
             MainWindowView()
                 .environment(appleScriptManager)

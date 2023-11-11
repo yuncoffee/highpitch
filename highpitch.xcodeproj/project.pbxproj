@@ -109,6 +109,7 @@
 		1DED4EEA2AFCA7D9000109B3 /* EveryFeedbackContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EE92AFCA7D9000109B3 /* EveryFeedbackContent.swift */; };
 		1DED4EEC2AFCA7EE000109B3 /* SpeedFeedbackContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EEB2AFCA7EE000109B3 /* SpeedFeedbackContent.swift */; };
 		1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EEF2AFCAAA2000109B3 /* SwiftDataMockManager.swift */; };
+		1DED4EF72AFFE4F7000109B3 /* HPArcodianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EF62AFFE4F7000109B3 /* HPArcodianView.swift */; };
 		1DF659902AD594BF00AE5601 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF6598F2AD594BF00AE5601 /* Assets.xcassets */; };
 		1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF659932AD594BF00AE5601 /* Preview Assets.xcassets */; };
 		1DF6599F2AD594BF00AE5601 /* highpitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6599E2AD594BF00AE5601 /* highpitchTests.swift */; };
@@ -236,6 +237,7 @@
 		1DED4EE92AFCA7D9000109B3 /* EveryFeedbackContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryFeedbackContent.swift; sourceTree = "<group>"; };
 		1DED4EEB2AFCA7EE000109B3 /* SpeedFeedbackContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedFeedbackContent.swift; sourceTree = "<group>"; };
 		1DED4EEF2AFCAAA2000109B3 /* SwiftDataMockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataMockManager.swift; sourceTree = "<group>"; };
+		1DED4EF62AFFE4F7000109B3 /* HPArcodianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPArcodianView.swift; sourceTree = "<group>"; };
 		1DF659862AD594BD00AE5601 /* highpitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = highpitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF6598F2AD594BF00AE5601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DF659912AD594BF00AE5601 /* highpitch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = highpitch.entitlements; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				1D0ECD7D2ADE05D500B95A74 /* HPStyledLabel.swift */,
 				1DBF14532ADE574F00B28CED /* HPSegmentedControl.swift */,
 				1D58FA282AE2956E00B92B4A /* HPMenu.swift */,
+				1DED4EF62AFFE4F7000109B3 /* HPArcodianView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1125,6 +1128,7 @@
 				1D30E6252AD6117F00623A58 /* MediaManager.swift in Sources */,
 				1D1EC6A32AFB98C900CB72E9 /* VideoContainer.swift in Sources */,
 				1142DDED2AF4C7F8003DBE81 /* SlowSentReplay.swift in Sources */,
+				1DED4EF72AFFE4F7000109B3 /* HPArcodianView.swift in Sources */,
 				1D09AF742AD98C0900C1400E /* Date+Extension.swift in Sources */,
 				1DE8B64E2AECDC1200E0746E /* HPLabelStyle.swift in Sources */,
 				10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */,

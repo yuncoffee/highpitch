@@ -56,7 +56,7 @@ final class PracticeViewStore {
     
     let AUDIO_INDICATOR_HEIGHT = 32.0
     var SCRIPT_CONTAINER_WIDTH: CGFloat {
-        self.currentFeedbackViewType == .every ? 320.0 : 280.0
+        self.currentFeedbackViewType == .every ? 320.0 : 276.0
     }
     // ************* V2 ************* //
     

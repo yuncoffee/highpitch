@@ -22,7 +22,7 @@ struct EveryFeedbackContent: View {
     
     var body: some View {
         VStack {
-            
+            Text("every")
         }
         .onAppear {
             // MARK: - Add MockData

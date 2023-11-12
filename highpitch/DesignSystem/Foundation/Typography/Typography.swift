@@ -58,6 +58,7 @@ struct HPSystemFontModifier: ViewModifier {
 enum HPFont {
     case system(FoundationTypoSystemFont)
     case styled(HPStyledFont)
+    case systemDetail(FoundationTypoSystemFont, FoundationTypoSystemFont.FontWeight)
 }
 
 enum HPStyledFont {

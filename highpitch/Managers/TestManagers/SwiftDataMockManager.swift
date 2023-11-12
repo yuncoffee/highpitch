@@ -24,7 +24,7 @@ class SwiftDataMockManager {
                 utterances: [],
                 summary: PracticeSummaryModel()
             )
-            container.mainContext.insert(samplePractice)
+            container.mainContext.insert(SamplePracticeModel)
 
             return container
         } catch {
@@ -65,7 +65,7 @@ class SwiftDataMockManager {
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 30,
-                word: "게"
+                word: "게 "
             ),
             WordModel(
                 isFillerWord: false,
@@ -77,67 +77,67 @@ class SwiftDataMockManager {
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 26,
-                word: "기록"
+                word: "기록 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 2,
-                word: "시스템"
+                word: "시스템 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 39,
-                word: "좀"
+                word: "좀 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 3,
-                word: "상해서"
+                word: "상해서 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 8,
-                word: "뜨거든요"
+                word: "뜨거든요 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 5,
-                word: "없어도"
+                word: "없어도 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 15,
-                word: "상태를"
+                word: "상태를 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 14,
-                word: "중이라"
+                word: "중이라 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 37,
-                word: "갈래"
+                word: "갈래 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 44,
-                word: "녹음"
+                word: "녹음 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 20,
-                word: "번"
+                word: "번 "
             ),
             WordModel(
                 isFillerWord: false,
@@ -149,19 +149,19 @@ class SwiftDataMockManager {
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 31,
-                word: "뜰"
+                word: "뜰 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 13,
-                word: "녹음"
+                word: "녹음 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 1,
-                word: "기본"
+                word: "기본 "
             ),
             WordModel(
                 isFillerWord: false,
@@ -179,205 +179,205 @@ class SwiftDataMockManager {
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 29,
-                word: "저런"
+                word: "저런 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 47,
-                word: "그런가"
+                word: "그런가 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 12,
-                word: "식으로"
+                word: "식으로 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 48,
-                word: "이게"
+                word: "이게 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 28,
-                word: "기록도"
+                word: "기록도 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 43,
-                word: "같아"
+                word: "같아 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 34,
-                word: "죄송해"
+                word: "죄송해 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 42,
-                word: "것"
+                word: "것 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 6,
-                word: "이게"
+                word: "이게 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 41,
-                word: "썼던"
+                word: "썼던 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 36,
-                word: "게"
+                word: "게 "
             ),
             WordModel(
                 isFillerWord: true,
                 sentenceIndex: 0,
                 index: 4,
-                word: "아니"
+                word: "아니 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 40,
-                word: "안"
+                word: "안 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 27,
-                word: "화면"
+                word: "화면 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 11,
-                word: "이런"
+                word: "이런 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 10,
-                word: "이거"
+                word: "이거 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 32,
-                word: "텐데"
+                word: "텐데 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 50,
-                word: "있을"
+                word: "있을 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 21,
-                word: "보여줄"
+                word: "보여줄 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 24,
-                word: "이게"
+                word: "이게 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 0,
-                word: "이거"
+                word: "이거 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 35,
-                word: "봐"
+                word: "봐 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 49,
-                word: "떠"
+                word: "떠 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 19,
-                word: "두"
+                word: "두 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 22,
-                word: "이유가"
+                word: "이유가 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 18,
-                word: "얘를"
+                word: "얘를 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 45,
-                word: "중에"
+                word: "중에 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 0,
                 index: 7,
-                word: "이렇게"
+                word: "이렇게 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 51,
-                word: "텐어"
+                word: "텐어 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 17,
-                word: "있는데"
+                word: "있는데 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 1,
                 index: 16,
-                word: "알고"
+                word: "알고 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 2,
                 index: 25,
-                word: "환면"
+                word: "환면 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 38,
-                word: "난"
+                word: "난 "
             ),
             WordModel(
                 isFillerWord: false,
                 sentenceIndex: 3,
                 index: 46,
-                word: "와서"
+                word: "와서 "
             )
         ],
         sentences: [

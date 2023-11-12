@@ -71,6 +71,12 @@ extension HPArcodianView {
         }
         .padding(.vertical, .HPSpacing.xsmall)
         .padding(.horizontal, .HPSpacing.xsmallBetweenSmall)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation {
+                localIsActive.toggle()
+            }
+        }
     }
 }
 

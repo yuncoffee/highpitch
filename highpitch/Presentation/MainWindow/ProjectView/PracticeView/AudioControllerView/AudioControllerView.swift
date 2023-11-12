@@ -169,3 +169,12 @@ extension AudioControllerView {
         .buttonStyle(.plain)
     }
 }
+
+#Preview {
+    let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+    
+    return AudioControllerView(audioPlayer: MediaManager(),audioPath: url!)
+        .frame(width: 640)
+        .border(.green)
+        .padding(24)
+}

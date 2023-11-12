@@ -37,7 +37,7 @@ class SwiftDataMockManager {
         index: 0,
         isVisited: false,
         creatAt: "2023-11-07 20:21:38 GMT+09:00",
-        audioPath: URL(string: "file:///Users/coffee/Library/Containers/com.windup.highpitch/Data/Documents/HighPitch/Audio/20231107202138.m4a"),
+        audioPath: Bundle.main.url(forResource: "20231107202138", withExtension: "m4a"),
         utterances: [
             UtteranceModel(
                 startAt: 26387,

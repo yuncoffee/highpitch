@@ -10,27 +10,19 @@ import SwiftUI
 struct OverlayView: View {
     @State private var window: NSWindow?
     @Binding var isActive: Bool
+    @State private var panel: NSPanel = NSPanel()
     
     var body: some View {
-        VStack {
-//            Text("Loading...")
-            Button {
-                window?.close()
-            } label: {
-                Text("Hello")
-            }
+        VStack(spacing: 0) {
+            Text("HHHzz")
             if nil != window {
-                MainView(store: OverlayStore(window: window!))
+                MainView(store: OverlayStore(window: panel))
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.HPTeritiery.base)
         .background(WindowAccessor(window: $window))
-        .onChange(of: isActive) { _, newValue in
-            if newValue {
-                window?.close()
-            }
-        }
+        .onChange(of: window, { oldValue, newValue in
+            print("window:", window)
+        })
     }
 }
 
@@ -44,15 +36,22 @@ class OverlayStore {
     var window: NSWindow
     
     init(window: NSWindow) {
-        window.level = NSWindow.Level(rawValue: 1000)
-        window.titleVisibility = .hidden
-        window.titlebarAppearsTransparent = true
-        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        window.standardWindowButton(.closeButton)?.isHidden = true
-        window.standardWindowButton(.zoomButton)?.isHidden = true
-        self.window = window
+        print("Init window:", window)
+        let panel = NSPanel(
+            contentRect: NSRect(x: 200, y: 200, width: 400, height: 400),
+            styleMask: [.titled, .nonactivatingPanel],
+            backing: .buffered,
+            defer: false
+        )
+        panel.backgroundColor = NSColor(.clear)
+        panel.level = .mainMenu
+        // .canJoinAllSpaces를 통해서 모든 Space 및 전체화면 위에도 띄울 수 있게
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.orderFrontRegardless()
+        self.window = panel
         self.window.isOpaque = false
         self.window.backgroundColor = NSColor.clear
+        self.window.orderFrontRegardless()
     }
 }
 
@@ -60,14 +59,31 @@ struct MainView: View {
     let store: OverlayStore
     
     var body: some View {
-        VStack {
-            Text("MainView with Window: \(store.window)")
-                .font(.title)
-                .foregroundStyle(Color.HPGray.systemWhite)
+        VStack {}
+        .onAppear {
+            store.window.contentView = NSHostingView(
+                rootView: SampleView(store: store)
+            )
+            print(store.window)
         }
-        .frame(width: 400, height: 200)
-        .background(Color.HPTextStyle.base)
-//        .background(.thickMaterial)
+    }
+}
+
+struct SampleView: View {
+    let store: OverlayStore
+    
+    var body: some View {
+        VStack {
+            Button {
+//                store.window.backgroundColor = .clear
+                store.window.close()
+            } label: {
+                Text("Close")
+            }
+
+            Text("Hello")
+        }
+        .padding(16)
     }
 }
 
@@ -82,5 +98,7 @@ struct WindowAccessor: NSViewRepresentable {
         return view
     }
     
-    func updateNSView(_ nsView: NSView, context: Context) {}
+    func updateNSView(_ nsView: NSView, context: Context) {
+        print("nsView:", nsView)
+    }
 }

@@ -44,5 +44,8 @@ extension CGFloat {
         /// rawValue: 64
         static let xxxlarge: CGFloat = 64
         
+        /// rawValue: 20 - Utils
+        static let xsmallBetweenSmall: CGFloat = 20
+        
     }
 }

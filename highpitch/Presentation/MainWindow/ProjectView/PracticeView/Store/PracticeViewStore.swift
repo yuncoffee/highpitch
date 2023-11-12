@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 /**
  PracticeView의 상태를 관리하기 위한 상태저장소
@@ -19,6 +20,45 @@ final class PracticeViewStore {
     var toolbarInfo: (title: String, subTitle: String) = (title: "", subTitle: "")
     /// 현재 선택된 문장의 인덱스
     var nowSentence = 0
+    
+    // ************* V2 ************* //
+    
+    var isFullScreenVideoVisible = false {
+        didSet {
+            if isFullScreenVideoVisible {
+                isFullScreenTransition = true
+            }
+        }
+    }
+    
+    var isFullScreenTransition = false {
+        didSet {
+            if !isFullScreenVideoActive {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.isFullScreenVideoActive = true
+                }
+            }
+        }
+    }
+    
+    var isFullScreenVideoActive = true {
+        didSet {
+            if !isFullScreenVideoActive {
+                isFullScreenTransition = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.isFullScreenVideoVisible = false
+                }
+            }
+        }
+    }
+    
+    var currentFeedbackViewType: FeedbackViewType = .fillerWord
+    
+    let AUDIO_INDICATOR_HEIGHT = 32.0
+    var SCRIPT_CONTAINER_WIDTH: CGFloat {
+        self.currentFeedbackViewType == .every ? 320.0 : 276.0
+    }
+    // ************* V2 ************* //
     
     init(practice: PracticeModel, mediaManager: MediaManager) {
         self.practice = practice
@@ -66,9 +106,53 @@ extension PracticeViewStore {
     func hasFillerWord() -> Bool {
         practice.summary.fillerWordCount > 0
     }
+    
+    func getContainsWords(sentenceIndex: Int) -> [WordModel] {
+        practice.words
+            .filter({ $0.sentenceIndex == sentenceIndex })
+            .sorted(by: { $0.index < $1.index })
+    }
+    func isFastSentence(sentenceIndex: Int) -> Bool {
+        practice.summary.fastSentenceIndex.contains(sentenceIndex)
+    }
+    func isSlowSentence(sentenceIndex: Int) -> Bool {
+        practice.summary.slowSentenceIndex.contains(sentenceIndex)
+    }
 }
 
-// MARK: - UsageTopTierChart
+// MARK: - V2
 extension PracticeViewStore {
+    // MARK: Practice이 보여주는 Feedback 종류에 따라 다른 처리를 하기 위함
+}
+
+enum FeedbackViewType: String, CaseIterable {
+    case every = "전체 보기"
+    case fillerWord = "습관어"
+    case speed = "말 빠르기"
+}
+
+extension FeedbackViewType {    
+    @ViewBuilder
+    var audioIndicator: some View {
+        switch self {
+        case .every:
+            EmptyView()
+        case .fillerWord:
+            FillerWordAudioIndicator()
+        case .speed:
+            SpeedAudioIndicator()
+        }
+    }
     
+    @ViewBuilder
+    var feedbackContent: some View {
+        switch self {
+        case .every:
+            EveryFeedbackContent()
+        case .fillerWord:
+            FillerWordFeedbackContent()
+        case .speed:
+            SpeedFeedbackContent()
+        }
+    }
 }

@@ -46,7 +46,6 @@ struct VideoControllerContainer: View {
             if let url = url {
                 viewStore.practice.audioPath = url
             }
-            
 #endif
         }
     }

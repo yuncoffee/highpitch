@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+#if PREVIEW
+import SwiftData
+#endif
 
 struct VideoControllerContainer: View {
     @Environment(PracticeViewStore.self)
     var viewStore
+    
+#if PREVIEW
+    // MARK: - MockData
+    @Query(sort: \PracticeModel.creatAt)
+    var practices: [PracticeModel]
+#endif
     
     private let INDICATOR_HEIGHT = 32.0
     
@@ -18,15 +27,47 @@ struct VideoControllerContainer: View {
             viewStore.currentFeedbackViewType.audioIndicator
                 .frame(maxWidth:.infinity, maxHeight: 32)
                 .background(Color.yellow)
-            HStack {
-                Text("AudioController")
+            if let audioPath = viewStore.practice.audioPath {
+                AudioControllerView(audioPlayer: viewStore.mediaManager, audioPath: audioPath)
             }
-            .frame(maxWidth:.infinity, maxHeight: 64)
-            .background(Color.red)
+//            HStack {
+//                Text("AudioController")
+//            }
+//            .frame(maxWidth:.infinity, maxHeight: 64)
+//            .background(Color.red)
+        }
+        .onAppear {
+            // MARK: - Add MockData
+#if PREVIEW
+            if let sample = practices.first {
+                viewStore.practice = sample
+            }
+            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+            if let url = url {
+                viewStore.practice.audioPath = url
+            }
+            
+#endif
         }
     }
 }
 
 #Preview {
-    VideoControllerContainer()
+    let modelContainer = SwiftDataMockManager.previewContainer
+    
+    return VStack {
+        VideoControllerContainer()
+            .environment(PracticeViewStore(
+                practice: PracticeModel(
+                    practiceName: "",
+                    index: 0,
+                    isVisited: false,
+                    creatAt: "",
+                    utterances: [],
+                    summary: PracticeSummaryModel()
+                ),
+                mediaManager: MediaManager()))
+            .border(.blue)
+    }
+    .padding(32)
 }

@@ -79,6 +79,7 @@
 		1D8C5AF52AD7BEDB00B01F10 /* Utterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */; };
 		1D98941F2AE6199000DE57A1 /* PracticeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D98941E2AE6199000DE57A1 /* PracticeList.swift */; };
 		1D9894212AE61A4B00DE57A1 /* PracticeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9894202AE61A4B00DE57A1 /* PracticeListCell.swift */; };
+		1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */; };
 		1DB132312AD771A6006711B9 /* KeynoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB132302AD771A6006711B9 /* KeynoteManager.swift */; };
 		1DB132342AD78752006711B9 /* ReturnzeroAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */; };
 		1DBF14512ADE1DC100B28CED /* LabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF14502ADE1DC100B28CED /* LabelModifier.swift */; };
@@ -214,6 +215,7 @@
 		1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utterance.swift; sourceTree = "<group>"; };
 		1D98941E2AE6199000DE57A1 /* PracticeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeList.swift; sourceTree = "<group>"; };
 		1D9894202AE61A4B00DE57A1 /* PracticeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeListCell.swift; sourceTree = "<group>"; };
+		1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 20231107202138.m4a; sourceTree = "<group>"; };
 		1DB132302AD771A6006711B9 /* KeynoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeynoteManager.swift; sourceTree = "<group>"; };
 		1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnzeroAPI.swift; sourceTree = "<group>"; };
 		1DBF14502ADE1DC100B28CED /* LabelModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelModifier.swift; sourceTree = "<group>"; };
@@ -725,6 +727,14 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		1DAABBDC2B00C0B700AF4449 /* Embaded */ = {
+			isa = PBXGroup;
+			children = (
+				1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */,
+			);
+			path = Embaded;
+			sourceTree = "<group>";
+		};
 		1DB132322AD78742006711B9 /* ReturnZero */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,6 +916,7 @@
 		1DF659B92AD5951900AE5601 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1DAABBDC2B00C0B700AF4449 /* Embaded */,
 				1DF6598F2AD594BF00AE5601 /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -1077,6 +1088,7 @@
 			files = (
 				1D09AF8C2ADA271300C1400E /* Colors.xcassets in Resources */,
 				1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */,
+				1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */,
 				1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */,
 				1DF659902AD594BF00AE5601 /* Assets.xcassets in Resources */,
 				108AF8CD2AFA12DC00AA7CB2 /* SecretKey.plist in Resources */,

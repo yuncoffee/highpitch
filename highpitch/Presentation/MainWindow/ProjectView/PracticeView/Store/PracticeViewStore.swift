@@ -118,6 +118,20 @@ extension PracticeViewStore {
     func isSlowSentence(sentenceIndex: Int) -> Bool {
         practice.summary.slowSentenceIndex.contains(sentenceIndex)
     }
+    func getContainsFillerCount(sentenceIndex: Int) -> Int {
+        practice.words
+            .filter({$0.sentenceIndex == sentenceIndex && $0.isFillerWord })
+            .count
+    }
+    func getDuration() -> Double {
+        mediaManager.getDuration()
+    }
+    func playMediaFromSentence(atTime: Double, index: Int) {
+        mediaManager.pausePlaying()
+        mediaManager.playAt(atTime: atTime)
+        nowSentence = index
+        mediaManager.play()
+    }
 }
 
 // MARK: - V2

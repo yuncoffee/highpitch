@@ -199,6 +199,48 @@ struct HPLabelStyle: LabelStyle, StyleEssential, LabelStyleEssential {
                 .clipShape(
                     RoundedRectangle(cornerRadius: style.cornerStyle.cornerRadius)
                 )
+            case .systemDetail(let foundationTypoSystemFont, let foundationTypoSystemFontWeight):
+                HPLabelContent(
+                    configuration: configuration,
+                    type: type,
+                    size: size,
+                    color: color,
+                    alignStyle: alignStyle,
+                    iconSize: iconSize
+                )
+                .systemFont(foundationTypoSystemFont, weight: foundationTypoSystemFontWeight)
+                .padding(.vertical, padding.v)
+                .padding(.horizontal, padding.h)
+                .frame(
+                    minWidth: width,
+                    maxWidth: .infinity,
+                    minHeight: size.height,
+                    maxHeight: expandable ? .infinity : nil)
+                .background(
+                    style.fillStyle.isLook(.fill)
+                    ? color
+                    : .clear
+                )
+                .foregroundColor(
+                    contentColor != nil
+                    ?
+                    contentColor
+                    : style.fillStyle.isLook(.fill)
+                    ? .HPGray.systemWhite
+                    : color
+                )
+                .overlay {
+                    RoundedRectangle(
+                        cornerRadius: style.cornerStyle.cornerRadius)
+                    .stroke(
+                        style.fillStyle.isLook(.text)
+                        ? .clear
+                        : color, lineWidth: 2)
+                    .cornerRadius(style.cornerStyle.cornerRadius)
+                }
+                .clipShape(
+                    RoundedRectangle(cornerRadius: style.cornerStyle.cornerRadius)
+                )
             }
         } else {
             HStack(spacing: .HPSpacing.xxxxsmall) {

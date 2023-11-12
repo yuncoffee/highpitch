@@ -55,7 +55,9 @@ final class PracticeViewStore {
     var currentFeedbackViewType: FeedbackViewType = .fillerWord
     
     let AUDIO_INDICATOR_HEIGHT = 32.0
-    
+    var SCRIPT_CONTAINER_WIDTH: CGFloat {
+        self.currentFeedbackViewType == .every ? 320.0 : 280.0
+    }
     // ************* V2 ************* //
     
     init(practice: PracticeModel, mediaManager: MediaManager) {
@@ -103,6 +105,18 @@ extension PracticeViewStore {
     
     func hasFillerWord() -> Bool {
         practice.summary.fillerWordCount > 0
+    }
+    
+    func getContainsWords(sentenceIndex: Int) -> [WordModel] {
+        practice.words
+            .filter({ $0.sentenceIndex == sentenceIndex })
+            .sorted(by: { $0.index < $1.index })
+    }
+    func isFastSentence(sentenceIndex: Int) -> Bool {
+        practice.summary.fastSentenceIndex.contains(sentenceIndex)
+    }
+    func isSlowSentence(sentenceIndex: Int) -> Bool {
+        practice.summary.slowSentenceIndex.contains(sentenceIndex)
     }
 }
 

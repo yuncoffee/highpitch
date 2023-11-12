@@ -26,14 +26,15 @@ struct PracticeDetailContainer: View {
         VStack(alignment: .leading, spacing: .zero) {
             header
             viewStore.currentFeedbackViewType.feedbackContent
+                .padding(.bottom, .HPSpacing.medium)
         }
+        .border(.HPComponent.stroke, width: 1, edges: [.leading])
         .frame(
             minWidth: PRACTICE_DETAIL_VIEW_WIDTH,
             maxWidth: PRACTICE_DETAIL_VIEW_WIDTH,
             maxHeight: .infinity,
             alignment: .topLeading
         )
-//        .background(Color.green)
         .onAppear {
             // MARK: - Add MockData
 #if PREVIEW

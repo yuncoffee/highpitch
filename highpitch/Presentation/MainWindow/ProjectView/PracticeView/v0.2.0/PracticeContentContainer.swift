@@ -35,6 +35,10 @@ struct PracticeContentContainer: View {
             if let sample = practices.first {
                 viewStore.practice = sample
             }
+            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+            if let url = url {
+                viewStore.practice.audioPath = url
+            }
 #endif
         }
     }

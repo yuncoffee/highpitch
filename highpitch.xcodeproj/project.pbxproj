@@ -80,6 +80,7 @@
 		1D98941F2AE6199000DE57A1 /* PracticeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D98941E2AE6199000DE57A1 /* PracticeList.swift */; };
 		1D9894212AE61A4B00DE57A1 /* PracticeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9894202AE61A4B00DE57A1 /* PracticeListCell.swift */; };
 		1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */; };
+		1DAABBE32B00CDF100AF4449 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 1DAABBE22B00CDF100AF4449 /* Sliders */; };
 		1DB132312AD771A6006711B9 /* KeynoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB132302AD771A6006711B9 /* KeynoteManager.swift */; };
 		1DB132342AD78752006711B9 /* ReturnzeroAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */; };
 		1DBF14512ADE1DC100B28CED /* LabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF14502ADE1DC100B28CED /* LabelModifier.swift */; };
@@ -268,6 +269,7 @@
 				1DDB9D4A2AF7542C001CA7CC /* FirebaseAnalyticsSwift in Frameworks */,
 				43F1D9B92AE6F094001A7225 /* HotKey in Frameworks */,
 				1D7A3EDB2ADC1F6F0084E962 /* MenuBarExtraAccess in Frameworks */,
+				1DAABBE32B00CDF100AF4449 /* Sliders in Frameworks */,
 				1DDB9D482AF7542C001CA7CC /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				1DDB9D4C2AF7542C001CA7CC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				1DDB9D462AF7542C001CA7CC /* FirebaseAnalytics in Frameworks */,
@@ -991,6 +993,7 @@
 				1DDB9D492AF7542C001CA7CC /* FirebaseAnalyticsSwift */,
 				1DDB9D4B2AF7542C001CA7CC /* FirebaseAnalyticsWithoutAdIdSupport */,
 				1DDB9D4D2AF7542C001CA7CC /* FirebaseAuth */,
+				1DAABBE22B00CDF100AF4449 /* Sliders */,
 			);
 			productName = highpitch;
 			productReference = 1DF659862AD594BD00AE5601 /* highpitch.app */;
@@ -1069,6 +1072,7 @@
 				1DBF14652AE1623E00B28CED /* XCRemoteSwiftPackageReference "SettingsAccess" */,
 				43F1D9B72AE6F094001A7225 /* XCRemoteSwiftPackageReference "HotKey" */,
 				1DDB9D442AF7542C001CA7CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1DAABBE12B00CDF100AF4449 /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
 			);
 			productRefGroup = 1DF659872AD594BD00AE5601 /* Products */;
 			projectDirPath = "";
@@ -1794,6 +1798,14 @@
 				minimumVersion = 1.0.5;
 			};
 		};
+		1DAABBE12B00CDF100AF4449 /* XCRemoteSwiftPackageReference "swiftui-sliders" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-sliders";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 		1DBF14652AE1623E00B28CED /* XCRemoteSwiftPackageReference "SettingsAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/orchetect/SettingsAccess";
@@ -1825,6 +1837,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1D7A3ED92ADC1F6F0084E962 /* XCRemoteSwiftPackageReference "MenuBarExtraAccess" */;
 			productName = MenuBarExtraAccess;
+		};
+		1DAABBE22B00CDF100AF4449 /* Sliders */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DAABBE12B00CDF100AF4449 /* XCRemoteSwiftPackageReference "swiftui-sliders" */;
+			productName = Sliders;
 		};
 		1DBF14662AE1623E00B28CED /* SettingsAccess */ = {
 			isa = XCSwiftPackageProductDependency;

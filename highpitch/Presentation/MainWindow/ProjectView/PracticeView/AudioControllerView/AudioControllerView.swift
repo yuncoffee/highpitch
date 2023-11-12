@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Sliders
 
 struct AudioControllerView: View {
     private var audioPlayer : AudioPlayable
@@ -14,6 +15,8 @@ struct AudioControllerView: View {
     @State var isPlaying = false
     @State var isDragging = false
     @State var prevState = false
+    @State private var prevAnimationsRunning = false
+    @State private var nextAnimationsRunning = false
     
     init(
         audioPlayer: AudioPlayable,
@@ -23,16 +26,15 @@ struct AudioControllerView: View {
         self.audioPath = audioPath
     }
     var body: some View {
-        VStack(spacing: 0) {
+        ZStack {
             sliderContainer
             buttonContainer
         }
-        .padding(.top, .HPSpacing.xxxsmall)
         .padding(.bottom, .HPSpacing.xsmall)
-        .frame(maxWidth: .infinity, minHeight: 72)
+        .frame(maxWidth: .infinity, maxHeight: 64, alignment: .top)
         .background(Color.HPComponent.audioControllerBackground)
         .background(.ultraThinMaterial)
-        .border(.HPComponent.stroke, width: 1, edges: [.top])
+//        .border(.HPComponent.stroke, width: 1, edges: [.top])
         .onAppear {
             settingAudio(filePath: audioPath)
         }.onChange(of: audioPlayer.currentTime) { _, newValue in
@@ -82,35 +84,43 @@ extension AudioControllerView {
 extension AudioControllerView {
     @ViewBuilder
     private var sliderContainer: some View {
-        VStack(spacing: 0) {
-            Slider(value: $currentTime, in: 0...audioPlayer.getDuration()) { edit in
-                if edit {
-                    isDragging = true
-                    prevState = isPlaying
-                } else {
-                    isDragging = false
-                    audioPlayer.setCurrentTime(time: currentTime)
+        ZStack(alignment: .top) {
+            // decoration
+            Rectangle()
+                .frame(maxHeight: 4)
+                .foregroundStyle(Color.HPGray.system200)
+                .offset(y: .HPSpacing.xxxxsmall)
+            VStack(spacing: .zero) {
+                ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration())
+                    .valueSliderStyle(
+                        HorizontalValueSliderStyle(
+                            track: HorizontalTrack(view: Color.HPPrimary.base)
+                                    .frame(height: 4)
+                                    .background(Color.HPGray.system400)
+                                    .cornerRadius(4),
+                            thumbSize: CGSize(width: 12, height: 4)
+                        )
+                    )
+                .padding(.horizontal, .HPSpacing.xxxsmall)
+                HStack(spacing: 0) {
+                    Text(timeString(time: currentTime))
+                        .systemFont(.caption2)
+                        .foregroundStyle(Color.HPTextStyle.light)
+                    Spacer()
+                    Text(timeString(time: audioPlayer.getDuration()))
+                        .systemFont(.caption2)
+                        .foregroundStyle(Color.HPTextStyle.light)
                 }
+                .padding(.horizontal, .HPSpacing.xxxsmall)
+                .offset(y: -.HPSpacing.xxsmall)
             }
-            .tint(Color.HPPrimary.base)
-            .padding(.horizontal, .HPSpacing.large)
-            HStack(spacing: 0) {
-                Text(timeString(time: currentTime))
-                    .systemFont(.caption2)
-                    .foregroundStyle(Color.HPTextStyle.light)
-                Spacer()
-                Text(timeString(time: audioPlayer.getDuration()))
-                    .systemFont(.caption2)
-                    .foregroundStyle(Color.HPTextStyle.light)
-            }
-            .padding(.horizontal, .HPSpacing.small)
-            .offset(y: .HPSpacing.xxxsmall)
+            .offset(y: -.HPSpacing.xsmallBetweenSmall)
         }
     }
     
     @ViewBuilder
     private var buttonContainer: some View {
-        HStack(spacing: .HPSpacing.small + .HPSpacing.xxxxsmall) {
+        HStack(spacing: .HPSpacing.medium) {
             goBackward
             controllButton
             goForward
@@ -132,6 +142,8 @@ extension AudioControllerView {
             )
             .systemFont(.largeTitle)
             .labelStyle(.iconOnly)
+//            .symbolEffect(.bounce, value: isPlaying)
+            .contentTransition(.symbolEffect(.replace))
             .foregroundStyle(Color.HPTextStyle.base)
             .imageScale(.large)
         }
@@ -143,11 +155,13 @@ extension AudioControllerView {
     private var goForward: some View {
         Button {
             audioPlayer.playAfter(second: 10)
+            nextAnimationsRunning.toggle()
         } label: {
             Label("앞으로 10초",
                 systemImage: "goforward.10"
             )
-            .systemFont(.subTitle)
+            .systemFont(.subTitle, weight: .regular)
+            .symbolEffect(.bounce, value: nextAnimationsRunning)
             .labelStyle(.iconOnly)
             .foregroundStyle(Color.HPTextStyle.base)
         }
@@ -158,11 +172,13 @@ extension AudioControllerView {
     private var goBackward: some View {
         Button {
             audioPlayer.playAfter(second: -10)
+            prevAnimationsRunning.toggle()
         } label: {
             Label("뒤로 10초",
                 systemImage: "gobackward.10"
             )
-            .systemFont(.subTitle)
+            .systemFont(.subTitle, weight: .regular)
+            .symbolEffect(.bounce, value: prevAnimationsRunning)
             .labelStyle(.iconOnly)
             .foregroundStyle(Color.HPTextStyle.base)
         }
@@ -174,7 +190,7 @@ extension AudioControllerView {
     let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
     
     return AudioControllerView(audioPlayer: MediaManager(),audioPath: url!)
-        .frame(width: 640)
         .border(.green)
-        .padding(24)
+        .frame(width: 640)
+//        .padding(24)
 }

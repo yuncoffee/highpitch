@@ -90,9 +90,13 @@ extension PracticeViewStore {
         practice.summary.eachFillerWordCount.sorted(by: {$0.count > $1.count})
     }
     
-    func getEpmRange() -> [Double] {
+    func getEpmRange() -> (first: Double, last: Double) {
         let sortedSentences = practice.sentences.sorted(by: { $0.epmValue < $1.epmValue })
-        return [sortedSentences.first!.epmValue, sortedSentences.last!.epmValue]
+        if let firstEpmValue = sortedSentences.first?.epmValue, let lastEpmValue = sortedSentences.last?.epmValue {
+            return (firstEpmValue, lastEpmValue)
+        } else {
+            return (-1, -1)
+        }
     }
         
     func isFastSentenceEmpty() -> Bool {

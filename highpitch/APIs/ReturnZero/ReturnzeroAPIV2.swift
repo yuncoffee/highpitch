@@ -1,8 +1,6 @@
 import Foundation
 import Security
 
-
-
 struct ReturnzeroAPIV2 {
     let keyChainManager = KeychainManager()
     let returnZero_CLIENT_ID = Bundle().returnZeroClientId
@@ -43,7 +41,7 @@ struct ReturnzeroAPIV2 {
     
     private func isAuth() async throws -> String {
         // MARK: 여기다!!!!!!!!여기다!!!!!!!!여기다!!!!!!!!여기다!!!!!!!!여기다!!!!!!!!
-        do{
+        do {
             if let token = try keyChainManager.load(forKey: .rzToken) as? TokenData {
                 if(Date.now.compare(token.expried).rawValue < 0) {
                     return token.token
@@ -54,7 +52,7 @@ struct ReturnzeroAPIV2 {
                 }
             }
             throw RZError.networkErr
-        }catch {
+        } catch {
             print("here")
             let accessToken = try await getToken()
             try keyChainManager.save(data: accessToken, forKey: .rzToken)
@@ -73,7 +71,6 @@ struct ReturnzeroAPIV2 {
         
         // Set your server URL
 
-        
         var request = URLRequest(url: URL(string: tranUrl)!)
         request.httpMethod = "POST"
         

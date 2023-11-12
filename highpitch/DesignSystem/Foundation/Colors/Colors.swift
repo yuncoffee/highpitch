@@ -16,7 +16,7 @@ extension Color {
         static let dark = Color.primary600
         /// #8B6DFF, 1
         static let base = Color.primary500
-        /// #AD99FF, 1
+        /// #AD99FF, 1 
         static let light = Color.primary400
         /// #D0C5FF, 1
         static let lighter = Color.primary300
@@ -85,6 +85,20 @@ extension Color {
         /// #EF5555, 1
         static let base = Color.red500
     }
+    struct HPGreen {
+        private init() {}
+        /// #11B029, 0.5
+        static let light = Color.green300
+        /// #11B029, 1
+        static let base = Color.green500
+    }
+    struct HPOrange {
+        private init() {}
+        /// #FF9500, 0.5
+        static let light = Color.orange300
+        /// #FF9500, 1
+        static let base = Color.orange500
+    }
 }
 
 // MARK: - TextStyle
@@ -109,6 +123,7 @@ extension Color {
     }
 }
 
+// swiftlint disable nesting type_name
 // MARK: - Components
 extension Color {
     /// 특정 컴포넌트용 컬러를 위해 사용되는 네임스페이스
@@ -152,5 +167,18 @@ extension Color {
             private init() {}
             static let background = Color.tagbackground
         }
+        
+        // MARK: - 스타일 정리 필요...
+        struct TimeFeedback {
+            private init() {}
+            static let text = Color.timefeedbacktext
+            static let background = Color.timefeedbackbackground
+        }
+        
+        struct SpeedFeedback {
+            private init() {}
+            static let background = Color.speedfeedbackbackground
+        }
     }
 }
+// swiftlint enable nesting type_name

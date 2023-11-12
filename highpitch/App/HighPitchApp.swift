@@ -98,28 +98,22 @@ struct HighpitchApp: App {
 //        // MARK: - MainWindow Scene
 //        Window("overlay", id: "overlay") {
 //            @Bindable var systemManager = SystemManager.shared
-//            if systemManager.isOverlayView1Active {
 //                OverlayView(isActive: $systemManager.isOverlayView1Active)
-//            }
+//            
 //        }
 //        .windowResizability(.contentSize)
 //        Window("overlay2", id: "overlay2") {
 //            @Bindable var systemManager = SystemManager.shared
-//            if systemManager.isOverlayView2Active {
 //                OverlayView(isActive: $systemManager.isOverlayView2Active)
-//            }
+//            
 //        }
 //        .windowResizability(.contentSize)
 //        Window("overlay3", id: "overlay3") {
 //            @Bindable var systemManager = SystemManager.shared
-//            if systemManager.isOverlayView3Active {
 //                OverlayView(isActive: $systemManager.isOverlayView3Active)
-//            }
+//            
 //        }
 //        .windowResizability(.contentSize)
-//        .defaultPosition(.bottomTrailing)
-//        .windowResizability(.contentSize)
-//        .commandsRemoved()
         Window("mainwindow", id: "main") {
             MainWindowView()
                 .environment(appleScriptManager)
@@ -224,9 +218,6 @@ struct HighpitchApp: App {
         })
         #endif
     }
-    func updateWeatherData() async {
-        // fetches new weather data and updates app state
-    }
 }
 extension HighpitchApp {
     private func setupInit() {
@@ -306,13 +297,17 @@ extension HighpitchApp {
 
 // MARK: 항상 맨 위에 떠 있는 뷰 (NSPanel)을 추가하기 위한 코드들
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var floatingPanelController: FloatingPanelController?
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        floatingPanelController = FloatingPanelController()
-        floatingPanelController?.panel?.contentView = NSHostingView(rootView: FloatingView())
-        floatingPanelController?.showPanel(self)
-    }
+//    var floatingPanelController: FloatingPanelController?
+//
+//    func applicationDidFinishLaunching(_ aNotification: Notification) {
+//        floatingPanelController = FloatingPanelController()
+//        floatingPanelController?.panel?.contentView = NSHostingView(rootView: FloatingView())
+//        floatingPanelController?.showPanel(self)
+//    }
+//    func applicationDidUpdate(_ notification: Notification) {
+//        print("\(Date.now.description) zzz")
+//    }
+    
 }
 
 class FloatingPanelController: NSWindowController {

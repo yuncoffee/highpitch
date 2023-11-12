@@ -110,6 +110,7 @@
 		1DED4EEC2AFCA7EE000109B3 /* SpeedFeedbackContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EEB2AFCA7EE000109B3 /* SpeedFeedbackContent.swift */; };
 		1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EEF2AFCAAA2000109B3 /* SwiftDataMockManager.swift */; };
 		1DED4EF72AFFE4F7000109B3 /* HPArcodianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EF62AFFE4F7000109B3 /* HPArcodianView.swift */; };
+		1DED4EF92B008725000109B3 /* FeedbackStyleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DED4EF82B008725000109B3 /* FeedbackStyleScript.swift */; };
 		1DF659902AD594BF00AE5601 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF6598F2AD594BF00AE5601 /* Assets.xcassets */; };
 		1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF659932AD594BF00AE5601 /* Preview Assets.xcassets */; };
 		1DF6599F2AD594BF00AE5601 /* highpitchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6599E2AD594BF00AE5601 /* highpitchTests.swift */; };
@@ -238,6 +239,7 @@
 		1DED4EEB2AFCA7EE000109B3 /* SpeedFeedbackContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedFeedbackContent.swift; sourceTree = "<group>"; };
 		1DED4EEF2AFCAAA2000109B3 /* SwiftDataMockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataMockManager.swift; sourceTree = "<group>"; };
 		1DED4EF62AFFE4F7000109B3 /* HPArcodianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPArcodianView.swift; sourceTree = "<group>"; };
+		1DED4EF82B008725000109B3 /* FeedbackStyleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackStyleScript.swift; sourceTree = "<group>"; };
 		1DF659862AD594BD00AE5601 /* highpitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = highpitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF6598F2AD594BF00AE5601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DF659912AD594BF00AE5601 /* highpitch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = highpitch.entitlements; sourceTree = "<group>"; };
@@ -813,6 +815,7 @@
 				1DED4EE72AFCA7C0000109B3 /* FillerWordFeedbackContent.swift */,
 				1DED4EE92AFCA7D9000109B3 /* EveryFeedbackContent.swift */,
 				1DED4EEB2AFCA7EE000109B3 /* SpeedFeedbackContent.swift */,
+				1DED4EF82B008725000109B3 /* FeedbackStyleScript.swift */,
 			);
 			path = FeedbackContent;
 			sourceTree = "<group>";
@@ -1137,6 +1140,7 @@
 				1D09AF9C2ADA6BBB00C1400E /* AudioControllerView.swift in Sources */,
 				1DED4EE32AFCA68B000109B3 /* SpeedAudioIndicator.swift in Sources */,
 				1D09AF832AD9963E00C1400E /* ProjectManager.swift in Sources */,
+				1DED4EF92B008725000109B3 /* FeedbackStyleScript.swift in Sources */,
 				1DF659C82AD5998D00AE5601 /* MenubarExtraView.swift in Sources */,
 				1D58FA292AE2956E00B92B4A /* HPMenu.swift in Sources */,
 				1172F1092AE1442900D6B0B9 /* PracticeSummaryModel.swift in Sources */,

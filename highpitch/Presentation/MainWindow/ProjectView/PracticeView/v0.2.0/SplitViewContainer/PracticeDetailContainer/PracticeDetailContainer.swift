@@ -25,8 +25,12 @@ struct PracticeDetailContainer: View {
     var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
             header
-            viewStore.currentFeedbackViewType.feedbackContent
-                .padding(.bottom, .HPSpacing.medium)
+            ScrollView {
+                viewStore.currentFeedbackViewType.feedbackContent
+                FeedbackStyleScript()
+            }
+            .animation(nil, value: UUID())
+            .padding(.bottom, .HPSpacing.medium)
         }
         .border(.HPComponent.stroke, width: 1, edges: [.leading])
         .frame(

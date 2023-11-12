@@ -34,7 +34,7 @@ struct AudioControllerView: View {
         .frame(maxWidth: .infinity, maxHeight: 64, alignment: .top)
         .background(Color.HPComponent.audioControllerBackground)
         .background(.ultraThinMaterial)
-//        .border(.HPComponent.stroke, width: 1, edges: [.top])
+        //        .border(.HPComponent.stroke, width: 1, edges: [.top])
         .onAppear {
             settingAudio(filePath: audioPath)
         }.onChange(of: audioPlayer.currentTime) { _, newValue in
@@ -91,16 +91,24 @@ extension AudioControllerView {
                 .foregroundStyle(Color.HPGray.system200)
                 .offset(y: .HPSpacing.xxxxsmall)
             VStack(spacing: .zero) {
-                ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration())
-                    .valueSliderStyle(
-                        HorizontalValueSliderStyle(
-                            track: HorizontalTrack(view: Color.HPPrimary.base)
-                                    .frame(height: 4)
-                                    .background(Color.HPGray.system400)
-                                    .cornerRadius(4),
-                            thumbSize: CGSize(width: 12, height: 4)
-                        )
+                ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration()) { edit in
+                    if edit {
+                        isDragging = true
+                        prevState = isPlaying
+                    } else {
+                        isDragging = false
+                        audioPlayer.setCurrentTime(time: currentTime)
+                    }
+                }
+                .valueSliderStyle(
+                    HorizontalValueSliderStyle(
+                        track: HorizontalTrack(view: Color.HPPrimary.base)
+                            .frame(height: 4)
+                            .background(Color.HPGray.system400)
+                            .cornerRadius(4),
+                        thumbSize: CGSize(width: 12, height: 4)
                     )
+                )
                 .padding(.horizontal, .HPSpacing.xxxsmall)
                 HStack(spacing: 0) {
                     Text(timeString(time: currentTime))
@@ -142,7 +150,7 @@ extension AudioControllerView {
             )
             .systemFont(.largeTitle)
             .labelStyle(.iconOnly)
-//            .symbolEffect(.bounce, value: isPlaying)
+            //            .symbolEffect(.bounce, value: isPlaying)
             .contentTransition(.symbolEffect(.replace))
             .foregroundStyle(Color.HPTextStyle.base)
             .imageScale(.large)
@@ -158,7 +166,7 @@ extension AudioControllerView {
             nextAnimationsRunning.toggle()
         } label: {
             Label("앞으로 10초",
-                systemImage: "goforward.10"
+                  systemImage: "goforward.10"
             )
             .systemFont(.subTitle, weight: .regular)
             .symbolEffect(.bounce, value: nextAnimationsRunning)
@@ -175,7 +183,7 @@ extension AudioControllerView {
             prevAnimationsRunning.toggle()
         } label: {
             Label("뒤로 10초",
-                systemImage: "gobackward.10"
+                  systemImage: "gobackward.10"
             )
             .systemFont(.subTitle, weight: .regular)
             .symbolEffect(.bounce, value: prevAnimationsRunning)
@@ -192,5 +200,5 @@ extension AudioControllerView {
     return AudioControllerView(audioPlayer: MediaManager(),audioPath: url!)
         .border(.green)
         .frame(width: 640)
-//        .padding(24)
+    //        .padding(24)
 }

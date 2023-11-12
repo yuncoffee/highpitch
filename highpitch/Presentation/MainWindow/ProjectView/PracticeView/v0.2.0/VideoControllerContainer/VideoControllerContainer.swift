@@ -26,7 +26,6 @@ struct VideoControllerContainer: View {
         VStack(spacing: .zero) {
             viewStore.currentFeedbackViewType.audioIndicator
                 .frame(maxWidth:.infinity, maxHeight: 32)
-                .background(Color.yellow)
             if let audioPath = viewStore.practice.audioPath {
                 AudioControllerView(audioPlayer: viewStore.mediaManager, audioPath: audioPath)
             }

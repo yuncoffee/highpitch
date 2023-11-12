@@ -54,12 +54,23 @@ struct SpeedAudioIndicator: View {
             .chartXAxis(.hidden)
             .chartYAxis(.hidden)
             .chartXScale(domain: .automatic)
-            .chartYScale(
-                domain: [
-                    epmRange.first - 10.0,
-                    epmRange.last + 10.0
-                ]
-            )
+            .chartYScale(domain: .automatic)
+            .chartOverlay { proxy in
+                 GeometryReader { geometry in
+                     ZStack(alignment: .top) {
+                         Rectangle().fill(.clear).contentShape(Rectangle())
+                             .onTapGesture { location in
+                                 print(proxy, geometry, location)
+                             }
+                     }
+                 }
+             }
+//            .chartYScale(
+//                domain: [
+//                    epmRange.first - 10.0,
+//                    epmRange.last + 10.0
+//                ]
+//            )
         }
         .padding(.horizontal, .HPSpacing.xxxsmall)
         .frame(maxWidth:.infinity, maxHeight: 32, alignment: .leading)

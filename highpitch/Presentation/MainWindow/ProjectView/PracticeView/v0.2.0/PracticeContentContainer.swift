@@ -26,7 +26,7 @@ struct PracticeContentContainer: View {
                 FullScreenVideoContainer()
                 SplitViewContainer()
             }
-            .padding(.bottom, .HPSpacing.xxxlarge)
+//            .padding(.bottom, .HPSpacing.xxxlarge)
             VideoControllerContainer()
         }
         .onAppear {

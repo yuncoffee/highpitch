@@ -89,7 +89,7 @@ extension AudioControllerView {
             Rectangle()
                 .frame(maxHeight: 4)
                 .foregroundStyle(Color.HPGray.system200)
-                .offset(y: .HPSpacing.xxxxsmall)
+//                .offset(y: .HPSpacing.xxxxsmall)
             VStack(spacing: .zero) {
                 ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration()) { edit in
                     if edit {

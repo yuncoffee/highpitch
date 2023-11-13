@@ -43,7 +43,7 @@ struct FullScreenVideoContainer: View {
                     maxWidth: .infinity,
                     maxHeight: .infinity
                 )
-                .background(viewStore.isFullScreenTransition ? Color.brown : .clear) 
+                .background(viewStore.isFullScreenTransition ? Color.brown : .clear)
                 .offset(
                     x: 0,
                     y: viewStore.isFullScreenTransition ? 0 : PRACTICE_HEADER_INFO_HEIGHT
@@ -56,7 +56,7 @@ struct FullScreenVideoContainer: View {
                 .background(Color.purple)
                 .offset(y: viewStore.isFullScreenTransition && isFullScreenVideoHover
                         ? .zero
-                        : -64
+                        : -VIDEO_CONTROLLER_HEIGHT
                 )
                 .opacity(viewStore.isFullScreenTransition ? 1 : 0)
                 /// footer
@@ -74,7 +74,9 @@ struct FullScreenVideoContainer: View {
                 .frame(maxWidth: .infinity, maxHeight: 56)
                 .background(Color.blue)
                 .offset(y: viewStore.isFullScreenTransition && isFullScreenVideoHover
-                        ? geometry.size.height - 150
+                        ? viewStore.currentFeedbackViewType == .every
+                        ? geometry.size.height - VIDEO_CONTROLLER_HEIGHT - VERTICAL_PADDING
+                        : geometry.size.height - 150
                         : geometry.size.height
                 )
                 .opacity(viewStore.isFullScreenTransition ? 1 : 0)
@@ -103,6 +105,7 @@ struct FullScreenVideoContainer: View {
             if let url = url {
                 viewStore.practice.audioPath = url
             }
+            viewStore.isFullScreenVideoActive = true
 #endif
         }
     }

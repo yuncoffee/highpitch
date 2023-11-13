@@ -32,4 +32,7 @@ final class SystemManager {
     var hotkeyStart = HotKey(key: .p, modifiers: [.command, .control])
     var hotkeyPause = HotKey(key: .space, modifiers: [.command, .control])
     var hotkeySave = HotKey(key: .escape, modifiers: [.command, .control])
+    
+//    var instanceFeedbackManager:
+//    var speechRecog
 }

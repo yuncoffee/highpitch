@@ -53,5 +53,5 @@ struct SplitViewContainer: View {
                 summary: PracticeSummaryModel()
             ),
             mediaManager: MediaManager()))
-        .background(Color.HPGray.systemWhite)
+        .frame(width: 1000, height: 640)
 }

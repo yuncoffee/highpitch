@@ -12,12 +12,9 @@ struct SettingPanelView: View {
     
     var body: some View {
         VStack {
-            Text("세팅")
-                .font(.title)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white.opacity(0.2))
-                .edgesIgnoringSafeArea(.all)
+            Image(systemName: "rectangle.3.group.fill")
+                .frame(width:44, height: 28.11)
+                .foregroundColor(.white)
                 .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 1 ? .purple : .white) : .clear, width: 2)
         }
         .onTapGesture {

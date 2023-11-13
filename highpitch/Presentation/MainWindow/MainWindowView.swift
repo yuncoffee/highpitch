@@ -160,6 +160,10 @@ extension MainWindowView {
                 .padding(.horizontal, .HPSpacing.xxsmall)
                 .onTapGesture {
                     speechRecognizer?.recordButtonTapped()
+                    PanelData.shared.isShow[0].toggle()
+                    PanelData.shared.isShow[1].toggle()
+                    PanelData.shared.isShow[2].toggle()
+                    PanelData.shared.isShow[3].toggle()
                 }
             ScrollView {
                 LazyVGrid(columns: [GridItem()], alignment: .leading) {

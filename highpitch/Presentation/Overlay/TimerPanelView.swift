@@ -12,20 +12,26 @@ struct TimerPanelView: View {
     @State private var currentTime: String = ""
     
     var body: some View {
-        VStack {
-            Text(currentTime)
-                .font(.title)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white.opacity(0.2))
-                .edgesIgnoringSafeArea(.all)
-                .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 0 ? .purple : .white) : .clear, width: 2)
-                .onAppear {
-                    startTimer()
-                }
-                .onHover {_ in
-                    PanelData.shared.isFocused = 0
-                }
+        ZStack {
+            VStack {
+                Text(currentTime)
+                    .systemFont(.title, weight: .semibold)
+                    .foregroundStyle(Color.HPTextStyle.darkness)
+            }
+            .frame(width: 146, height: 56)
+            .background(Color.white.opacity(0.1))
+            .cornerRadius(6)
+        }
+        .frame(width: 158, height: 68)
+        .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 0 ? Color.HPPrimary.base : .white) : .clear, width: 2)
+        .onTapGesture {
+            PanelData.shared.isFocused = 0
+        }
+        .onAppear {
+            startTimer()
+        }
+        .onHover {_ in
+            PanelData.shared.isFocused = 0
         }
     }
     

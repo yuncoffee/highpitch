@@ -122,6 +122,9 @@
 		1DF659C82AD5998D00AE5601 /* MenubarExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF659C72AD5998D00AE5601 /* MenubarExtraView.swift */; };
 		43556EA92ADE809F00B3E7B7 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43556EA82ADE809F00B3E7B7 /* PracticeModel.swift */; };
 		43556EAB2ADE80A900B3E7B7 /* UtteranceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43556EAA2ADE80A900B3E7B7 /* UtteranceModel.swift */; };
+		4373739E2B021F1A00DEEDBD /* EditPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4373739D2B021F1A00DEEDBD /* EditPanelView.swift */; };
+		437373A02B0224BD00DEEDBD /* FloatingPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4373739F2B0224BD00DEEDBD /* FloatingPanelController.swift */; };
+		437373A22B0224E800DEEDBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437373A12B0224E800DEEDBD /* AppDelegate.swift */; };
 		43976D4E2B01A0BC00816620 /* TimerPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D4D2B01A0BC00816620 /* TimerPanelView.swift */; };
 		43976D502B01A0C800816620 /* SettingPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D4F2B01A0C800816620 /* SettingPanelView.swift */; };
 		43976D522B01A0DA00816620 /* SpeedPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D512B01A0DA00816620 /* SpeedPanelView.swift */; };
@@ -261,6 +264,9 @@
 		1DF659C72AD5998D00AE5601 /* MenubarExtraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarExtraView.swift; sourceTree = "<group>"; };
 		43556EA82ADE809F00B3E7B7 /* PracticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
 		43556EAA2ADE80A900B3E7B7 /* UtteranceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtteranceModel.swift; sourceTree = "<group>"; };
+		4373739D2B021F1A00DEEDBD /* EditPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelView.swift; sourceTree = "<group>"; };
+		4373739F2B0224BD00DEEDBD /* FloatingPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPanelController.swift; sourceTree = "<group>"; };
+		437373A12B0224E800DEEDBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43976D4D2B01A0BC00816620 /* TimerPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPanelView.swift; sourceTree = "<group>"; };
 		43976D4F2B01A0C800816620 /* SettingPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPanelView.swift; sourceTree = "<group>"; };
 		43976D512B01A0DA00816620 /* SpeedPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedPanelView.swift; sourceTree = "<group>"; };
@@ -776,7 +782,10 @@
 				43976D4F2B01A0C800816620 /* SettingPanelView.swift */,
 				43976D512B01A0DA00816620 /* SpeedPanelView.swift */,
 				43976D532B01A0F900816620 /* FillerWordPanelView.swift */,
+				4373739D2B021F1A00DEEDBD /* EditPanelView.swift */,
 				43976D552B01A13500816620 /* PanelData.swift */,
+				4373739F2B0224BD00DEEDBD /* FloatingPanelController.swift */,
+				437373A12B0224E800DEEDBD /* AppDelegate.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -1143,6 +1152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4373739E2B021F1A00DEEDBD /* EditPanelView.swift in Sources */,
 				1D30E6252AD6117F00623A58 /* MediaManager.swift in Sources */,
 				1D1EC6A32AFB98C900CB72E9 /* VideoContainer.swift in Sources */,
 				1142DDED2AF4C7F8003DBE81 /* SlowSentReplay.swift in Sources */,
@@ -1160,6 +1170,7 @@
 				1DF659C82AD5998D00AE5601 /* MenubarExtraView.swift in Sources */,
 				43976D522B01A0DA00816620 /* SpeedPanelView.swift in Sources */,
 				1D58FA292AE2956E00B92B4A /* HPMenu.swift in Sources */,
+				437373A22B0224E800DEEDBD /* AppDelegate.swift in Sources */,
 				1172F1092AE1442900D6B0B9 /* PracticeSummaryModel.swift in Sources */,
 				10C7D2942AE62054008691CD /* ReturnzeroAPIV2.swift in Sources */,
 				1D30E6352AD6EE3300623A58 /* AppleScript.swift in Sources */,
@@ -1214,6 +1225,7 @@
 				1D7A3ED82ADC0FBD0084E962 /* OpendKeynote.swift in Sources */,
 				107035002AF258390097A685 /* GeneralSettingView.swift in Sources */,
 				1DBF14612AE1380D00B28CED /* MenubarExtraHeader.swift in Sources */,
+				437373A02B0224BD00DEEDBD /* FloatingPanelController.swift in Sources */,
 				1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */,
 				1D0ECD7A2ADDA35400B95A74 /* HPTopToolbar.swift in Sources */,
 				1D09AFA02ADA767000C1400E /* ScriptView.swift in Sources */,

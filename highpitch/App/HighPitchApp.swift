@@ -5,6 +5,7 @@
 //  Created by yuncoffee on 10/10/23.
 //
 
+import AppKit
 import SwiftUI
 import SwiftData
 import MenuBarExtraAccess
@@ -14,7 +15,7 @@ import Firebase
 
 @main
 struct HighpitchApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    // @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) var openWindow
@@ -161,6 +162,23 @@ struct HighpitchApp: App {
                     systemManager.hotkeyPause.keyDownHandler = pausePractice
                     systemManager.hotkeySave.keyDownHandler = stopPractice
                 }
+                // MARK: 위치 이동 예정 - Loki에게 문의하세요
+                .onChange(of: PanelData.shared.isEditMode) { _, value in
+                    if value {
+                        print("isEditMode가 true인거 감지")
+                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = true
+                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = true
+                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = true
+                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = true
+                    }
+                    else {
+                        print("isEditMode가 false인거 감지")
+                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = false
+                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = false
+                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = false
+                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = false
+                    }
+                }
         }
         .defaultSize(width: 1080, height: 600)
         .windowStyle(.hiddenTitleBar)
@@ -297,36 +315,69 @@ extension HighpitchApp {
 
 // MARK: 항상 맨 위에 떠 있는 뷰 (NSPanel)을 추가하기 위한 코드들
 class AppDelegate: NSObject, NSApplicationDelegate {
-//    var floatingPanelController: FloatingPanelController?
-//
-//    func applicationDidFinishLaunching(_ aNotification: Notification) {
-//        floatingPanelController = FloatingPanelController()
-//        floatingPanelController?.panel?.contentView = NSHostingView(rootView: FloatingView())
-//        floatingPanelController?.showPanel(self)
-//    }
-//    func applicationDidUpdate(_ notification: Notification) {
-//        print("\(Date.now.description) zzz")
-//    }
+    var floatingPanelControllers: [FloatingPanelController] = []
+    var xPositions = [
+        Int((NSScreen.main?.frame.width)! / 2) - 73,
+        Int((NSScreen.main?.frame.width)!) - 120,
+        Int((NSScreen.main?.frame.width)!) - 120,
+        Int((NSScreen.main?.frame.width)!) - 120
+    ]
+    var yPositions = [
+        Int((NSScreen.main?.frame.height)! - 100),
+        Int((NSScreen.main?.frame.height)! - 100), 120, 0]
+    var widths = [146, 44, 120, 120]
+    var heights = [56, 28, 120, 120]
     
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // 타이머 패널
+        let floatingTimerPanelController = FloatingPanelController(
+            xPosition: Int((NSScreen.main?.frame.width)! / 2) - 73,
+            yPosition: Int((NSScreen.main?.frame.height)! - 100),
+            swidth: 146, sheight: 56
+        )
+        floatingPanelControllers.append(floatingTimerPanelController)
+        
+        floatingTimerPanelController.panel?.contentView = NSHostingView(rootView: TimerPanelView(floatingPanelController: floatingTimerPanelController))
+        floatingTimerPanelController.showPanel(self)
+        
+        // 세팅 패널
+        let floatingSettingPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: Int((NSScreen.main?.frame.height)! - 100), swidth: 44, sheight: 28)
+        floatingPanelControllers.append(floatingSettingPanelController)
+        
+        floatingSettingPanelController.panel?.contentView = NSHostingView(rootView: SettingPanelView(floatingPanelController: floatingSettingPanelController))
+        floatingSettingPanelController.showPanel(self)
+        
+        // 스피드 패널
+        let floatingSpeedPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 120, swidth: 120, sheight: 120)
+        floatingPanelControllers.append(floatingSpeedPanelController)
+        
+        floatingSpeedPanelController.panel?.contentView = NSHostingView(rootView: SpeedPanelView(floatingPanelController: floatingSpeedPanelController))
+        floatingSpeedPanelController.showPanel(self)
+        
+        // 필러워드 패널
+        let floatingFillerwordPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 0, swidth: 120, sheight: 120)
+        floatingPanelControllers.append(floatingFillerwordPanelController)
+        
+        floatingFillerwordPanelController.panel?.contentView = NSHostingView(rootView: FillerwordPanelView(floatingPanelController: floatingFillerwordPanelController))
+        floatingFillerwordPanelController.showPanel(self)
+    }
 }
 
 class FloatingPanelController: NSWindowController {
     var panel: NSPanel?
-
-    init() {
+    
+    init(xPosition: Int, yPosition: Int, swidth: Int, sheight: Int) {
         let panel = NSPanel(
-            // x, y값을 통해서 실행했을때 위치 설정.
-            contentRect: NSRect(x: 200, y: 200, width: 400, height: 200),
-            // .titled 옵션을 지우면 NSPanel 움직이기 불가, .resizable 옵션 추가하면 사이즈 조절 가능
-            styleMask: [.titled, .nonactivatingPanel],
+            contentRect: NSRect(x: xPosition, y: yPosition, width: swidth, height: sheight),
+            styleMask: [.nonactivatingPanel],
             backing: .buffered,
-            defer: false
+            defer: true
         )
         panel.backgroundColor = NSColor(.clear)
         panel.level = .mainMenu
-        // .canJoinAllSpaces를 통해서 모든 Space 및 전체화면 위에도 띄울 수 있게
-        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        panel.collectionBehavior = [.fullScreenAuxiliary, .canJoinAllSpaces]
         panel.orderFrontRegardless()
+        panel.isMovableByWindowBackground = false
         
         super.init(window: panel)
         self.panel = panel
@@ -339,15 +390,9 @@ class FloatingPanelController: NSWindowController {
     func showPanel(_ sender: Any?) {
         self.panel?.makeKeyAndOrderFront(sender)
     }
-}
-
-struct FloatingView: View {
-    var body: some View {
-        Text("항상 위에 떠 있는 뷰")
-            .font(.title)
-            .foregroundColor(.black)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.white.opacity(0.4))
-            .edgesIgnoringSafeArea(.all)
+    
+    func hidePanel(_ sender: Any?) {
+        self.panel?.orderOut(sender)
     }
+    
 }

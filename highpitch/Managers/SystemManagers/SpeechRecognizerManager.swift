@@ -149,35 +149,6 @@ final class SpeechRecognizerManager {
         }
     }
     
-<<<<<<< HEAD
-    func recordButtonTapped() {
-        if audioEngine.isRunning {
-            stopRecording()
-        } else {
-            SFSpeechRecognizer.requestAuthorization { authStatus in
-
-                // Divert to the app's main thread so that the UI
-                // can be updated.
-                switch authStatus {
-                case .authorized:
-                    do {
-                        try self.startRecording()
-                    } catch { }
-                    print("autorized with speech recognition")
-                case .denied:
-                    self.availableToRecognition = false
-                    print("access denied")
-                case .restricted:
-                    self.availableToRecognition = false
-                    print("access denied")
-                case .notDetermined:
-                    self.availableToRecognition = false
-                    print("access denied")
-                default:
-                    self.availableToRecognition = false
-                    print("access denied")
-                }
-=======
     func startRecording() {
         SFSpeechRecognizer.requestAuthorization { authStatus in
             // Divert to the app's main thread so that the UI
@@ -196,7 +167,6 @@ final class SpeechRecognizerManager {
                 print("access denied")
             default:
                 print("access denied")
->>>>>>> develop
             }
         }
     }

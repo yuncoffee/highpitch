@@ -833,8 +833,6 @@
 			children = (
 				1D30E62B2AD6E88500623A58 /* .swiftlint.yml */,
 				1DF659882AD594BD00AE5601 /* highpitch */,
-				118C712E2B00C5BD000ACC1C /* GoogleService-Info.plist */,
-				118C712F2B00C5BD000ACC1C /* SecretKey.plist */,
 				1DF6599D2AD594BF00AE5601 /* highpitchTests */,
 				1DF659A72AD594BF00AE5601 /* highpitchUITests */,
 				1DF659872AD594BD00AE5601 /* Products */,
@@ -855,6 +853,8 @@
 		1DF659882AD594BD00AE5601 /* highpitch */ = {
 			isa = PBXGroup;
 			children = (
+				118C712E2B00C5BD000ACC1C /* GoogleService-Info.plist */,
+				118C712F2B00C5BD000ACC1C /* SecretKey.plist */,
 				1D30E6162AD59E0C00623A58 /* Models */,
 				1DF659BC2AD595E100AE5601 /* Presentation */,
 				1D30E6222AD6113C00623A58 /* Managers */,

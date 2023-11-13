@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		107034FE2AF258070097A685 /* FeedbackSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107034FD2AF258070097A685 /* FeedbackSettingView.swift */; };
 		107035002AF258390097A685 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107034FF2AF258390097A685 /* GeneralSettingView.swift */; };
-		108AF8CB2AFA12CD00AA7CB2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 108AF8CA2AFA12CD00AA7CB2 /* GoogleService-Info.plist */; };
-		108AF8CD2AFA12DC00AA7CB2 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 108AF8CC2AFA12DC00AA7CB2 /* SecretKey.plist */; };
 		10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */; };
 		10C7D1B22ADCD4AB008691CD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */; };
 		10C7D1F82ADD8E6A008691CD /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1F72ADD8E6A008691CD /* AuthManager.swift */; };
@@ -23,6 +21,8 @@
 		1172F1072AE1335100D6B0B9 /* SentenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172F1062AE1335100D6B0B9 /* SentenceModel.swift */; };
 		1172F1092AE1442900D6B0B9 /* PracticeSummaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172F1082AE1442900D6B0B9 /* PracticeSummaryModel.swift */; };
 		118D56392AE15572003072E9 /* FillerWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D56382AE15572003072E9 /* FillerWordModel.swift */; };
+		11B94A252B01A2160086DF08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11B94A232B01A2160086DF08 /* GoogleService-Info.plist */; };
+		11B94A262B01A2160086DF08 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11B94A242B01A2160086DF08 /* SecretKey.plist */; };
 		11EF719B2ADADBA400D991E6 /* FillerWordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719A2ADADBA400D991E6 /* FillerWordList.swift */; };
 		11EF719D2ADE3F0E00D991E6 /* FillerWordDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719C2ADE3F0E00D991E6 /* FillerWordDetail.swift */; };
 		11EF719F2ADEAA2C00D991E6 /* FastSentReplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719E2ADEAA2C00D991E6 /* FastSentReplay.swift */; };
@@ -147,8 +147,6 @@
 /* Begin PBXFileReference section */
 		107034FD2AF258070097A685 /* FeedbackSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingView.swift; sourceTree = "<group>"; };
 		107034FF2AF258390097A685 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
-		108AF8CA2AFA12CD00AA7CB2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		108AF8CC2AFA12DC00AA7CB2 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		10C7D1F72ADD8E6A008691CD /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -161,6 +159,8 @@
 		1172F1062AE1335100D6B0B9 /* SentenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceModel.swift; sourceTree = "<group>"; };
 		1172F1082AE1442900D6B0B9 /* PracticeSummaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSummaryModel.swift; sourceTree = "<group>"; };
 		118D56382AE15572003072E9 /* FillerWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordModel.swift; sourceTree = "<group>"; };
+		11B94A232B01A2160086DF08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		11B94A242B01A2160086DF08 /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		11EF719A2ADADBA400D991E6 /* FillerWordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordList.swift; sourceTree = "<group>"; };
 		11EF719C2ADE3F0E00D991E6 /* FillerWordDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordDetail.swift; sourceTree = "<group>"; };
 		11EF719E2ADEAA2C00D991E6 /* FastSentReplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastSentReplay.swift; sourceTree = "<group>"; };
@@ -865,6 +865,8 @@
 		1DF659882AD594BD00AE5601 /* highpitch */ = {
 			isa = PBXGroup;
 			children = (
+				11B94A232B01A2160086DF08 /* GoogleService-Info.plist */,
+				11B94A242B01A2160086DF08 /* SecretKey.plist */,
 				1D30E6162AD59E0C00623A58 /* Models */,
 				1DF659BC2AD595E100AE5601 /* Presentation */,
 				1D30E6222AD6113C00623A58 /* Managers */,
@@ -873,8 +875,6 @@
 				1DF659B92AD5951900AE5601 /* Resource */,
 				1DF659B82AD5950900AE5601 /* App */,
 				1D09AF842ADA260200C1400E /* DesignSystem */,
-				108AF8CA2AFA12CD00AA7CB2 /* GoogleService-Info.plist */,
-				108AF8CC2AFA12DC00AA7CB2 /* SecretKey.plist */,
 			);
 			path = highpitch;
 			sourceTree = "<group>";
@@ -1095,9 +1095,9 @@
 				1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */,
 				1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */,
 				1DF659902AD594BF00AE5601 /* Assets.xcassets in Resources */,
-				108AF8CD2AFA12DC00AA7CB2 /* SecretKey.plist in Resources */,
+				11B94A262B01A2160086DF08 /* SecretKey.plist in Resources */,
 				1D0ECD722ADD13C900B95A74 /* FontResource.xcassets in Resources */,
-				108AF8CB2AFA12CD00AA7CB2 /* GoogleService-Info.plist in Resources */,
+				11B94A252B01A2160086DF08 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,6 +1363,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "highpitch는 음성 녹음을 통해 사용자의 음성을 분석하고 개선된 서비스를 제공합니다.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "highpitch는 음성을 텍스트로 변환해 분석하고 제공합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1574,6 +1575,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "highpitch는 음성 녹음을 통해 사용자의 음성을 분석하고 개선된 서비스를 제공합니다.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "highpitch는 음성을 텍스트로 변환해 분석하고 제공합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1626,6 +1628,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSAppleEventsUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "highpitch는 음성 녹음을 통해 사용자의 음성을 분석하고 개선된 서비스를 제공합니다.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "highpitch는 음성을 텍스트로 변환해 분석하고 제공합니다.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -12,14 +12,19 @@ struct FillerwordPanelView: View {
 
     var body: some View {
         VStack {
-            Text("필러워드")
-                .font(.title)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white.opacity(0.2))
-                .edgesIgnoringSafeArea(.all)
-                .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 3 ? .purple : .white) : .clear, width: 2)
+            VStack {
+                Image(systemName: "gearshape.fill")
+                    .frame(width: 44, height: 38)
+                Text("습관어")
+                    .systemFont(.caption,weight: .regular)
+                    .foregroundStyle(Color.HPTextStyle.dark)
+            }
+            .frame(width: 120, height: 120)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(12)
         }
+        .frame(width: 132, height: 132)
+        .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 3 ? Color.HPPrimary.base : .white) : .clear, width: 2)
         .onTapGesture {
             PanelData.shared.isFocused = 3
         }

@@ -181,10 +181,29 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
         if audioEngine.isRunning {
             stopRecording()
         } else {
-            if self.availableToRecognition {
-                do {
-                    try startRecording()
-                } catch { }
+            SFSpeechRecognizer.requestAuthorization { authStatus in
+
+                // Divert to the app's main thread so that the UI
+                // can be updated.
+                switch authStatus {
+                case .authorized:
+                    do {
+                        try self.startRecording()
+                    } catch { }
+                    print("autorized with speech recognition")
+                case .denied:
+                    self.availableToRecognition = false
+                    print("access denied")
+                case .restricted:
+                    self.availableToRecognition = false
+                    print("access denied")
+                case .notDetermined:
+                    self.availableToRecognition = false
+                    print("access denied")
+                default:
+                    self.availableToRecognition = false
+                    print("access denied")
+                }
             }
         }
     }

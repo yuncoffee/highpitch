@@ -12,7 +12,7 @@ struct SpeedPanelView: View {
  
     var body: some View {
         VStack {
-            Text("속도")
+            Text("\(SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 300.0)")
                 .font(.title)
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

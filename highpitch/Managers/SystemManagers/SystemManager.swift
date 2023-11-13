@@ -13,15 +13,16 @@ import AppKit
 final class SystemManager {
     private init() {}
     static let shared = SystemManager()
+    
+    let instantFeedbackManager = InstantFeedbackManager()
+    
     var isDarkMode = false
     var isAnalyzing = false
     var hasUnVisited = false
     var isRequsetAudioPermissionPopoverActive = false
-    
-    var isOverlayView1Active = true
-    var isOverlayView2Active = true
-    var isOverlayView3Active = true
-    
+    /// 음성 인식 중인지 저장합니다.
+    var isRecognizing = false
+        
     var recordStartCommand: String = 
         UserDefaults.standard.string(forKey: "recordStartCommand") ?? "Command + Control + P"
     var recordPauseCommand: String =
@@ -32,4 +33,20 @@ final class SystemManager {
     var hotkeyStart = HotKey(key: .p, modifiers: [.command, .control])
     var hotkeyPause = HotKey(key: .space, modifiers: [.command, .control])
     var hotkeySave = HotKey(key: .escape, modifiers: [.command, .control])
+    
+    func startInstantFeedback() {
+        if (!isRecognizing) {
+            instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+            instantFeedbackManager.speechRecognizerManager?.startRecording()
+            isRecognizing.toggle()
+        }
+    }
+    
+    func stopInstantFeedback() {
+        if (isRecognizing) {
+            instantFeedbackManager.speechRecognizerManager?.stopRecording()
+            instantFeedbackManager.speechRecognizerManager = nil
+            isRecognizing.toggle()
+        }
+    }
 }

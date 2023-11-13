@@ -15,7 +15,7 @@ import Firebase
 
 @main
 struct HighpitchApp: App {
-    // @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) var openWindow
@@ -163,22 +163,56 @@ struct HighpitchApp: App {
                     systemManager.hotkeySave.keyDownHandler = stopPractice
                 }
                 // MARK: 위치 이동 예정 - Loki에게 문의하세요
-//                .onChange(of: PanelData.shared.isEditMode) { _, value in
-//                    if value {
-//                        print("isEditMode가 true인거 감지")
-//                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = true
-//                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = true
-//                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = true
-//                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = true
-//                    }
-//                    else {
-//                        print("isEditMode가 false인거 감지")
-//                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = false
-//                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = false
-//                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = false
-//                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = false
-//                    }
-//                }
+                .onChange(of: PanelData.shared.isEditMode) { _, value in
+                    if value {
+                        print("isEditMode가 true인거 감지")
+                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = true
+                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = true
+                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = true
+                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = true
+                    }
+                    else {
+                        print("isEditMode가 false인거 감지")
+                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = false
+                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = false
+                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = false
+                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = false
+                    }
+                }
+                // MARK: 위치 이동 예정 - Loki에게 문의하세요
+                .onChange(of: PanelData.shared.isShow[0]) { _, value in
+                    if value {
+                        appDelegate.floatingPanelControllers[0].showPanel(self)
+                    }
+                    else {
+                        appDelegate.floatingPanelControllers[0].hidePanel(self)
+                    }
+                }
+                .onChange(of: PanelData.shared.isShow[1]) { _, value in
+                    if value {
+                        appDelegate.floatingPanelControllers[1].showPanel(self)
+                    }
+                    else {
+                        appDelegate.floatingPanelControllers[1].hidePanel(self)
+                    }
+                }
+                .onChange(of: PanelData.shared.isShow[2]) { _, value in
+                    if value {
+                        appDelegate.floatingPanelControllers[2].showPanel(self)
+                    }
+                    else {
+                        appDelegate.floatingPanelControllers[2].hidePanel(self)
+                    }
+                }
+                .onChange(of: PanelData.shared.isShow[3]) { _, value in
+                    if value {
+                        appDelegate.floatingPanelControllers[3].showPanel(self)
+                    }
+                    else {
+                        appDelegate.floatingPanelControllers[3].hidePanel(self)
+                    }
+                }
+            
         }
         .defaultSize(width: 1080, height: 600)
         .windowStyle(.hiddenTitleBar)
@@ -338,28 +372,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         floatingPanelControllers.append(floatingTimerPanelController)
         
         floatingTimerPanelController.panel?.contentView = NSHostingView(rootView: TimerPanelView(floatingPanelController: floatingTimerPanelController))
-        floatingTimerPanelController.showPanel(self)
+        // floatingTimerPanelController.showPanel(self)
         
         // 세팅 패널
         let floatingSettingPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: Int((NSScreen.main?.frame.height)! - 100), swidth: 44, sheight: 28)
         floatingPanelControllers.append(floatingSettingPanelController)
         
         floatingSettingPanelController.panel?.contentView = NSHostingView(rootView: SettingPanelView(floatingPanelController: floatingSettingPanelController))
-        floatingSettingPanelController.showPanel(self)
+        // floatingSettingPanelController.showPanel(self)
         
         // 스피드 패널
         let floatingSpeedPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 120, swidth: 120, sheight: 120)
         floatingPanelControllers.append(floatingSpeedPanelController)
         
         floatingSpeedPanelController.panel?.contentView = NSHostingView(rootView: SpeedPanelView(floatingPanelController: floatingSpeedPanelController))
-        floatingSpeedPanelController.showPanel(self)
+        // floatingSpeedPanelController.showPanel(self)
         
         // 필러워드 패널
         let floatingFillerwordPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 0, swidth: 120, sheight: 120)
         floatingPanelControllers.append(floatingFillerwordPanelController)
         
         floatingFillerwordPanelController.panel?.contentView = NSHostingView(rootView: FillerwordPanelView(floatingPanelController: floatingFillerwordPanelController))
-        floatingFillerwordPanelController.showPanel(self)
+        // floatingFillerwordPanelController.showPanel(self)
     }
 }
 

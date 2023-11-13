@@ -14,6 +14,6 @@ final class PanelData {
     
     var isEditMode = false
     
-    var isShow = [true, true, true, true]
+    var isShow = [false, false, false, false]
     var isFocused = -1
 }

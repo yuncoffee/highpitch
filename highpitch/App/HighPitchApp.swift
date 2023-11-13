@@ -211,6 +211,13 @@ struct HighpitchApp: App {
                     else {
                         appDelegate.floatingPanelControllers[3].hidePanel(self)
                     }
+                }.onChange(of: PanelData.shared.isEditMode) { _, value in
+                    if value {
+                        appDelegate.floatingPanelControllers[4].showPanel(self)
+                    }
+                    else {
+                        appDelegate.floatingPanelControllers[4].hidePanel(self)
+                    }
                 }
             
         }
@@ -345,88 +352,4 @@ extension HighpitchApp {
         
         return HotKey(key: tempKey, modifiers: tempModifiers)
     }
-}
-
-// MARK: 항상 맨 위에 떠 있는 뷰 (NSPanel)을 추가하기 위한 코드들
-class AppDelegate: NSObject, NSApplicationDelegate {
-    var floatingPanelControllers: [FloatingPanelController] = []
-    var xPositions = [
-        Int((NSScreen.main?.frame.width)! / 2) - 73,
-        Int((NSScreen.main?.frame.width)!) - 120,
-        Int((NSScreen.main?.frame.width)!) - 120,
-        Int((NSScreen.main?.frame.width)!) - 120
-    ]
-    var yPositions = [
-        Int((NSScreen.main?.frame.height)! - 100),
-        Int((NSScreen.main?.frame.height)! - 100), 120, 0]
-    var widths = [146, 44, 120, 120]
-    var heights = [56, 28, 120, 120]
-    
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // 타이머 패널
-        let floatingTimerPanelController = FloatingPanelController(
-            xPosition: Int((NSScreen.main?.frame.width)! / 2) - 73,
-            yPosition: Int((NSScreen.main?.frame.height)! - 100),
-            swidth: 146, sheight: 56
-        )
-        floatingPanelControllers.append(floatingTimerPanelController)
-        
-        floatingTimerPanelController.panel?.contentView = NSHostingView(rootView: TimerPanelView(floatingPanelController: floatingTimerPanelController))
-        // floatingTimerPanelController.showPanel(self)
-        
-        // 세팅 패널
-        let floatingSettingPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: Int((NSScreen.main?.frame.height)! - 100), swidth: 44, sheight: 28)
-        floatingPanelControllers.append(floatingSettingPanelController)
-        
-        floatingSettingPanelController.panel?.contentView = NSHostingView(rootView: SettingPanelView(floatingPanelController: floatingSettingPanelController))
-        // floatingSettingPanelController.showPanel(self)
-        
-        // 스피드 패널
-        let floatingSpeedPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 120, swidth: 120, sheight: 120)
-        floatingPanelControllers.append(floatingSpeedPanelController)
-        
-        floatingSpeedPanelController.panel?.contentView = NSHostingView(rootView: SpeedPanelView(floatingPanelController: floatingSpeedPanelController))
-        // floatingSpeedPanelController.showPanel(self)
-        
-        // 필러워드 패널
-        let floatingFillerwordPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 0, swidth: 120, sheight: 120)
-        floatingPanelControllers.append(floatingFillerwordPanelController)
-        
-        floatingFillerwordPanelController.panel?.contentView = NSHostingView(rootView: FillerwordPanelView(floatingPanelController: floatingFillerwordPanelController))
-        // floatingFillerwordPanelController.showPanel(self)
-    }
-}
-
-class FloatingPanelController: NSWindowController {
-    var panel: NSPanel?
-    
-    init(xPosition: Int, yPosition: Int, swidth: Int, sheight: Int) {
-        let panel = NSPanel(
-            contentRect: NSRect(x: xPosition, y: yPosition, width: swidth, height: sheight),
-            styleMask: [.nonactivatingPanel],
-            backing: .buffered,
-            defer: true
-        )
-        panel.backgroundColor = NSColor(.clear)
-        panel.level = .mainMenu
-        panel.collectionBehavior = [.fullScreenAuxiliary, .canJoinAllSpaces]
-        panel.orderFrontRegardless()
-        panel.isMovableByWindowBackground = false
-        
-        super.init(window: panel)
-        self.panel = panel
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func showPanel(_ sender: Any?) {
-        self.panel?.makeKeyAndOrderFront(sender)
-    }
-    
-    func hidePanel(_ sender: Any?) {
-        self.panel?.orderOut(sender)
-    }
-    
 }

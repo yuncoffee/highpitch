@@ -132,7 +132,9 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
                         self.startFillerCount = self.prevFillerCount
                     }
                 }
-                self.realTimeFillerCount = temp - self.startFillerCount
+                if (temp - self.startFillerCount >= 0) {
+                    self.realTimeFillerCount = temp - self.startFillerCount
+                }
                 self.prevFillerCount = temp
                 self.prevTime = currentTime
             }

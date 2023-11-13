@@ -23,32 +23,36 @@ struct FullScreenVideoContainer: View {
     @State
     private var isFullScreenVideoHover = false
     
+    private let SCRIPT_CONTAINER_WIDTH = 440.0
     private let INDICATOR_HEIGHT = 32.0
+    private let PRACTICE_HEADER_INFO_HEIGHT = 168.0
+    private let VIDEO_CONTROLLER_HEIGHT = 64.0
+    private let VERTICAL_PADDING = 48.0
     
     var body: some View {
         GeometryReader(content: { geometry in
-            let maxHeight = geometry.size.height - 96
+            let maxWidth = geometry.size.width - SCRIPT_CONTAINER_WIDTH
+            let maxHeight = geometry.size.height - INDICATOR_HEIGHT - VIDEO_CONTROLLER_HEIGHT - PRACTICE_HEADER_INFO_HEIGHT - VERTICAL_PADDING
+            
             ZStack(alignment: .topLeading) {
                 /// video
                 VStack {
-                    Text("geowidth \(geometry.size.width)")
-                    Text("geoheight \(geometry.size.height)")
-                    Text("Video")
+//                    Text("Video")
                 }
                 .frame(
                     maxWidth: .infinity,
                     maxHeight: .infinity
                 )
-                .background(Color.brown)
+                .background(viewStore.isFullScreenTransition ? Color.brown : .clear) 
                 .offset(
                     x: 0,
-                    y: viewStore.isFullScreenTransition ? 0 : 168
+                    y: viewStore.isFullScreenTransition ? 0 : PRACTICE_HEADER_INFO_HEIGHT
                 )
                 VStack {
                     Text("Title")
                     Text("subTitle")
                 }
-                .frame(maxWidth: .infinity, maxHeight: 64, alignment: .topLeading)
+                .frame(maxWidth: .infinity, maxHeight: VIDEO_CONTROLLER_HEIGHT, alignment: .topLeading)
                 .background(Color.purple)
                 .offset(y: viewStore.isFullScreenTransition && isFullScreenVideoHover
                         ? .zero
@@ -79,10 +83,9 @@ struct FullScreenVideoContainer: View {
                 }
             }
             .frame(
-                maxWidth: viewStore.isFullScreenTransition ? .infinity : geometry.size.width - 440,
-                maxHeight: viewStore.isFullScreenTransition ? .infinity : geometry.size.height - 96 - 168 - 48
+                maxWidth: viewStore.isFullScreenTransition ? .infinity : maxWidth,
+                maxHeight: viewStore.isFullScreenTransition ? .infinity : maxHeight
             )
-            .border(.green)
             .onHover { hovering in
                 withAnimation {
                     isFullScreenVideoHover = hovering

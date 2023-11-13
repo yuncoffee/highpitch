@@ -101,19 +101,19 @@ extension VideoContainer {
             GeometryReader { geometry in
                 let maxHeight = geometry.size.height - 96
                 VStack {
-                    Text("Video Active")
+                    Text("전체 화면 벝은")
                         .onTapGesture {
                             withAnimation {
                                 viewStore.isFullScreenVideoVisible = true
                             }
                         }
+                        .border(.blue)
                 }
                 .frame(
                     width: geometry.size.width,
                     height: maxHeight
                 )
                 .background(Color.red.opacity(0.3))
-                .border(.red)
             }
         }
         .padding(.vertical, .HPSpacing.xlarge)

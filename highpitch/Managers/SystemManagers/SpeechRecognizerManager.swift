@@ -11,7 +11,7 @@ import SwiftUI
 
 /// Speech 프레임워크와 관련된 동작을 담당하는 매니저 클래스
 @Observable
-final class SpeechRecognizerManager: SFSpeechRecognizer {
+final class SpeechRecognizerManager {
     // MARK: Properties
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ko_KR"))!
     
@@ -22,7 +22,9 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
     private let audioEngine = AVAudioEngine()
     
     // MARK: default value
+    /// 실시간 말 빠르기
     public var realTimeRate = 300.0
+    /// 실시간 습관어 횟수
     public var realTimeFillerCount = 0
     
     private var rateContainer: [[Double]] = []
@@ -32,7 +34,7 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
-    func startRecording() throws {
+    func startanalysis() throws {
         // Cancel the previous task if it's running.
         if let recognitionTask = recognitionTask {
             recognitionTask.cancel()
@@ -147,29 +149,24 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
         }
     }
     
-    func recordButtonTapped() {
-        if audioEngine.isRunning {
-            stopRecording()
-        } else {
-            // Make the authorization request.
-            SFSpeechRecognizer.requestAuthorization { authStatus in
-                // Divert to the app's main thread so that the UI
-                // can be updated.
-                switch authStatus {
-                case .authorized:
-                    do {
-                        try self.startRecording()
-                    } catch { }
-                    print("autorized with speech recognition")
-                case .denied:
-                    print("access denied")
-                case .restricted:
-                    print("access denied")
-                case .notDetermined:
-                    print("access denied")
-                default:
-                    print("access denied")
-                }
+    func startRecording() {
+        SFSpeechRecognizer.requestAuthorization { authStatus in
+            // Divert to the app's main thread so that the UI
+            // can be updated.
+            switch authStatus {
+            case .authorized:
+                do {
+                    try self.startanalysis()
+                } catch { }
+                print("autorized with speech recognition")
+            case .denied:
+                print("access denied")
+            case .restricted:
+                print("access denied")
+            case .notDetermined:
+                print("access denied")
+            default:
+                print("access denied")
             }
         }
     }

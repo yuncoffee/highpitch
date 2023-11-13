@@ -21,8 +21,6 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
     
     private let audioEngine = AVAudioEngine()
     
-    var availableToRecognition: Bool = true
-    
     // MARK: default value
     public var realTimeRate = 300.0
     public var realTimeFillerCount = 0
@@ -32,34 +30,6 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
     private var startFillerCount = 0
     private var prevTime: TimeInterval?
     
-    public func viewDidAppear() {
-        self.availableToRecognition = false
-        // Make the authorization request.
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-
-            // Divert to the app's main thread so that the UI
-            // can be updated.
-            OperationQueue.main.addOperation {
-                switch authStatus {
-                case .authorized:
-                    self.availableToRecognition = true
-                    print("autorized with speech recognition")
-                case .denied:
-                    self.availableToRecognition = false
-                    print("access denied")
-                case .restricted:
-                    self.availableToRecognition = false
-                    print("access denied")
-                case .notDetermined:
-                    self.availableToRecognition = false
-                    print("access denied")
-                default:
-                    self.availableToRecognition = false
-                    print("access denied")
-                }
-            }
-        }
-    }
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
     func startRecording() throws {
@@ -153,7 +123,6 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
                 
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
-                self.availableToRecognition = true
             }
         }
 
@@ -175,7 +144,6 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
-            self.availableToRecognition = false
         }
     }
     
@@ -183,10 +151,25 @@ final class SpeechRecognizerManager: SFSpeechRecognizer {
         if audioEngine.isRunning {
             stopRecording()
         } else {
-            if self.availableToRecognition {
-                do {
-                    try startRecording()
-                } catch { }
+            // Make the authorization request.
+            SFSpeechRecognizer.requestAuthorization { authStatus in
+                // Divert to the app's main thread so that the UI
+                // can be updated.
+                switch authStatus {
+                case .authorized:
+                    do {
+                        try self.startRecording()
+                    } catch { }
+                    print("autorized with speech recognition")
+                case .denied:
+                    print("access denied")
+                case .restricted:
+                    print("access denied")
+                case .notDetermined:
+                    print("access denied")
+                default:
+                    print("access denied")
+                }
             }
         }
     }

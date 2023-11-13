@@ -167,9 +167,6 @@ extension MainWindowView {
                 }
             }
         }
-        .onAppear {
-            speechRecognizer?.viewDidAppear()
-        }
         .frame(alignment: .topLeading)
         .navigationSplitViewColumnWidth(200)
         .padding(.top, .HPSpacing.medium)

@@ -34,10 +34,6 @@ final class SystemManager {
     var hotkeyPause = HotKey(key: .space, modifiers: [.command, .control])
     var hotkeySave = HotKey(key: .escape, modifiers: [.command, .control])
     
-<<<<<<< HEAD
-//    var instanceFeedbackManager:
-//    var speechRecog
-=======
     func startInstantFeedback() {
         if (!isRecognizing) {
             instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
@@ -53,5 +49,4 @@ final class SystemManager {
             isRecognizing.toggle()
         }
     }
->>>>>>> develop
 }

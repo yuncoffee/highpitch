@@ -36,6 +36,7 @@ struct FillerwordPanelView: View {
         .border(PanelData.shared.isEditMode
                 ? (PanelData.shared.isFocused == 3
                 ? .purple : .white) : .clear, width: 2)
+        .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         .onTapGesture {
             PanelData.shared.isFocused = 3
         }

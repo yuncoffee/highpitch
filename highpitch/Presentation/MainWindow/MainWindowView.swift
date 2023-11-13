@@ -22,7 +22,7 @@ struct MainWindowView: View {
     @Environment(ProjectManager.self)
     private var projectManager
     @Environment(\.colorScheme) var colorScheme
-    
+    var speechRecognizer = SpeechRecognizerManager()
     // MARK: - 데이터 저장을 위한 컨텍스트 객체
     @Environment(\.modelContext)
     var modelContext
@@ -158,11 +158,17 @@ extension MainWindowView {
                 .foregroundStyle(Color.HPTextStyle.darker)
                 .padding(.bottom, .HPSpacing.xsmall)
                 .padding(.horizontal, .HPSpacing.xxsmall)
+                .onTapGesture {
+                    speechRecognizer?.recordButtonTapped()
+                }
             ScrollView {
                 LazyVGrid(columns: [GridItem()], alignment: .leading) {
                     ProjectNavigationLink()
                 }
             }
+        }
+        .onAppear {
+            speechRecognizer?.viewDidAppear()
         }
         .frame(alignment: .topLeading)
         .navigationSplitViewColumnWidth(200)

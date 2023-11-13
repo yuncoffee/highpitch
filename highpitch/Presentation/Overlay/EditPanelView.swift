@@ -30,17 +30,23 @@ struct EditPanelView: View {
                 VStack(alignment: .leading) {
                     Toggle(isOn: $isChecked1) {
                         Text("습관어")
+                            .systemFont(.caption,weight: .semibold)
+                            .foregroundStyle(Color.HPTextStyle.dark)
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                     
                     Toggle(isOn: $isChecked2) {
                         Text("말 빠르기")
+                            .systemFont(.caption,weight: .semibold)
+                            .foregroundStyle(Color.HPTextStyle.dark)
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                 }
                 VStack(alignment: .leading) {
                     Toggle(isOn: $isChecked3) {
                         Text("타이머")
+                            .systemFont(.caption,weight: .semibold)
+                            .foregroundStyle(Color.HPTextStyle.dark)
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                     
@@ -50,15 +56,29 @@ struct EditPanelView: View {
             Spacer()
             
             HStack {
-                Button("기본 레이아웃 사용") {
-                    
+                Button(action: {
+                    // 버튼이 클릭되었을 때 수행되는 동작
+                }) {
+                    Text("기본 레이아웃 사용")
+                        .systemFont(.caption,weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.dark)
                 }
+                
                 Spacer()
-                Button("취소") {
-                    
+                
+                Button(action: {
+                    // 버튼이 클릭되었을 때 수행되는 동작
+                }) {
+                    Text("취소")
+                        .systemFont(.caption,weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.dark)
+                        
                 }
-                Button("확인") {
-                    
+                .background(Color.HPPrimary.base)
+                Button(action: {
+                    // 버튼이 클릭되었을 때 수행되는 동작
+                }) {
+                    Text("확인")
                 }
             }
         }

@@ -13,7 +13,7 @@ struct SettingPanelView: View {
     var body: some View {
         VStack {
             Image(systemName: "rectangle.3.group.fill")
-                .frame(width:43, height: 28)
+                .frame(width:44, height: 28.11)
                 .foregroundColor(.white)
                 .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 1 ? .purple : .white) : .clear, width: 2)
         }

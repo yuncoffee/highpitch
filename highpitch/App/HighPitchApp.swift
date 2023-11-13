@@ -15,7 +15,7 @@ import Firebase
 
 @main
 struct HighpitchApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    // @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) var openWindow

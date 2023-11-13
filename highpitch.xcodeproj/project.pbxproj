@@ -1046,11 +1046,12 @@
 			};
 			buildConfigurationList = 1DF659812AD594BD00AE5601 /* Build configuration list for PBXProject "highpitch" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 1DF6597D2AD594BD00AE5601;
 			packageReferences = (

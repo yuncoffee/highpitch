@@ -35,6 +35,7 @@ final class SpeechRecognizerManager {
     private var prevFillerCount = 0
     private var startFillerCount = 0
     private var prevTime: TimeInterval?
+    private var filePrevTime = 0.0
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
@@ -107,7 +108,10 @@ final class SpeechRecognizerManager {
                 /// temp: 습관어 횟수
                 var temp = 0
                 if let result = result {
-                    for word in result.bestTranscription.formattedString.components(separatedBy: [" "]) where word == "근데" { temp += 1 }
+                    for word in result.bestTranscription.formattedString.components(separatedBy: [" "]) {
+                        for fillerWord in FillerWordList.userFillerWordList
+                        where word == fillerWord { temp += 1}
+                    }
                 }
                 /// prevTime과 currentTime의 차이가 0.6을 넘는다면 문장을 새로 시작합니다.
                 if let prevTime = self.prevTime {
@@ -169,7 +173,7 @@ final class SpeechRecognizerManager {
                 do {
                     try self.startanalysis()
                 } catch { }
-                print("authorized with speech recognition")
+                print("autorized with speech recognition")
             case .denied:
                 print("access denied")
             case .restricted:
@@ -188,7 +192,6 @@ final class SpeechRecognizerManager {
             // can be updated.
             switch authStatus {
             case .authorized:
-                print("authorized with speech recognition")
                 // Cancel the previous task if it's running.
                 if let recognitionTask = self.recognitionTask {
                     recognitionTask.cancel()
@@ -203,19 +206,27 @@ final class SpeechRecognizerManager {
                 recognitionRequest.addsPunctuation = true
                 
                 // Keep speech recognition data on device
-                recognitionRequest.requiresOnDeviceRecognition = false
+                recognitionRequest.requiresOnDeviceRecognition = true
                 
                 // Create a recognition task for the speech recognition session.
                 // Keep a reference to the task so that it can be canceled.
                 self.recognitionTask = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
                     if let result = result {
-                        print(result.bestTranscription.formattedString)
+                        for word in result.bestTranscription.segments {
+                            if word.timestamp - self.filePrevTime > 0.4 {
+                                print()
+                            }
+                            self.filePrevTime = word.timestamp + word.duration
+                            print(word.timestamp, word.duration, word.substring)
+                        }
+                        if result.isFinal { print(result.isFinal) }
                     }
                     if error != nil {
                         self.recognitionRequest = nil
                         self.recognitionTask = nil
                     }
                 }
+                print("authorized with speech recognition")
             case .denied:
                 print("access denied")
             case .restricted:

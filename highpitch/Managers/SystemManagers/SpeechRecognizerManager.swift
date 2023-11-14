@@ -26,14 +26,13 @@ final class SpeechRecognizerManager {
     public var realTimeRate = 300.0
     /// 실시간 습관어 횟수
     public var realTimeFillerCount = 0
-//    public var realTimeFlag = 0
+    /// 실시간 말 빠르기 정도
+    public var flagCount = 0
     
     private var rateContainer: [[Double]] = []
     private var prevFillerCount = 0
     private var startFillerCount = 0
     private var prevTime: TimeInterval?
-    var flagCount = 0
-    
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
@@ -82,7 +81,8 @@ final class SpeechRecognizerManager {
                 if result.speechRecognitionMetadata == nil {
                     if answer < 700 && answer > 0 {
                         self.realTimeRate = answer
-                        if self.realTimeRate > 450 {
+                        /// flagCount를 관리합니다.
+                        if self.realTimeRate > 500 {
                             self.flagCount += 1
                             self.flagCount = max(self.flagCount, 1)
                         } else if self.realTimeRate < 200 {
@@ -92,9 +92,6 @@ final class SpeechRecognizerManager {
                             self.flagCount = 0
                         }
                     }
-                } else {
-                    // MARK: default value
-//                    self.realTimeRate = 300.0
                 }
             }
             print("flagCount: ", self.flagCount)

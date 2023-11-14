@@ -17,6 +17,8 @@ final class SpeechRecognizerManager {
     
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     
+    private var urlRecognitionRequest: SFSpeechURLRecognitionRequest?
+    
     private var recognitionTask: SFSpeechRecognitionTask?
     
     private let audioEngine = AVAudioEngine()
@@ -105,10 +107,7 @@ final class SpeechRecognizerManager {
                 /// temp: 습관어 횟수
                 var temp = 0
                 if let result = result {
-                    for word in result.bestTranscription.formattedString.components(separatedBy: [" "]) {
-                        for fillerWord in FillerWordList.userFillerWordList
-                        where word == fillerWord { temp += 1}
-                    }
+                    for word in result.bestTranscription.formattedString.components(separatedBy: [" "]) where word == "근데" { temp += 1 }
                 }
                 /// prevTime과 currentTime의 차이가 0.6을 넘는다면 문장을 새로 시작합니다.
                 if let prevTime = self.prevTime {
@@ -170,7 +169,53 @@ final class SpeechRecognizerManager {
                 do {
                     try self.startanalysis()
                 } catch { }
-                print("autorized with speech recognition")
+                print("authorized with speech recognition")
+            case .denied:
+                print("access denied")
+            case .restricted:
+                print("access denied")
+            case .notDetermined:
+                print("access denied")
+            default:
+                print("access denied")
+            }
+        }
+    }
+    
+    func startFileRecognition(url: URL) {
+        SFSpeechRecognizer.requestAuthorization { authStatus in
+            // Divert to the app's main thread so that the UI
+            // can be updated.
+            switch authStatus {
+            case .authorized:
+                print("authorized with speech recognition")
+                // Cancel the previous task if it's running.
+                if let recognitionTask = self.recognitionTask {
+                    recognitionTask.cancel()
+                    self.recognitionTask = nil
+                }
+                
+                // Create and configure the speech recognition request.
+                self.urlRecognitionRequest = SFSpeechURLRecognitionRequest(url: url)
+                guard let recognitionRequest = self.urlRecognitionRequest
+                else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+                recognitionRequest.shouldReportPartialResults = false
+                recognitionRequest.addsPunctuation = true
+                
+                // Keep speech recognition data on device
+                recognitionRequest.requiresOnDeviceRecognition = false
+                
+                // Create a recognition task for the speech recognition session.
+                // Keep a reference to the task so that it can be canceled.
+                self.recognitionTask = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
+                    if let result = result {
+                        print(result.bestTranscription.formattedString)
+                    }
+                    if error != nil {
+                        self.recognitionRequest = nil
+                        self.recognitionTask = nil
+                    }
+                }
             case .denied:
                 print("access denied")
             case .restricted:

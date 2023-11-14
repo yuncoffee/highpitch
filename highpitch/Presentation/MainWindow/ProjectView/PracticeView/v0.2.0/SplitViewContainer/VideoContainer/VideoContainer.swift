@@ -31,7 +31,8 @@ struct VideoContainer: View {
             header
             videoView
         }
-        .padding(.bottom, calcAudioIndicatorSize())
+//        .padding(.bottom, calcAudioIndicatorSize())
+//        .padding(.bottom, 64)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             // MARK: - Add MockData
@@ -50,8 +51,7 @@ extension VideoContainer {
     }
     
     private func calcAudioIndicatorSize() -> CGFloat {
-//        viewStore.currentFeedbackViewType != .every ? viewStore.AUDIO_INDICATOR_HEIGHT : .zero
-        .zero
+        viewStore.currentFeedbackViewType != .every ? viewStore.AUDIO_INDICATOR_HEIGHT : .zero
     }
 }
 
@@ -96,24 +96,28 @@ extension VideoContainer {
     
     @ViewBuilder
     private var videoView: some View {
-        GeometryReader { geometry in
-            VStack {
-                // MARK: - 영상으로 대체
-                Text("Video Active")
-                    .onTapGesture {
-                        withAnimation {
-                            viewStore.isFullScreenVideoVisible = true
+        VStack {
+            // MARK: - 영상으로 대체
+            GeometryReader { geometry in
+                let maxHeight = geometry.size.height - 96
+                VStack {
+                    Text("전체 화면 벝은")
+                        .onTapGesture {
+                            withAnimation {
+                                viewStore.isFullScreenVideoVisible = true
+                            }
                         }
-                    }
-                    .frame(
-                        maxWidth: geometry.size.width,
-                        minHeight: geometry.size.width / 16 * 10
-                    )
-                    .background(Color.gray)
+                        .border(.blue)
+                }
+                .frame(
+                    width: geometry.size.width,
+                    height: maxHeight
+                )
+                .background(Color.red.opacity(0.3))
             }
-            .padding(.vertical, .HPSpacing.xlarge)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .padding(.vertical, .HPSpacing.xlarge)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -134,6 +138,6 @@ extension VideoContainer {
                 ),
                 mediaManager: MediaManager()))
     }
-    .frame(minHeight: 600)
+    .frame(minHeight: 480)
     .padding(24)
 }

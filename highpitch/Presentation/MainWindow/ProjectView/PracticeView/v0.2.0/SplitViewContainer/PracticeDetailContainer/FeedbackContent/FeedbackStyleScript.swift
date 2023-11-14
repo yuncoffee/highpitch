@@ -106,10 +106,8 @@ extension FeedbackStyleScript {
                     containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
                     isFastSentence: viewStore.isFastSentence(sentenceIndex: sentence.index),
                     isSlowSentence: viewStore.isSlowSentence(sentenceIndex: sentence.index),
-                    nowSentece: viewStore.nowSentence,
-                    sentenceIndex: sentence.index) { sentenceIndex in
-                        print(sentenceIndex)
-                        viewStore.nowSentence = sentenceIndex
+                    nowSentece: viewStore.nowSentence) {
+                        viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
                     }
                     .id(sentence.index)
                     .padding(.bottom, .HPSpacing.xxxxsmall)
@@ -141,9 +139,8 @@ extension FeedbackStyleScript {
                     startAt: startAt,
                     endAt: endAt,
                     containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
-                    nowSentece: viewStore.nowSentence,
-                    sentenceIndex: sentence.index) { sentenceIndex in
-                        viewStore.nowSentence = sentenceIndex
+                    nowSentece: viewStore.nowSentence) {
+                        viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
                     }
                     .id(sentence.index)
                     .padding(.bottom, .HPSpacing.xxxxsmall)
@@ -191,9 +188,8 @@ extension FeedbackStyleScript {
                     containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
                     isFastSentence: isFast,
                     isSlowSentence: isSlow,
-                    nowSentece: viewStore.nowSentence,
-                    sentenceIndex: sentence.index) { sentenceIndex in
-                        viewStore.nowSentence = sentenceIndex
+                    nowSentece: viewStore.nowSentence) {
+                        viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
                     }
                     .id(sentence.index)
                     .padding(.bottom, .HPSpacing.xxxxsmall)
@@ -216,8 +212,7 @@ extension FeedbackStyleScript {
         var isFastSentence: Bool
         var isSlowSentence: Bool
         var nowSentece: Int
-        var sentenceIndex: Int
-        var completion: (_ sentenceIndex: Int) -> Void
+        var completion: () -> Void
         
         var body: some View {
             var offsetX = 0.0
@@ -266,7 +261,7 @@ extension FeedbackStyleScript {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                completion(sentenceIndex)
+                completion()
             }
         }
     }
@@ -277,8 +272,7 @@ extension FeedbackStyleScript {
         var endAt: Int
         var containerWidth: CGFloat
         var nowSentece: Int
-        var sentenceIndex: Int
-        var completion: (_ sentenceIndex: Int) -> Void
+        var completion: () -> Void
         
         var body: some View {
             var offsetX = 0.0
@@ -336,7 +330,7 @@ extension FeedbackStyleScript {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                completion(sentenceIndex)
+                completion()
             }
         }
     }
@@ -349,8 +343,7 @@ extension FeedbackStyleScript {
         var isFastSentence: Bool
         var isSlowSentence: Bool
         var nowSentece: Int
-        var sentenceIndex: Int
-        var completion: (_ sentenceIndex: Int) -> Void
+        var completion: () -> Void
         
         var body: some View {
             var offsetX = 0.0
@@ -424,7 +417,7 @@ extension FeedbackStyleScript {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                completion(sentenceIndex)
+                completion()
             }
         }
     }

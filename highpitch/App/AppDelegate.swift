@@ -20,8 +20,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var yPositions = [
         Int((NSScreen.main?.frame.height)! - 100),
         Int((NSScreen.main?.frame.height)! - 100), 120, 0]
-    var widths = [146, 44, 120, 120]
-    var heights = [56, 28, 120, 120]
+    var widths = [146, 44, 150, 120]
+    var heights = [56, 28, 150, 120]
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // 타이머 패널
@@ -50,10 +50,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         floatingSpeedPanelController.hidePanel(self)
         
         // 필러워드 패널
-        let floatingFillerwordPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 120, yPosition: 0, swidth: 120, sheight: 120)
+        let floatingFillerwordPanelController = FloatingPanelController(xPosition: Int((NSScreen.main?.frame.width)!) - 150, yPosition: 0, swidth: 150, sheight: 150)
         floatingPanelControllers.append(floatingFillerwordPanelController)
         
-        floatingFillerwordPanelController.panel?.contentView = NSHostingView(rootView: FillerwordPanelView(floatingPanelController: floatingFillerwordPanelController))
+        floatingFillerwordPanelController.panel?.contentView = NSHostingView(rootView: FillerWordPanelView(floatingPanelController: floatingFillerwordPanelController))
         floatingFillerwordPanelController.hidePanel(self)
         
         // 편집 패널

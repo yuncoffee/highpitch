@@ -26,7 +26,7 @@ struct PracticeContentContainer: View {
                 FullScreenVideoContainer()
                 SplitViewContainer()
             }
-            .padding(.bottom, .HPSpacing.xxxlarge)
+//            .padding(.bottom, .HPSpacing.xxxlarge)
             VideoControllerContainer()
         }
         .onAppear {
@@ -34,6 +34,10 @@ struct PracticeContentContainer: View {
 #if PREVIEW
             if let sample = practices.first {
                 viewStore.practice = sample
+            }
+            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+            if let url = url {
+                viewStore.practice.audioPath = url
             }
 #endif
         }

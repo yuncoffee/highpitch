@@ -14,7 +14,7 @@ import Charts
 struct SpeedAverageChart: View {
     var sentences: [SentenceModel]
     var practice: PracticeModel
-    var epmRange: [Double]
+    var epmRange: (first: Double, last: Double)
     
     var body: some View {
         VStack {
@@ -24,11 +24,11 @@ struct SpeedAverageChart: View {
                 RectangleMark(
                     xStart: .value("", 0.5),
                     xEnd: .value("", Double(sentences.count) + 0.5),
-                    yStart: .value("", epmRange.first! - 10.0),
+                    yStart: .value("", epmRange.first - 10.0),
                     yEnd: .value(
                         "",
                         max(
-                            epmRange.first! - 10.0,
+                            epmRange.first - 10.0,
                             practice.summary.epmAverage - 100.0
                     ))
                 )
@@ -36,9 +36,9 @@ struct SpeedAverageChart: View {
                 RectangleMark(
                     xStart: .value("", 0.5),
                     xEnd: .value("", Double(sentences.count) + 0.5),
-                    yStart: .value("", min(epmRange.last! + 10.0,
+                    yStart: .value("", min(epmRange.last + 10.0,
                                            practice.summary.epmAverage + 100.0)),
-                    yEnd: .value("", epmRange.last! + 10.0)
+                    yEnd: .value("", epmRange.last + 10.0)
                 )
                 .foregroundStyle(Color.HPComponent.highlight)
                 
@@ -113,7 +113,7 @@ struct SpeedAverageChart: View {
                 }
             }
             .chartXScale(domain: [0.5, Double(sentences.count) + 0.5])
-            .chartYScale(domain: [epmRange.first! - 10.0, epmRange.last! + 10.0])
+            .chartYScale(domain: [epmRange.first - 10.0, epmRange.last + 10.0])
             .chartLegend(.hidden)
             .padding(.trailing, .HPSpacing.xxxlarge)
             .padding(.bottom, .HPSpacing.large)

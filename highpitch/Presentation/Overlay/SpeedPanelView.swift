@@ -35,24 +35,23 @@ struct SpeedPanelView: View {
                     speedIndicatorTrack()
                     speedIndicator(percent: calcSpeedRate(rate: realTimeRate))
                     Image(
-                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -5
+                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate
                         ? "tortoise.fill"
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 5
+                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate
                         ? "hare.fill"
                         : ""
                     )
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(
-                        calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -5
+                        calcSpeedRate(rate: realTimeRate) < underSpeedRate
                         ? Color("22D71E")
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 5
+                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate
                         ? Color("FF9500")
                         : Color("FFFFFF").opacity(0.2)
                     )
                     .frame(width: 24, height: 24)
                     .symbolEffect(.bounce, value: realTimeRate)
-                    .opacity(calcSpeedRate(rate: realTimeRate) > underSpeedRate && calcSpeedRate(rate: realTimeRate) < overSpeedRate ? 0 : 1)
                     Text("말 빠르기")
                         .systemFont(.caption)
                         .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
@@ -65,7 +64,6 @@ struct SpeedPanelView: View {
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }
-        .opacity(realTimeRate > DEFUALT_SPEED + 100 || realTimeRate < DEFUALT_SPEED - 100 ? 1 : 0.3)
         .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
         .overlay {
             ZStack(alignment: .topTrailing) {
@@ -119,7 +117,7 @@ struct SpeedPanelView: View {
 
 extension SpeedPanelView {
     private func calcSpeedRate(rate: Double) -> Double {
-        var result = rate / (DEFUALT_SPEED * 4 / 100)
+        let result = rate / (DEFUALT_SPEED * 4 / 100)
         return result < 0 ? 0 : result > 50 ? 50 : result
     }
 }
@@ -133,9 +131,9 @@ extension SpeedPanelView {
         )
         .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
         .fill(
-            percent < underSpeedRate && flagCount < -5
+            percent < underSpeedRate
             ? Color("22D71E")
-            : percent > overSpeedRate && flagCount > 5
+            : percent > overSpeedRate
             ? Color("FF9500")
             : Color("FFFFFF").opacity(0.2)
         )

@@ -16,12 +16,16 @@ struct SpeedPanelView: View {
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 0
     }
     
+    private var flagCount: Int {
+        SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.flagCount ?? 0
+    }
+    
     private var underSpeedRate: Double {
         calcSpeedRate(rate: DEFUALT_SPEED - 100.0)
     }
     
     private var overSpeedRate: Double {
-        calcSpeedRate(rate: DEFUALT_SPEED + 100.0)
+        calcSpeedRate(rate: DEFUALT_SPEED + 150.0)
     }
     
     var body: some View {
@@ -31,18 +35,18 @@ struct SpeedPanelView: View {
                     speedIndicatorTrack()
                     speedIndicator(percent: calcSpeedRate(rate: realTimeRate))
                     Image(
-                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate
+                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -5
                         ? "tortoise.fill"
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate
+                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 5
                         ? "hare.fill"
-                        : "microbe.fill"
+                        : ""
                     )
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(
-                        calcSpeedRate(rate: realTimeRate) < underSpeedRate
+                        calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -5
                         ? Color("22D71E")
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate
+                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 5
                         ? Color("FF9500")
                         : Color("FFFFFF").opacity(0.2)
                     )
@@ -129,9 +133,9 @@ extension SpeedPanelView {
         )
         .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
         .fill(
-            percent < underSpeedRate
+            percent < underSpeedRate && flagCount < -5
             ? Color("22D71E")
-            : percent > overSpeedRate
+            : percent > overSpeedRate && flagCount > 5
             ? Color("FF9500")
             : Color("FFFFFF").opacity(0.2)
         )

@@ -40,7 +40,7 @@ struct FeedbackStyleScript: View {
             if let sample = practices.first {
                 viewStore.practice = sample
             }
-            viewStore.currentFeedbackViewType = .speed
+            viewStore.currentFeedbackViewType = .fillerWord
 #endif
         }
     }
@@ -121,36 +121,42 @@ extension FeedbackStyleScript {
     
     @ViewBuilder
     func fillerWordScriptCell(sentence: SentenceModel, isSelected: Bool) -> some View {
-        HStack(alignment: .top, spacing: .HPSpacing.xxsmall) {
-            HPLabel(
-                content: (intToMMSS(input: sentence.startAt), nil),
-                type: .blockFill(.HPCornerRadius.small),
-                size: .small,
-                color: isSelected ? .HPPrimary.lightness : .clear,
-                contentColor: isSelected ? .HPPrimary.dark : .HPPrimary.light,
-                fontStyle: .systemDetail(.footnote, .semibold),
-                padding: (.zero, .HPSpacing.xxxsmall)
-            )
-            .fixedSize()
-            let words = viewStore.getContainsWords(sentenceIndex: sentence.index)
-            if let startAt = words.first?.index, let endAt = words.last?.index {
-                FillerWordScriptCell(
-                    words: words,
-                    startAt: startAt,
-                    endAt: endAt,
-                    containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
-                    nowSentece: viewStore.nowSentence) {
-                        viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
-                    }
-                    .id(sentence.index)
-                    .padding(.bottom, .HPSpacing.xxxxsmall)
+        let words = viewStore.getContainsWords(sentenceIndex: sentence.index)
+        let hasFillerWord = words.firstIndex(where: { $0.isFillerWord })
+        
+        if hasFillerWord != nil {
+            HStack(alignment: .top, spacing: .HPSpacing.xxsmall) {
+                HPLabel(
+                    content: (intToMMSS(input: sentence.startAt), nil),
+                    type: .blockFill(.HPCornerRadius.small),
+                    size: .small,
+                    color: isSelected ? .HPPrimary.lightness : .clear,
+                    contentColor: isSelected ? .HPPrimary.dark : .HPPrimary.light,
+                    fontStyle: .systemDetail(.footnote, .semibold),
+                    padding: (.zero, .HPSpacing.xxxsmall)
+                )
+                .fixedSize()
+                if let startAt = words.first?.index, let endAt = words.last?.index {
+                    FillerWordScriptCell(
+                        words: words,
+                        startAt: startAt,
+                        endAt: endAt,
+                        containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
+                        nowSentece: viewStore.nowSentence) {
+                            viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
+                        }
+                        .id(sentence.index)
+                        .padding(.bottom, .HPSpacing.xxxxsmall)
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .padding(.vertical, .HPSpacing.xxxsmall)
+            .padding(.horizontal, .HPSpacing.xxsmall)
+            .background(isSelected ? Color.HPComponent.Section.point : .clear)
+            .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
+        } else {
+            EmptyView()
         }
-        .frame(maxWidth: .infinity, alignment: .topLeading)
-        .padding(.vertical, .HPSpacing.xxxsmall)
-        .padding(.horizontal, .HPSpacing.xxsmall)
-        .background(isSelected ? Color.HPComponent.Section.point : .clear)
-        .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
     }
     
     @ViewBuilder

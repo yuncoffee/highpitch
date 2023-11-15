@@ -39,7 +39,6 @@ struct FillerWordPanelView: View {
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }
-        .opacity(realTimeFillerCount > 0 ? 1 : 0.3)
         .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
         .overlay {
             ZStack(alignment: .topTrailing) {

@@ -17,6 +17,8 @@ final class SpeechRecognizerManager {
     
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     
+    private var urlRecognitionRequest: SFSpeechURLRecognitionRequest?
+    
     private var recognitionTask: SFSpeechRecognitionTask?
     
     private let audioEngine = AVAudioEngine()
@@ -26,14 +28,18 @@ final class SpeechRecognizerManager {
     public var realTimeRate = 300.0
     /// 실시간 습관어 횟수
     public var realTimeFillerCount = 0
-//    public var realTimeFlag = 0
+    /// 실시간 말 빠르기 정도
+    public var flagCount = 0
     
     private var rateContainer: [[Double]] = []
     private var prevFillerCount = 0
     private var startFillerCount = 0
     private var prevTime: TimeInterval?
-    var flagCount = 0
     
+    private var startAt = 0.0
+    private var endAt = 0.0
+    private var message = ""
+    private var isFinal = false
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
@@ -82,7 +88,8 @@ final class SpeechRecognizerManager {
                 if result.speechRecognitionMetadata == nil {
                     if answer < 700 && answer > 0 {
                         self.realTimeRate = answer
-                        if self.realTimeRate > 450 {
+                        /// flagCount를 관리합니다.
+                        if self.realTimeRate > 500 {
                             self.flagCount += 1
                             self.flagCount = max(self.flagCount, 1)
                         } else if self.realTimeRate < 200 {
@@ -92,9 +99,6 @@ final class SpeechRecognizerManager {
                             self.flagCount = 0
                         }
                     }
-                } else {
-                    // MARK: default value
-//                    self.realTimeRate = 300.0
                 }
             }
             print("flagCount: ", self.flagCount)
@@ -184,5 +188,76 @@ final class SpeechRecognizerManager {
                 print("access denied")
             }
         }
+    }
+    
+    func startFileRecognition(url: URL) async -> [UtteranceModel] {
+        var answer: [UtteranceModel] = []
+        SFSpeechRecognizer.requestAuthorization { authStatus in
+            // Divert to the app's main thread so that the UI
+            // can be updated.
+            if authStatus == .authorized {
+                print("authorized with speech recognition")
+                // Cancel the previous task if it's running.
+                if let recognitionTask = self.recognitionTask {
+                    recognitionTask.cancel()
+                    self.recognitionTask = nil
+                }
+                
+                // Create and configure the speech recognition request.
+                self.urlRecognitionRequest = SFSpeechURLRecognitionRequest(url: url)
+                guard let recognitionRequest = self.urlRecognitionRequest
+                else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+                recognitionRequest.shouldReportPartialResults = false
+                recognitionRequest.addsPunctuation = true
+                
+                // Keep speech recognition data on device
+                recognitionRequest.requiresOnDeviceRecognition = true
+                
+                // Create a recognition task for the speech recognition session.
+                // Keep a reference to the task so that it can be canceled.
+                self.recognitionTask
+                = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
+                    if let result = result {
+                        for word in result.bestTranscription.segments {
+                            /// 지난 단어와 간격이 0.4초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
+                            if (word.timestamp - self.endAt > 0.5)
+                                || (result.isFinal) {
+                                if self.message != "" {
+                                    self.message += "."
+                                    print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
+                                    answer.append(UtteranceModel(
+                                        startAt: Int(self.startAt * 1000),
+                                        duration: Int((self.endAt - self.startAt) * 1000),
+                                        message: self.message
+                                    ))
+                                }
+                                self.startAt = word.timestamp
+                                self.message = word.substring
+                            } else if (word.substring != "") {
+                                self.message += " "; self.message += word.substring
+                            }
+                            self.endAt = word.timestamp + word.duration
+                        }
+                        if result.isFinal { self.isFinal = true }
+                        
+                    }
+                    if error != nil {
+                        self.recognitionRequest = nil
+                        self.recognitionTask = nil
+                    }
+                }
+            } else {
+                self.isFinal = true
+                print("access denied")
+            }
+        }
+        while(!isFinal) {
+            do {
+                try await Task.sleep(nanoseconds: 100_000_000)
+            } catch {
+                print("task.sleep 오류")
+            }
+        }
+        return answer
     }
 }

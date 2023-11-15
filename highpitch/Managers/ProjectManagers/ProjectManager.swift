@@ -70,7 +70,7 @@ extension ProjectManager {
         /// 녹음본 파일 위치 : /Users/{사용자이름}/Documents/HighPitch/Audio.YYYYMMDDHHMMSS.m4a
         /// ReturnZero API를 이용해서 UtteranceModel완성
         Task {
-            let newUtteranceModels = await makeNewUtterances(mediaManager: mediaManager)
+            let newUtteranceModels = await makeNewUtterancesV2(mediaManager: mediaManager)
             /// 아무말도 하지 않았을 경우 종료한다.
             if newUtteranceModels.isEmpty {
                 print("none of words!")
@@ -122,6 +122,16 @@ extension ProjectManager {
             print(error)
         }
         return result
+    }
+    
+    private func makeNewUtterancesV2(mediaManager: MediaManager) async -> [UtteranceModel] {
+        SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+        var returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
+            .startFileRecognition(url: URL(
+                fileURLWithPath:mediaManager.getPath(fileName: mediaManager.fileName
+            ).path())) ?? []
+        SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
+        return returnValue
     }
     
     private func makeNewProject(keynoteManager: KeynoteManager, modelContext: ModelContext) {

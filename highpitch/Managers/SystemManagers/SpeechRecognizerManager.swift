@@ -35,7 +35,11 @@ final class SpeechRecognizerManager {
     private var prevFillerCount = 0
     private var startFillerCount = 0
     private var prevTime: TimeInterval?
-    private var filePrevTime = 0.0
+    
+    private var startAt = 0.0
+    private var endAt = 0.0
+    private var message = ""
+    private var isFinal = false
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
@@ -186,12 +190,13 @@ final class SpeechRecognizerManager {
         }
     }
     
-    func startFileRecognition(url: URL) {
+    func startFileRecognition(url: URL) async -> [UtteranceModel] {
+        var answer: [UtteranceModel] = []
         SFSpeechRecognizer.requestAuthorization { authStatus in
             // Divert to the app's main thread so that the UI
             // can be updated.
-            switch authStatus {
-            case .authorized:
+            if authStatus == .authorized {
+                print("authorized with speech recognition")
                 // Cancel the previous task if it's running.
                 if let recognitionTask = self.recognitionTask {
                     recognitionTask.cancel()
@@ -210,32 +215,49 @@ final class SpeechRecognizerManager {
                 
                 // Create a recognition task for the speech recognition session.
                 // Keep a reference to the task so that it can be canceled.
-                self.recognitionTask = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
+                self.recognitionTask
+                = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
                     if let result = result {
                         for word in result.bestTranscription.segments {
-                            if word.timestamp - self.filePrevTime > 0.4 {
-                                print()
+                            /// 지난 단어와 간격이 0.4초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
+                            if (word.timestamp - self.endAt > 0.4)
+                                || (result.isFinal) {
+                                if self.message != "" {
+                                    self.message += "."
+                                    print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
+                                    answer.append(UtteranceModel(
+                                        startAt: Int(self.startAt * 1000),
+                                        duration: Int((self.endAt - self.startAt) * 1000),
+                                        message: self.message
+                                    ))
+                                }
+                                self.startAt = word.timestamp
+                                self.message = word.substring
+                            } else {
+                                self.message += " "; self.message += word.substring
                             }
-                            self.filePrevTime = word.timestamp + word.duration
-                            print(word.timestamp, word.duration, word.substring)
+                            self.endAt = word.timestamp + word.duration
                         }
-                        if result.isFinal { print(result.isFinal) }
+                        if result.isFinal { self.isFinal = true }
+                        
                     }
                     if error != nil {
                         self.recognitionRequest = nil
                         self.recognitionTask = nil
                     }
                 }
-                print("authorized with speech recognition")
-            case .denied:
-                print("access denied")
-            case .restricted:
-                print("access denied")
-            case .notDetermined:
-                print("access denied")
-            default:
+            } else {
+                self.isFinal = true
                 print("access denied")
             }
         }
+        while(!isFinal) {
+            do {
+                try await Task.sleep(nanoseconds: 100_000_000)
+            } catch {
+                print("task.sleep 오류")
+            }
+        }
+        return answer
     }
 }

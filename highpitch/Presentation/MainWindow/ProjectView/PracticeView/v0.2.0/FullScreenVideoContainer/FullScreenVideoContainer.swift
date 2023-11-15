@@ -22,6 +22,16 @@ struct FullScreenVideoContainer: View {
     
     @State
     private var isFullScreenVideoHover = false
+    @State
+    private var isIndicatorActive: Bool = true {
+        didSet {
+            if !isIndicatorActive {
+                viewStore.currentFeedbackViewType = .every
+            } else {
+                viewStore.currentFeedbackViewType = .fillerWord
+            }
+        }
+    }
     
     private let SCRIPT_CONTAINER_WIDTH = 440.0
     private let INDICATOR_HEIGHT = 32.0
@@ -73,8 +83,9 @@ struct FullScreenVideoContainer: View {
             if let url = url {
                 viewStore.practice.audioPath = url
             }
-//            viewStore.isFullScreenTransition = true
-//            isFullScreenVideoHover = true
+            viewStore.isFullScreenTransition = true
+            viewStore.isFullScreenVideoVisible = true
+            isFullScreenVideoHover = true
 #endif
         }
     }
@@ -114,22 +125,95 @@ extension FullScreenVideoContainer {
     }
     
     @ViewBuilder
+    var currentEveryFeedbackToggleButton: some View {
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 12)
+                .frame(width: 30, height: 10)
+                .foregroundStyle(
+                    isIndicatorActive
+                    ? Color.HPPrimary.base
+                    : Color.HPGray.system400
+                )
+            Circle()
+                .frame(width: 18, height: 18)
+                .foregroundStyle(
+                    isIndicatorActive
+                    ? Color.HPGray.systemWhite
+                    : Color.HPGray.system200
+                )
+                .offset(x: isIndicatorActive ? 16 : -2 )
+        }
+        .onTapGesture {
+            withAnimation {
+                isIndicatorActive.toggle()
+            }
+        }
+    }
+    
+    @ViewBuilder
     func footerHoverContainer(geoHeight: CGFloat) -> some View {
         HStack(alignment: .top) {
-            HStack {
-                Text("토글")
-                Text("토글토글")
-                Text("토글토글토글")
-                Text("전체화면")
+            HStack(spacing: .HPSpacing.xxsmall) {
+                // 인디케이터가 보이게 하는 친구
+                currentEveryFeedbackToggleButton
+                if isIndicatorActive {
+                    HStack {
+                        HPButton(
+                            type: .roundFill,
+                            size: .small,
+                            color: viewStore.currentFeedbackViewType == .fillerWord
+                                ? .HPSecondary.base
+                                : .HPGray.system200
+                        ) {
+                            viewStore.currentFeedbackViewType = .fillerWord
+                        } label: { type, size, color, expandable in
+                            HPLabel(
+                                content: ("습관어", nil),
+                                type: type,
+                                size: size,
+                                color: color,
+                                contentColor: viewStore.currentFeedbackViewType == .fillerWord ? nil : .HPTextStyle.base,
+                                expandable: expandable,
+                                padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
+                            )
+                        }
+                        .fixedSize()
+                        HPButton(
+                            type: .roundFill,
+                            size: .small,
+                            color: viewStore.currentFeedbackViewType == .speed
+                            ? .HPSecondary.base
+                            : .HPGray.system200
+                        ) {
+                            viewStore.currentFeedbackViewType = .speed
+                        } label: { type, size, color, expandable in
+                            HPLabel(
+                                content: ("말 빠르기", nil),
+                                type: type,
+                                size: size,
+                                color: color,
+                                contentColor: viewStore.currentFeedbackViewType == .speed ? nil : .HPTextStyle.base,
+                                expandable: expandable,
+                                padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
+                            )
+                        }
+                        .fixedSize()
+                    }
+                }
+                Image("expandVideo")
                     .onTapGesture {
                         withAnimation {
                             viewStore.isFullScreenVideoActive = false
                         }
                     }
             }
-            .frame(maxWidth: .infinity, maxHeight: FOOTER_HOVER_CONTAINER_HEIGHT)
-            .border(.blue)
+            .frame(
+                maxWidth: .infinity,
+                maxHeight: FOOTER_HOVER_CONTAINER_HEIGHT,
+                alignment: .trailing
+            )
         }
+        .padding(.horizontal, .HPSpacing.xsmall)
         .frame(
             maxWidth: .infinity,
             maxHeight: FOOTER_HOVER_CONTAINER_HEIGHT + INDICATOR_HEIGHT,
@@ -146,7 +230,6 @@ extension FullScreenVideoContainer {
                 endPoint: .top
             )
         )
-        .border(.red)
         .offset(y: viewStore.isFullScreenTransition && isFullScreenVideoHover
                 ? viewStore.currentFeedbackViewType == .every
                 ? geoHeight - VIDEO_CONTROLLER_HEIGHT - VERTICAL_PADDING

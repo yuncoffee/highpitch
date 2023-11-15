@@ -15,10 +15,6 @@ struct VideoContainer: View {
     // MARK: - 시간 초과한 프로젝트인 경우 체크 -> viewStore.practice.summary로 이동해야함.
     @State
     private var isTimeOverPractice = true
-    @State
-    private var planedTime = "7분 30초"
-    @State
-    private var overedTime = "3분 15초"
     
 #if PREVIEW
     // MARK: - MockData
@@ -83,6 +79,7 @@ extension VideoContainer {
                         .onTapGesture {
                             withAnimation {
                                 viewStore.isFullScreenVideoVisible = true
+                                viewStore.currentFeedbackViewType = .fillerWord
                             }
                         }
                         .border(.blue)

@@ -52,7 +52,6 @@ struct SpeedPanelView: View {
                     )
                     .frame(width: 24, height: 24)
                     .symbolEffect(.bounce, value: realTimeRate)
-                    .opacity(calcSpeedRate(rate: realTimeRate) > underSpeedRate && calcSpeedRate(rate: realTimeRate) < overSpeedRate ? 0 : 1)
                     Text("말 빠르기")
                         .systemFont(.caption)
                         .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
@@ -118,7 +117,7 @@ struct SpeedPanelView: View {
 
 extension SpeedPanelView {
     private func calcSpeedRate(rate: Double) -> Double {
-        var result = rate / (DEFUALT_SPEED * 4 / 100)
+        let result = rate / (DEFUALT_SPEED * 4 / 100)
         return result < 0 ? 0 : result > 50 ? 50 : result
     }
 }

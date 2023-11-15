@@ -152,7 +152,12 @@ extension MainWindowView {
     @ViewBuilder
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("프로젝트 이름")
+            Button {
+                print("전체통계")
+            } label: {
+                Text("전체 통계")
+            }
+            Text("내 프로젝트")
                 .systemFont(.body, weight: .semibold)
                 .foregroundStyle(Color.HPTextStyle.darker)
                 .padding(.bottom, .HPSpacing.xsmall)

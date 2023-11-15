@@ -30,6 +30,9 @@ struct VideoContainer: View {
         VStack(alignment: .leading, spacing: .zero) {
             header
             videoView
+            if !viewStore.isFullScreenTransition {
+                VideoControllerContainer()
+            }
         }
 //        .padding(.bottom, calcAudioIndicatorSize())
 //        .padding(.bottom, 64)
@@ -64,31 +67,6 @@ extension VideoContainer {
                 .foregroundStyle(Color.HPTextStyle.light)
             Text("\(viewStore.practice.practiceName)")
                 .systemFont(.largeTitle)
-            HStack {
-                HPLabel(
-                    content: ("목표시간 \(planedTime)", "clock"),
-                    type: .blockFill(4),
-                    color: .HPGray.system200,
-                    alignStyle: .iconWithText,
-                    contentColor: .HPTextStyle.dark,
-                    fontStyle: .styled(.detailTimeFeedback),
-                    padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxxsmall)
-                )
-                .fixedSize()
-                if isTimeOverPractice {
-                    HPLabel(
-                        content: ("+ \(overedTime) 초과", nil),
-                        type: .blockFill(4),
-                        color: .HPComponent.TimeFeedback.background,
-                        alignStyle: .iconWithText,
-                        contentColor: .HPComponent.TimeFeedback.text,
-                        fontStyle: .styled(.detailTimeFeedback),
-                        padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxxsmall)
-                        
-                    )
-                    .fixedSize()
-                }
-            }
         }
         .padding(.top, .HPSpacing.small + .HPSpacing.xxxxsmall)
         .padding(.leading, .HPSpacing.small)

@@ -25,7 +25,7 @@ struct FullScreenVideoContainer: View {
     
     private let SCRIPT_CONTAINER_WIDTH = 440.0
     private let INDICATOR_HEIGHT = 32.0
-    private let PRACTICE_HEADER_INFO_HEIGHT = 168.0
+    private let PRACTICE_HEADER_INFO_HEIGHT = 142.0
     private let VIDEO_CONTROLLER_HEIGHT = 64.0
     private let VERTICAL_PADDING = 48.0
     private let FOOTER_HOVER_CONTAINER_HEIGHT = 54.0

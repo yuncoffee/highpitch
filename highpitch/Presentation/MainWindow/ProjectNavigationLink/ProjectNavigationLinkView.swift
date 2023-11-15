@@ -71,6 +71,26 @@ struct ProjectNavigationLink: View {
                     .padding(.leading, .HPSpacing.xxxsmall)
                     .padding(.trailing, .HPSpacing.xxsmall)
             }
+            HPButton(
+                type: .blockFill(.HPCornerRadius.medium),
+                size: .medium,
+                color: .HPPrimary.lightnest
+            ) {
+                print("새 프로젝트 추가")
+            } label: { type, size, color, expandable in
+                HPLabel(
+                    content: ("새 프로젝트 추가", "plus"),
+                    type: type,
+                    size: size,
+                    color: color,
+                    alignStyle: .iconWithText,
+                    contentColor: .HPPrimary.base,
+                    expandable: expandable
+                )
+            }
+            .padding(.leading, .HPSpacing.xxxsmall)
+            .padding(.trailing, .HPSpacing.xxsmall)
+
         }
         .padding(.bottom, .HPSpacing.xxlarge)
     }

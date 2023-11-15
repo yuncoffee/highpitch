@@ -131,7 +131,7 @@
 		43976D502B01A0C800816620 /* SettingPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D4F2B01A0C800816620 /* SettingPanelView.swift */; };
 		43976D522B01A0DA00816620 /* SpeedPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D512B01A0DA00816620 /* SpeedPanelView.swift */; };
 		43976D542B01A0F900816620 /* FillerWordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D532B01A0F900816620 /* FillerWordPanelView.swift */; };
-		43976D562B01A13500816620 /* PanelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D552B01A13500816620 /* PanelData.swift */; };
+		43976D562B01A13500816620 /* InstantFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D552B01A13500816620 /* InstantFeedbackManager.swift */; };
 		43F1D9B92AE6F094001A7225 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 43F1D9B82AE6F094001A7225 /* HotKey */; };
 /* End PBXBuildFile section */
 
@@ -274,7 +274,7 @@
 		43976D4F2B01A0C800816620 /* SettingPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPanelView.swift; sourceTree = "<group>"; };
 		43976D512B01A0DA00816620 /* SpeedPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedPanelView.swift; sourceTree = "<group>"; };
 		43976D532B01A0F900816620 /* FillerWordPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordPanelView.swift; sourceTree = "<group>"; };
-		43976D552B01A13500816620 /* PanelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelData.swift; sourceTree = "<group>"; };
+		43976D552B01A13500816620 /* InstantFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantFeedbackManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -584,6 +584,7 @@
 				10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */,
 				10C7D1F72ADD8E6A008691CD /* AuthManager.swift */,
 				1DDB9D4F2AF75529001CA7CC /* GAManager.swift */,
+				43976D552B01A13500816620 /* InstantFeedbackManager.swift */,
 			);
 			path = SystemManagers;
 			sourceTree = "<group>";
@@ -795,7 +796,6 @@
 				43976D512B01A0DA00816620 /* SpeedPanelView.swift */,
 				43976D532B01A0F900816620 /* FillerWordPanelView.swift */,
 				4373739D2B021F1A00DEEDBD /* EditPanelView.swift */,
-				43976D552B01A13500816620 /* PanelData.swift */,
 				4373739F2B0224BD00DEEDBD /* FloatingPanelController.swift */,
 			);
 			path = Overlay;
@@ -1233,7 +1233,7 @@
 				1D1EC6A52AFB990100CB72E9 /* PracticeDetailContainer.swift in Sources */,
 				1DF659C52AD5992C00AE5601 /* SettingsView.swift in Sources */,
 				1D1EC69F2AFB978900CB72E9 /* VideoControllerContainer.swift in Sources */,
-				43976D562B01A13500816620 /* PanelData.swift in Sources */,
+				43976D562B01A13500816620 /* InstantFeedbackManager.swift in Sources */,
 				1D1EC68C2AFB351800CB72E9 /* SentenceInfo.swift in Sources */,
 				43556EAB2ADE80A900B3E7B7 /* UtteranceModel.swift in Sources */,
 				1DDB9D072AF2B1D4001CA7CC /* SystemManager.swift in Sources */,

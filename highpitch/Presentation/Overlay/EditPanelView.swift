@@ -10,9 +10,9 @@ import SwiftUI
 struct EditPanelView: View {
     var floatingPanelController: FloatingPanelController
     
-    @State private var isChecked1 = false
-    @State private var isChecked2 = false
-    @State private var isChecked3 = false
+    @State private var fillerWordPanelOn = false
+    @State private var speedPanelOn = false
+    @State private var timerPanelOn = false
 
     var body: some View {
         VStack {
@@ -28,14 +28,17 @@ struct EditPanelView: View {
             }
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
-                    Toggle(isOn: $isChecked1) {
+                    Toggle(isOn: $fillerWordPanelOn) {
                         Text("습관어")
                             .systemFont(.caption,weight: .semibold)
                             .foregroundStyle(Color.HPTextStyle.dark)
+                            .onChange(of: fillerWordPanelOn) { _, value in
+                                
+                            }
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                     
-                    Toggle(isOn: $isChecked2) {
+                    Toggle(isOn: $speedPanelOn) {
                         Text("말 빠르기")
                             .systemFont(.caption,weight: .semibold)
                             .foregroundStyle(Color.HPTextStyle.dark)
@@ -43,7 +46,7 @@ struct EditPanelView: View {
                     .toggleStyle(PurpleCheckboxStyle())
                 }
                 VStack(alignment: .leading) {
-                    Toggle(isOn: $isChecked3) {
+                    Toggle(isOn: $timerPanelOn) {
                         Text("타이머")
                             .systemFont(.caption,weight: .semibold)
                             .foregroundStyle(Color.HPTextStyle.dark)
@@ -58,6 +61,8 @@ struct EditPanelView: View {
             HStack {
                 Button(action: {
                     // 버튼이 클릭되었을 때 수행되는 동작
+                    // activePanel에 모두 다 넣고
+                    // 위치 조절
                 }) {
                     Text("기본 레이아웃 사용")
                         .systemFont(.caption,weight: .semibold)
@@ -67,7 +72,7 @@ struct EditPanelView: View {
                 Spacer()
                 
                 Button(action: {
-                    // 버튼이 클릭되었을 때 수행되는 동작
+                    SystemManager.shared.instantFeedbackManager.isEditMode = false
                 }) {
                     Text("취소")
                         .systemFont(.caption,weight: .semibold)
@@ -85,7 +90,7 @@ struct EditPanelView: View {
         .frame(width: 436, height: 252)
         .background(Color.white)
         .onTapGesture {
-            PanelData.shared.isFocused = 3
+            SystemManager.shared.instantFeedbackManager.isFocused = .detailSetting
         }
     }
 }

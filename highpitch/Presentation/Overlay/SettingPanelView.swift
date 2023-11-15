@@ -14,15 +14,13 @@ struct SettingPanelView: View {
         VStack {
             Image(systemName: "rectangle.3.group.fill")
                 .frame(width:44, height: 28.11)
-                .foregroundColor(.white)
-                .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 1 ? .purple : .white) : .clear, width: 2)
+                .foregroundColor(SystemManager.shared.instantFeedbackManager.isEditMode ? .red : .white)
+                // .border(SystemManager.shared.instantFeedbackManager.isEditMode ? (SystemManager.shared.instantFeedbackManager.isFocused == .setting ? .purple : .white) : .clear, width: 2)
         }
         .onTapGesture {
-            PanelData.shared.isEditMode.toggle()
-            print("편집기능: \(PanelData.shared.isEditMode)")
-        }
-        .onTapGesture {
-            PanelData.shared.isFocused = 1
+            SystemManager.shared.instantFeedbackManager.isEditMode.toggle()
+            SystemManager.shared.instantFeedbackManager.isFocused = .setting
+            print("편집기능: \(SystemManager.shared.instantFeedbackManager.isEditMode)")
         }
     }
 }

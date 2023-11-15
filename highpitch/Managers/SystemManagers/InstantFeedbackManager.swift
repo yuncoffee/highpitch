@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-@Observable
-final class PanelData {
-    private init() {}
-    static var shared = PanelData()
-    
-    var isEditMode = false
-    
-    var isShow = [false, false, false, false]
-    var isFocused = -1
-}
-
 enum InstantPanel: CaseIterable {
     case setting
     case detailSetting

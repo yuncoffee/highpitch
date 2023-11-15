@@ -162,61 +162,21 @@ struct HighpitchApp: App {
                     systemManager.hotkeyPause.keyDownHandler = pausePractice
                     systemManager.hotkeySave.keyDownHandler = stopPractice
                 }
-                // MARK: 위치 이동 예정 - Loki에게 문의하세요
-                .onChange(of: PanelData.shared.isEditMode) { _, value in
-                    if value {
-                        print("isEditMode가 true인거 감지")
-                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = true
-                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = true
-                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = true
-                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = true
-                    }
-                    else {
-                        print("isEditMode가 false인거 감지")
-                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = false
-                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = false
-                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = false
-                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = false
+                // Panel들 관리: Edit모드로 변경 시, 상세설정 Panel 띄워준다.
+                .onChange(of: systemManager.instantFeedbackManager.isEditMode) { _, isEditModeOn in                    
+                    if isEditModeOn {
+                        appDelegate.floatingPanelControllers[InstantPanel.detailSetting]?.showPanel(self)
+                    } else {
+                        appDelegate.floatingPanelControllers[InstantPanel.detailSetting]?.hidePanel(self)
                     }
                 }
-                // MARK: 위치 이동 예정 - Loki에게 문의하세요
-                .onChange(of: PanelData.shared.isShow[0]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[0].showPanel(self)
+                // Panel들 관리: 활성화된 Panel은 화면에 띄워지고, 비활성화 Panel들은 화면에서 숨긴다.
+                .onChange(of: systemManager.instantFeedbackManager.activePanels) { hidePanels, showPanels in
+                    for hidePanel in hidePanels {
+                        appDelegate.floatingPanelControllers[hidePanel]?.hidePanel(self)
                     }
-                    else {
-                        appDelegate.floatingPanelControllers[0].hidePanel(self)
-                    }
-                }
-                .onChange(of: PanelData.shared.isShow[1]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[1].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[1].hidePanel(self)
-                    }
-                }
-                .onChange(of: PanelData.shared.isShow[2]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[2].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[2].hidePanel(self)
-                    }
-                }
-                .onChange(of: PanelData.shared.isShow[3]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[3].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[3].hidePanel(self)
-                    }
-                }.onChange(of: PanelData.shared.isEditMode) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[4].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[4].hidePanel(self)
+                    for showPanel in showPanels {
+                        appDelegate.floatingPanelControllers[showPanel]?.showPanel(self)
                     }
                 }
             

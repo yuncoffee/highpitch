@@ -48,14 +48,14 @@ struct FillerWordPanelView: View {
                     .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
                     .padding(6)
                     .border(
-                        PanelData.shared.isEditMode
-                        ? (PanelData.shared.isFocused == 3
+                        SystemManager.shared.instantFeedbackManager.isFocused == .fillerWord
                            ? Color.HPPrimary.base
-                           : Color.HPGray.systemWhite)
-                        : .clear, width: 2)
-                if PanelData.shared.isEditMode && PanelData.shared.isFocused == 3 {
+                           : Color.clear, width: 2)
+                if SystemManager.shared.instantFeedbackManager.isFocused == .fillerWord {
                     Button {
-                        PanelData.shared.isShow[3] = false
+                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.fillerWord) {
+                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
+                        }
                     } label: {
                         Circle()
                             .fill(Color.HPPrimary.lightness)
@@ -74,8 +74,12 @@ struct FillerWordPanelView: View {
                 }
             }
         }
-        .onTapGesture {
-            PanelData.shared.isFocused = 3
+        .onHover { value in
+            if value {
+                SystemManager.shared.instantFeedbackManager.isFocused = .fillerWord
+            } else {
+                SystemManager.shared.instantFeedbackManager.isFocused = nil
+            }
         }
         .frame(width: 158, height: 158)
         .onAppear {

@@ -128,7 +128,7 @@ extension ProjectManager {
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
         var returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
             .startFileRecognition(url: URL(
-                fileURLWithPath:mediaManager.getPath(fileName: mediaManager.fileName
+                fileURLWithPath: mediaManager.getPath(fileName: mediaManager.fileName
             ).path())) ?? []
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
         return returnValue

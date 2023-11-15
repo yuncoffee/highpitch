@@ -40,7 +40,7 @@ struct FeedbackStyleScript: View {
             if let sample = practices.first {
                 viewStore.practice = sample
             }
-            viewStore.currentFeedbackViewType = .fillerWord
+            viewStore.currentFeedbackViewType = .speed
 #endif
         }
     }
@@ -163,49 +163,53 @@ extension FeedbackStyleScript {
     func speedScriptCell(sentence: SentenceModel, isSelected: Bool) -> some View {
         let isFast = viewStore.isFastSentence(sentenceIndex: sentence.index)
         let isSlow = viewStore.isSlowSentence(sentenceIndex: sentence.index)
-                                              
-        HStack(alignment: .top, spacing: .HPSpacing.xxsmall) {
-            VStack {
-                HPLabel(
-                    content: (intToMMSS(input: sentence.startAt), nil),
-                    type: .blockFill(.HPCornerRadius.small),
-                    size: .small,
-                    color: isSelected ? .HPComponent.highlight : .clear,
-                    contentColor: isSelected ? .HPOrange.base : .HPOrange.light,
-                    fontStyle: .systemDetail(.footnote, .semibold),
-                    padding: (.zero, .HPSpacing.xxxsmall)
-                )
-                .fixedSize()
-                if isFast {
-                    Image(systemName: "hare.fill")
-                        .foregroundStyle(Color.HPRed.base)
+              
+        if isFast || isSlow {
+            HStack(alignment: .top, spacing: .HPSpacing.xxsmall) {
+                VStack {
+                    HPLabel(
+                        content: (intToMMSS(input: sentence.startAt), nil),
+                        type: .blockFill(.HPCornerRadius.small),
+                        size: .small,
+                        color: isSelected ? .HPComponent.highlight : .clear,
+                        contentColor: isSelected ? .HPOrange.base : .HPOrange.light,
+                        fontStyle: .systemDetail(.footnote, .semibold),
+                        padding: (.zero, .HPSpacing.xxxsmall)
+                    )
+                    .fixedSize()
+    //                if isFast {
+    //                    Image(systemName: "hare.fill")
+    //                        .foregroundStyle(Color.HPRed.base)
+    //                }
+    //                if isSlow {
+    //                    Image(systemName: "tortoise.fill")
+    //                        .foregroundStyle(Color.HPRed.base)
+    //                }
                 }
-                if isSlow {
-                    Image(systemName: "tortoise.fill")
-                        .foregroundStyle(Color.HPRed.base)
+                let words = viewStore.getContainsWords(sentenceIndex: sentence.index)
+                if let startAt = words.first?.index, let endAt = words.last?.index {
+                    SpeedScriptCell(
+                        words: words,
+                        startAt: startAt,
+                        endAt: endAt,
+                        containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
+                        isFastSentence: isFast,
+                        isSlowSentence: isSlow,
+                        nowSentece: viewStore.nowSentence) {
+                            viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
+                        }
+                        .id(sentence.index)
+                        .padding(.bottom, .HPSpacing.xxxxsmall)
                 }
             }
-            let words = viewStore.getContainsWords(sentenceIndex: sentence.index)
-            if let startAt = words.first?.index, let endAt = words.last?.index {
-                SpeedScriptCell(
-                    words: words,
-                    startAt: startAt,
-                    endAt: endAt,
-                    containerWidth: viewStore.SCRIPT_CONTAINER_WIDTH,
-                    isFastSentence: isFast,
-                    isSlowSentence: isSlow,
-                    nowSentece: viewStore.nowSentence) {
-                        viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
-                    }
-                    .id(sentence.index)
-                    .padding(.bottom, .HPSpacing.xxxxsmall)
-            }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .padding(.vertical, .HPSpacing.xxxsmall)
+            .padding(.horizontal, .HPSpacing.xxsmall)
+            .background(isSelected ? Color.HPComponent.SpeedFeedback.background : .clear)
+            .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
+        } else {
+            EmptyView()
         }
-        .frame(maxWidth: .infinity, alignment: .topLeading)
-        .padding(.vertical, .HPSpacing.xxxsmall)
-        .padding(.horizontal, .HPSpacing.xxsmall)
-        .background(isSelected ? Color.HPComponent.SpeedFeedback.background : .clear)
-        .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
     }
 }
 

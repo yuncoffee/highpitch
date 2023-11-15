@@ -9,38 +9,84 @@ import SwiftUI
 
 struct TimerPanelView: View {
     var floatingPanelController: FloatingPanelController
-    @State private var currentTime: String = ""
     
-    var body: some View {
-        ZStack {
-            VStack {
-                Text(currentTime)
-                    .systemFont(.title, weight: .semibold)
-                    .foregroundStyle(Color.HPTextStyle.darkness)
-            }
-            .frame(width: 146, height: 56)
-            .background(Color.white.opacity(0.1))
-            .cornerRadius(6)
-        }
-        .frame(width: 158, height: 68)
-        .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 0 ? Color.HPPrimary.base : .white) : .clear, width: 2)
-        .onTapGesture {
-            PanelData.shared.isFocused = 0
-        }
-        .onAppear {
-            startTimer()
-        }
-        .onHover {_ in
-            PanelData.shared.isFocused = 0
-        }
+    @State private var timer: Timer? = nil
+    @State private var elapsedTime: TimeInterval = 0.0
+    @State private var isTimerRunning = false
+    
+    var formattedElapsedTime: String {
+        let minutes = Int(elapsedTime) / 60
+        let seconds = Int(elapsedTime) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    func startTimer() {
-        // 1초마다 타이머가 현재 시간을 업데이트
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm:ss"
-            self.currentTime = formatter.string(from: Date())
+    var body: some View {
+        VStack {
+            VStack(spacing: .zero) {
+                ZStack {
+                    Text(formattedElapsedTime)
+                        .systemFont(.title, weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.darkness)
+                }
+                .frame(width: 146, height: 56)
+                .background(Color.white.opacity(0.1))
+                .cornerRadius(6)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // .border(SystemManager.shared.instantFeedbackManager.isFocused == .timer ? Color.HPPrimary.base : .clear, width: 2)
+        .overlay {
+            ZStack(alignment: .topTrailing) {
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.HPGray.systemWhite.opacity(0.1))
+                    .frame(width: 146, height: 56)
+                    .padding(6)
+                    .border(SystemManager.shared.instantFeedbackManager.isFocused == .timer ? Color.HPPrimary.base : .clear, width: 2)
+                if SystemManager.shared.instantFeedbackManager.isFocused == .timer {
+                    Button {
+                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.timer) {
+                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.timer)
+                        }
+                    } label: {
+                        Circle()
+                            .fill(Color.HPPrimary.lightness)
+                            .stroke(Color.HPPrimary.base, lineWidth: 2)
+                            .frame(width: 24, height: 24)
+                            .overlay {
+                                Image(systemName: "xmark")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                                    .fontWeight(.black)
+                                    .foregroundStyle(Color.HPPrimary.base)
+                            }
+                    }
+                    .buttonStyle(.plain)
+                    .offset(x: 10, y: -10)
+                }
+            }
+        }
+        .onHover { value in
+            if value {
+                SystemManager.shared.instantFeedbackManager.isFocused = .timer
+            } else {
+                SystemManager.shared.instantFeedbackManager.isFocused = nil
+            }
+        }
+        .onTapGesture {
+            if isTimerRunning {
+                // 타이머가 실행 중인 경우
+                timer?.invalidate()
+                isTimerRunning = false
+                print("Timer Stopped. Elapsed Time: \(formattedElapsedTime)")
+            } else {
+                // 타이머가 실행 중이지 않은 경우
+                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                    elapsedTime += 1.0
+                }
+                isTimerRunning = true
+                print("Timer Started.")
+            }
         }
     }
 }

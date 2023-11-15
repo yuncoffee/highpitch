@@ -70,14 +70,14 @@ struct SpeedPanelView: View {
                     .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
                     .padding(6)
                     .border(
-                        PanelData.shared.isEditMode
-                        ? (PanelData.shared.isFocused == 2
+                        SystemManager.shared.instantFeedbackManager.isFocused == .speed
                            ? Color.HPPrimary.base
-                           : Color.HPGray.systemWhite)
-                        : .clear, width: 2)
-                if PanelData.shared.isEditMode && PanelData.shared.isFocused == 2 {
+                           : Color.clear, width: 2)
+                if SystemManager.shared.instantFeedbackManager.isFocused == .speed {
                     Button {
-                        PanelData.shared.isShow[2] = false
+                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.speed) {
+                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.speed)
+                        }
                     } label: {
                         Circle()
                             .fill(Color.HPPrimary.lightness)
@@ -96,8 +96,12 @@ struct SpeedPanelView: View {
                 }
             }
         }
-        .onTapGesture {
-            PanelData.shared.isFocused = 2
+        .onHover { value in
+            if value {
+                SystemManager.shared.instantFeedbackManager.isFocused = .speed
+            } else {
+                SystemManager.shared.instantFeedbackManager.isFocused = nil
+            }
         }
         .frame(width: 158, height: 158)
         .onAppear {

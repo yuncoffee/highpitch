@@ -21,7 +21,7 @@ class FloatingPanelController: NSWindowController {
         panel.level = .mainMenu
         panel.collectionBehavior = [.fullScreenAuxiliary, .canJoinAllSpaces]
         panel.orderFrontRegardless()
-        panel.isMovableByWindowBackground = false
+        panel.isMovableByWindowBackground = true
         
         super.init(window: panel)
         self.panel = panel

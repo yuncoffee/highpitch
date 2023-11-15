@@ -220,7 +220,7 @@ final class SpeechRecognizerManager {
                     if let result = result {
                         for word in result.bestTranscription.segments {
                             /// 지난 단어와 간격이 0.4초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
-                            if (word.timestamp - self.endAt > 0.4)
+                            if (word.timestamp - self.endAt > 0.5)
                                 || (result.isFinal) {
                                 if self.message != "" {
                                     self.message += "."
@@ -233,7 +233,7 @@ final class SpeechRecognizerManager {
                                 }
                                 self.startAt = word.timestamp
                                 self.message = word.substring
-                            } else {
+                            } else if (word.substring != "") {
                                 self.message += " "; self.message += word.substring
                             }
                             self.endAt = word.timestamp + word.duration

@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ScreenSelectionView: View {
     @State var currentTabItem = 0
     @State var isChecked = false
     @StateObject var screenRecorder = ScreenRecordManager()
-    //
+    @Environment(MediaManager.self)
+    private var mediaManager
     @State var disableInput = false
     @State var isUnauthorized = false
-    //
+    @State var fileName = ""
+    
     var body: some View {
         VStack {
             Text("화면 녹화")
@@ -29,16 +32,27 @@ struct ScreenSelectionView: View {
                     Task {
                         await screenRecorder.stopPreview()
                         await screenRecorder.stop()
+                        //mediaManager.stopRecording()
+                        
+//                        mergeAudioAndVideo(videoURL: URL.getPath(fileName: fileName, type: .video),
+//                                           audioURL: URL.getPath(fileName: fileName, type: .audio),
+//                                           outputURL: URL.getPath(fileName: "merge", type: .video))
+//                        { error in
+//                            print(error)
+//                        }
                     }
 
                 }, label: {
                     Text("취소")
                 })
                 Button(action: {
-                    print("hello")
                     Task {
                         await screenRecorder.stopPreview()
-                        await screenRecorder.start()
+                        let fileName = Date().makeM4aFileName()
+                        mediaManager.fileName = fileName
+                        await screenRecorder.start(fileName: fileName)
+                        //mediaManager.startRecording()
+                        
                     }
                 }, label: {
                     Text("연습 시작")
@@ -114,6 +128,38 @@ extension ScreenSelectionView {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
-#Preview {
-    ScreenSelectionView()
+extension ScreenSelectionView {
+    func mergeAudioAndVideo(videoURL: URL, audioURL: URL, outputURL: URL, completion: @escaping (Error?) -> Void) {
+        // 비디오 트랙 생성
+        let videoAsset = AVURLAsset(url: videoURL)
+        let videoTrack = videoAsset.tracks(withMediaType: .video)[0]
+
+        // 오디오 트랙 생성
+        let audioAsset = AVURLAsset(url: audioURL)
+        let audioTrack = audioAsset.tracks(withMediaType: .audio)[0]
+
+        // 합치기 위한 Composition 생성
+        let mixComposition = AVMutableComposition()
+
+        // 비디오 트랙 추가
+        let compositionVideoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        try? compositionVideoTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration), of: videoTrack, at: CMTime.zero)
+
+        // 오디오 트랙 추가
+        let compositionAudioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        try? compositionAudioTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration), of: audioTrack, at: CMTime.zero)
+
+        // 출력 설정
+        let exportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)
+        exportSession?.outputURL = outputURL
+        exportSession?.outputFileType = .mov
+
+        // 비동기적으로 합치기 실행
+        exportSession?.exportAsynchronously {
+            completion(exportSession?.error)
+        }
+    }
 }
+//#Preview {
+//    ScreenSelectionView()
+//}

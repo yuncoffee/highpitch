@@ -112,11 +112,10 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 
                 // 오디오 데이터 출력 생성
                 audioDataOutput = AVCaptureAudioDataOutput()
-                
+                audioDataOutput?.audioSettings = audioSettings
                 if captureSession.canAddOutput(audioDataOutput!) {
                     captureSession.addOutput(audioDataOutput!)
                 }
-                
                 // AVCaptureSession 설정 완료
                 captureSession.commitConfiguration()
                 voiceInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)

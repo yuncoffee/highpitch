@@ -34,7 +34,7 @@ enum VersionedSchema2: VersionedSchema {
     
     // [Version1과 다른 점]
     // +) remarkable: Bool
-    // +) projectID: UUID
+    // +) projectCreatAt: String
     @Model
     class PracticeModel: Comparable {
         var practiceName: String
@@ -51,7 +51,7 @@ enum VersionedSchema2: VersionedSchema {
         @Relationship(deleteRule: .cascade)
         var summary: PracticeSummaryModel
         var remarkable: Bool
-        var projectID: UUID
+        var projectCreatAt: String
         
         init(
             practiceName: String,
@@ -63,8 +63,8 @@ enum VersionedSchema2: VersionedSchema {
             words: [WordModel] = [],
             sentences: [SentenceModel] = [],
             summary: PracticeSummaryModel,
-            remarkable: Bool,
-            projectID: UUID
+            remarkable: Bool = false,
+            projectCreatAt: String = ""
         ) {
             self.practiceName = practiceName
             self.index = index
@@ -76,7 +76,7 @@ enum VersionedSchema2: VersionedSchema {
             self.sentences = sentences
             self.summary = summary
             self.remarkable = remarkable
-            self.projectID = projectID
+            self.projectCreatAt = projectCreatAt
         }
         
         static func < (lhs: PracticeModel, rhs: PracticeModel) -> Bool {
@@ -127,8 +127,8 @@ enum VersionedSchema2: VersionedSchema {
     // [Version1과 다른 점]
     // -) empValue
     // ---------------------
-    // +) remarkable: Bool
-    // +) projectID: UUID
+    // +) spmValue: Double
+    // +) fastOrSlow: Int
     @Model
     class SentenceModel {
         var index: Int
@@ -138,7 +138,7 @@ enum VersionedSchema2: VersionedSchema {
         var spmValue: Double
         var fastOrSlow: Int
         
-        init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0, fastOrSlow: Int) {
+        init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0, fastOrSlow: Int = 0) {
             self.index = index
             self.spmValue = spmValue
             self.sentence = sentence

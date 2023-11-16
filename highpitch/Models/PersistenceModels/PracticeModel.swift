@@ -12,6 +12,7 @@ import SwiftData
 
 /// 추가사항
 /// 1. remarkable: Bool
+/// 2. projectID: persistentID
 
 @Model
 class PracticeModel: Comparable {

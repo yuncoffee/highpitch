@@ -14,7 +14,7 @@ import SwiftData
 /// 3. epmAverage
 
 /// 추가사항
-/// 1. practiceDuration: Double
+/// 1. practiceLength: Double
 /// 2. fwpm: Double
 /// 3. spmAverage: Double
 

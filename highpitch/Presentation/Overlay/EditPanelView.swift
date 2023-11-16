@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct EditPanelView: View {
-    var floatingPanelController: FloatingPanelController
+    var floatingPanelController: PanelController
     
-    @State private var isChecked1 = false
-    @State private var isChecked2 = false
-    @State private var isChecked3 = false
+    @State private var fillerWordPanelOn = true
+    @State private var speedPanelOn = true
+    @State private var timerPanelOn = true
 
     var body: some View {
         VStack {
@@ -28,25 +28,46 @@ struct EditPanelView: View {
             }
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
-                    Toggle(isOn: $isChecked1) {
+                    Toggle(isOn: $fillerWordPanelOn) {
                         Text("습관어")
                             .systemFont(.caption,weight: .semibold)
                             .foregroundStyle(Color.HPTextStyle.dark)
+                            .onChange(of: fillerWordPanelOn) { _, value in
+                                if value {
+                                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
+                                } else {
+                                    SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
+                                }
+                            }
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                     
-                    Toggle(isOn: $isChecked2) {
+                    Toggle(isOn: $speedPanelOn) {
                         Text("말 빠르기")
                             .systemFont(.caption,weight: .semibold)
                             .foregroundStyle(Color.HPTextStyle.dark)
+                            .onChange(of: speedPanelOn) { _, value in
+                                if value {
+                                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.speed)
+                                } else {
+                                    SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.speed)
+                                }
+                            }
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                 }
                 VStack(alignment: .leading) {
-                    Toggle(isOn: $isChecked3) {
+                    Toggle(isOn: $timerPanelOn) {
                         Text("타이머")
                             .systemFont(.caption,weight: .semibold)
                             .foregroundStyle(Color.HPTextStyle.dark)
+                            .onChange(of: timerPanelOn) { _, value in
+                                if value {
+                                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.timer)
+                                } else {
+                                    SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.timer)
+                                }
+                            }
                     }
                     .toggleStyle(PurpleCheckboxStyle())
                     
@@ -57,7 +78,31 @@ struct EditPanelView: View {
             
             HStack {
                 Button(action: {
-                    // 버튼이 클릭되었을 때 수행되는 동작
+                    // activePanel에 모두 다 넣고
+                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.timer)
+                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.speed)
+                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
+                    
+                    // 위치 기본값으로 조절
+                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
+                        .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)! / 2) - 73, y:Int((NSScreen.main?.visibleFrame.height)!) - 15))
+                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.speed]?.panel?
+                        .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)!) - 178, y:276))
+                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.fillerWord]?.panel?
+                        .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)!) - 178, y:129))
+                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.detailSetting]?.panel?
+                        .setFrameOrigin(NSPoint(x:56, y:116))
+                    
+                    // UserDefaults도 원상복귀
+                    UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)! / 2) - 73), forKey: "TimerPanelX")
+                    UserDefaults.standard.set(String(Int((NSScreen.main?.visibleFrame.height)!) - 15), forKey: "TimerPanelY")
+                    UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)!) - 178), forKey: "SpeedPanelX")
+                    UserDefaults.standard.set(String(276), forKey: "SpeedPanelY")
+                    UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)!) - 178), forKey: "FillerWordPanelX")
+                    UserDefaults.standard.set(String(129), forKey: "FillerWordPanelY")
+                    UserDefaults.standard.set(String(56), forKey: "DetailPanelX")
+                    UserDefaults.standard.set(String(116), forKey: "DetailPanelY")
+
                 }) {
                     Text("기본 레이아웃 사용")
                         .systemFont(.caption,weight: .semibold)
@@ -67,25 +112,25 @@ struct EditPanelView: View {
                 Spacer()
                 
                 Button(action: {
-                    // 버튼이 클릭되었을 때 수행되는 동작
-                }) {
-                    Text("취소")
-                        .systemFont(.caption,weight: .semibold)
-                        .foregroundStyle(Color.HPTextStyle.dark)
-                        
-                }
-                .background(Color.HPPrimary.base)
-                Button(action: {
-                    // 버튼이 클릭되었을 때 수행되는 동작
+                    SystemManager.shared.instantFeedbackManager.isDetailSettingActive = false
                 }) {
                     Text("확인")
+                        .systemFont(.caption,weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.dark)
                 }
             }
         }
         .frame(width: 436, height: 252)
         .background(Color.white)
         .onTapGesture {
-            PanelData.shared.isFocused = 3
+            SystemManager.shared.instantFeedbackManager.focusedPanel = .detailSetting
+        }
+        .onHover { value in
+            if !value {
+                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "DetailPanelX")
+                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "DetailPanelY")
+            }
         }
     }
 }

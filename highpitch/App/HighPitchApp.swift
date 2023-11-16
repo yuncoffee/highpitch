@@ -73,6 +73,33 @@ struct HighpitchApp: App {
             fatalError("Could not initialize ModelContainer")
         }
         
+        // MARK: 정리 후보
+        // UserDefaults에 Panel들의 위치값이 저장되어있지 않다면 기본값으로 세팅해준다.
+//        if UserDefaults.standard.string(forKey: "TimerPanelX") == nil {
+//            UserDefaults.standard.set("TimerPanelX", forKey: String(Int((NSScreen.main?.visibleFrame.width)! / 2) - 73))
+//        }
+//        if UserDefaults.standard.string(forKey: "TimerPanelY") == nil {
+//            UserDefaults.standard.set("TimerPanelY", forKey: String(Int((NSScreen.main?.visibleFrame.height)!) - 15))
+//        }
+//        if UserDefaults.standard.string(forKey: "SpeedPanelX") == nil {
+//            UserDefaults.standard.set("SpeedPanelX", forKey: String(Int((NSScreen.main?.visibleFrame.width)!) - 178))
+//        }
+//        if UserDefaults.standard.string(forKey: "SpeedPanelY") == nil {
+//            UserDefaults.standard.set("SpeedPanelY", forKey: String(276))
+//        }
+//        if UserDefaults.standard.string(forKey: "FillerWordPanelX") == nil {
+//            UserDefaults.standard.set("FillerWordPanelX", forKey: String(Int((NSScreen.main?.visibleFrame.width)!) - 178))
+//        }
+//        if UserDefaults.standard.string(forKey: "FillerWordPanelY") == nil {
+//            UserDefaults.standard.set("FillerWordPanelY", forKey: String(129))
+//        }
+//        if UserDefaults.standard.string(forKey: "DetailPanelX") == nil {
+//            UserDefaults.standard.set("DetailPanelX", forKey: String(56))
+//        }
+//        if UserDefaults.standard.string(forKey: "DetailPanelY") == nil {
+//            UserDefaults.standard.set("DetailPanelY", forKey: String(116))
+//        }
+        
         // UserDefaults에 저장된 것이 없으면 기본값으로 세팅해준다.
         if UserDefaults.standard.string(forKey: "recordStartCommand") == nil {
             UserDefaults.standard.set("Command + Control + P", forKey: "recordStartCommand")
@@ -162,61 +189,21 @@ struct HighpitchApp: App {
                     systemManager.hotkeyPause.keyDownHandler = pausePractice
                     systemManager.hotkeySave.keyDownHandler = stopPractice
                 }
-                // MARK: 위치 이동 예정 - Loki에게 문의하세요
-                .onChange(of: PanelData.shared.isEditMode) { _, value in
-                    if value {
-                        print("isEditMode가 true인거 감지")
-                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = true
-                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = true
-                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = true
-                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = true
-                    }
-                    else {
-                        print("isEditMode가 false인거 감지")
-                        appDelegate.floatingPanelControllers[0].panel?.isMovableByWindowBackground = false
-                        appDelegate.floatingPanelControllers[1].panel?.isMovableByWindowBackground = false
-                        appDelegate.floatingPanelControllers[2].panel?.isMovableByWindowBackground = false
-                        appDelegate.floatingPanelControllers[3].panel?.isMovableByWindowBackground = false
+                // Panel들 관리: isDetailSettingActive가 true로 변경 시, 상세설정 Panel 띄워준다.
+                .onChange(of: systemManager.instantFeedbackManager.isDetailSettingActive) { _, activeOn in
+                    if activeOn {
+                        appDelegate.panelControllers[InstantPanel.detailSetting]?.showPanel(self)
+                    } else {
+                        appDelegate.panelControllers[InstantPanel.detailSetting]?.hidePanel(self)
                     }
                 }
-                // MARK: 위치 이동 예정 - Loki에게 문의하세요
-                .onChange(of: PanelData.shared.isShow[0]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[0].showPanel(self)
+                // Panel들 관리: 활성화된 Panel은 화면에 띄워지고, 비활성화 Panel들은 화면에서 숨긴다.
+                .onChange(of: systemManager.instantFeedbackManager.activePanels) { hidePanels, showPanels in
+                    for hidePanel in hidePanels {
+                        appDelegate.panelControllers[hidePanel]?.hidePanel(self)
                     }
-                    else {
-                        appDelegate.floatingPanelControllers[0].hidePanel(self)
-                    }
-                }
-                .onChange(of: PanelData.shared.isShow[1]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[1].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[1].hidePanel(self)
-                    }
-                }
-                .onChange(of: PanelData.shared.isShow[2]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[2].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[2].hidePanel(self)
-                    }
-                }
-                .onChange(of: PanelData.shared.isShow[3]) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[3].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[3].hidePanel(self)
-                    }
-                }.onChange(of: PanelData.shared.isEditMode) { _, value in
-                    if value {
-                        appDelegate.floatingPanelControllers[4].showPanel(self)
-                    }
-                    else {
-                        appDelegate.floatingPanelControllers[4].hidePanel(self)
+                    for showPanel in showPanels {
+                        appDelegate.panelControllers[showPanel]?.showPanel(self)
                     }
                 }
             

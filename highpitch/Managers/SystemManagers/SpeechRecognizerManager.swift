@@ -233,7 +233,10 @@ final class SpeechRecognizerManager {
                                 self.startAt = word.timestamp
                                 self.message = word.substring
                             } else if (word.substring != "") {
-                                self.message += " "; self.message += word.substring
+                                if (!self.message.isEmpty && self.message.last! != " ") {
+                                    self.message += " "
+                                }
+                                self.message += word.substring
                             }
                             self.endAt = word.timestamp + word.duration
                         }

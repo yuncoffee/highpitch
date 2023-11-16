@@ -27,7 +27,9 @@ struct PracticeContentContainer: View {
                 SplitViewContainer()
             }
 //            .padding(.bottom, .HPSpacing.xxxlarge)
-            VideoControllerContainer()
+            if viewStore.isFullScreenTransition {
+                VideoControllerContainer()
+            }
         }
         .onAppear {
             // MARK: - Add MockData

@@ -25,7 +25,7 @@ struct FillerWordAudioIndicator: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-            GeometryReader(content: { geometry in
+            GeometryReader { geometry in
                 let widthPercent = geometry.size.width * 0.01
                 ForEach(viewStore.getSortedSentences()) { sentence in
                     let fillerWordCount = viewStore.getContainsFillerCount(sentenceIndex: sentence.index)
@@ -49,7 +49,7 @@ struct FillerWordAudioIndicator: View {
                         }
                     }
                 }
-            })
+            }
         }
         .padding(.horizontal, .HPSpacing.xxxsmall)
         .frame(maxWidth:.infinity, maxHeight: 32, alignment: .leading)

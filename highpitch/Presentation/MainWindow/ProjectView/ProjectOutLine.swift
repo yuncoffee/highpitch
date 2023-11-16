@@ -39,6 +39,8 @@ struct ProjectOutLine: View {
                             fillerWordTOP3View(practices: practices)
                         }
                         .padding(.bottom, .HPSpacing.small)
+                        ProjectSpeakingRateChart()
+                            .padding(.bottom, .HPSpacing.small)
                     }
                 }
             } else { emptyView }
@@ -109,7 +111,7 @@ extension ProjectOutLine {
                 .systemFont(.caption)
                 .foregroundColor(Color.HPTextStyle.light)
         }
-        .frame(minWidth: 50, maxWidth: .infinity, minHeight: 120, maxHeight: 120, alignment: .center)
+        .frame(minWidth: 50, maxWidth: .infinity, minHeight: 124, maxHeight: 124, alignment: .center)
         .background(Color.HPComponent.Section.background)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: Color.HPComponent.shadowColor ,radius: 10, y: .HPSpacing.xxxxsmall)
@@ -133,7 +135,7 @@ extension ProjectOutLine {
                 .systemFont(.caption)
                 .foregroundColor(Color.HPTextStyle.light)
         }
-        .frame(minWidth: 50, maxWidth: .infinity, minHeight: 120, maxHeight: 120, alignment: .center)
+        .frame(minWidth: 50, maxWidth: .infinity, minHeight: 124, maxHeight: 124, alignment: .center)
         .background(Color.HPComponent.Section.background)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: Color.HPComponent.shadowColor ,radius: 10, y: .HPSpacing.xxxxsmall)
@@ -182,7 +184,7 @@ extension ProjectOutLine {
                 .padding(.horizontal, .HPSpacing.small)
             }
         }
-        .frame(minWidth: 50, maxWidth: .infinity, minHeight: 120, maxHeight: 120, alignment: .center)
+        .frame(minWidth: 50, maxWidth: .infinity, minHeight: 124, maxHeight: 124, alignment: .center)
         .background(Color.HPComponent.Section.background)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: Color.HPComponent.shadowColor ,radius: 10, y: .HPSpacing.xxxxsmall)

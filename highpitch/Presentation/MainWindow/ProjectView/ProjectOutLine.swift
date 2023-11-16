@@ -61,8 +61,8 @@ extension ProjectOutLine {
     }
     
     /// fillerWordTOP3를 반환합니다.
-    func returnfillerWordTOP3(practices: [PracticeModel]) -> Array<(key: String, value: Int)> {
-        var answer: Dictionary<String, Int> = Dictionary<String, Int>()
+    func returnfillerWordTOP3(practices: [PracticeModel]) -> [(key: String, value: Int)] {
+        var answer: [String: Int] = [:]
         for practice in practices {
             for fillerWord in practice.summary.eachFillerWordCount {
                 if answer[fillerWord.fillerWord] == nil {
@@ -72,7 +72,7 @@ extension ProjectOutLine {
                 }
             }
         }
-        var sortedAnswer = answer.sorted{$0.1 > $1.1}
+        var sortedAnswer = answer.sorted { $0.1 > $1.1 }
         while !sortedAnswer.isEmpty && sortedAnswer.last!.value == 0 { _ = sortedAnswer.popLast() }
         while sortedAnswer.count > 3 { _ = sortedAnswer.popLast() }
         return sortedAnswer
@@ -143,11 +143,21 @@ extension ProjectOutLine {
     
     // MARK: - fillerWordTOP3View
     func fillerWordTOP3View(practices: [PracticeModel]) -> some View {
-        VStack(spacing: 0) {
+        var fillerWordTOP3 = returnfillerWordTOP3(practices: practices)
+        
+        return VStack(spacing: 0) {
             Text("많이 사용한 습관어")
                 .systemFont(.body)
                 .foregroundColor(Color.HPTextStyle.darker)
             HStack(alignment: .bottom, spacing: .HPSpacing.xxxxsmall) {
+                
+                ForEach(fillerWordTOP3, id: \.key) {key, value in
+                    VStack {
+                        Text(key)
+                        Text("\(value)회")
+                    }
+                    
+                }
                 Text("분당")
                     .systemFont(.caption2)
                     .foregroundColor(Color.HPTextStyle.light)

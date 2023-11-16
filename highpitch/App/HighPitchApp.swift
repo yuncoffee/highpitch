@@ -264,6 +264,7 @@ struct HighpitchApp: App {
         .menuBarExtraAccess(isPresented: $isMenuPresented)
         .commandsRemoved()
         .onChange(of: isMenuPresented, { _, newValue in
+            print(isMenuPresented)
             if newValue {
                 GAManager.shared.analyticsOnClick(.menubarClick)
             }

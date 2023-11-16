@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimerPanelView: View {
-    var floatingPanelController: FloatingPanelController
+    var floatingPanelController: PanelController
     
     @State private var timer: Timer? = nil
     @State private var elapsedTime: TimeInterval = 0.0
@@ -28,22 +28,51 @@ struct TimerPanelView: View {
                         .systemFont(.title, weight: .semibold)
                         .foregroundStyle(Color.HPTextStyle.darkness)
                 }
-                .frame(width: 146, height: 56)
-                .background(Color.white.opacity(0.1))
-                .cornerRadius(6)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.ultraThinMaterial)
+            .edgesIgnoringSafeArea(.all)
+            .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
+            .onHover { value in
+                if value {
+                    SystemManager.shared.instantFeedbackManager.focusedPanel = .timer
+                } else {
+                    // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                    UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "TimerPanelX")
+                    UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "TimerPanelY")
+                    
+                    SystemManager.shared.instantFeedbackManager.focusedPanel = nil
+                }
+            }
+            .onTapGesture {
+                if isTimerRunning {
+                    // 타이머가 실행 중인 경우
+                    timer?.invalidate()
+                    isTimerRunning = false
+                    print("Timer Stopped. Elapsed Time: \(formattedElapsedTime)")
+                } else {
+                    // 타이머가 실행 중이지 않은 경우
+                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                        elapsedTime += 1.0
+                    }
+                    isTimerRunning = true
+                    print("Timer Started.")
+                }
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        // .border(SystemManager.shared.instantFeedbackManager.isFocused == .timer ? Color.HPPrimary.base : .clear, width: 2)
+        .frame(width: 104, height: 56)
+        .padding(18)
         .overlay {
             ZStack(alignment: .topTrailing) {
-                RoundedRectangle(cornerRadius: 6)
+                RoundedRectangle(cornerRadius: .HPCornerRadius.large)
                     .stroke(Color.HPGray.systemWhite.opacity(0.1))
-                    .frame(width: 146, height: 56)
+                    .frame(width: 104, height: 56)
                     .padding(6)
-                    .border(SystemManager.shared.instantFeedbackManager.isFocused == .timer ? Color.HPPrimary.base : .clear, width: 2)
-                if SystemManager.shared.instantFeedbackManager.isFocused == .timer {
+                    .border(
+                        SystemManager.shared.instantFeedbackManager.focusedPanel == .timer
+                        ? Color.HPPrimary.base
+                        : Color.clear, width: 2)
+                if SystemManager.shared.instantFeedbackManager.focusedPanel == .timer {
                     Button {
                         if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.timer) {
                             SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.timer)
@@ -64,28 +93,6 @@ struct TimerPanelView: View {
                     .buttonStyle(.plain)
                     .offset(x: 10, y: -10)
                 }
-            }
-        }
-        .onHover { value in
-            if value {
-                SystemManager.shared.instantFeedbackManager.isFocused = .timer
-            } else {
-                SystemManager.shared.instantFeedbackManager.isFocused = nil
-            }
-        }
-        .onTapGesture {
-            if isTimerRunning {
-                // 타이머가 실행 중인 경우
-                timer?.invalidate()
-                isTimerRunning = false
-                print("Timer Stopped. Elapsed Time: \(formattedElapsedTime)")
-            } else {
-                // 타이머가 실행 중이지 않은 경우
-                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                    elapsedTime += 1.0
-                }
-                isTimerRunning = true
-                print("Timer Started.")
             }
         }
     }

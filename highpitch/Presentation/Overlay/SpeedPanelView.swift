@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpeedPanelView: View {
-    var floatingPanelController: FloatingPanelController
+    var floatingPanelController: PanelController
     private let PANEL_FRAME_SIZE = 120.0
     private let DEFUALT_SPEED = 300.0
     
@@ -72,10 +72,10 @@ struct SpeedPanelView: View {
                     .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
                     .padding(6)
                     .border(
-                        SystemManager.shared.instantFeedbackManager.isFocused == .speed
+                        SystemManager.shared.instantFeedbackManager.focusedPanel == .speed
                            ? Color.HPPrimary.base
                            : Color.clear, width: 2)
-                if SystemManager.shared.instantFeedbackManager.isFocused == .speed {
+                if SystemManager.shared.instantFeedbackManager.focusedPanel == .speed {
                     Button {
                         if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.speed) {
                             SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.speed)
@@ -100,10 +100,16 @@ struct SpeedPanelView: View {
         }
         .onHover { value in
             if value {
-                SystemManager.shared.instantFeedbackManager.isFocused = .speed
+                SystemManager.shared.instantFeedbackManager.focusedPanel = .speed
             } else {
-                SystemManager.shared.instantFeedbackManager.isFocused = nil
+                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "SpeedPanelX")
+                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "SpeedPanelY")
+                
+                SystemManager.shared.instantFeedbackManager.focusedPanel = nil
             }
+            // floatingPanelController.panel?.setFrameOrigin(NSPoint(x: 500, y: 500))
+            
         }
         .frame(width: 158, height: 158)
         .onAppear {
@@ -169,7 +175,7 @@ extension SpeedPanelView {
 #Preview {
     SpeedPanelView(
         floatingPanelController:
-            FloatingPanelController(
+            PanelController(
                 xPosition: -120,
                 yPosition: 120,
                 swidth: 132,

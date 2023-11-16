@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class FloatingPanelController: NSWindowController {
+class PanelController: NSWindowController {
     var panel: NSPanel?
     
     init(xPosition: Int, yPosition: Int, swidth: Int, sheight: Int) {
@@ -37,6 +37,11 @@ class FloatingPanelController: NSWindowController {
     
     func hidePanel(_ sender: Any?) {
         self.panel?.orderOut(sender)
+    }
+    
+    func getPanelPosition() -> NSPoint? {
+        print(panel?.accessibilityActivationPoint().x)
+        return panel?.accessibilityActivationPoint()
     }
     
 }

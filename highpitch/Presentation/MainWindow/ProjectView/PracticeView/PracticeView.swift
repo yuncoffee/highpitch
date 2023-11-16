@@ -12,18 +12,18 @@ struct PracticeView: View {
     @State
     var viewStore: PracticeViewStore
     
-    private var title = ""
+    var title = ""
     private var subTitle = ""
     
-    init(viewStore: PracticeViewStore) {
+    init(viewStore: PracticeViewStore, title: String?) {
         self.viewStore = viewStore
+        self.title = title ?? ""
     }
     
     var body: some View {
         VStack(spacing: 0) {
             HPTopToolbar(
-                title: viewStore.toolbarInfo.title,
-                subTitle: viewStore.toolbarInfo.subTitle,
+                title: title,
                 completion: nil
             )
             PracticeContentContainer()

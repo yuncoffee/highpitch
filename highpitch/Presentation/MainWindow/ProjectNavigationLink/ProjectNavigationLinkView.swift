@@ -26,12 +26,19 @@ struct ProjectNavigationLink: View {
             ForEach(projects.sorted(by: {$0.creatAt > $1.creatAt}), id: \.id) { project in
                 ProjectLinkItem(
                     title : project.projectName,
-                    isSelected: checkIsSelected(project.projectName)) {
+                    isSelected: checkIsSelected(project.creatAt), completion: {
                         if !projectManager.path.isEmpty {
                             projectManager.path.removeLast()
                         }
                         projectManager.current = project
-                    }
+                    }, textFieldCompletion: {edited in
+                        project.projectName = edited
+                        Task {
+                            await MainActor.run {
+                                modelContext.save
+                            }
+                        }
+                    })
                     .contextMenu {
                         Button("Delete") {
                             // 해당 프로젝트 밑에 연습들 경로 하나하나 조회 -> 해당 경로를 통해서 녹음본 삭제
@@ -98,8 +105,8 @@ struct ProjectNavigationLink: View {
 }
 
 extension ProjectNavigationLink {
-    func checkIsSelected(_ projectName: String) -> Bool {
-        projectName == projectManager.current?.projectName
+    func checkIsSelected(_ createAt: String) -> Bool {
+        createAt == projectManager.current?.creatAt
     }
 }
 

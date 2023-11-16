@@ -74,7 +74,8 @@ struct PracticeList: View {
                                 viewStore: PracticeViewStore(
                                     practice: practice,
                                     mediaManager: MediaManager()
-                                )
+                                ),
+                                title: projectManager.current?.projectName
                             )
                         }
                         .padding(.bottom, .HPSpacing.xxsmall)

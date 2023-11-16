@@ -150,12 +150,7 @@ extension UsagePercentChart {
         }
         Group {
             Text("이번 연습에서 습관어 사용 비율은 ")
-            + Text(
-                practiceModel.summary.level == 1
-                ? "많은 편이에요." :
-                practiceModel.summary.level >= 4
-                ? "적절했어요." : "조금 많은 편이에요."
-            )
+            
             .foregroundStyle(Color.HPPrimary.dark)
             .bold()
         }

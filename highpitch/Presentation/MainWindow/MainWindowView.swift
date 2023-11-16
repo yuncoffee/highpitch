@@ -54,7 +54,8 @@ struct MainWindowView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             navigationSidebar
         } detail: {
-            navigationDetails
+            //navigationDetails
+            ScreenSelectionView()
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")

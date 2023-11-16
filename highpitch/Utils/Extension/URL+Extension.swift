@@ -24,7 +24,7 @@ extension URL {
             fileExtension = ".mp4"
         }
         
-        let dataPath = getApplicationDirectory()
+        let dataPath = getDownloadsDirectory()
             .appendingPathComponent("HighPitch")
             .appendingPathComponent(folderName)
         do {
@@ -34,6 +34,10 @@ extension URL {
             print("Error creating directory: \(error.localizedDescription)")
         }
         return dataPath.appendingPathComponent(fileName + fileExtension)
+    }
+    private static func getDownloadsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)
+        return paths[0]
     }
     private static func getApplicationDirectory() -> URL {
         let paths = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask)

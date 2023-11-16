@@ -14,6 +14,7 @@ struct ScreenSelectionView: View {
     @StateObject var screenRecorder = ScreenRecordManager()
     @Environment(MediaManager.self)
     private var mediaManager
+    private var audioRecorder = AudioRecorder()
     @State var disableInput = false
     @State var isUnauthorized = false
     @State var fileName = ""
@@ -29,31 +30,52 @@ struct ScreenSelectionView: View {
                     Text("화면 녹화 없이 연습하기")
                 }
                 Button(action: {
+//                    let videoPath = URL(filePath: "/Users/musung/downloads/ss.mp4")
+//                    let audioPath = URL(filePath: "/Users/musung/downloads/fight.m4a")
+//                    let outputPath = URL(filePath: "/Users/musung/downloads/musung123.mp4")
+                    let videoPath = URL(filePath: "/Users/musung/downloads/HighPitch/Video/20231116173217.mp4")
+                    let audioPath = URL(filePath: "/Users/musung/downloads/HighPitch/Audio/20231116173217.m4a")
+                    let outputPath = URL(filePath: "/Users/musung/downloads/HighPitch/Video/merge.mp4")
+//                    mergeAudioAndVideo(
+//                        videoURL: videoPath,
+//                        audioURL: audioPath,
+//                        outputURL: outputPath) { error in
+//                        print(error)
+//                    }
+                    print(fileName)
+                    mergeAudioAndVideo(
+                        videoURL: URL.getPath(fileName: fileName, type: .video),
+                        audioURL: URL.getPath(fileName: fileName, type: .audio),
+                        outputURL: URL.getPath(fileName: "hello", type: .video)
+                    ) { error in
+                        print(error)
+                    }
+                }, label: {
+                    Text("머지")
+                })
+                Button(action: {
                     Task {
                         await screenRecorder.stopPreview()
                         await screenRecorder.stop()
-                        //mediaManager.stopRecording()
-                        
-//                        mergeAudioAndVideo(videoURL: URL.getPath(fileName: fileName, type: .video),
-//                                           audioURL: URL.getPath(fileName: fileName, type: .audio),
-//                                           outputURL: URL.getPath(fileName: "merge", type: .video))
-//                        { error in
-//                            print(error)
-//                        }
+                        await MainActor.run {
+                            audioRecorder.stopRecording()
+                        }
                     }
+                    
 
                 }, label: {
                     Text("취소")
                 })
                 Button(action: {
+                    fileName = Date().makeM4aFileName()
                     Task {
                         await screenRecorder.stopPreview()
-                        let fileName = Date().makeM4aFileName()
                         mediaManager.fileName = fileName
                         await screenRecorder.start(fileName: fileName)
-                        //mediaManager.startRecording()
-                        
+                        audioRecorder.startRecording(filename: fileName)
                     }
+                    
+
                 }, label: {
                     Text("연습 시작")
                 })

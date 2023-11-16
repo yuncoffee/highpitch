@@ -38,11 +38,9 @@ struct ProjectOutLine: View {
                             }
                             fillerWordTOP3View(practices: practices)
                         }
-                        .padding(.bottom, .HPSpacing.xxsmall)
-                        /// [레벨, 습관어, 말 빠르기] 그래프
-                        StatisticTabGraph()
+                        .padding(.bottom, .HPSpacing.small)
                     }
-                }.border(.red)
+                }
             } else { emptyView }
         } else { emptyView }
     }
@@ -143,32 +141,46 @@ extension ProjectOutLine {
     
     // MARK: - fillerWordTOP3View
     func fillerWordTOP3View(practices: [PracticeModel]) -> some View {
-        var fillerWordTOP3 = returnfillerWordTOP3(practices: practices)
+        let fillerWordTOP3 = returnfillerWordTOP3(practices: practices)
         
         return VStack(spacing: 0) {
             Text("많이 사용한 습관어")
                 .systemFont(.body)
                 .foregroundColor(Color.HPTextStyle.darker)
-            HStack(alignment: .bottom, spacing: .HPSpacing.xxxxsmall) {
-                
-                ForEach(fillerWordTOP3, id: \.key) {key, value in
-                    VStack {
-                        Text(key)
-                        Text("\(value)회")
+            if fillerWordTOP3.isEmpty {
+                Text("사용한 습관어가 없습니다.")
+            } else {
+                ZStack {
+                    HStack(alignment: .bottom, spacing: 0) {
+                        ForEach(fillerWordTOP3, id: \.key) { fillerWord, count in
+                            VStack(spacing: 0) {
+                                Text(fillerWord)
+                                    .systemFont(.largeTitle)
+                                    .foregroundColor(Color.HPPrimary.base)
+                                Text("\(count)회")
+                                    .systemFont(.caption)
+                                    .foregroundColor(Color.HPTextStyle.light)
+                                    .offset(y: -5)
+                            }
+                            .frame(minWidth: 10, maxWidth: .infinity)
+                        }
                     }
-                    
+                    HStack(alignment: .bottom, spacing: 0) {
+                        ForEach(fillerWordTOP3, id: \.key) { fillerWord, _ in
+                            Rectangle()
+                                .foregroundStyle(.clear)
+                                .frame(minWidth: 10, maxWidth: .infinity, minHeight: 27, maxHeight: 27)
+                                .border(
+                                    Color.HPComponent.stroke,
+                                    width: 1,
+                                    edges: fillerWordTOP3.last!.key != fillerWord ? [.trailing] : []
+                                )
+                                .offset(y: -10)
+                        }
+                    }
                 }
-                Text("분당")
-                    .systemFont(.caption2)
-                    .foregroundColor(Color.HPTextStyle.light)
-                    .offset(y: -7)
-                Text("3.2회")
-                    .systemFont(.largeTitle)
-                    .foregroundColor(Color.HPPrimary.base)
+                .padding(.horizontal, .HPSpacing.small)
             }
-            Text("적절한 말 빠르기에요")
-                .systemFont(.caption)
-                .foregroundColor(Color.HPTextStyle.light)
         }
         .frame(minWidth: 50, maxWidth: .infinity, minHeight: 120, maxHeight: 120, alignment: .center)
         .background(Color.HPComponent.Section.background)

@@ -23,6 +23,7 @@
 		10D6FA5F2B02FD89003F8FBD /* ScreenItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D6FA5E2B02FD89003F8FBD /* ScreenItemView.swift */; };
 		10F3F27A2B04906400CFC817 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F2792B04906400CFC817 /* URL+Extension.swift */; };
 		10F3F27C2B04976800CFC817 /* VideoWithAudioRecordEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F27B2B04976800CFC817 /* VideoWithAudioRecordEngine.swift */; };
+		10F3F2842B05FD8C00CFC817 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F2832B05FD8C00CFC817 /* AudioRecorder.swift */; };
 		1101606B2AEE48C100BD405F /* StatisticTabGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1101606A2AEE48C100BD405F /* StatisticTabGraph.swift */; };
 		1142DDED2AF4C7F8003DBE81 /* SlowSentReplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1142DDEC2AF4C7F8003DBE81 /* SlowSentReplay.swift */; };
 		1172F1032AE1326000D6B0B9 /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172F1022AE1326000D6B0B9 /* WordModel.swift */; };
@@ -177,6 +178,7 @@
 		10D6FA5E2B02FD89003F8FBD /* ScreenItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenItemView.swift; sourceTree = "<group>"; };
 		10F3F2792B04906400CFC817 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		10F3F27B2B04976800CFC817 /* VideoWithAudioRecordEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWithAudioRecordEngine.swift; sourceTree = "<group>"; };
+		10F3F2832B05FD8C00CFC817 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		1101606A2AEE48C100BD405F /* StatisticTabGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticTabGraph.swift; sourceTree = "<group>"; };
 		1142DDEC2AF4C7F8003DBE81 /* SlowSentReplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlowSentReplay.swift; sourceTree = "<group>"; };
 		1172F1022AE1326000D6B0B9 /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				10D6FA572B02F752003F8FBD /* ChaptureEngineForPreview.swift */,
 				10D6FA592B02F7B8003F8FBD /* ChaptuerPreview.swift */,
 				10F3F27B2B04976800CFC817 /* VideoWithAudioRecordEngine.swift */,
+				10F3F2832B05FD8C00CFC817 /* AudioRecorder.swift */,
 			);
 			path = ScreenRecordManager;
 			sourceTree = "<group>";
@@ -1287,6 +1290,7 @@
 				1D7A3ED82ADC0FBD0084E962 /* OpendKeynote.swift in Sources */,
 				107035002AF258390097A685 /* GeneralSettingView.swift in Sources */,
 				1DBF14612AE1380D00B28CED /* MenubarExtraHeader.swift in Sources */,
+				10F3F2842B05FD8C00CFC817 /* AudioRecorder.swift in Sources */,
 				437373A02B0224BD00DEEDBD /* FloatingPanelController.swift in Sources */,
 				1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */,
 				1D0ECD7A2ADDA35400B95A74 /* HPTopToolbar.swift in Sources */,

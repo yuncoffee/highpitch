@@ -112,10 +112,11 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 
                 // 오디오 데이터 출력 생성
                 audioDataOutput = AVCaptureAudioDataOutput()
-                audioDataOutput?.audioSettings = audioSettings
+                
                 if captureSession.canAddOutput(audioDataOutput!) {
                     captureSession.addOutput(audioDataOutput!)
                 }
+                
                 // AVCaptureSession 설정 완료
                 captureSession.commitConfiguration()
                 voiceInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
@@ -154,8 +155,8 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 try stream?.addStreamOutput(streamOutput!, type: .audio, sampleHandlerQueue: audioSampleBufferQueue)
                 stream?.startCapture()
                 //
-                captureSession.startRunning()
-                audioDataOutput?.setSampleBufferDelegate(self, queue: voiceSampleBufferQueue)
+                //captureSession.startRunning()
+                //audioDataOutput?.setSampleBufferDelegate(self, queue: voiceSampleBufferQueue)
                 assetWriter!.startSession(atSourceTime: .zero)
                 streamOutput?.sessionStarted = true
                 //

@@ -88,11 +88,10 @@ final class SpeechRecognizerManager {
                 if result.speechRecognitionMetadata == nil {
                     if answer < 700 && answer > 0 {
                         self.realTimeRate = answer
-                        /// flagCount를 관리합니다.
-                        if self.realTimeRate > 500 {
+                        if self.realTimeRate > 405 {
                             self.flagCount += 1
                             self.flagCount = max(self.flagCount, 1)
-                        } else if self.realTimeRate < 200 {
+                        } else if self.realTimeRate < 220 {
                             self.flagCount -= 1
                             self.flagCount = min(self.flagCount, -1)
                         } else {
@@ -234,7 +233,10 @@ final class SpeechRecognizerManager {
                                 self.startAt = word.timestamp
                                 self.message = word.substring
                             } else if (word.substring != "") {
-                                self.message += " "; self.message += word.substring
+                                if (!self.message.isEmpty && self.message.last! != " ") {
+                                    self.message += " "
+                                }
+                                self.message += word.substring
                             }
                             self.endAt = word.timestamp + word.duration
                         }

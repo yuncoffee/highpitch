@@ -8,6 +8,11 @@
 import Foundation
 import SwiftData
 
+/// 제거사항
+
+/// 추가사항
+/// 1. remarkable: Bool
+
 @Model
 class PracticeModel: Comparable {
     var practiceName: String

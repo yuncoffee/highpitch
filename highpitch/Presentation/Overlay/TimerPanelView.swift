@@ -16,7 +16,7 @@ struct TimerPanelView: View {
             VStack {
                 Text(currentTime)
                     .systemFont(.title, weight: .semibold)
-                    .foregroundStyle(Color.HPTextStyle.darkness)
+                    .foregroundStyle(Color.HPGray.systemWhite)
             }
             .frame(width: 146, height: 56)
             .background(Color.white.opacity(0.1))

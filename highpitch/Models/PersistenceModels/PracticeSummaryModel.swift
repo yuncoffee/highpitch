@@ -8,13 +8,23 @@
 import Foundation
 import SwiftData
 
+/// 제거사항
+/// 1. fillerWordPercentage
+/// 2. level
+/// 3. epmAverage
+
+/// 추가사항
+/// 1. practiceDuration: Double
+/// 2. fwpm: Double
+/// 3. spmAverage: Double
+
 @Model
 class PracticeSummaryModel {
     var syllableSum: Int
     var durationSum: Int
     var wordCount: Int
     var fillerWordCount: Int
-    @Relationship(deleteRule: .cascade) 
+    @Relationship(deleteRule: .cascade)
     var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]

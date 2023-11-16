@@ -66,14 +66,14 @@ extension ProjectView {
         VStack {
             if projectManager.currentTabItem == 0 {
                 // 컨텐츠 1 - 전체 연습통계
-                StatisticsTabItem()
+                ProjectOutLine()
             } else {
                 // 컨텐츠 2 - 연습 회차별 피드백
                 PracticesTabItem()
             }
         }
         .padding(.top, .HPSpacing.small + .HPSpacing.xxxxsmall)
-        .padding(.horizontal, projectManager.currentTabItem == 0 ? .HPSpacing.xxxlarge : 0)
+        .padding(.horizontal, .HPSpacing.medium)
         .padding(.bottom, .HPSpacing.large)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

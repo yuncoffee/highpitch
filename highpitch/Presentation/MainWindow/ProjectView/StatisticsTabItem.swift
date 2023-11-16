@@ -23,26 +23,28 @@ struct StatisticsTabItem: View {
                 let endDate = Date().createAtToYMD(input: practices.last!.creatAt)
                 let practiceDuration = "\(startDate) - \(endDate)"
                 
-                VStack(alignment:.leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("총 \(practices.count)번의 연습에 대한 결과예요")
-                            .systemFont(.largeTitle)
-                            .foregroundStyle(Color.HPTextStyle.darker)
-                        Text("\(practiceDuration) 동안 연습했어요")
-                            .systemFont(.body)
-                            .foregroundStyle(Color.HPTextStyle.base)
+                ScrollView {
+                    VStack(alignment:.leading, spacing: 0) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("총 \(practices.count)번의 연습에 대한 결과에요")
+                                .systemFont(.largeTitle)
+                                .foregroundStyle(Color.HPTextStyle.darker)
+                            Text("\(practiceDuration) 동안 연습했어요")
+                                .systemFont(.body)
+                                .foregroundStyle(Color.HPTextStyle.base)
+                        }
+                        .padding(.bottom, .HPSpacing.xsmall)
+                        HStack(spacing: .HPSpacing.xxsmall) {
+                            /// 총 평균 레벨
+                            averageLevelCard
+                            /// 최고 연습 회차
+                            bestLevelPracticeCard
+                        }
+                        .padding(.bottom, .HPSpacing.xxsmall)
+                        /// [레벨, 습관어, 말 빠르기] 그래프
+                        StatisticTabGraph()
                     }
-                    .padding(.bottom, .HPSpacing.xsmall)
-                    HStack(spacing: .HPSpacing.xxsmall) {
-                        /// 총 평균 레벨
-                        averageLevelCard
-                        /// 최고 연습 회차
-                        bestLevelPracticeCard
-                    }
-                    .padding(.bottom, .HPSpacing.xxsmall)
-                    /// [레벨, 습관어, 말 빠르기] 그래프
-                    StatisticTabGraph()
-                }
+                }.border(.red)
             } else { emptyView }
         } else { emptyView }
     }

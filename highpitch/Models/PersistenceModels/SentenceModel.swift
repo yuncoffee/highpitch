@@ -8,6 +8,13 @@
 import Foundation
 import SwiftData
 
+/// 제거사항
+/// 1. epmValue
+
+/// 추가사항
+/// 1. spmValue: Double
+/// 2. fastOrSlow: Int
+
 @Model
 class SentenceModel {
     var index: Int

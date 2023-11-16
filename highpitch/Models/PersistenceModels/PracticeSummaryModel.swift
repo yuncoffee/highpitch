@@ -14,13 +14,16 @@ class PracticeSummaryModel {
     var durationSum: Int
     var wordCount: Int
     var fillerWordCount: Int
-    @Relationship(deleteRule: .cascade) 
+    @Relationship(deleteRule: .cascade)
     var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]
     var fillerWordPercentage: Double
     var epmAverage: Double
-    var level: Double
+    // var level: Double
+    var practiceLength: Double = -1.0
+    var fwpm: Double = -1.0
+    var spmAverage: Double = -1.0
     
     init(
         syllableSum: Int = 0,
@@ -31,8 +34,7 @@ class PracticeSummaryModel {
         fastSentenceIndex: [Int] = [],
         slowSentenceIndex: [Int] = [],
         fillerWordPercentage: Double = -1.0,
-        epmAverage: Double = -1.0,
-        level: Double = -1.0
+        epmAverage: Double = -1.0
     ) {
         self.syllableSum = syllableSum
         self.durationSum = durationSum
@@ -43,6 +45,5 @@ class PracticeSummaryModel {
         self.slowSentenceIndex = slowSentenceIndex
         self.fillerWordPercentage = fillerWordPercentage
         self.epmAverage = epmAverage
-        self.level = level
     }
 }

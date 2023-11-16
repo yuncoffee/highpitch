@@ -5,22 +5,22 @@
 //  Created by 이재혁 on 11/16/23.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
-enum VersionedSchema2: VersionedSchema {
+enum Schema2: VersionedSchema {
     static var versionIdentifier: Schema.Version = .init(0, 0, 2)
     
     static var models: [any PersistentModel.Type] {
         [ProjectModel.self, PracticeModel.self, UtteranceModel.self, WordModel.self, SentenceModel.self, PracticeSummaryModel.self, FillerWordModel.self]
     }
-
+    
     @Model
     class ProjectModel {
         var projectName: String
         var creatAt: String
         var keynotePath: URL?
-        var keynoteCreation: String 
+        var keynoteCreation: String // 키노트 파일에서 생성일을 조회해서 넣어줌 스트링으로.  FileSystemManager에 있는 getCreationMetadata함수에 path를 전달하면 keynoteCreation 반환해줌.
         @Relationship(deleteRule: .cascade)
         var practices = [PracticeModel]()
         
@@ -32,9 +32,6 @@ enum VersionedSchema2: VersionedSchema {
         }
     }
     
-    // [Version1과 다른 점]
-    // +) remarkable: Bool
-    // +) projectCreatAt: String
     @Model
     class PracticeModel: Comparable {
         var practiceName: String
@@ -50,8 +47,8 @@ enum VersionedSchema2: VersionedSchema {
         var sentences: [SentenceModel]
         @Relationship(deleteRule: .cascade)
         var summary: PracticeSummaryModel
-        var remarkable: Bool
-        var projectCreatAt: String
+        var remarkable: Bool = false
+        var projectCreatAt: String = ""
         
         init(
             practiceName: String,
@@ -62,9 +59,7 @@ enum VersionedSchema2: VersionedSchema {
             utterances: [UtteranceModel],
             words: [WordModel] = [],
             sentences: [SentenceModel] = [],
-            summary: PracticeSummaryModel,
-            remarkable: Bool = false,
-            projectCreatAt: String = ""
+            summary: PracticeSummaryModel
         ) {
             self.practiceName = practiceName
             self.index = index
@@ -75,8 +70,6 @@ enum VersionedSchema2: VersionedSchema {
             self.words = words
             self.sentences = sentences
             self.summary = summary
-            self.remarkable = remarkable
-            self.projectCreatAt = projectCreatAt
         }
         
         static func < (lhs: PracticeModel, rhs: PracticeModel) -> Bool {
@@ -124,38 +117,25 @@ enum VersionedSchema2: VersionedSchema {
         }
     }
 
-    // [Version1과 다른 점]
-    // -) empValue
-    // ---------------------
-    // +) spmValue: Double
-    // +) fastOrSlow: Int
     @Model
     class SentenceModel {
         var index: Int
         var sentence: String
         var startAt: Int
         var endAt: Int
-        var spmValue: Double
-        var fastOrSlow: Int
+        var epmValue: Double
+        var spmValue: Double = -1.0
+        var fastOrSlow: Int = 0
         
-        init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0, fastOrSlow: Int = 0) {
+        init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, epmValue: Double = -1.0) {
             self.index = index
-            self.spmValue = spmValue
+            self.epmValue = epmValue
             self.sentence = sentence
             self.startAt = startAt
             self.endAt = endAt
-            self.fastOrSlow = fastOrSlow
         }
     }
 
-    // [Version1과 다른점]
-    // -) fillerWordPercentage
-    // -) level
-    // -) empAverage
-    // -------------------
-    // +) practiceLength: Double
-    // +) fwpm: Double
-    // +) spmAverage: Double
     @Model
     class PracticeSummaryModel {
         var syllableSum: Int
@@ -166,9 +146,12 @@ enum VersionedSchema2: VersionedSchema {
         var eachFillerWordCount: [FillerWordModel]
         var fastSentenceIndex: [Int]
         var slowSentenceIndex: [Int]
-        var practiceLength: Double
-        var spmAverage: Double
-        var fwpm: Double
+        var fillerWordPercentage: Double
+        var epmAverage: Double
+        var level: Double
+        var practiceLength: Double = -1.0
+        var fwpm: Double = -1.0
+        var spmAverage: Double = -1.0
         
         init(
             syllableSum: Int = 0,
@@ -178,9 +161,9 @@ enum VersionedSchema2: VersionedSchema {
             eachFillerWordCount: [FillerWordModel] = [],
             fastSentenceIndex: [Int] = [],
             slowSentenceIndex: [Int] = [],
-            practiceLength: Double = -1.0,
-            spmAverage: Double = -1.0,
-            fwpm: Double = -1.0
+            fillerWordPercentage: Double = -1.0,
+            epmAverage: Double = -1.0,
+            level: Double = -1.0
         ) {
             self.syllableSum = syllableSum
             self.durationSum = durationSum
@@ -189,9 +172,9 @@ enum VersionedSchema2: VersionedSchema {
             self.eachFillerWordCount = eachFillerWordCount
             self.fastSentenceIndex = fastSentenceIndex
             self.slowSentenceIndex = slowSentenceIndex
-            self.practiceLength = practiceLength
-            self.spmAverage = spmAverage
-            self.fwpm = fwpm
+            self.fillerWordPercentage = fillerWordPercentage
+            self.epmAverage = epmAverage
+            self.level = level
         }
     }
 

@@ -49,9 +49,6 @@ extension PracticeManager {
                 practice.summary.fastSentenceIndex.append(sentence.index)
             }
         }
-        
-        practice.summary.level = 0
-        practice.summary.level += 5 - min(ceil(max(practice.summary.fillerWordPercentage - 3.5, 0.0)), 4)
     }
     
     // swiftlint:disable function_body_length

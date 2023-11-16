@@ -8,9 +8,9 @@
 import SwiftUI
 import SwiftData
 
-enum MyMigrationPlan: SchemaMigrationPlan {
+enum MigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [VersionedSchema1.self, VersionedSchema2.self]
+        [Schema1.self, Schema2.self]
     }
     
     static var stages: [MigrationStage] {
@@ -18,7 +18,7 @@ enum MyMigrationPlan: SchemaMigrationPlan {
     }
 
     static let migrateV1toV2 = MigrationStage.lightweight(
-        fromVersion: VersionedSchema1.self,
-        toVersion: VersionedSchema2.self
+        fromVersion: Schema1.self,
+        toVersion: Schema2.self
     )
 }

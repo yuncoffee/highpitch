@@ -74,7 +74,7 @@ extension MediaManager: Recordable {
     
     func prepareRecording() {
         // MARK: 파일 이름 전략은 -> YYYYMMDDHHMMSS.m4a
-        let fileURL = getPath(fileName: fileName)
+        let fileURL = URL.getPath(fileName: fileName,type: .audio)
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,

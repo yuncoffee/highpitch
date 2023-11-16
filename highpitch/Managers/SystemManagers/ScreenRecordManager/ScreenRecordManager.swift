@@ -159,7 +159,7 @@ class ScreenRecordManager: ObservableObject {
         }
     }
     /// Starts capturing screen content.
-    func start() async {
+    func start(fileName: String) async {
         // Exit early if already running.
         guard !isRunning else { return }
         
@@ -177,7 +177,7 @@ class ScreenRecordManager: ObservableObject {
             // Update the running state.
             isRunning = true
             // Start the stream and await new video frames.
-            for try await frame in captureEngine.startCapture(configuration: config, filter: filter) {
+            for try await frame in captureEngine.startCapture(configuration: config, filter: filter, fileName: fileName) {
                 capturePreview.updateFrame(frame)
                 if contentSize != frame.size {
                     // Update the content size if it changed.

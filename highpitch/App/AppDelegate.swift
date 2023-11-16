@@ -9,75 +9,83 @@ import SwiftUI
 
 // MARK: 항상 맨 위에 떠 있는 뷰 (NSPanel)을 추가하기 위한 코드들
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var floatingPanelControllers: [InstantPanel:FloatingPanelController] = [:]
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
+    var panelControllers: [InstantPanel:PanelController] = [:]
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         print("NSScreen.main?.frame: \(NSScreen.main?.frame)")
         print("NSScreen.main?.visibleFrame: \(NSScreen.main?.visibleFrame)")
         
         // 타이머 패널
-        let floatingTimerPanelController = FloatingPanelController(
-            xPosition: Int((NSScreen.main?.visibleFrame.width)! / 2) - 73,
-            yPosition: Int((NSScreen.main?.visibleFrame.height)!) - 15,
+        let timerPanelController = PanelController(
+            xPosition: instantFeedbackManager.timerPanelX,
+            yPosition: instantFeedbackManager.timerPanelY,
             swidth: 146, sheight: 56
         )
-        floatingPanelControllers[InstantPanel.timer] = floatingTimerPanelController
+        panelControllers[InstantPanel.timer] = timerPanelController
         
-        floatingTimerPanelController.panel?.contentView = NSHostingView(
-            rootView: TimerPanelView(floatingPanelController: floatingTimerPanelController)
+        timerPanelController.panel?.contentView = NSHostingView(
+            rootView: TimerPanelView(floatingPanelController: timerPanelController)
         )
-        floatingTimerPanelController.hidePanel(self)
+        timerPanelController.hidePanel(self)
         
         // 세팅 패널
-        let floatingSettingPanelController = FloatingPanelController(
+        let settingPanelController = PanelController(
             xPosition: Int((NSScreen.main?.visibleFrame.width)!) - 120,
             yPosition: Int((NSScreen.main?.visibleFrame.height)! - 15),
             swidth: 44, sheight: 28
         )
-        floatingPanelControllers[InstantPanel.setting] = floatingSettingPanelController
+        panelControllers[InstantPanel.setting] = settingPanelController
         
-        floatingSettingPanelController.panel?.isMovableByWindowBackground = false
-        floatingSettingPanelController.panel?.contentView = NSHostingView(
-            rootView: SettingPanelView(floatingPanelController: floatingSettingPanelController)
+        settingPanelController.panel?.isMovableByWindowBackground = false
+        settingPanelController.panel?.contentView = NSHostingView(
+            rootView: SettingPanelView(floatingPanelController: settingPanelController)
         )
-        floatingSettingPanelController.hidePanel(self)
+        settingPanelController.hidePanel(self)
         
         // 스피드 패널
-        let floatingSpeedPanelController = FloatingPanelController(
-            xPosition: Int((NSScreen.main?.visibleFrame.width)!) - 178,
-            yPosition: 276, swidth: 150, sheight: 150
+        let speedPanelController = PanelController(
+            xPosition: instantFeedbackManager.speedPanelX,
+            yPosition: instantFeedbackManager.speedPanelY,
+            swidth: 150, sheight: 150
         )
-        floatingPanelControllers[InstantPanel.speed] = floatingSpeedPanelController
+        panelControllers[InstantPanel.speed] = speedPanelController
         
-        floatingSpeedPanelController.panel?.contentView = NSHostingView(
-            rootView: SpeedPanelView(floatingPanelController: floatingSpeedPanelController)
+        speedPanelController.panel?.contentView = NSHostingView(
+            rootView: SpeedPanelView(floatingPanelController: speedPanelController)
         )
-        floatingSpeedPanelController.hidePanel(self)
+        speedPanelController.hidePanel(self)
         
         // 필러워드 패널
-        let floatingFillerwordPanelController = FloatingPanelController(
-            xPosition: Int((NSScreen.main?.visibleFrame.width)!) - 178,
-            yPosition: 129, swidth: 150, sheight: 150
+        let fillerWordPanelController = PanelController(
+            xPosition: instantFeedbackManager.fillerWordPanelX,
+            yPosition: instantFeedbackManager.fillerWordPanelY,
+            swidth: 150, sheight: 150
         )
-        floatingPanelControllers[InstantPanel.fillerWord] = floatingFillerwordPanelController
+        panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
         
-        floatingFillerwordPanelController.panel?.contentView = NSHostingView(
-            rootView: FillerWordPanelView(floatingPanelController: floatingFillerwordPanelController)
+        fillerWordPanelController.panel?.contentView = NSHostingView(
+            rootView: FillerWordPanelView(floatingPanelController: fillerWordPanelController)
         )
-        floatingFillerwordPanelController.hidePanel(self)
+        fillerWordPanelController.hidePanel(self)
         
         // 편집 패널
-        let floatingEditPanelController = FloatingPanelController(
-            xPosition: 56, yPosition: 116, swidth: 436, sheight: 292
+        let detailSettingPanelController = PanelController(
+            xPosition: instantFeedbackManager.detailPanelX,
+            yPosition: instantFeedbackManager.detailPanelY,
+            swidth: 436, sheight: 292
         )
-        floatingPanelControllers[InstantPanel.detailSetting] = floatingEditPanelController
+        panelControllers[InstantPanel.detailSetting] = detailSettingPanelController
         
-        floatingEditPanelController.panel?.styleMask.insert(.titled)
+        detailSettingPanelController.panel?.styleMask.insert(.titled)
         
-        floatingEditPanelController.panel?.title = "실시간 피드백 레이아웃 편집"
-        floatingEditPanelController.panel?.contentView = NSHostingView(
-            rootView: EditPanelView(floatingPanelController: floatingEditPanelController)
+        detailSettingPanelController.panel?.title = "실시간 피드백 레이아웃 편집"
+        detailSettingPanelController.panel?.contentView = NSHostingView(
+            rootView: EditPanelView(floatingPanelController: detailSettingPanelController)
         )
-        floatingEditPanelController.hidePanel(self)
+        detailSettingPanelController.hidePanel(self)
+        
+        // InstantFeedbackManager에 Controllers 저장
+        SystemManager.shared.instantFeedbackManager.feedbackPanelControllers = panelControllers
     }
 }

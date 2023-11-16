@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FillerWordPanelView: View {
-    var floatingPanelController: FloatingPanelController
+    var floatingPanelController: PanelController
     private let PANEL_FRAME_SIZE = 120.0
     
     var body: some View {
@@ -47,10 +47,10 @@ struct FillerWordPanelView: View {
                     .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
                     .padding(6)
                     .border(
-                        SystemManager.shared.instantFeedbackManager.isFocused == .fillerWord
+                        SystemManager.shared.instantFeedbackManager.focusedPanel == .fillerWord
                            ? Color.HPPrimary.base
                            : Color.clear, width: 2)
-                if SystemManager.shared.instantFeedbackManager.isFocused == .fillerWord {
+                if SystemManager.shared.instantFeedbackManager.focusedPanel == .fillerWord {
                     Button {
                         if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.fillerWord) {
                             SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
@@ -75,16 +75,20 @@ struct FillerWordPanelView: View {
         }
         .onHover { value in
             if value {
-                SystemManager.shared.instantFeedbackManager.isFocused = .fillerWord
+                SystemManager.shared.instantFeedbackManager.focusedPanel = .fillerWord
             } else {
-                SystemManager.shared.instantFeedbackManager.isFocused = nil
+                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "FillerWordPanelX")
+                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "FillerWordPanelY")
+                
+                SystemManager.shared.instantFeedbackManager.focusedPanel = nil
             }
         }
         .frame(width: 158, height: 158)
         .onAppear {
             #if PREVIEW
-            PanelData.shared.isEditMode = true
-            PanelData.shared.isFocused = 3
+            PanelData.shared.isDetailSettingActive = true
+            PanelData.shared.focusedPanel = 3
             SystemManager.shared
                 .instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
             SystemManager.shared
@@ -121,7 +125,7 @@ struct FillerWordStatus: View {
 
 #Preview {
     FillerWordPanelView(
-        floatingPanelController: FloatingPanelController(
+        floatingPanelController: PanelController(
             xPosition: Int((NSScreen.main?.frame.width)!) - 120,
             yPosition: 120,
             swidth: 132,

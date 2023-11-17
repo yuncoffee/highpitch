@@ -70,7 +70,6 @@ struct HighpitchApp: App {
         do {
             container = try ModelContainer(
                 for: ProjectModel.self,
-                migrationPlan: MigrationPlan.self,
                 configurations: ModelConfiguration())
         } catch {
             fatalError("Could not initialize ModelContainer")

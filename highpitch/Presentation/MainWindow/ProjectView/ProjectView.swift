@@ -28,7 +28,7 @@ extension ProjectView {
     // MARK: - tabBar
     @ViewBuilder
     private var tabBar: some View {
-        let labels = ["전체 연습 통계", "연습 회차별 피드백"]
+        let labels = ["프로젝트 개요", "연습 리스트"]
         HStack(spacing: .HPSpacing.small) {
             ForEach(Array(labels.enumerated()), id: \.1.self) { index, label in
                 Button {
@@ -58,7 +58,7 @@ extension ProjectView {
         .padding(.horizontal, .HPSpacing.xxxlarge)
         .frame(maxWidth: .infinity , minHeight: 60, maxHeight: 60, alignment: .bottomLeading)
         .background(Color.HPGray.systemWhite)
-//        .border(Color.HPPrimary.light.opacity(0.25), width: 1, edges: [.bottom])
+        .border(Color.HPPrimary.light.opacity(0.25), width: 1, edges: [.bottom])
     }
     
     @ViewBuilder
@@ -72,9 +72,9 @@ extension ProjectView {
                 PracticesTabItem()
             }
         }
-        .padding(.top, .HPSpacing.small + .HPSpacing.xxxxsmall)
-        .padding(.horizontal, .HPSpacing.medium)
-        .padding(.bottom, .HPSpacing.large)
+        .padding(.top, .HPSpacing.xxsmall)
+        .padding(.horizontal, projectManager.currentTabItem == 0 ? .HPSpacing.xxxlarge : 0)
+        .padding(.bottom, projectManager.currentTabItem == 0 ? .HPSpacing.large : .zero)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }

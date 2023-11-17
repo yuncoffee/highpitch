@@ -106,7 +106,7 @@ extension AudioControllerView {
                             .frame(height: 4)
                             .background(Color.HPGray.system400)
                             .cornerRadius(4),
-                        thumbSize: CGSize(width: 12, height: 4)
+                        thumbSize: CGSize(width: 16, height: 16)
                     )
                 )
                 .padding(.horizontal, .HPSpacing.xxxsmall)

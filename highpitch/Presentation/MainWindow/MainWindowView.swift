@@ -112,7 +112,7 @@ extension MainWindowView {
         }
         if !projects.isEmpty {
             projectManager.projects = projects
-            projectManager.current = projects[0]
+            projectManager.current = projects.last
         }
         if colorScheme == ColorScheme.dark {
             SystemManager.shared.isDarkMode = true
@@ -128,7 +128,6 @@ extension MainWindowView {
     private func receiveNotificationAndRouting() {
         NotificationCenter.default.addObserver(forName: Notification.Name("projectName"),
                                                object: nil, queue: nil) { value in
-            
             let thisPractice = projects.flatMap { $0.practices }
                 .first(where: { $0.creatAt == value.object as! String })
             if let practice = thisPractice {
@@ -152,7 +151,12 @@ extension MainWindowView {
     @ViewBuilder
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("프로젝트 이름")
+            Button {
+                print("전체통계")
+            } label: {
+                Text("전체 통계")
+            }
+            Text("내 프로젝트")
                 .systemFont(.body, weight: .semibold)
                 .foregroundStyle(Color.HPTextStyle.darker)
                 .padding(.bottom, .HPSpacing.xsmall)

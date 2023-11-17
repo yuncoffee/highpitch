@@ -21,13 +21,12 @@ class SentenceModel {
     var sentence: String
     var startAt: Int
     var endAt: Int
-    var epmValue: Double
     var spmValue: Double = -1.0
     var type: Int = 0
     
     init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, epmValue: Double = -1.0) {
         self.index = index
-        self.epmValue = epmValue
+        self.spmValue = epmValue
         self.sentence = sentence
         self.startAt = startAt
         self.endAt = endAt

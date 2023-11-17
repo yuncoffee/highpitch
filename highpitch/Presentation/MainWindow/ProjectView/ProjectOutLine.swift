@@ -54,7 +54,7 @@ extension ProjectOutLine {
     func returnSpeakingRate(practices: [PracticeModel]) -> Int {
         var answer = 0.0
         for practice in practices {
-            answer += practice.summary.epmAverage
+            answer += practice.summary.spmAverage
         }
         answer /= Double(practices.count)
         return Int(answer)

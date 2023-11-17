@@ -87,7 +87,7 @@ struct PracticeListCell: View {
                                     .systemFont(.caption, weight: .semibold)
                                     .foregroundStyle(Color.HPTextStyle.darker)
                                 HStack(spacing: 0) {
-                                    Text("\(Int(practice.summary.epmAverage ?? 0).description)")
+                                    Text("\(Int(practice.summary.spmAverage ?? 0).description)")
                                         .systemFont(.largeTitle)
                                         .foregroundStyle(Color.HPPrimary.base)
                                     Text("EPM")

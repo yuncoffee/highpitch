@@ -28,6 +28,7 @@ class PracticeSummaryModel {
     var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]
+    @Attribute(originalName: "empAverage")
     var spmAverage: Double
     var practiceLength: Double = -1.0
     var fwpm: Double = -1.0

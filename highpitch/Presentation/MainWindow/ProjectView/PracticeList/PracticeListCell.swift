@@ -54,9 +54,7 @@ struct PracticeListCell: View {
                                 Text("LV.")
                                     .systemFont(.body, weight: .semibold)
                                     .foregroundStyle(Color.HPPrimary.dark)
-                                Text("\(String(format: "%.1f", practice.summary.level))")
-                                    .systemFont(.largeTitle)
-                                    .foregroundStyle(Color.HPPrimary.dark)
+                                
                                 Text("/5")
                                     .systemFont(.body)
                                     .foregroundStyle(Color.HPTextStyle.light)

@@ -91,8 +91,8 @@ extension PracticeViewStore {
     }
     
     func getEpmRange() -> (first: Double, last: Double) {
-        let sortedSentences = practice.sentences.sorted(by: { $0.epmValue < $1.epmValue })
-        if let firstEpmValue = sortedSentences.first?.epmValue, let lastEpmValue = sortedSentences.last?.epmValue {
+        let sortedSentences = practice.sentences.sorted(by: { $0.spmValue < $1.spmValue })
+        if let firstEpmValue = sortedSentences.first?.spmValue, let lastEpmValue = sortedSentences.last?.spmValue {
             return (firstEpmValue, lastEpmValue)
         } else {
             return (-1, -1)

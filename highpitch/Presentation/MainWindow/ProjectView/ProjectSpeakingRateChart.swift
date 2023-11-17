@@ -62,7 +62,7 @@ extension ProjectSpeakingRateChart {
                 ForEach(practices) { practice in
                     LineMark(
                         x: .value("연습회차", practice.index + 1),
-                        y: .value(title, practice.summary.epmAverage)
+                        y: .value(title, practice.summary.spmAverage)
                     )
                     .foregroundStyle(Color.HPPrimary.light)
                     .symbol {
@@ -76,7 +76,7 @@ extension ProjectSpeakingRateChart {
                 /// 가장 최근의 연습은 PointMark를 추가합니다.
                 PointMark(
                     x: .value("연습 회차", practices.last!.index + 1),
-                    y: .value(title, practices.last!.summary.epmAverage)
+                    y: .value(title, practices.last!.summary.spmAverage)
                 )
                 .symbolSize(113)
                 .foregroundStyle(Color.HPPrimary.base)
@@ -179,19 +179,19 @@ extension ProjectSpeakingRateChart {
     /// YAxis 범위
     func spmValueRange() -> [Double] {
         let practices = projectManager.current?.practices.sorted(
-            by: { $0.summary.epmAverage < $1.summary.epmAverage }
+            by: { $0.summary.spmAverage < $1.summary.spmAverage }
         )
         if let practices = practices, !practices.isEmpty {
-            if ( practices.first!.summary.epmAverage ==
-                 practices.last!.summary.epmAverage) {
+            if ( practices.first!.summary.spmAverage ==
+                 practices.last!.summary.spmAverage) {
                 return [
-                    practices.first!.summary.epmAverage - 25,
-                    practices.first!.summary.epmAverage + 25
+                    practices.first!.summary.spmAverage - 25,
+                    practices.first!.summary.spmAverage + 25
                 ]
             }
             return [
-                practices.first!.summary.epmAverage,
-                practices.last!.summary.epmAverage
+                practices.first!.summary.spmAverage,
+                practices.last!.summary.spmAverage
             ]
         }
         return []

@@ -28,12 +28,9 @@ class PracticeSummaryModel {
     var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]
-    var fillerWordPercentage: Double
-    var epmAverage: Double
-    var level: Double = 0.0
+    var spmAverage: Double
     var practiceLength: Double = -1.0
     var fwpm: Double = -1.0
-    var spmAverage: Double = -1.0
     
     init(
         syllableSum: Int = 0,
@@ -43,8 +40,7 @@ class PracticeSummaryModel {
         eachFillerWordCount: [FillerWordModel] = [],
         fastSentenceIndex: [Int] = [],
         slowSentenceIndex: [Int] = [],
-        fillerWordPercentage: Double = -1.0,
-        epmAverage: Double = -1.0
+        spmAverage: Double = -1.0
     ) {
         self.syllableSum = syllableSum
         self.durationSum = durationSum
@@ -53,7 +49,6 @@ class PracticeSummaryModel {
         self.eachFillerWordCount = eachFillerWordCount
         self.fastSentenceIndex = fastSentenceIndex
         self.slowSentenceIndex = slowSentenceIndex
-        self.fillerWordPercentage = fillerWordPercentage
-        self.epmAverage = epmAverage
+        self.spmAverage = spmAverage
     }
 }

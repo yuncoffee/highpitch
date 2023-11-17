@@ -94,7 +94,7 @@ extension SpeedAudioIndicator {
             ForEach(sentences) { sentence in
                 LineMark(
                     x: .value("sentenceIndex", sentence.index),
-                    y: .value("EPM", sentence.epmValue)
+                    y: .value("EPM", sentence.spmValue)
                 )
                 .foregroundStyle(Color.HPOrange.base)
                 .lineStyle(StrokeStyle(lineWidth: 2))
@@ -102,7 +102,7 @@ extension SpeedAudioIndicator {
             ForEach(sentences) { sentence in
                 AreaMark(
                     x: .value("sentenceIndex", sentence.index),
-                    y: .value("EPM", sentence.epmValue)
+                    y: .value("EPM", sentence.spmValue)
                 )
             }
             .foregroundStyle(linearGradient)

@@ -21,14 +21,16 @@ class PracticeModel: Comparable {
     var isVisited: Bool
     var creatAt: String
     var audioPath: URL?
-    @Relationship(deleteRule: .cascade) 
+    @Relationship(deleteRule: .cascade)
     var utterances: [UtteranceModel]
-    @Relationship(deleteRule: .cascade) 
+    @Relationship(deleteRule: .cascade)
     var words: [WordModel]
-    @Relationship(deleteRule: .cascade) 
+    @Relationship(deleteRule: .cascade)
     var sentences: [SentenceModel]
-    @Relationship(deleteRule: .cascade) 
+    @Relationship(deleteRule: .cascade)
     var summary: PracticeSummaryModel
+    var remarkable: Bool = false
+    var projectCreatAt: String = ""
     
     init(
         practiceName: String,

@@ -37,7 +37,6 @@ extension PracticeManager {
     static func updateSummary(practice: PracticeModel) {
         practice.summary.spmAverage =
         Double(practice.summary.syllableSum * 60000) / Double(practice.summary.durationSum)
-        
         /// sentences 중 epmAverage와의 오차가 60 이상인 경우 저장한다.
         for sentence in practice.sentences {
             if sentence.spmValue < practice.summary.spmAverage - 100.0 {
@@ -48,6 +47,8 @@ extension PracticeManager {
                 practice.summary.fastSentenceIndex.append(sentence.index)
                 sentence.type = 1
             }
+            practice.summary.maxSpm = max(practice.summary.maxSpm, sentence.spmValue)
+            practice.summary.minSpm = min(practice.summary.minSpm, sentence.spmValue)
         }
         practice.summary.fwpm = Double(practice.summary.fillerWordCount)
         / practice.summary.practiceLength * 60.0

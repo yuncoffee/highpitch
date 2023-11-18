@@ -39,6 +39,8 @@ struct ProjectOutLine: View {
                             fillerWordTOP3View(practices: practices)
                         }
                         .padding(.bottom, .HPSpacing.small)
+                        ProjectFWPMChart()
+                            .padding(.bottom, .HPSpacing.small)
                         ProjectSpeakingRateChart()
                             .padding(.bottom, .HPSpacing.small)
                     }
@@ -150,7 +152,10 @@ extension ProjectOutLine {
                 .systemFont(.body)
                 .foregroundColor(Color.HPTextStyle.darker)
             if fillerWordTOP3.isEmpty {
-                Text("사용한 습관어가 없습니다.")
+                Text("사용한 습관어가 없어요")
+                    .systemFont(.footnote)
+                    .foregroundColor(Color.HPTextStyle.light)
+                    .padding(.top, .HPSpacing.xsmall)
             } else {
                 ZStack {
                     HStack(alignment: .bottom, spacing: 0) {

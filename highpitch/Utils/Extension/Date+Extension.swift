@@ -84,6 +84,22 @@ extension Date {
         }
     }
     
+    func createAtToHM(input: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+        
+        if let date = inputFormatter.date(from: input) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "HH:mm"
+            
+            let dateString = outputFormatter.string(from: date)
+            
+            return dateString
+        } else {
+            return "Invalid Date"
+        }
+    }
+    
     static func diffNowToPractieDate(input: String) -> String {
         var result = ""
         let dateFormatter = DateFormatter()

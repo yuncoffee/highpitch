@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.timer] = timerPanelController
         
         timerPanelController.panel?.contentView = NSHostingView(
-            rootView: TimerPanelView(floatingPanelController: timerPanelController)
+            rootView: TimerPanelView(panelController: timerPanelController)
         )
         timerPanelController.hidePanel(self)
         
@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         settingPanelController.panel?.isMovableByWindowBackground = false
         settingPanelController.panel?.contentView = NSHostingView(
-            rootView: SettingPanelView(floatingPanelController: settingPanelController)
+            rootView: SettingPanelView(panelController: settingPanelController)
         )
         settingPanelController.hidePanel(self)
         
@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.speed] = speedPanelController
         
         speedPanelController.panel?.contentView = NSHostingView(
-            rootView: SpeedPanelView(floatingPanelController: speedPanelController)
+            rootView: SpeedPanelView(panelController: speedPanelController)
         )
         speedPanelController.hidePanel(self)
         
@@ -65,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
         
         fillerWordPanelController.panel?.contentView = NSHostingView(
-            rootView: FillerWordPanelView(floatingPanelController: fillerWordPanelController)
+            rootView: FillerWordPanelView(panelController: fillerWordPanelController)
         )
         fillerWordPanelController.hidePanel(self)
         
@@ -81,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         detailSettingPanelController.panel?.title = "실시간 피드백 레이아웃 편집"
         detailSettingPanelController.panel?.contentView = NSHostingView(
-            rootView: EditPanelView(floatingPanelController: detailSettingPanelController)
+            rootView: EditPanelView(panelController: detailSettingPanelController)
         )
         detailSettingPanelController.hidePanel(self)
         

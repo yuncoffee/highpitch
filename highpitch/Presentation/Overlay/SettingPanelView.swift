@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SettingPanelView: View {
-    var floatingPanelController: PanelController
+    var panelController: PanelController
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
     var body: some View {
         VStack {

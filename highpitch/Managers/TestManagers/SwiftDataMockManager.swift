@@ -441,9 +441,7 @@ class SwiftDataMockManager {
             ],
             fastSentenceIndex: [1],
             slowSentenceIndex: [],
-            fillerWordPercentage: 1.8867924528301887,
-            epmAverage: 158.78129602356407,
-            level: 5
+            spmAverage: 158.78129602356407
         )
     )
     static var SamplePracticeModelID = {

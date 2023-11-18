@@ -55,7 +55,7 @@ extension FeedbackChartView {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, .HPSpacing.xsmall)
-            UsagePercentChart(practiceModel: viewStore.practice)
+//            UsagePercentChart(practiceModel: viewStore.practice)
             UsageTopTierChart(
                 fillerWordCount: viewStore.practice.summary.fillerWordCount,
                 fillerWords: viewStore.getSortedFillerWord()

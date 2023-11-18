@@ -46,7 +46,7 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
             AVLinearPCMBitDepthKey: 16,
             AVLinearPCMIsNonInterleaved: false,
             AVLinearPCMIsFloatKey: false,
-            AVLinearPCMIsBigEndianKey: false, // 이 부분이 추가되었습니다.
+            AVLinearPCMIsBigEndianKey: false
         ]
         
         assetWriterInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
@@ -71,15 +71,8 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
 
     func stopRecording() {
         isRecording = false
-        
-        // 캡처 세션 정지
-        // 캡처 세션을 정지하기 전에, delegate 메소드가 호출되는 것을 방지하기 위해 데이터 출력을 제거합니다.
-        print("audioDataOutput:", audioDataOutput)
         audioDataOutput.setSampleBufferDelegate(nil, queue: nil)
-        // 캡처 세션을 정지합니다.
         captureSession!.stopRunning()
-        
-        // AVAssetWriter 종료
         assetWriterInput.markAsFinished()
         assetWriter.finishWriting {
             print("Recording finished.")
@@ -92,6 +85,38 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
             if assetWriterInput.isReadyForMoreMediaData {
                 assetWriterInput.append(sampleBuffer)
             }
+        }
+    }
+}
+extension AudioRecorder {
+    func mergeAudioAndVideo(videoURL: URL, audioURL: URL, outputURL: URL, completion: @escaping (Error?) -> Void) {
+        // 비디오 트랙 생성
+        let videoAsset = AVURLAsset(url: videoURL)
+        let videoTrack = videoAsset.tracks(withMediaType: .video)[0]
+
+        // 오디오 트랙 생성
+        let audioAsset = AVURLAsset(url: audioURL)
+        let audioTrack = audioAsset.tracks(withMediaType: .audio)[0]
+
+        // 합치기 위한 Composition 생성
+        let mixComposition = AVMutableComposition()
+
+        // 비디오 트랙 추가
+        let compositionVideoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        try? compositionVideoTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration), of: videoTrack, at: CMTime.zero)
+
+        // 오디오 트랙 추가
+        let compositionAudioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        try? compositionAudioTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration), of: audioTrack, at: CMTime.zero)
+
+        // 출력 설정
+        let exportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)
+        exportSession?.outputURL = outputURL
+        exportSession?.outputFileType = .mov
+
+        // 비동기적으로 합치기 실행
+        exportSession?.exportAsynchronously {
+            completion(exportSession?.error)
         }
     }
 }

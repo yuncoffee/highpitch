@@ -19,13 +19,15 @@ struct ScreenItemView: View {
                         Button {
                             screenRecorder.selectedWindow = window
                             screenRecorder.captureType = .window
+                            print(window.frame)
                         } label: {
                             VStack {
-                                screenRecorder.captureWindowPreviews.first(where:{ $0.displayName == window.displayName })
-                                    .frame(width:200,height: 200)
+                                screenRecorder.captureWindowPreviews.first(
+                                    where: { $0.displayName == window.displayName })
+                                    .frame(width:139,height: 96)
                                     .aspectRatio(screenRecorder.contentSize, contentMode: .fit)
                                     .padding(8)
-                                Text(window.displayName)
+                                Text(window.owningApplication!.applicationName)
                             }
                         }
                     }
@@ -36,8 +38,9 @@ struct ScreenItemView: View {
                             screenRecorder.captureType = .display
                         } label: {
                             VStack {
-                                screenRecorder.captureDisplayPreviews.first(where:{ $0.displayName == display.displayName })
-                                    .frame(width:200,height: 200)
+                                screenRecorder.captureDisplayPreviews.first(
+                                    where:{ $0.displayName == display.displayName })
+                                    .frame(width:139,height: 96)
                                     .aspectRatio(screenRecorder.contentSize, contentMode: .fit)
                                     .padding(8)
                                 Text(display.displayName)

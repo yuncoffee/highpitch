@@ -115,7 +115,7 @@ extension ProjectFWPMChart {
             .chartScrollableAxes(.horizontal)
             .chartScrollPosition(initialX: practices.count)
             .chartXScale(domain: [
-                0.3, Double(practices.count) + 0.7
+                0.2, Double(practices.count) + 0.8
             ])
             /// 화면에 7회차까지의 연습을 표출합니다.
             .chartXVisibleDomain(length: 7)

@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct TimerPanelView: View {
-    var floatingPanelController: PanelController
-    
     @State private var timer: Timer? = nil
     @State private var elapsedTime: TimeInterval = 0.0
     @State private var isTimerRunning = false
+    
+    var panelController: PanelController
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
     var formattedElapsedTime: String {
         let minutes = Int(elapsedTime) / 60
@@ -30,20 +31,9 @@ struct TimerPanelView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.ultraThinMaterial)
+            .background(Color("FFFFFF").opacity(0.5))
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
-            .onHover { value in
-                if value {
-                    SystemManager.shared.instantFeedbackManager.focusedPanel = .timer
-                } else {
-                    // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                    UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "TimerPanelX")
-                    UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "TimerPanelY")
-                    
-                    SystemManager.shared.instantFeedbackManager.focusedPanel = nil
-                }
-            }
             .onTapGesture {
                 if isTimerRunning {
                     // 타이머가 실행 중인 경우
@@ -64,18 +54,10 @@ struct TimerPanelView: View {
         .padding(18)
         .overlay {
             ZStack(alignment: .topTrailing) {
-                RoundedRectangle(cornerRadius: .HPCornerRadius.large)
-                    .stroke(Color.HPGray.systemWhite.opacity(0.1))
-                    .frame(width: 104, height: 56)
-                    .padding(6)
-                    .border(
-                        SystemManager.shared.instantFeedbackManager.focusedPanel == .timer
-                        ? Color.HPPrimary.base
-                        : Color.clear, width: 2)
-                if SystemManager.shared.instantFeedbackManager.focusedPanel == .timer {
+                if instantFeedbackManager.focusedPanel == .timer {
                     Button {
-                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.timer) {
-                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.timer)
+                        if instantFeedbackManager.activePanels.contains(InstantPanel.timer) {
+                            instantFeedbackManager.activePanels.remove(InstantPanel.timer)
                         }
                     } label: {
                         Circle()
@@ -91,9 +73,30 @@ struct TimerPanelView: View {
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 10, y: -10)
+                    .offset(x: 52, y: -24)
                 }
             }
         }
+        .onHover { value in
+            if value {
+                instantFeedbackManager.focusedPanel = .timer
+            } else {
+                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                UserDefaults.standard.set( String(Int((panelController.panel?.frame.minX)!)), forKey: "TimerPanelX")
+                UserDefaults.standard.set(String(Int((panelController.panel?.frame.minY)!)), forKey: "TimerPanelY")
+                //                    print("TimerX: \(floatingPanelController.getPanelPosition()!.x)")
+                //                    print("TimerY: \(floatingPanelController.getPanelPosition()!.y)")
+                
+                print("floatingPanelController.panel?.frame.minX: \(panelController.panel?.frame.minX)")
+                print("floatingPanelController.panel?.frame.maxX: \(panelController.panel?.frame.maxX)")
+                print("floatingPanelController.panel?.frame.minY: \(panelController.panel?.frame.minY)")
+                print("floatingPanelController.panel?.frame.maxY: \(panelController.panel?.frame.maxY)")
+                
+                print("Int((NSScreen.main?.visibleFrame.height)!) - 56): \(Int((NSScreen.main?.visibleFrame.height)!) - 56))")
+                
+                instantFeedbackManager.focusedPanel = nil
+            }
+        }
+        .frame(width: 146, height: 94)
     }
 }

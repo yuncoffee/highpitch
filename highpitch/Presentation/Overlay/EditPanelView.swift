@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct EditPanelView: View {
-    var floatingPanelController: PanelController
-    
     @State private var fillerWordPanelOn = true
     @State private var speedPanelOn = true
     @State private var timerPanelOn = true
-
+    
+    var panelController: PanelController
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
+    
     var body: some View {
         VStack {
             HStack(alignment: .center) {
@@ -34,9 +35,9 @@ struct EditPanelView: View {
                             .foregroundStyle(Color.HPTextStyle.dark)
                             .onChange(of: fillerWordPanelOn) { _, value in
                                 if value {
-                                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
+                                    instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
                                 } else {
-                                    SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
+                                    instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
                                 }
                             }
                     }
@@ -48,9 +49,9 @@ struct EditPanelView: View {
                             .foregroundStyle(Color.HPTextStyle.dark)
                             .onChange(of: speedPanelOn) { _, value in
                                 if value {
-                                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.speed)
+                                    instantFeedbackManager.activePanels.insert(InstantPanel.speed)
                                 } else {
-                                    SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.speed)
+                                    instantFeedbackManager.activePanels.remove(InstantPanel.speed)
                                 }
                             }
                     }
@@ -63,9 +64,9 @@ struct EditPanelView: View {
                             .foregroundStyle(Color.HPTextStyle.dark)
                             .onChange(of: timerPanelOn) { _, value in
                                 if value {
-                                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.timer)
+                                    instantFeedbackManager.activePanels.insert(InstantPanel.timer)
                                 } else {
-                                    SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.timer)
+                                    instantFeedbackManager.activePanels.remove(InstantPanel.timer)
                                 }
                             }
                     }
@@ -79,23 +80,29 @@ struct EditPanelView: View {
             HStack {
                 Button(action: {
                     // activePanel에 모두 다 넣고
-                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.timer)
-                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.speed)
-                    SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
+                    instantFeedbackManager.activePanels.insert(InstantPanel.timer)
+                    instantFeedbackManager.activePanels.insert(InstantPanel.speed)
+                    instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
                     
+//                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
+//                        .setFrameTopLeftPoint(NSPoint(x:48, y:Int((NSScreen.main?.visibleFrame.height)!)))
+//                        
+                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
+                        .setFrameOrigin(NSPoint(x: 48, y: Int((NSScreen.main?.visibleFrame.height)!) - 56))
+                        
                     // 위치 기본값으로 조절
-                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
-                        .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)! / 2) - 73, y:Int((NSScreen.main?.visibleFrame.height)!) - 15))
-                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.speed]?.panel?
+//                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
+//                        .setFrameOrigin(NSPoint(x:48, y:Int((NSScreen.main?.visibleFrame.height)!) - 56))
+                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.speed]?.panel?
                         .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)!) - 178, y:276))
-                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.fillerWord]?.panel?
+                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.fillerWord]?.panel?
                         .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)!) - 178, y:129))
-                    SystemManager.shared.instantFeedbackManager.feedbackPanelControllers[InstantPanel.detailSetting]?.panel?
+                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.detailSetting]?.panel?
                         .setFrameOrigin(NSPoint(x:56, y:116))
                     
                     // UserDefaults도 원상복귀
-                    UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)! / 2) - 73), forKey: "TimerPanelX")
-                    UserDefaults.standard.set(String(Int((NSScreen.main?.visibleFrame.height)!) - 15), forKey: "TimerPanelY")
+                    UserDefaults.standard.set( String(48), forKey: "TimerPanelX")
+                    UserDefaults.standard.set(String(Int((NSScreen.main?.visibleFrame.height)!) - 56), forKey: "TimerPanelY")
                     UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)!) - 178), forKey: "SpeedPanelX")
                     UserDefaults.standard.set(String(276), forKey: "SpeedPanelY")
                     UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)!) - 178), forKey: "FillerWordPanelX")
@@ -112,7 +119,7 @@ struct EditPanelView: View {
                 Spacer()
                 
                 Button(action: {
-                    SystemManager.shared.instantFeedbackManager.isDetailSettingActive = false
+                    instantFeedbackManager.isDetailSettingActive = false
                 }) {
                     Text("확인")
                         .systemFont(.caption,weight: .semibold)
@@ -123,13 +130,13 @@ struct EditPanelView: View {
         .frame(width: 436, height: 252)
         .background(Color.white)
         .onTapGesture {
-            SystemManager.shared.instantFeedbackManager.focusedPanel = .detailSetting
+            instantFeedbackManager.focusedPanel = .detailSetting
         }
         .onHover { value in
             if !value {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "DetailPanelX")
-                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "DetailPanelY")
+                UserDefaults.standard.set( String(Int(panelController.getPanelPosition()!.x)), forKey: "DetailPanelX")
+                UserDefaults.standard.set(String(Int(panelController.getPanelPosition()!.y)), forKey: "DetailPanelY")
             }
         }
     }

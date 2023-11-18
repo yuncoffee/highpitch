@@ -42,11 +42,15 @@ extension PracticeManager {
         for sentence in practice.sentences {
             if sentence.spmValue < practice.summary.spmAverage - 100.0 {
                 practice.summary.slowSentenceIndex.append(sentence.index)
+                sentence.type = 2
             }
             if sentence.spmValue > practice.summary.spmAverage + 100.0 {
                 practice.summary.fastSentenceIndex.append(sentence.index)
+                sentence.type = 1
             }
         }
+        practice.summary.fwpm = Double(practice.summary.fillerWordCount)
+        / practice.summary.practiceLength * 60.0
     }
     
     // swiftlint:disable function_body_length

@@ -43,6 +43,8 @@ struct ProjectOutLine: View {
                             .padding(.bottom, .HPSpacing.small)
                         ProjectSpeakingRateChart()
                             .padding(.bottom, .HPSpacing.small)
+                        ProjectLengthChart()
+                            .padding(.bottom, .HPSpacing.small)
                     }
                 }
             } else { emptyView }

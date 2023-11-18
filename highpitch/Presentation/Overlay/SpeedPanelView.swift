@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpeedPanelView: View {
-    var floatingPanelController: FloatingPanelController
+    var floatingPanelController: PanelController
     private let PANEL_FRAME_SIZE = 120.0
     private let DEFUALT_SPEED = 300.0
     
@@ -21,11 +21,11 @@ struct SpeedPanelView: View {
     }
     
     private var underSpeedRate: Double {
-        calcSpeedRate(rate: DEFUALT_SPEED - 100.0)
+        calcSpeedRate(rate: DEFUALT_SPEED - 80.0)
     }
     
     private var overSpeedRate: Double {
-        calcSpeedRate(rate: DEFUALT_SPEED + 150.0)
+        calcSpeedRate(rate: DEFUALT_SPEED + 120.0)
     }
     
     var body: some View {
@@ -35,24 +35,23 @@ struct SpeedPanelView: View {
                     speedIndicatorTrack()
                     speedIndicator(percent: calcSpeedRate(rate: realTimeRate))
                     Image(
-                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -5
+                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -2
                         ? "tortoise.fill"
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 5
+                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 2
                         ? "hare.fill"
                         : ""
                     )
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(
-                        calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -5
+                        calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -2
                         ? Color("22D71E")
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 5
+                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 2
                         ? Color("FF9500")
                         : Color("FFFFFF").opacity(0.2)
                     )
                     .frame(width: 24, height: 24)
                     .symbolEffect(.bounce, value: realTimeRate)
-                    .opacity(calcSpeedRate(rate: realTimeRate) > underSpeedRate && calcSpeedRate(rate: realTimeRate) < overSpeedRate ? 0 : 1)
                     Text("말 빠르기")
                         .systemFont(.caption)
                         .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
@@ -65,7 +64,6 @@ struct SpeedPanelView: View {
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }
-        .opacity(realTimeRate > DEFUALT_SPEED + 100 || realTimeRate < DEFUALT_SPEED - 100 ? 1 : 0.3)
         .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
         .overlay {
             ZStack(alignment: .topTrailing) {
@@ -74,14 +72,14 @@ struct SpeedPanelView: View {
                     .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
                     .padding(6)
                     .border(
-                        PanelData.shared.isEditMode
-                        ? (PanelData.shared.isFocused == 2
+                        SystemManager.shared.instantFeedbackManager.focusedPanel == .speed
                            ? Color.HPPrimary.base
-                           : Color.HPGray.systemWhite)
-                        : .clear, width: 2)
-                if PanelData.shared.isEditMode && PanelData.shared.isFocused == 2 {
+                           : Color.clear, width: 2)
+                if SystemManager.shared.instantFeedbackManager.focusedPanel == .speed {
                     Button {
-                        PanelData.shared.isShow[2] = false
+                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.speed) {
+                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.speed)
+                        }
                     } label: {
                         Circle()
                             .fill(Color.HPPrimary.lightness)
@@ -100,8 +98,18 @@ struct SpeedPanelView: View {
                 }
             }
         }
-        .onTapGesture {
-            PanelData.shared.isFocused = 2
+        .onHover { value in
+            if value {
+                SystemManager.shared.instantFeedbackManager.focusedPanel = .speed
+            } else {
+                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "SpeedPanelX")
+                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "SpeedPanelY")
+                
+                SystemManager.shared.instantFeedbackManager.focusedPanel = nil
+            }
+            // floatingPanelController.panel?.setFrameOrigin(NSPoint(x: 500, y: 500))
+            
         }
         .frame(width: 158, height: 158)
         .onAppear {
@@ -119,7 +127,7 @@ struct SpeedPanelView: View {
 
 extension SpeedPanelView {
     private func calcSpeedRate(rate: Double) -> Double {
-        var result = rate / (DEFUALT_SPEED * 4 / 100)
+        let result = rate / (DEFUALT_SPEED * 4 / 100)
         return result < 0 ? 0 : result > 50 ? 50 : result
     }
 }
@@ -133,9 +141,9 @@ extension SpeedPanelView {
         )
         .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
         .fill(
-            percent < underSpeedRate && flagCount < -5
+            percent < underSpeedRate && flagCount < -2
             ? Color("22D71E")
-            : percent > overSpeedRate && flagCount > 5
+            : percent > overSpeedRate && flagCount > 2
             ? Color("FF9500")
             : Color("FFFFFF").opacity(0.2)
         )
@@ -167,7 +175,7 @@ extension SpeedPanelView {
 #Preview {
     SpeedPanelView(
         floatingPanelController:
-            FloatingPanelController(
+            PanelController(
                 xPosition: -120,
                 yPosition: 120,
                 swidth: 132,

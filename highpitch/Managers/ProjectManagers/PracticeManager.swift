@@ -35,23 +35,18 @@ extension PracticeManager {
     
     /// summary에 들어가는 data를 업데이트한다.
     static func updateSummary(practice: PracticeModel) {
-        practice.summary.fillerWordPercentage =
-        Double(practice.summary.fillerWordCount * 100) / Double(practice.summary.wordCount)
-        practice.summary.epmAverage =
+        practice.summary.spmAverage =
         Double(practice.summary.syllableSum * 60000) / Double(practice.summary.durationSum)
         
         /// sentences 중 epmAverage와의 오차가 60 이상인 경우 저장한다.
         for sentence in practice.sentences {
-            if sentence.epmValue < practice.summary.epmAverage - 100.0 {
+            if sentence.spmValue < practice.summary.spmAverage - 100.0 {
                 practice.summary.slowSentenceIndex.append(sentence.index)
             }
-            if sentence.epmValue > practice.summary.epmAverage + 100.0 {
+            if sentence.spmValue > practice.summary.spmAverage + 100.0 {
                 practice.summary.fastSentenceIndex.append(sentence.index)
             }
         }
-        
-        practice.summary.level = 0
-        practice.summary.level += 5 - min(ceil(max(practice.summary.fillerWordPercentage - 3.5, 0.0)), 4)
     }
     
     // swiftlint:disable function_body_length
@@ -110,7 +105,7 @@ extension PracticeManager {
             if sentenceSyllable[sentenceIndex] > 15 || index == practice.utterances.count - 1 {
                 
                 /// EPM을 업데이트한다.
-                tempSentences[sentenceIndex].epmValue =
+                tempSentences[sentenceIndex].spmValue =
                 Double(sentenceSyllable[sentenceIndex] * 60000) / Double(sentenceDuration[sentenceIndex])
                 
                 _ = tempWords.last!.word.popLast()

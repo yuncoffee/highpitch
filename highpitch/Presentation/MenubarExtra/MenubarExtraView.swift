@@ -14,8 +14,8 @@ struct MenubarExtraView: View {
     private var openWindow
     
     // MARK: - AppleScript Remove
-//    @Environment(AppleScriptManager.self)
-//    private var appleScriptManager
+    //    @Environment(AppleScriptManager.self)
+    //    private var appleScriptManager
     @Environment(FileSystemManager.self)
     private var fileSystemManager
     @Environment(KeynoteManager.self)
@@ -43,65 +43,65 @@ struct MenubarExtraView: View {
     var selectedKeynote: OpendKeynote?
     
     var body: some View {
-            ZStack {
-                Text("  ")
-                    .frame(width: 45, height: 1)
-                    .popover(isPresented: $isRecording, arrowEdge: .bottom) {
-                        let message = mediaManager.isRecording ? "연습 녹음이 시작되었어요!" : "연습 녹음 저장이 완료되었어요!"
-                        Text("\(message)")
-                            .padding()
-                    }
-                    .frame(alignment: .center)
-                VStack(spacing: 0) {
-                    MenubarExtraHeader(
-                        selectedProject: $selectedProject,
-                        selectedKeynote: $selectedKeynote,
-                        isRecording: $isRecording
-                    )
-                    MenubarExtraContent(
-                        selectedProject: $selectedProject,
-                        selectedKeynote: $selectedKeynote,
-                        keynoteOptions: $keynoteOptions
-                    )
-                    if projectManager.current != nil {
-                        MenubarExtraFooter(selectedProject: $selectedProject)
-                    }
+        ZStack {
+            Text("  ")
+                .frame(width: 45, height: 1)
+                .popover(isPresented: $isRecording, arrowEdge: .bottom) {
+                    let message = mediaManager.isRecording ? "연습 녹음이 시작되었어요!" : "연습 녹음 저장이 완료되었어요!"
+                    Text("\(message)")
+                        .padding()
                 }
-                .frame(
-                    width: isRecording ? 0 : 400,
-                    height: isRecording ? 0 : 440,
-                    alignment: .top
+                .frame(alignment: .center)
+            VStack(spacing: 0) {
+                MenubarExtraHeader(
+                    selectedProject: $selectedProject,
+                    selectedKeynote: $selectedKeynote,
+                    isRecording: $isRecording
                 )
-                .background(Color.HPComponent.Detail.background)
+                MenubarExtraContent(
+                    selectedProject: $selectedProject,
+                    selectedKeynote: $selectedKeynote,
+                    keynoteOptions: $keynoteOptions
+                )
+                if projectManager.current != nil {
+                    MenubarExtraFooter(selectedProject: $selectedProject)
+                }
             }
-            .frame(alignment: .top)
-            .onChange(of: refreshable, { _, newValue in
-                getIsActiveKeynoteApp()
+            .frame(
+                width: isRecording ? 0 : 400,
+                height: isRecording ? 0 : 440,
+                alignment: .top
+            )
+            .background(Color.HPComponent.Detail.background)
+        }
+        .frame(alignment: .top)
+        .onChange(of: refreshable, { _, newValue in
+            getIsActiveKeynoteApp()
+            updateOpendKeynotes()
+        })
+        .onChange(of: keynoteManager.isKeynoteProcessOpen, { _, newValue in
+            if newValue {
                 updateOpendKeynotes()
-            })
-            .onChange(of: keynoteManager.isKeynoteProcessOpen, { _, newValue in
-                if newValue {
-                    updateOpendKeynotes()
-                }
-            })
-            .onChange(of: keynoteManager.opendKeynotes) { _, newValue in
-                keynoteOptions = newValue
-                if !newValue.isEmpty {
-                    selectedKeynote = newValue[0]
-                }
-                updateCurrentProject()
             }
-            .onChange(of: selectedKeynote, {
-                updateCurrentProject()
-            })
-            .onChange(of: mediaManager.isRecording) { _, _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    isRecording = true
-                }
+        })
+        .onChange(of: keynoteManager.opendKeynotes) { _, newValue in
+            keynoteOptions = newValue
+            if !newValue.isEmpty {
+                selectedKeynote = newValue[0]
             }
-            .onDisappear {
-                refreshable = false
+            updateCurrentProject()
+        }
+        .onChange(of: selectedKeynote, {
+            updateCurrentProject()
+        })
+        .onChange(of: mediaManager.isRecording) { _, _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isRecording = true
             }
+        }
+        .onDisappear {
+            refreshable = false
+        }
     }
 }
 
@@ -110,27 +110,27 @@ extension MenubarExtraView {
     // MARK: - AppleScript Remove
     /// 키노트가 열려있는지 조회 후 상태 처리
     private func getIsActiveKeynoteApp() {
-//        Task {
-//            let result = await appleScriptManager.runScript(.isActiveKeynoteApp)
-//            if case .boolResult(let isKeynoteOpen) = result {
-//                keynoteManager.isKeynoteProcessOpen = isKeynoteOpen
-//            }
-//        }
+        //        Task {
+        //            let result = await appleScriptManager.runScript(.isActiveKeynoteApp)
+        //            if case .boolResult(let isKeynoteOpen) = result {
+        //                keynoteManager.isKeynoteProcessOpen = isKeynoteOpen
+        //            }
+        //        }
     }
     
     // MARK: - AppleScript Remove
     private func updateOpendKeynotes() {
-//        Task {
-//            if keynoteManager.isKeynoteProcessOpen {
-//                let result = await appleScriptManager.runScript(.getOpendKeynotes)
-//                if case .stringArrayResult(let keynotePaths) = result {
-//                    let opendKeynotes = keynotePaths.map { path in
-//                        OpendKeynote(path: path, creation: fileSystemManager.getCreationMetadata(path))
-//                    }
-//                    keynoteManager.opendKeynotes = opendKeynotes
-//                }
-//            }
-//        }
+        //        Task {
+        //            if keynoteManager.isKeynoteProcessOpen {
+        //                let result = await appleScriptManager.runScript(.getOpendKeynotes)
+        //                if case .stringArrayResult(let keynotePaths) = result {
+        //                    let opendKeynotes = keynotePaths.map { path in
+        //                        OpendKeynote(path: path, creation: fileSystemManager.getCreationMetadata(path))
+        //                    }
+        //                    keynoteManager.opendKeynotes = opendKeynotes
+        //                }
+        //            }
+        //        }
     }
     
     private func updateCurrentProject() {

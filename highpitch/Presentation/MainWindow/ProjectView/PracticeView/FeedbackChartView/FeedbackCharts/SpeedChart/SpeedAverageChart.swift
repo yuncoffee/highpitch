@@ -29,7 +29,7 @@ struct SpeedAverageChart: View {
                         "",
                         max(
                             epmRange.first - 10.0,
-                            practice.summary.epmAverage - 100.0
+                            practice.summary.spmAverage - 100.0
                     ))
                 )
                 .foregroundStyle(Color.HPComponent.highlight)
@@ -37,7 +37,7 @@ struct SpeedAverageChart: View {
                     xStart: .value("", 0.5),
                     xEnd: .value("", Double(sentences.count) + 0.5),
                     yStart: .value("", min(epmRange.last + 10.0,
-                                           practice.summary.epmAverage + 100.0)),
+                                           practice.summary.spmAverage + 100.0)),
                     yEnd: .value("", epmRange.last + 10.0)
                 )
                 .foregroundStyle(Color.HPComponent.highlight)
@@ -46,7 +46,7 @@ struct SpeedAverageChart: View {
                 if (sentences.count == 1) {
                     PointMark(
                         x: .value("문장 번호", 1),
-                        y: .value("EPM", sentences.first?.epmValue ?? 0)
+                        y: .value("EPM", sentences.first?.spmValue ?? 0)
                     )
                     .foregroundStyle(Color.HPPrimary.base)
                     .lineStyle(StrokeStyle(lineWidth: 2))
@@ -56,7 +56,7 @@ struct SpeedAverageChart: View {
                 ForEach(sentences) { sentence in
                     LineMark(
                         x: .value("문장 번호", sentence.index + 1),
-                        y: .value("EPM", sentence.epmValue)
+                        y: .value("EPM", sentence.spmValue)
                     )
                     .foregroundStyle(Color.HPPrimary.base)
                     .lineStyle(StrokeStyle(lineWidth: 2))
@@ -175,17 +175,17 @@ extension SpeedAverageChart {
                 .systemFont(.body)
                 .foregroundStyle(Color.HPTextStyle.dark)
             HStack(spacing: 0) {
-                Text("평균 속도가 \(String(format: "%.0f", practice.summary.epmAverage))EPM으로 ")
+                Text("평균 속도가 \(String(format: "%.0f", practice.summary.spmAverage))EPM으로 ")
                     .systemFont(.body)
                     .foregroundStyle(Color.HPTextStyle.dark)
                 Text(
-                    practice.summary.epmAverage >= 410.0
+                    practice.summary.spmAverage >= 410.0
                     ? "빠른 편이에요."
-                    : practice.summary.epmAverage >= 370.0
+                    : practice.summary.spmAverage >= 370.0
                     ? "조금 빠른 편이에요."
-                    : practice.summary.epmAverage >= 330.0
+                    : practice.summary.spmAverage >= 330.0
                     ? "적절했어요."
-                    : practice.summary.epmAverage >= 290.0
+                    : practice.summary.spmAverage >= 290.0
                     ? "조금 느린 편이에요."
                     : "느린 편이에요."
                 )

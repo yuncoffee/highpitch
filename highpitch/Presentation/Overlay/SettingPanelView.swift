@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct SettingPanelView: View {
-    var floatingPanelController: FloatingPanelController
+    var floatingPanelController: PanelController
     
     var body: some View {
         VStack {
             Image(systemName: "rectangle.3.group.fill")
                 .frame(width:44, height: 28.11)
-                .foregroundColor(.white)
-                .border(PanelData.shared.isEditMode ? (PanelData.shared.isFocused == 1 ? .purple : .white) : .clear, width: 2)
+                .foregroundColor(SystemManager.shared.instantFeedbackManager.isDetailSettingActive ? .red : .white)
         }
         .onTapGesture {
-            PanelData.shared.isEditMode.toggle()
-            print("편집기능: \(PanelData.shared.isEditMode)")
-        }
-        .onTapGesture {
-            PanelData.shared.isFocused = 1
+            SystemManager.shared.instantFeedbackManager.isDetailSettingActive.toggle()
+            SystemManager.shared.instantFeedbackManager.focusedPanel = .setting
+            print("편집기능: \(SystemManager.shared.instantFeedbackManager.isDetailSettingActive)")
         }
     }
 }

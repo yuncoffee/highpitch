@@ -151,16 +151,41 @@ extension MainWindowView {
     @ViewBuilder
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Button {
-                projectManager.current = nil
-            } label: {
-                Text("내 연습 분석")
-            }
+            Text("내 연습 분석")
+                .systemFont(.footnote, weight:
+                    projectManager.current == nil
+                    ? .bold : .semibold
+                )
+                .foregroundStyle(
+                    projectManager.current == nil
+                    ? Color.HPTextStyle.darker
+                    : Color.HPTextStyle.base
+                )
+                .padding(.vertical, 6)
+                .padding(.leading, .HPSpacing.xxxsmall)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    projectManager.current == nil
+                    ? Color.HPComponent.Sidebar.select
+                    : Color.clear
+                )
+                .cornerRadius(7)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    projectManager.current = nil
+                }
+                .padding(.horizontal, .HPSpacing.xxxsmall)
+                .padding(.bottom, .HPSpacing.xxsmall)
+            Rectangle()
+                .frame(maxWidth: .infinity, minHeight: 1, maxHeight: 1)
+                .foregroundColor(Color.HPComponent.stroke)
+                .padding(.horizontal, .HPSpacing.xxsmall)
+                .padding(.bottom, .HPSpacing.small)
             Text("내 프로젝트")
                 .systemFont(.body, weight: .semibold)
                 .foregroundStyle(Color.HPTextStyle.darker)
                 .padding(.bottom, .HPSpacing.xsmall)
-                .padding(.horizontal, .HPSpacing.xxsmall)
+                .padding(.horizontal, .HPSpacing.xsmall)
                 .onTapGesture {
                     if (SystemManager.shared.isRecognizing) {
                         SystemManager.shared.stopInstantFeedback()

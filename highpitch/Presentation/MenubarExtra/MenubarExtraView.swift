@@ -58,11 +58,7 @@ struct MenubarExtraView: View {
                     selectedKeynote: $selectedKeynote,
                     isRecording: $isRecording
                 )
-                MenubarExtraContent(
-                    selectedProject: $selectedProject,
-                    selectedKeynote: $selectedKeynote,
-                    keynoteOptions: $keynoteOptions
-                )
+                MenubarExtraContent(selectedProject: $selectedProject)
                 if projectManager.current != nil {
                     MenubarExtraFooter(selectedProject: $selectedProject)
                 }

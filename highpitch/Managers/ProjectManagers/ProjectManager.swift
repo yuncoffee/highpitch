@@ -17,6 +17,8 @@ final class ProjectManager {
     var temp: PersistentIdentifier?
     var currentTabItem = 1
     var path: NavigationPath = .init()
+    var isEndClicked = false
+    
 }
 
 extension ProjectManager {
@@ -29,6 +31,7 @@ extension ProjectManager {
         mediaManager: MediaManager
     ) {
         if(mediaManager.checkMicrophonePermission()) {
+            let fileName = Date().makeM4aFileName()
             if mediaManager.isRecording {
                 mediaManager.startRecording()
             } else {
@@ -108,7 +111,7 @@ extension ProjectManager {
         var result: [UtteranceModel] = []
         do {
             let tempUtterances: [Utterance] = try await ReturnzeroAPIV2()
-                .getResult(filePath: mediaManager.getPath(fileName: mediaManager.fileName).path())
+                .getResult(filePath: URL.getPath(fileName: mediaManager.fileName,type: .audio).path())
             for tempUtterance in tempUtterances {
                 result.append(
                     UtteranceModel(
@@ -128,7 +131,7 @@ extension ProjectManager {
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
         var returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
             .startFileRecognition(url: URL(
-                fileURLWithPath: mediaManager.getPath(fileName: mediaManager.fileName
+                fileURLWithPath: URL.getPath(fileName: mediaManager.fileName, type: .audio
             ).path())) ?? []
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
         return returnValue
@@ -161,7 +164,7 @@ extension ProjectManager {
             index: -1,
             isVisited: false,
             creatAt: Date().m4aNameToCreateAt(input: mediaManager.fileName),
-            audioPath: mediaManager.getPath(fileName: mediaManager.fileName),
+            audioPath: URL.getPath(fileName: mediaManager.fileName, type: .audio),
             utterances: utterances,
             summary: PracticeSummaryModel()
         )

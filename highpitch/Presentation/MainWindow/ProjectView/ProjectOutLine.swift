@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Charts
 
 struct ProjectOutLine: View {
     @Environment(ProjectManager.self)
@@ -62,6 +61,16 @@ extension ProjectOutLine {
         }
         answer /= Double(practices.count)
         return Int(answer)
+    }
+    
+    /// fwpmAverage를 반환합니다.
+    func returnFWPMAverage(practices: [PracticeModel]) -> Double {
+        var answer = 0.0
+        for practice in practices {
+            answer += practice.summary.fwpm
+        }
+        answer /= Double(practices.count)
+        return answer
     }
     
     /// fillerWordTOP3를 반환합니다.
@@ -122,7 +131,8 @@ extension ProjectOutLine {
     }
     // MARK: - fillerWordCountView
     func fillerWordCountView(practices: [PracticeModel]) -> some View {
-        VStack(spacing: 0) {
+        let fwpmAverage = returnFWPMAverage(practices: practices)
+        return VStack(spacing: 0) {
             Text("습관어 사용")
                 .systemFont(.body)
                 .foregroundColor(Color.HPTextStyle.darker)
@@ -131,7 +141,7 @@ extension ProjectOutLine {
                     .systemFont(.caption2)
                     .foregroundColor(Color.HPTextStyle.light)
                     .offset(y: -7)
-                Text("3.2회")
+                Text("\(fwpmAverage, specifier: "%.1f")회")
                     .systemFont(.largeTitle)
                     .foregroundColor(Color.HPPrimary.base)
             }

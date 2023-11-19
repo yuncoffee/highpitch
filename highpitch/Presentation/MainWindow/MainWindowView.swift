@@ -152,9 +152,9 @@ extension MainWindowView {
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
-                print("전체통계")
+                projectManager.current = nil
             } label: {
-                Text("전체 통계")
+                Text("내 연습 분석")
             }
             Text("내 프로젝트")
                 .systemFont(.body, weight: .semibold)
@@ -206,7 +206,16 @@ extension MainWindowView {
             .background(Color.HPComponent.Detail.background)
             .ignoresSafeArea()
         } else {
-            emptyProject
+            VStack(alignment: .leading, spacing: 0) {
+                projectToolbar
+                VStack {
+                    PracticeAnalysisView()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(Color.HPComponent.Detail.background)
+            .ignoresSafeArea()
         }
     }
     
@@ -257,6 +266,8 @@ extension MainWindowView {
                     localProjectName = projectName
                 }
             })
+        } else {
+            HPTopToolbar(title: "내 연습 분석", completion: nil)
         }
     }
 }

@@ -91,8 +91,9 @@ struct ProjectNavigationLink: View {
                     size: size,
                     color: color,
                     alignStyle: .iconWithText,
-                    contentColor: .HPPrimary.base,
-                    expandable: expandable
+                    contentColor: .HPPrimary.base, 
+                    expandable: expandable, 
+                    fontStyle: .systemDetail(.footnote, .semibold)
                 )
             }
             .padding(.leading, .HPSpacing.xxxsmall)

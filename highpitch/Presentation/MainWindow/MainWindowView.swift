@@ -152,13 +152,37 @@ extension MainWindowView {
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
-                print("전체통계")
+                projectManager.current = nil
             } label: {
-                Text("전체 통계")
+                Text("내 연습 분석")
+                    .systemFont(
+                        .footnote,
+                        weight: projectManager.current == nil ? .bold : .medium)
+                    .foregroundStyle(
+                        projectManager.current == nil 
+                        ? Color.HPTextStyle.darker
+                        : Color.HPTextStyle.base
+                    )
+                    .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+                    .padding(.horizontal, .HPSpacing.xxxsmall)
+                    .background(
+                        projectManager.current == nil
+                        ? Color.HPPrimary.lightness
+                        : Color.clear
+                    )
+                    .cornerRadius(7)
+                    .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
+            .padding(.horizontal, .HPSpacing.xxxsmall)
+            Divider()
+                .background(Color.HPComponent.stroke)
+                .padding(.top, .HPSpacing.xxxsmall)
+                .padding(.bottom, .HPSpacing.small)
+                .padding(.horizontal, .HPSpacing.xxxsmall)
             Text("내 프로젝트")
-                .systemFont(.body, weight: .semibold)
-                .foregroundStyle(Color.HPTextStyle.darker)
+                .systemFont(.footnote, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.base)
                 .padding(.bottom, .HPSpacing.xsmall)
                 .padding(.horizontal, .HPSpacing.xxsmall)
                 .onTapGesture {
@@ -186,7 +210,7 @@ extension MainWindowView {
         }
         .frame(alignment: .topLeading)
         .navigationSplitViewColumnWidth(200)
-        .padding(.top, .HPSpacing.medium)
+        .padding(.top, .HPSpacing.xsmall)
         .background(
             Color.HPComponent.Sidebar.background)
     }

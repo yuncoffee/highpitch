@@ -138,8 +138,9 @@ extension MenubarExtraHeader {
             print("HEEE")
             if !mediaManager.isRecording {
                 print("11111")
+                mediaManager.isStart = true
                 GAManager.shared.analyticsOnClick(.play)
-                playPractice()
+                //playPractice()
             } else if mediaManager.isPause {
                 print("22222")
                 playPractice()
@@ -167,6 +168,7 @@ extension MenubarExtraHeader {
     private var stopButton: some View {
         let content = (label: "끝내기", icon: "stop.fill")
         HPButton(type: .text, size: .medium, color: .HPSecondary.base) {
+            NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
             Task {
                 await MainActor.run {
                     GAManager.shared.analyticsOnClick(.stop)
@@ -239,6 +241,7 @@ extension MenubarExtraHeader {
         exit(0)
     }
 }
+//MARK: 스크린 캡쳐 기능
 
 // #Preview {
 //    @State

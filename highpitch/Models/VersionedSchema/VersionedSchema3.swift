@@ -8,8 +8,8 @@
 import SwiftData
 import SwiftUI
 
-enum Schema2: VersionedSchema {
-    static var versionIdentifier: Schema.Version = .init(0, 0, 2)
+enum Schema3: VersionedSchema {
+    static var versionIdentifier: Schema.Version = .init(0, 0, 3)
     
     static var models: [any PersistentModel.Type] {
         [ProjectModel.self, PracticeModel.self, UtteranceModel.self, WordModel.self, SentenceModel.self, PracticeSummaryModel.self, FillerWordModel.self]
@@ -123,13 +123,12 @@ enum Schema2: VersionedSchema {
         var sentence: String
         var startAt: Int
         var endAt: Int
-        var epmValue: Double
-        var spmValue: Double = -1.0
+        var spmValue: Double
         var type: Int = 0
         
-        init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, epmValue: Double = -1.0) {
+        init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0) {
             self.index = index
-            self.epmValue = epmValue
+            self.spmValue = spmValue
             self.sentence = sentence
             self.startAt = startAt
             self.endAt = endAt
@@ -146,12 +145,9 @@ enum Schema2: VersionedSchema {
         var eachFillerWordCount: [FillerWordModel]
         var fastSentenceIndex: [Int]
         var slowSentenceIndex: [Int]
-        var fillerWordPercentage: Double
-        var epmAverage: Double
-        // var level: Double
+        var spmAverage: Double
         var practiceLength: Double = -1.0
         var fwpm: Double = -1.0
-        var spmAverage: Double = -1.0
         
         init(
             syllableSum: Int = 0,
@@ -162,7 +158,7 @@ enum Schema2: VersionedSchema {
             fastSentenceIndex: [Int] = [],
             slowSentenceIndex: [Int] = [],
             fillerWordPercentage: Double = -1.0,
-            epmAverage: Double = -1.0
+            spmAverage: Double = -1.0
         ) {
             self.syllableSum = syllableSum
             self.durationSum = durationSum
@@ -171,8 +167,7 @@ enum Schema2: VersionedSchema {
             self.eachFillerWordCount = eachFillerWordCount
             self.fastSentenceIndex = fastSentenceIndex
             self.slowSentenceIndex = slowSentenceIndex
-            self.fillerWordPercentage = fillerWordPercentage
-            self.epmAverage = epmAverage
+            self.spmAverage = spmAverage
         }
     }
 

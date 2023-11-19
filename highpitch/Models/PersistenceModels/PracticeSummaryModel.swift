@@ -8,6 +8,16 @@
 import Foundation
 import SwiftData
 
+/// 제거사항
+/// 1. fillerWordPercentage
+/// 2. level
+/// 3. epmAverage
+
+/// 추가사항
+/// 1. practiceLength: Double
+/// 2. fwpm: Double
+/// 3. spmAverage: Double
+
 @Model
 class PracticeSummaryModel {
     var syllableSum: Int
@@ -18,12 +28,10 @@ class PracticeSummaryModel {
     var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]
-    var fillerWordPercentage: Double
-    var epmAverage: Double
-    // var level: Double
+    @Attribute(originalName: "epmAverage")
+    var spmAverage: Double
     var practiceLength: Double = -1.0
     var fwpm: Double = -1.0
-    var spmAverage: Double = -1.0
     
     init(
         syllableSum: Int = 0,
@@ -33,8 +41,7 @@ class PracticeSummaryModel {
         eachFillerWordCount: [FillerWordModel] = [],
         fastSentenceIndex: [Int] = [],
         slowSentenceIndex: [Int] = [],
-        fillerWordPercentage: Double = -1.0,
-        epmAverage: Double = -1.0
+        spmAverage: Double = -1.0
     ) {
         self.syllableSum = syllableSum
         self.durationSum = durationSum
@@ -43,7 +50,6 @@ class PracticeSummaryModel {
         self.eachFillerWordCount = eachFillerWordCount
         self.fastSentenceIndex = fastSentenceIndex
         self.slowSentenceIndex = slowSentenceIndex
-        self.fillerWordPercentage = fillerWordPercentage
-        self.epmAverage = epmAverage
+        self.spmAverage = spmAverage
     }
 }

@@ -86,7 +86,7 @@ extension ProjectFWPMChart {
                         VStack(spacing: 0) {
                             Text("\(practices[selected].summary.fwpm, specifier: "%.1f")회")
                                 .systemFont(.caption2, weight: .bold)
-                                .foregroundStyle(Color.HPTextStyle.light)
+                                .foregroundStyle(Color.HPTextStyle.dark)
                             HStack(spacing: 0) {
                                 Text("\(Date().createAtToYMD(input: practices[selected].creatAt))")
                                     .systemFont(.caption2, weight: .medium)
@@ -126,7 +126,7 @@ extension ProjectFWPMChart {
                 AxisMarks(values: Array(stride(from: 1, to: practices.count + 2, by: 1))) { value in
                     AxisValueLabel(centered: false) {
                         Text("\(value.index + 1)회차")
-                            .offset(x: -17)
+                            .offset(x: -20)
                             .fixedSize()
                             .systemFont(.caption)
                             .foregroundStyle(Color.HPTextStyle.base)

@@ -81,7 +81,7 @@ struct MainWindowView: View {
         .onChange(of: projects) { _, newValue in
             if !newValue.isEmpty {
                 projectManager.projects = newValue
-                projectManager.current = newValue[0]
+                projectManager.current = newValue.last
             }
         }
         .onChange(of: projectManager.current) { _, newValue in

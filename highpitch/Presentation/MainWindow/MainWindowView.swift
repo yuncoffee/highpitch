@@ -59,7 +59,7 @@ struct MainWindowView: View {
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
         .frame(
-            minWidth: 1080,
+            minWidth: 1000,
             maxWidth: 1512,
             minHeight: 600,
             maxHeight: .infinity
@@ -256,7 +256,16 @@ extension MainWindowView {
     @ViewBuilder
     var projectToolbar: some View {
         if let projectName = projectManager.current?.projectName {
-            HPTopToolbar(title: projectName, completion: nil, popOverContent: {
+            HPTopToolbar(title: projectName, completion: {
+                if let currentProject = projectManager.current {
+                    projectManager.playPractice(
+                        selectedProject: currentProject,
+                        appleScriptManager: appleScriptManager,
+                        keynoteManager: keynoteManager,
+                        mediaManager: mediaManager
+                    )
+                }
+            }, popOverContent: {
                 VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
                     Text("프로젝트 명 변경하기")
                         .systemFont(.caption2)

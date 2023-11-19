@@ -23,9 +23,9 @@ struct MenubarExtraContent: View {
     var selectedProject: ProjectModel?
 
     @State
-    private var selectedProjectName = "새 프로젝트로 생성"
+    private var selectedProjectName = "새 프로젝트 생성"
     @State
-    private var projectNameOptions: [String] = ["새 프로젝트로 생성"]
+    private var projectNameOptions: [String] = ["새 프로젝트 생성"]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -41,12 +41,12 @@ struct MenubarExtraContent: View {
                 if !keynoteManager.opendKeynotes.isEmpty {
                 }
             } else {
-                selectedProjectName = "새 프로젝트로 생성"
+                selectedProjectName = "새 프로젝트 생성"
             }
         })
         /// 프로젝트 모델이 변경되었음
         .onChange(of: projectModels) { _, newValue in
-            var temp = ["새 프로젝트로 생성"]
+            var temp = ["새 프로젝트 생성"]
             temp.append(contentsOf: newValue.map {$0.projectName})
             projectNameOptions = temp
         }
@@ -72,8 +72,8 @@ extension MenubarExtraContent {
     @ViewBuilder
     private var sectionProject: some View {
         // 프로젝트의 연습 목록
-        VStack(alignment: .leading, spacing: 0) {
-            HStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: .zero) {
+            HStack(spacing: .zero) {
                 Text("프로젝트 선택")
                     .systemFont(.caption, weight: .semibold)
                     .foregroundStyle(Color.HPTextStyle.base)
@@ -82,9 +82,14 @@ extension MenubarExtraContent {
             .padding(.horizontal, .HPSpacing.small)
             .frame(maxHeight: 45)
             VStack(spacing: .HPSpacing.xsmall) {
-                HPMenu(selected: $selectedProjectName, options: $projectNameOptions, maxWidth: .infinity)
+                HPMenu(
+                    selected: $selectedProjectName,
+                    options: $projectNameOptions,
+                    maxWidth: .infinity,
+                    maxHeight: 27
+                )
             }
-            .padding(.top, .HPSpacing.xxxsmall)
+            .padding(.top, .HPSpacing.xxxxsmall)
             .padding(.bottom, .HPSpacing.xsmall)
             .padding(.horizontal, .HPSpacing.small)
             .frame(maxHeight: .infinity)

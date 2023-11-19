@@ -11,7 +11,7 @@ import Combine
 import OSLog
 import SwiftUI
 
-@MainActor
+
 class ScreenRecordManager: ObservableObject {
     
     /// The supported capture types.

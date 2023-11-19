@@ -25,11 +25,16 @@
 		1134695E2B04A8C500CA16AE /* ProjectOutLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1134695D2B04A8C500CA16AE /* ProjectOutLine.swift */; };
 		113469602B04BC2900CA16AE /* ProjectSpeakingRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1134695F2B04BC2900CA16AE /* ProjectSpeakingRateChart.swift */; };
 		113469622B06F59600CA16AE /* VersionedSchema3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113469612B06F59600CA16AE /* VersionedSchema3.swift */; };
+		113469642B08DBDB00CA16AE /* ProjectFWPMChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113469632B08DBDB00CA16AE /* ProjectFWPMChart.swift */; };
+		113469662B09038600CA16AE /* ProjectLengthChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113469652B09038600CA16AE /* ProjectLengthChart.swift */; };
 		1142DDED2AF4C7F8003DBE81 /* SlowSentReplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1142DDEC2AF4C7F8003DBE81 /* SlowSentReplay.swift */; };
 		1172F1032AE1326000D6B0B9 /* WordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172F1022AE1326000D6B0B9 /* WordModel.swift */; };
 		1172F1072AE1335100D6B0B9 /* SentenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172F1062AE1335100D6B0B9 /* SentenceModel.swift */; };
 		1172F1092AE1442900D6B0B9 /* PracticeSummaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172F1082AE1442900D6B0B9 /* PracticeSummaryModel.swift */; };
 		118D56392AE15572003072E9 /* FillerWordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D56382AE15572003072E9 /* FillerWordModel.swift */; };
+		11A9F2812B09EEC7003CAFFD /* PracticeAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2802B09EEC7003CAFFD /* PracticeAnalysisView.swift */; };
+		11A9F2832B09EFE7003CAFFD /* AnalysisFWPMChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2822B09EFE7003CAFFD /* AnalysisFWPMChart.swift */; };
+		11A9F2852B09F009003CAFFD /* AnalysisSpeedRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2842B09F009003CAFFD /* AnalysisSpeedRateChart.swift */; };
 		11B94A252B01A2160086DF08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11B94A232B01A2160086DF08 /* GoogleService-Info.plist */; };
 		11B94A262B01A2160086DF08 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11B94A242B01A2160086DF08 /* SecretKey.plist */; };
 		11EF719B2ADADBA400D991E6 /* FillerWordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719A2ADADBA400D991E6 /* FillerWordList.swift */; };
@@ -181,11 +186,16 @@
 		1134695D2B04A8C500CA16AE /* ProjectOutLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectOutLine.swift; sourceTree = "<group>"; };
 		1134695F2B04BC2900CA16AE /* ProjectSpeakingRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSpeakingRateChart.swift; sourceTree = "<group>"; };
 		113469612B06F59600CA16AE /* VersionedSchema3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionedSchema3.swift; sourceTree = "<group>"; };
+		113469632B08DBDB00CA16AE /* ProjectFWPMChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFWPMChart.swift; sourceTree = "<group>"; };
+		113469652B09038600CA16AE /* ProjectLengthChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectLengthChart.swift; sourceTree = "<group>"; };
 		1142DDEC2AF4C7F8003DBE81 /* SlowSentReplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlowSentReplay.swift; sourceTree = "<group>"; };
 		1172F1022AE1326000D6B0B9 /* WordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordModel.swift; sourceTree = "<group>"; };
 		1172F1062AE1335100D6B0B9 /* SentenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceModel.swift; sourceTree = "<group>"; };
 		1172F1082AE1442900D6B0B9 /* PracticeSummaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSummaryModel.swift; sourceTree = "<group>"; };
 		118D56382AE15572003072E9 /* FillerWordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordModel.swift; sourceTree = "<group>"; };
+		11A9F2802B09EEC7003CAFFD /* PracticeAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeAnalysisView.swift; sourceTree = "<group>"; };
+		11A9F2822B09EFE7003CAFFD /* AnalysisFWPMChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisFWPMChart.swift; sourceTree = "<group>"; };
+		11A9F2842B09F009003CAFFD /* AnalysisSpeedRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisSpeedRateChart.swift; sourceTree = "<group>"; };
 		11B94A232B01A2160086DF08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		11B94A242B01A2160086DF08 /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		11EF719A2ADADBA400D991E6 /* FillerWordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordList.swift; sourceTree = "<group>"; };
@@ -351,6 +361,16 @@
 			path = ScreenRecordView;
 			sourceTree = "<group>";
 		};
+		11A9F27F2B09EEA9003CAFFD /* AnalysisView */ = {
+			isa = PBXGroup;
+			children = (
+				11A9F2802B09EEC7003CAFFD /* PracticeAnalysisView.swift */,
+				11A9F2822B09EFE7003CAFFD /* AnalysisFWPMChart.swift */,
+				11A9F2842B09F009003CAFFD /* AnalysisSpeedRateChart.swift */,
+			);
+			path = AnalysisView;
+			sourceTree = "<group>";
+		};
 		1D0467C62AFA27F3003EF427 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +426,8 @@
 				1D09AF672AD98A1700C1400E /* ProjectView.swift */,
 				1134695D2B04A8C500CA16AE /* ProjectOutLine.swift */,
 				1134695F2B04BC2900CA16AE /* ProjectSpeakingRateChart.swift */,
+				113469632B08DBDB00CA16AE /* ProjectFWPMChart.swift */,
+				113469652B09038600CA16AE /* ProjectLengthChart.swift */,
 				1D09AF932ADA67BB00C1400E /* StatisticsTabItem.swift */,
 				1101606A2AEE48C100BD405F /* StatisticTabGraph.swift */,
 				1D09AF962ADA681500C1400E /* PracticesTabItem.swift */,
@@ -998,6 +1020,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF659C22AD5974C00AE5601 /* MainWindowView.swift */,
+				11A9F27F2B09EEA9003CAFFD /* AnalysisView */,
 				10D6FA5D2B02FD40003F8FBD /* ScreenRecordView */,
 				1D600BA82AF9DD8C001FC5EB /* Common */,
 				1D09AF7A2AD9952D00C1400E /* ProjectNavigationLink */,
@@ -1248,6 +1271,7 @@
 				1DF659C82AD5998D00AE5601 /* MenubarExtraView.swift in Sources */,
 				43976D522B01A0DA00816620 /* SpeedPanelView.swift in Sources */,
 				1D58FA292AE2956E00B92B4A /* HPMenu.swift in Sources */,
+				11A9F2812B09EEC7003CAFFD /* PracticeAnalysisView.swift in Sources */,
 				437373A22B0224E800DEEDBD /* AppDelegate.swift in Sources */,
 				437373ED2B05E5C900DEEDBD /* SchemaMigrationPlan.swift in Sources */,
 				1172F1092AE1442900D6B0B9 /* PracticeSummaryModel.swift in Sources */,
@@ -1259,6 +1283,7 @@
 				1D0467CC2AFA9A5B003EF427 /* EPMSheet.swift in Sources */,
 				1D0ECD7C2ADE010500B95A74 /* HPTooltip.swift in Sources */,
 				1DE8B6452AECD0C500E0746E /* HPButton.swift in Sources */,
+				113469662B09038600CA16AE /* ProjectLengthChart.swift in Sources */,
 				1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */,
 				113469602B04BC2900CA16AE /* ProjectSpeakingRateChart.swift in Sources */,
 				1DE8B6532AED1C7B00E0746E /* HPButtonStyle.swift in Sources */,
@@ -1267,7 +1292,9 @@
 				1D09AF682AD98A1700C1400E /* ProjectView.swift in Sources */,
 				1DDB9D502AF75529001CA7CC /* GAManager.swift in Sources */,
 				1D09AFA52ADA785100C1400E /* UsagePercentChart.swift in Sources */,
+				113469642B08DBDB00CA16AE /* ProjectFWPMChart.swift in Sources */,
 				10D6FA5C2B02FBBF003F8FBD /* ScreenSelectionView.swift in Sources */,
+				11A9F2832B09EFE7003CAFFD /* AnalysisFWPMChart.swift in Sources */,
 				1D09AF6A2AD98A4000C1400E /* PracticeView.swift in Sources */,
 				1D09AF882ADA267500C1400E /* Colors.swift in Sources */,
 				11EF719B2ADADBA400D991E6 /* FillerWordList.swift in Sources */,
@@ -1317,6 +1344,7 @@
 				1D09AF972ADA681500C1400E /* PracticesTabItem.swift in Sources */,
 				1D09AFA92ADA78DF00C1400E /* SpeedAverageChart.swift in Sources */,
 				1DF659C32AD5974C00AE5601 /* MainWindowView.swift in Sources */,
+				11A9F2852B09F009003CAFFD /* AnalysisSpeedRateChart.swift in Sources */,
 				1D30E62F2AD6EA7500623A58 /* AppleScriptManager.swift in Sources */,
 				43976D542B01A0F900816620 /* FillerWordPanelView.swift in Sources */,
 				1D09AFA72ADA78A800C1400E /* UsageTopTierChart.swift in Sources */,

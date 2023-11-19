@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ProjectView: View {
     @Environment(ProjectManager.self)
     private var projectManager

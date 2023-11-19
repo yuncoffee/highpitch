@@ -21,27 +21,28 @@ struct HPTopToolbar<T: View>: View {
         ZStack {
             HStack(spacing: 0) {
                 if let completion = backButtonCompletion {
-                    HPButton(color: .HPSecondary.base) {
+                    HPButton(type: .text, color: .HPTextStyle.base) {
                         completion()
                     } label: { type, size, color, expandable in
                         HPLabel(
-                            content: (label: "키노트 열기", icon: nil),
+                            content: (label: "키노트 열기", icon: "chevron.left"),
                             type: type,
                             size: size,
                             color: color,
+                            alignStyle: .iconOnly,
                             expandable: expandable,
                             fontStyle: .system(.footnote)
                         )
                     }
-                    .frame(width: 120)
-                    .padding(.leading, .HPSpacing.medium)
+                    .fixedSize()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .offset(x: -.HPSpacing.xxsmall)
                 }
             }
             VStack(spacing: 0) {
                 if let popOverContent = popOverContent {
                     Text("\(title)")
-                        .systemFont(.body)
+                        .systemFont(.footnote, weight: .semibold)
                         .foregroundStyle(Color.HPTextStyle.darkness)
                         .onTapGesture {
                             if !isPopoverActive {
@@ -53,7 +54,7 @@ struct HPTopToolbar<T: View>: View {
                         }
                 } else {
                     Text("\(title)")
-                        .systemFont(.body)
+                        .systemFont(.footnote, weight: .semibold)
                         .foregroundStyle(Color.HPTextStyle.darkness)
                 }
                 if let subTitle {
@@ -132,10 +133,28 @@ extension HPTopToolbar where T == EmptyView {
             popOverContent: nil
         )
     }
+    init(
+        title: String,
+        backButtonCompletion: (() -> Void)?,
+        completion: (() -> Void)?
+    ) {
+        self.init(
+            title: title,
+            subTitle: nil,
+            backButtonCompletion: backButtonCompletion,
+            completion: completion,
+            popOverContent: nil
+        )
+    }
 }
 
 #Preview {
-    HPTopToolbar(title: "프로젝트 이름") {
+    HPTopToolbar(title: "프로젝트 이름",
+    backButtonCompletion: {
+      print("zz")
+    }, completion:  {
         print("Hello")
-    }
+    }, popOverContent: {
+        Text("zz")
+    })
 }

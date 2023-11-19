@@ -16,6 +16,9 @@ struct PracticeDetailContainer: View {
     
     private let PRACTICE_DETAIL_VIEW_WIDTH = 440.0
     
+    @State
+    private var scrollY: CGFloat = 0.0
+    
 #if PREVIEW
     // MARK: - MockData
     @Query(sort: \PracticeModel.creatAt)
@@ -32,7 +35,6 @@ struct PracticeDetailContainer: View {
                     FeedbackStyleScript()
                 }
                 .animation(nil, value: UUID())
-                .padding(.bottom, .HPSpacing.medium)
                 Rectangle()
                     .fill(LinearGradient(
                         gradient: Gradient(
@@ -40,8 +42,8 @@ struct PracticeDetailContainer: View {
                         startPoint: .top,
                         endPoint: .bottom
                     ))
-                    .offset(y: -.HPSpacing.xxxxsmall)
                     .frame(height: 24)
+                    .offset(y: -4)
                 GeometryReader { geometry in
                     Rectangle()
                         .fill(LinearGradient(
@@ -51,8 +53,7 @@ struct PracticeDetailContainer: View {
                             endPoint: .bottom
                         ))
                         .frame(height: viewStore.AUDIO_CONTROLLER_HEIGHT)
-                        .offset(y: geometry.size.height - viewStore.AUDIO_CONTROLLER_HEIGHT - 32)
-                    
+                        .offset(y: geometry.size.height - viewStore.AUDIO_CONTROLLER_HEIGHT)
                 }
             }
         }
@@ -99,7 +100,7 @@ extension PracticeDetailContainer {
             }
         }
         .padding(.top, .HPSpacing.xsmallBetweenSmall)
-        .padding(.bottom, .HPSpacing.small)
+        .padding(.bottom, .HPSpacing.xxsmall)
         .padding(.leading, .HPSpacing.small)
         .padding(.trailing, .HPSpacing.medium)
     }

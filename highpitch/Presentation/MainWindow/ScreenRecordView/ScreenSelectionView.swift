@@ -9,6 +9,14 @@ import SwiftUI
 import AVFoundation
 
 struct ScreenSelectionView: View {
+    @Environment(AppleScriptManager.self)
+    private var appleScriptManager
+    @Environment(ProjectManager.self)
+    private var projectManager
+    @Environment(KeynoteManager.self)
+    private var keynoteManager
+    @Environment(MediaManager.self)
+    var mediaManager
     @State var currentTabItem = 0
     @State var isChecked = false
     @StateObject var screenRecorder = ScreenRecordManager()
@@ -16,113 +24,165 @@ struct ScreenSelectionView: View {
     @State var disableInput = false
     @State var isUnauthorized = false
     @State var fileName = ""
+    @Environment(OpendKeynote.self)
+    var selectedKeynote: OpendKeynote?
+    @Environment(ProjectModel.self)
+    var selectedProject: ProjectModel?
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
     var body: some View {
         VStack {
-            Text("화면 녹화")
-            Text("녹화할 화면을 선택하고 연습을 시작해 주세요")
-            tabBar
-            tabBarContentContainer
-            HStack {
-                Toggle(isOn: $isChecked) {
-                    Text("화면 녹화 없이 연습하기")
-                }
-                Button(action: {
-                }, label: {
-                    Text("취소")
-                })
-                Button(action: {
-                    startCapture()
-                }, label: {
-                    Text("연습 시작")
-                })
+            ZStack {
+                Color.HPGray.system200
+                    .frame(width: 628,height: 40)
+                Text("화면 녹화")
+                    .systemFont(.caption, weight: .semibold)
+                    .foregroundColor(.HPTextStyle.darker)
             }
-            
-        }.onAppear {
+            .padding(.bottom,.HPSpacing.xxxxsmall)
+            Text("녹화할 화면을 선택하고 연습을 시작해 주세요")
+                .systemFont(.caption, weight: .semibold)
+                .foregroundColor(.HPTextStyle.base)
+                .padding(.bottom,.HPSpacing.large)
+            VStack {
+                screenItemView
+                bottomButtons
+            }
+            .padding(.horizontal,.HPSpacing.small)
+        }.frame(width: 628,height:570)
+            .cornerRadius(.HPCornerRadius.medium)
+        .onAppear {
+            registerNotification()
             startPreview()
+        }.onDisappear {
+            stopPreview()
         }
     }
 }
-// MARK: - Views
 extension ScreenSelectionView {
-    // MARK: - tabBar
-    @ViewBuilder
-    private var tabBar: some View {
-        let labels = ["애플리케이션", "화면"]
-        HStack(spacing: .HPSpacing.small) {
-            ForEach(Array(labels.enumerated()), id: \.1.self) { index, label in
-                Button {
-                    currentTabItem = index
-                    screenRecorder.captureType = index == 0 ? .window : .display
-                } label: {
-                    let selected = currentTabItem == index
-                    let labelForgroundColor: Color = if selected {
-                        .HPTextStyle.darkness } else { .HPTextStyle.base }
-                    let decorationColor: Color = if selected { .HPSecondary.base } else { .clear }
-                    Text(label)
-                        .systemFont(.body)
-                        .foregroundStyle(labelForgroundColor)
-                        .padding(.top, .HPSpacing.small)
-                        .padding(.bottom, .HPSpacing.xxxsmall)
-                        .padding(.horizontal, .HPSpacing.xxxsmall)
-                        .frame(maxHeight: .infinity)
-                        .border(
-                            decorationColor,
-                            width: 3,
-                            edges: [.bottom]
-                        )
-                        .contentShape(Rectangle())
+    var screenItemView: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: .HPSpacing.large) {
+                ForEach(screenRecorder.availableWindows, id: \.self) { window in
+                    Button {
+                        screenRecorder.selectedWindow = window
+                        screenRecorder.captureType = .window
+                    } label: {
+                        VStack(alignment: .center) {
+                            screenRecorder.captureWindowPreviews.first(
+                                where: { $0.displayName == window.displayName })
+                                .frame(width:160,height: 104)
+                                .aspectRatio(screenRecorder.contentSize, contentMode: .fit)
+                                .border(Color.HPPrimary.base,
+                                        width: (screenRecorder.selectedWindow == window && !isChecked) ? 6 : 0)
+                                .cornerRadius(.HPCornerRadius.small)
+                                .padding(0)
+                            Text(window.owningApplication!.applicationName)
+                                .systemFont(.caption, weight: .semibold)
+                                .foregroundColor(.HPTextStyle.dark)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .opacity((screenRecorder.selectedWindow == window && !isChecked) ? 1 : 0.5)
+                    .disabled(isChecked)
+                    .padding(0)
                 }
-                .buttonStyle(.plain)
             }
+            .padding(0)
         }
-        .padding(.horizontal, .HPSpacing.xxxlarge)
-        .frame(maxWidth: .infinity , minHeight: 60, maxHeight: 60, alignment: .bottomLeading)
-        .background(Color.HPGray.systemWhite)
     }
-    
-    @ViewBuilder
-    private var tabBarContentContainer: some View {
-        VStack {
-            if currentTabItem == 0 {
-                // 컨텐츠 1 - 전체 연습통계
-                ScreenItemView(screenRecorder: screenRecorder,index: 0)
-            } else {
-                // 컨텐츠 2 - 연습 회차별 피드백
-                ScreenItemView(screenRecorder: screenRecorder,index: 1)
+    var bottomButtons: some View {
+        HStack {
+            Toggle(isOn: $isChecked) {
+                Text("화면 녹화 없이 연습하기")
+                    .systemFont(.caption, weight: .semibold)
+                    .foregroundColor(.HPTextStyle.base)
+                
             }
-        }
-        .padding(.top, .HPSpacing.small + .HPSpacing.xxxxsmall)
-        .padding(.horizontal, currentTabItem == 0 ? .HPSpacing.xxxlarge : 0)
-        .padding(.bottom, .HPSpacing.large)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            Spacer()
+            HStack {
+                Button(action: {
+                    mediaManager.isStart = false
+                }, label: {
+                    Text("취소")
+                        .systemFont(.caption, weight: .semibold)
+                        .foregroundColor(.HPTextStyle.dark)
+                })
+                .frame(width: 92,height:37)
+                .buttonStyle(.plain)
+                .cornerRadius(.HPCornerRadius.small)
+                Button(action: {
+                    mediaManager.isStart = false
+                    startCapture()
+                }, label: {
+                    ZStack {
+                        screenRecorder.selectedWindow == nil ? Color.HPGray.system200 : Color.HPPrimary.base
+                        Text("연습 시작")
+                            .systemFont(.caption, weight: .semibold)
+                            .foregroundColor(.HPTextStyle.dark)
+                    }
+                })
+                .frame(width: 92,height:37)
+                .buttonStyle(.plain)
+                .cornerRadius(.HPCornerRadius.small)
+            }
+        }.padding(.bottom, .HPSpacing.small)
     }
 }
 //MARK: 기능
 extension ScreenSelectionView {
+    private func registerNotification() {
+        NotificationCenter.default.addObserver(forName: Notification.Name("stopButtonClicked"),
+                                               object: nil, queue: nil) { value in
+            print("hello hello")
+            stopCapture()
+        }
+    }
+    private func playPractice() {
+        print("------연습이 시작되었습니다.-------")
+        projectManager.playPractice(
+            selectedKeynote: selectedKeynote,
+            selectedProject: selectedProject,
+            appleScriptManager: appleScriptManager,
+            keynoteManager: keynoteManager,
+            mediaManager: mediaManager
+        )
+    }
+    
+    // MARK: - 연습 일시중지
+    private func pausePractice() {
+        projectManager.pausePractice(mediaManager: mediaManager)
+    }
     func startCapture() {
         fileName = Date().makeM4aFileName()
         Task {
             await screenRecorder.stopPreview()
-            audioRecorder.startRecording(filename: fileName)
+            //audioRecorder.startRecording(filename: fileName)
+            playPractice()
+            fileName = mediaManager.fileName
             await screenRecorder.start(fileName: fileName)
         }
     }
-    func stopCapture(){
+    func stopPreview() {
         Task {
-            audioRecorder.stopRecording()
+            await screenRecorder.stopPreview()
+        }
+    }
+    func stopCapture() {
+        Task {
+            //audioRecorder.stopRecording()
             await screenRecorder.stopPreview()
             await screenRecorder.stop()
             audioRecorder.mergeAudioAndVideo(
                 videoURL: URL.getPath(fileName: fileName, type: .video),
                 audioURL: URL.getPath(fileName: fileName, type: .audio),
-                outputURL: URL.getPath(fileName: "hello", type: .video)
+                outputURL: URL.getPath(fileName: fileName + "_merge", type: .video)
             ) { error in
                 print(error)
             }
         }
     }
-    func startPreview(){
+    func startPreview() {
         Task {
             if await screenRecorder.canRecord {
                 await screenRecorder.startPreview()

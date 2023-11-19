@@ -8,6 +8,12 @@
 import Foundation
 import SwiftData
 
+/// 제거사항
+
+/// 추가사항
+/// 1. remarkable: Bool
+/// 2. projectID: persistentID
+
 @Model
 class PracticeModel: Comparable {
     var practiceName: String
@@ -23,8 +29,8 @@ class PracticeModel: Comparable {
     var sentences: [SentenceModel]
     @Relationship(deleteRule: .cascade)
     var summary: PracticeSummaryModel
-    var remarkable: Bool = false
-    var projectCreatAt: String = ""
+    var remarkable: Bool
+    var projectCreatAt: String
     
     init(
         practiceName: String,
@@ -35,7 +41,9 @@ class PracticeModel: Comparable {
         utterances: [UtteranceModel],
         words: [WordModel] = [],
         sentences: [SentenceModel] = [],
-        summary: PracticeSummaryModel
+        summary: PracticeSummaryModel,
+        remarkable: Bool = false,
+        projectCreatAt: String = ""
     ) {
         self.practiceName = practiceName
         self.index = index
@@ -46,6 +54,8 @@ class PracticeModel: Comparable {
         self.words = words
         self.sentences = sentences
         self.summary = summary
+        self.remarkable = remarkable
+        self.projectCreatAt = projectCreatAt
     }
     
     static func < (lhs: PracticeModel, rhs: PracticeModel) -> Bool {

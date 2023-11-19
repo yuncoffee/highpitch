@@ -67,7 +67,7 @@ extension ProjectView {
         VStack {
             if projectManager.currentTabItem == 0 {
                 // 컨텐츠 1 - 전체 연습통계
-                // StatisticsTabItem()
+                ProjectOutLine()
             } else {
                 // 컨텐츠 2 - 연습 회차별 피드백
                 PracticesTabItem()

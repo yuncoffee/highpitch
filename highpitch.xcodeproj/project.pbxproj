@@ -20,7 +20,6 @@
 		10D6FA582B02F752003F8FBD /* ChaptureEngineForPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D6FA572B02F752003F8FBD /* ChaptureEngineForPreview.swift */; };
 		10D6FA5A2B02F7B8003F8FBD /* ChaptuerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D6FA592B02F7B8003F8FBD /* ChaptuerPreview.swift */; };
 		10D6FA5C2B02FBBF003F8FBD /* ScreenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D6FA5B2B02FBBF003F8FBD /* ScreenSelectionView.swift */; };
-		10D6FA5F2B02FD89003F8FBD /* ScreenItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D6FA5E2B02FD89003F8FBD /* ScreenItemView.swift */; };
 		10F3F27A2B04906400CFC817 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F2792B04906400CFC817 /* URL+Extension.swift */; };
 		10F3F27C2B04976800CFC817 /* VideoWithAudioRecordEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F27B2B04976800CFC817 /* VideoWithAudioRecordEngine.swift */; };
 		10F3F2842B05FD8C00CFC817 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3F2832B05FD8C00CFC817 /* AudioRecorder.swift */; };
@@ -179,7 +178,6 @@
 		10D6FA572B02F752003F8FBD /* ChaptureEngineForPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptureEngineForPreview.swift; sourceTree = "<group>"; };
 		10D6FA592B02F7B8003F8FBD /* ChaptuerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptuerPreview.swift; sourceTree = "<group>"; };
 		10D6FA5B2B02FBBF003F8FBD /* ScreenSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectionView.swift; sourceTree = "<group>"; };
-		10D6FA5E2B02FD89003F8FBD /* ScreenItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenItemView.swift; sourceTree = "<group>"; };
 		10F3F2792B04906400CFC817 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		10F3F27B2B04976800CFC817 /* VideoWithAudioRecordEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWithAudioRecordEngine.swift; sourceTree = "<group>"; };
 		10F3F2832B05FD8C00CFC817 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				10D6FA5B2B02FBBF003F8FBD /* ScreenSelectionView.swift */,
-				10D6FA5E2B02FD89003F8FBD /* ScreenItemView.swift */,
 			);
 			path = ScreenRecordView;
 			sourceTree = "<group>";
@@ -1247,7 +1244,6 @@
 				10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */,
 				1DB132312AD771A6006711B9 /* KeynoteManager.swift in Sources */,
 				11EF719F2ADEAA2C00D991E6 /* FastSentReplay.swift in Sources */,
-				10D6FA5F2B02FD89003F8FBD /* ScreenItemView.swift in Sources */,
 				1D09AF9C2ADA6BBB00C1400E /* AudioControllerView.swift in Sources */,
 				1DED4EE32AFCA68B000109B3 /* SpeedAudioIndicator.swift in Sources */,
 				10D6FA562B02F71F003F8FBD /* CaptureEngine.swift in Sources */,
@@ -1316,7 +1312,7 @@
 				107035002AF258390097A685 /* GeneralSettingView.swift in Sources */,
 				1DBF14612AE1380D00B28CED /* MenubarExtraHeader.swift in Sources */,
 				10F3F2842B05FD8C00CFC817 /* AudioRecorder.swift in Sources */,
-				437373A02B0224BD00DEEDBD /* FloatingPanelController.swift in Sources */,
+				437373A02B0224BD00DEEDBD /* PanelController.swift in Sources */,
 				437373A02B0224BD00DEEDBD /* PanelController.swift in Sources */,
 				1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */,
 				1D0ECD7A2ADDA35400B95A74 /* HPTopToolbar.swift in Sources */,

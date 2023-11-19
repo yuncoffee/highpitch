@@ -29,7 +29,7 @@ struct HPMenu: View {
                     .systemFont(.caption2)
                     .foregroundStyle(Color.HPTextStyle.darker)
                     .padding(.vertical, 3)
-                    .frame(maxWidth: maxWidth - (16) - (10) - (7 + 3))
+                    .frame(maxWidth: maxWidth - (16) - (10) - (7 + 3), alignment: .leading)
                 Label("열기", systemImage: "chevron.right")
                     .labelStyle(.iconOnly)
                     .font(.system(size: 7))

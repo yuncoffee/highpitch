@@ -94,7 +94,7 @@ extension ProjectOutLine {
     
     // MARK: - speakingRateView
     func speakingRateView(practices: [PracticeModel]) -> some View {
-        var speakingRate = returnSpeakingRate(practices: practices)
+        let speakingRate = returnSpeakingRate(practices: practices)
         return VStack(spacing: 0) {
             Text("말 빠르기")
                 .systemFont(.body)
@@ -154,7 +154,7 @@ extension ProjectOutLine {
                 .systemFont(.body)
                 .foregroundColor(Color.HPTextStyle.darker)
             if fillerWordTOP3.isEmpty {
-                Text("사용한 습관어가 없어요")
+                Text("지금까지 습관어 사용이 없었어요")
                     .systemFont(.footnote)
                     .foregroundColor(Color.HPTextStyle.light)
                     .padding(.top, .HPSpacing.xsmall)

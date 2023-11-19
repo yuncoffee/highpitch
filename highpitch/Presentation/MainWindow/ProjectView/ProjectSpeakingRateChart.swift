@@ -19,11 +19,11 @@ struct ProjectSpeakingRateChart: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: .HPSpacing.xsmall) {
-            Text("평균 말 빠르기")
+            Text("말 빠르기 범위")
                 .systemFont(.subTitle)
                 .foregroundStyle(Color.HPTextStyle.darker)
             ZStack(alignment: .topLeading) {
-                Text("(평균속도: SPM)")
+                Text("(속도: SPM)")
                     .systemFont(.caption2)
                     .foregroundStyle(Color.HPTextStyle.base)
                     .offset(y: -12)
@@ -54,41 +54,58 @@ extension ProjectSpeakingRateChart {
         let practices = projectManager.current?.practices.sorted(by: { $0.creatAt < $1.creatAt })
         
         if let practices = practices, !practices.isEmpty {
-            let title = "평균 말 빠르기"
-            let range = spmValueRange()
+            let title = "말 빠르기 범위"
+            let range = spmAxisRange()
+            let rawRange = spmValueRange()
             
             Chart {
                 /// 선 그래프
                 ForEach(practices) { practice in
-                    LineMark(
-                        x: .value("연습회차", practice.index + 1),
-                        y: .value(title, practice.summary.spmAverage)
-                    )
-                    .foregroundStyle(Color.HPPrimary.light)
-                    .symbol {
-                        Circle()
-                            .strokeBorder(Color.HPPrimary.lighter, lineWidth: 3)
-                            .background(Circle().fill(Color.HPComponent.Section.background))
-                            .frame(width: 12, height: 12)
+                    if practice.summary.minSpm < practice.summary.maxSpm {
+                        BarMark(
+                            x: .value("연습회차", practice.index + 1),
+                            yStart: .value(title, practice.summary.minSpm),
+                            yEnd: .value(title, practice.summary.maxSpm),
+                            width: .fixed(16)
+                        )
+                        .clipShape(Capsule())
+                        .foregroundStyle(Color("FFBF65"))
                     }
-                    .lineStyle(StrokeStyle(lineWidth: 3))
+                    if practice.summary.minSpm == practice.summary.maxSpm {
+                        PointMark(
+                            x: .value("연습회차", practice.index + 1),
+                            y: .value(title, practice.summary.minSpm)
+                        )
+                        .symbolSize(200)
+                        .foregroundStyle(Color("FFBF65"))
+                    }
+                    /// 모든 연습 중에도 가장 빠르거나 가장 느린 경우가 있다면 추가합니다.
+                    if practice.summary.maxSpm == rawRange.last! {
+                        PointMark(
+                            x: .value("연습회차", practice.index + 1),
+                            y: .value(title, practice.summary.maxSpm)
+                        )
+                        .symbolSize(113)
+                        .offset(y: practice.summary.maxSpm == practice.summary.minSpm ? 0 : 8)
+                        .foregroundStyle(Color.HPGray.systemWhite)
+                    }
+                    if practice.summary.minSpm == rawRange.first! {
+                        PointMark(
+                            x: .value("연습회차", practice.index + 1),
+                            y: .value(title, practice.summary.maxSpm)
+                        )
+                        .symbolSize(113)
+                        .offset(y: practice.summary.maxSpm == practice.summary.minSpm ? 0 : -8)
+                        .foregroundStyle(Color.HPGray.systemWhite)
+                    }
                 }
-                /// 가장 최근의 연습은 PointMark를 추가합니다.
-                PointMark(
-                    x: .value("연습 회차", practices.last!.index + 1),
-                    y: .value(title, practices.last!.summary.spmAverage)
-                )
-                .symbolSize(113)
-                .foregroundStyle(Color.HPPrimary.base)
                 /// 호버 효과
                 if let selected {
                     RuleMark(
                         x: .value("Selected", selected + 1)
                     )
                     /// 호버 시 점선
-                    .lineStyle(StrokeStyle(lineWidth: 3, dash: [5, 10]))
-                    .foregroundStyle(Color.gray.opacity(0.3))
-                    .offset(yStart: -10)
+                    .foregroundStyle(Color.clear)
                     .zIndex(0)
                     /// 호버 시 overlay
                     .annotation(
@@ -99,20 +116,35 @@ extension ProjectSpeakingRateChart {
                         )
                     ) {
                         VStack(spacing: 0) {
-                            Text("\(Date().createAtToYMD(input: practices[selected].creatAt))")
-                                .systemFont(.caption, weight: .semibold)
-                                .foregroundStyle(Color.HPTextStyle.dark)
-                            Text("\(Date().createAtToHMS(input: practices[selected].creatAt))")
-                                .systemFont(.caption, weight: .regular)
-                                .foregroundStyle(Color.HPTextStyle.light)
-                                .zIndex(5)
+                            // swiftlint: disable line_length
+                            if practices[selected].summary.minSpm < practices[selected].summary.maxSpm {
+                                Text("\(Int(practices[selected].summary.minSpm))-\(Int(practices[selected].summary.maxSpm)) SPM")
+                                    .systemFont(.caption2, weight: .bold)
+                                    .foregroundStyle(Color.HPTextStyle.dark)
+                            } else if practices[selected].summary.minSpm == practices[selected].summary.maxSpm {
+                                Text("\(Int(practices[selected].summary.minSpm)) SPM")
+                                    .systemFont(.caption2, weight: .bold)
+                                    .foregroundStyle(Color.HPTextStyle.dark)
+                            }
+                            // swiftlint: enable line_length
+                            HStack(spacing: 0) {
+                                Text("\(Date().createAtToYMD(input: practices[selected].creatAt))")
+                                    .systemFont(.caption2, weight: .medium)
+                                    .foregroundStyle(Color.HPTextStyle.light)
+                                Text(" | ")
+                                    .systemFont(.caption2, weight: .medium)
+                                    .foregroundStyle(Color.HPTextStyle.light)
+                                Text("\(Date().createAtToHM(input: practices[selected].creatAt))")
+                                    .systemFont(.caption2, weight: .medium)
+                                    .foregroundStyle(Color.HPTextStyle.light)
+                            }
+                            .zIndex(5)
                         }
                         .padding(.horizontal, .HPSpacing.xxxsmall)
                         .background(Color.HPGray.systemWhite)
                         .cornerRadius(5)
                         .shadow(color: .HPComponent.shadowBlackColor, radius: 8)
-                        .frame(width: 90, height: 52)
-                        .offset(x: 40)
+                        .offset(x: 60)
                     }
                 }
             }
@@ -123,10 +155,10 @@ extension ProjectSpeakingRateChart {
             .chartScrollableAxes(.horizontal)
             .chartScrollPosition(initialX: practices.count)
             .chartXScale(domain: [
-                0.5, Double(practices.count) + 0.5
+                0.2, Double(practices.count) + 0.8
             ])
-            /// 화면에 5회차까지의 연습을 표출합니다.
-            .chartXVisibleDomain(length: 5)
+            /// 화면에 7회차까지의 연습을 표출합니다.
+            .chartXVisibleDomain(length: 7)
             /// y축은 최저 값과 최고 값 차이의 1/8까지 표출합니다.
             .chartYScale(domain: [
                 range.first! -
@@ -139,7 +171,7 @@ extension ProjectSpeakingRateChart {
                 AxisMarks(values: Array(stride(from: 1, to: practices.count + 2, by: 1))) { value in
                     AxisValueLabel(centered: false) {
                         Text("\(value.index + 1)회차")
-                            .offset(x: -17, y: -7)
+                            .offset(x: -20)
                             .fixedSize()
                             .systemFont(.caption)
                             .foregroundStyle(Color.HPTextStyle.base)
@@ -178,23 +210,27 @@ extension ProjectSpeakingRateChart {
 extension ProjectSpeakingRateChart {
     /// YAxis 범위
     func spmValueRange() -> [Double] {
+        var maxOf = 0.0
+        var minOf = 9999.9
         let practices = projectManager.current?.practices.sorted(
             by: { $0.summary.spmAverage < $1.summary.spmAverage }
         )
         if let practices = practices, !practices.isEmpty {
-            if ( practices.first!.summary.spmAverage ==
-                 practices.last!.summary.spmAverage) {
-                return [
-                    practices.first!.summary.spmAverage - 25,
-                    practices.first!.summary.spmAverage + 25
-                ]
+            for practice in practices {
+                maxOf = max(maxOf, practice.summary.maxSpm)
+                minOf = min(minOf, practice.summary.minSpm)
             }
-            return [
-                practices.first!.summary.spmAverage,
-                practices.last!.summary.spmAverage
-            ]
         }
-        return []
+        if (maxOf < minOf) {
+            return [300.0, 400.0]
+        } else { return [minOf, maxOf] }
+    }
+    
+    func spmAxisRange() -> [Double] {
+        let answer = spmValueRange()
+        if (answer.first! == answer.last!) {
+            return [answer.first! - 50.0, answer.first! + 50.0]
+        } else { return answer }
     }
     
     /// 호버 관련 변수

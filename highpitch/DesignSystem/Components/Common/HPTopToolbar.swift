@@ -30,7 +30,7 @@ struct HPTopToolbar<T: View>: View {
                             size: size,
                             color: color,
                             expandable: expandable,
-                            fontStyle: .system(.body)
+                            fontStyle: .system(.footnote)
                         )
                     }
                     .frame(width: 120)
@@ -77,7 +77,7 @@ struct HPTopToolbar<T: View>: View {
                         size: size,
                         color: color,
                         expandable: expandable, 
-                        fontStyle: .system(.body)
+                        fontStyle: .system(.footnote)
                     )
                 }
                 .frame(width: 120)

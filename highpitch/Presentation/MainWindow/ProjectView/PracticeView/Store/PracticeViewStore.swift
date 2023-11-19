@@ -53,8 +53,10 @@ final class PracticeViewStore {
     }
     
     var currentFeedbackViewType: FeedbackViewType = .fillerWord
+    var scriptViewSpeedType: SpeedViewType = .fast
     
-    let AUDIO_INDICATOR_HEIGHT = 32.0
+    let AUDIO_INDICATOR_HEIGHT = 24.0
+    let AUDIO_CONTROLLER_HEIGHT = 64.0
     var SCRIPT_CONTAINER_WIDTH: CGFloat {
         self.currentFeedbackViewType == .every ? 320.0 : 276.0
     }
@@ -149,7 +151,12 @@ enum FeedbackViewType: String, CaseIterable {
     case speed = "말 빠르기"
 }
 
-extension FeedbackViewType {    
+enum SpeedViewType: Int, CaseIterable {
+    case fast = 1
+    case slow = 2
+}
+
+extension FeedbackViewType {
     @ViewBuilder
     var audioIndicator: some View {
         switch self {
@@ -166,11 +173,11 @@ extension FeedbackViewType {
     var feedbackContent: some View {
         switch self {
         case .every:
-            EveryFeedbackContent()
+            EmptyView()
         case .fillerWord:
             FillerWordFeedbackContent()
         case .speed:
-            SpeedFeedbackContent()
+            EmptyView()
         }
     }
 }

@@ -26,6 +26,7 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     
     /// 음성메모 녹음 관련 프로퍼티
     var audioRecorder: AVAudioRecorder?
+    var audioRecorderV2 = AudioRecorder()
     
     /// 음성메모 재생 관련 프로퍼티
     /// audioPlayer.currentTime을 통해서 음성 이동하기
@@ -34,6 +35,7 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var currentTime: TimeInterval = 0
     var fileName: String = ""
     var stopPoint: TimeInterval?
+    var isStart = false
 }
 
 // MARK: - 음성메모 녹음 관련 메서드
@@ -63,11 +65,13 @@ extension MediaManager: Recordable {
     }
     func startRecording() {
         if isRecording {
-            audioRecorder?.record()
+            //audioRecorder?.record()
+            audioRecorderV2.startRecording(filename: fileName)
             isPause = false
         } else {
-            prepareRecording()
-            audioRecorder?.record()
+            //prepareRecording()
+            //audioRecorder?.record()
+            audioRecorderV2.startRecording(filename: fileName)
             isRecording = true
         }
     }
@@ -89,18 +93,15 @@ extension MediaManager: Recordable {
     }
     
     func pauseRecording() {
-        audioRecorder?.pause()
+        //audioRecorder?.pause()
+        audioRecorderV2.stopRecording()
         isPause = true
     }
     
     func stopRecording() {
-        audioRecorder?.stop()
+        //audioRecorder?.stop()
+        audioRecorderV2.stopRecording()
         isRecording = false
-    }
-    
-    private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
     }
 }
 
@@ -159,18 +160,6 @@ extension MediaManager: AudioPlayable {
     }
     func setCurrentTime(time: TimeInterval) {
         audioPlayer?.currentTime = time
-    }
-    func getPath(fileName: String) -> URL {
-        let dataPath = getDocumentsDirectory()
-            .appendingPathComponent("HighPitch")
-            .appendingPathComponent("Audio")
-        do {
-            try FileManager.default
-                .createDirectory(at: dataPath, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            print("Error creating directory: \(error.localizedDescription)")
-        }
-        return dataPath.appendingPathComponent(fileName + ".m4a")
     }
 }
 

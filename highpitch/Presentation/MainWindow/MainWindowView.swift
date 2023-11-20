@@ -81,7 +81,7 @@ struct MainWindowView: View {
         .onChange(of: projects) { _, newValue in
             if !newValue.isEmpty {
                 projectManager.projects = newValue
-                projectManager.current = newValue[0]
+                projectManager.current = newValue.last
             }
         }
         .onChange(of: projectManager.current) { _, newValue in
@@ -151,39 +151,39 @@ extension MainWindowView {
     @ViewBuilder
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("내 연습 분석")
-                .systemFont(.footnote, weight:
-                    projectManager.current == nil
-                    ? .bold : .semibold
-                )
-                .foregroundStyle(
-                    projectManager.current == nil
-                    ? Color.HPTextStyle.darker
-                    : Color.HPTextStyle.base
-                )
-                .padding(.vertical, 6)
-                .padding(.leading, .HPSpacing.xxxsmall)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                    projectManager.current == nil
-                    ? Color.HPComponent.Sidebar.select
-                    : Color.clear
-                )
-                .cornerRadius(7)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    projectManager.current = nil
-                }
+            Button {
+                projectManager.current = nil
+            } label: {
+                Text("내 연습 분석")
+                    .systemFont(
+                        .footnote,
+                        weight: projectManager.current == nil ? .bold : .medium)
+                    .foregroundStyle(
+                        projectManager.current == nil 
+                        ? Color.HPTextStyle.darker
+                        : Color.HPTextStyle.base
+                    )
+                    .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+                    .padding(.horizontal, .HPSpacing.xxxsmall)
+                    .background(
+                        projectManager.current == nil
+                        ? Color.HPPrimary.lightness
+                        : Color.clear
+                    )
+                    .cornerRadius(7)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .padding(.horizontal, .HPSpacing.xxxsmall)
+            Divider()
+                .background(Color.HPComponent.stroke)
+                .padding(.top, .HPSpacing.xxxsmall)
+                .padding(.bottom, .HPSpacing.small)
                 .padding(.horizontal, .HPSpacing.xxxsmall)
                 .padding(.bottom, .HPSpacing.xxsmall)
-            Rectangle()
-                .frame(maxWidth: .infinity, minHeight: 1, maxHeight: 1)
-                .foregroundColor(Color.HPComponent.stroke)
-                .padding(.horizontal, .HPSpacing.xxsmall)
-                .padding(.bottom, .HPSpacing.small)
             Text("내 프로젝트")
-                .systemFont(.body, weight: .semibold)
-                .foregroundStyle(Color.HPTextStyle.darker)
+                .systemFont(.footnote, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.base)
                 .padding(.bottom, .HPSpacing.xsmall)
                 .padding(.horizontal, .HPSpacing.xsmall)
                 .onTapGesture {
@@ -211,7 +211,7 @@ extension MainWindowView {
         }
         .frame(alignment: .topLeading)
         .navigationSplitViewColumnWidth(200)
-        .padding(.top, .HPSpacing.medium)
+        .padding(.top, .HPSpacing.xsmall)
         .background(
             Color.HPComponent.Sidebar.background)
     }

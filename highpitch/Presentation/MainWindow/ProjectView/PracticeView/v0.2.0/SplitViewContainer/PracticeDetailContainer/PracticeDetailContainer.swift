@@ -16,6 +16,9 @@ struct PracticeDetailContainer: View {
     
     private let PRACTICE_DETAIL_VIEW_WIDTH = 440.0
     
+    @State
+    private var scrollY: CGFloat = 0.0
+    
 #if PREVIEW
     // MARK: - MockData
     @Query(sort: \PracticeModel.creatAt)
@@ -25,12 +28,34 @@ struct PracticeDetailContainer: View {
     var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
             header
-            ScrollView {
-                viewStore.currentFeedbackViewType.feedbackContent
-                FeedbackStyleScript()
+            ZStack(alignment: .topLeading) {
+                ScrollView {
+                    viewStore.currentFeedbackViewType.feedbackContent
+                        .padding(.top, .HPSpacing.xxxsmall)
+                    FeedbackStyleScript()
+                }
+                .animation(nil, value: UUID())
+                Rectangle()
+                    .fill(LinearGradient(
+                        gradient: Gradient(
+                            colors: [.HPGray.systemWhite, .HPGray.systemWhite.opacity(0)]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ))
+                    .frame(height: 24)
+                    .offset(y: -4)
+                GeometryReader { geometry in
+                    Rectangle()
+                        .fill(LinearGradient(
+                            gradient: Gradient(
+                                colors: [.HPGray.systemWhite.opacity(0), .HPGray.systemWhite]),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ))
+                        .frame(height: viewStore.AUDIO_CONTROLLER_HEIGHT)
+                        .offset(y: geometry.size.height - viewStore.AUDIO_CONTROLLER_HEIGHT)
+                }
             }
-            .animation(nil, value: UUID())
-            .padding(.bottom, .HPSpacing.medium)
         }
         .border(.HPComponent.stroke, width: 1, edges: [.leading])
         .frame(
@@ -53,24 +78,29 @@ struct PracticeDetailContainer: View {
 extension PracticeDetailContainer {
     @ViewBuilder
     var header: some View {
-        HStack {
-            segmentedControl
-            Spacer()
-            HPButton(type: .text, color: .HPTextStyle.light) {
-                print("리포트 보기")
-            } label: { type, size, color, expandable in
-                HPLabel(
-                    content: ("리포트 보기", nil),
-                    type: type,
-                    size: size,
-                    color: color,
-                    expandable: expandable
-                )
+        VStack(spacing: .HPSpacing.xxsmall) {
+            HStack {
+                segmentedControl
+                Spacer()
+                HPButton(type: .text, color: .HPTextStyle.light) {
+                    print("리포트 보기")
+                } label: { type, size, color, expandable in
+                    HPLabel(
+                        content: ("리포트 보기", nil),
+                        type: type,
+                        size: size,
+                        color: color,
+                        expandable: expandable
+                    )
+                }
+                .fixedSize()
             }
-            .fixedSize()
+            if viewStore.currentFeedbackViewType == .speed {
+                speedTabRadios
+            }
         }
         .padding(.top, .HPSpacing.xsmallBetweenSmall)
-        .padding(.bottom, .HPSpacing.small)
+        .padding(.bottom, .HPSpacing.xxsmall)
         .padding(.leading, .HPSpacing.small)
         .padding(.trailing, .HPSpacing.medium)
     }
@@ -103,6 +133,61 @@ extension PracticeDetailContainer {
             }
         }
     }
+    
+    @ViewBuilder
+    var speedTabRadios: some View {
+        HStack(spacing: .HPSpacing.xsmall) {
+            Button {
+                withAnimation(.interpolatingSpring(stiffness: 300, damping: 15)) {
+                    viewStore.scriptViewSpeedType = .fast
+                }
+            } label: {
+                HStack {
+                    ZStack {
+                        Circle()
+                            .stroke(lineWidth: 1)
+                            .fill(viewStore.scriptViewSpeedType == .fast ? Color.HPOrange.light : Color.HPComponent.stroke2 )
+                            .frame(width: 18, height: 18)
+                        Circle()
+                            .fill(Color.HPOrange.base)
+                            .scaleEffect(viewStore.scriptViewSpeedType == .fast ? 1 : 0, anchor: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .opacity(viewStore.scriptViewSpeedType == .fast ? 1 : 0)
+                            .frame(width: 10, height: 10)
+                    }
+                    Text("빠른 구간")
+                        .systemFont(.caption, weight: .semibold)
+                        .foregroundStyle(Color.HPSecondary.base)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            Button {
+                withAnimation(.interpolatingSpring(stiffness: 300, damping: 15)) {
+                    viewStore.scriptViewSpeedType = .slow
+                }
+            } label: {
+                HStack {
+                    ZStack {
+                        Circle()
+                            .stroke(lineWidth: 1)
+                            .fill(viewStore.scriptViewSpeedType == .slow ? Color.HPOrange.light : Color.HPComponent.stroke2 )
+                            .frame(width: 18, height: 18)
+                        Circle()
+                            .fill(Color.HPOrange.base)
+                            .scaleEffect(viewStore.scriptViewSpeedType == .slow ? 1 : 0, anchor: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .opacity(viewStore.scriptViewSpeedType == .slow ? 1 : 0)
+                            .frame(width: 10, height: 10)
+                    }
+                    Text("느린 구간")
+                        .systemFont(.caption, weight: .semibold)
+                        .foregroundStyle(Color.HPSecondary.base)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+    }
 }
 
 #Preview {
@@ -122,6 +207,6 @@ extension PracticeDetailContainer {
                 ),
                 mediaManager: MediaManager()))
     }
-    .frame(minHeight: 600)
+    .frame(minHeight: 320)
     
 }

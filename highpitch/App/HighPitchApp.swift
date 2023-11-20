@@ -22,21 +22,15 @@ struct HighpitchApp: App {
     
     // MARK: - 데이터 컨트롤을 위한 매니저 객체 선언(전역 싱글 인스턴스)
     @State
-    private var fileSystemManager = FileSystemManager()
-    @State
     private var mediaManager = MediaManager()
-    @State 
+    @State
     private var projectManager = ProjectManager()
-    #if os(macOS)
-    @State 
-    private var appleScriptManager = AppleScriptManager()
-    @State 
-    private var keynoteManager = KeynoteManager()
+#if os(macOS)
     @State
     private var practiceManager = PracticeManager()
     @State
     private var isMenuPresented: Bool = false
-        
+    
     @State
     var refreshable = false
     
@@ -53,7 +47,7 @@ struct HighpitchApp: App {
         }
     }
     
-    #endif
+#endif
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State
@@ -95,16 +89,13 @@ struct HighpitchApp: App {
         print("시작할때 Pause 키콤보: ",systemManager.hotkeyPause.keyCombo)
         print("시작할때 Save 키콤보: ",systemManager.hotkeySave.keyCombo)
     }
-
+    
     var body: some Scene {
-        #if os(macOS)
+#if os(macOS)
         Window("mainwindow", id: "main") {
             if SystemManager.shared.isPassOnbarding {
                 MainWindowView()
-                    .environment(appleScriptManager)
-                    .environment(fileSystemManager)
                     .environment(practiceManager)
-                    .environment(keynoteManager)
                     .environment(mediaManager)
                     .environment(projectManager)
                     .environment(selectedProject)
@@ -148,7 +139,7 @@ struct HighpitchApp: App {
                         systemManager.hotkeyPause.keyDownHandler = pausePractice
                         systemManager.hotkeySave.keyDownHandler = stopPractice
                     }
-                    // Panel들 관리: isDetailSettingActive가 true로 변경 시, 상세설정 Panel 띄워준다.
+                // Panel들 관리: isDetailSettingActive가 true로 변경 시, 상세설정 Panel 띄워준다.
                     .onChange(of: systemManager.instantFeedbackManager.isDetailSettingActive) { _, activeOn in
                         if activeOn {
                             appDelegate.panelControllers[InstantPanel.detailSetting]?.showPanel(self)
@@ -156,7 +147,7 @@ struct HighpitchApp: App {
                             appDelegate.panelControllers[InstantPanel.detailSetting]?.hidePanel(self)
                         }
                     }
-                    // Panel들 관리: 활성화된 Panel은 화면에 띄워지고, 비활성화 Panel들은 화면에서 숨긴다.
+                // Panel들 관리: 활성화된 Panel은 화면에 띄워지고, 비활성화 Panel들은 화면에서 숨긴다.
                     .onChange(of: systemManager.instantFeedbackManager.activePanels) { hidePanels, showPanels in
                         for hidePanel in hidePanels {
                             appDelegate.panelControllers[hidePanel]?.hidePanel(self)
@@ -167,19 +158,19 @@ struct HighpitchApp: App {
                     }
             } else {
                 OnboardingView()
-                .frame(width: 1000, height: 628)
-                .onAppear {
-                    NSApp.windows.forEach { window in
-                        window.standardWindowButton(.miniaturizeButton)?.isEnabled = false
-                        window.standardWindowButton(.zoomButton)?.isEnabled = false
+                    .frame(width: 1000, height: 628)
+                    .onAppear {
+                        NSApp.windows.forEach { window in
+                            window.standardWindowButton(.miniaturizeButton)?.isEnabled = false
+                            window.standardWindowButton(.zoomButton)?.isEnabled = false
+                        }
                     }
-                }
-                .onDisappear {
-                    NSApp.windows.forEach { window in
-                        window.standardWindowButton(.miniaturizeButton)?.isEnabled = true
-                        window.standardWindowButton(.zoomButton)?.isEnabled = true
+                    .onDisappear {
+                        NSApp.windows.forEach { window in
+                            window.standardWindowButton(.miniaturizeButton)?.isEnabled = true
+                            window.standardWindowButton(.zoomButton)?.isEnabled = true
+                        }
                     }
-                }
             }
         }
         .defaultSize(width: 1000, height: 628)
@@ -188,8 +179,6 @@ struct HighpitchApp: App {
         // MARK: - Settings Scene
         Settings {
             SettingsView()
-                .environment(appleScriptManager)
-                .environment(keynoteManager)
                 .environment(mediaManager)
                 .modelContainer(container)
         }
@@ -200,16 +189,13 @@ struct HighpitchApp: App {
                 selectedProject: $selectedProject,
                 selectedKeynote: $selectedKeynote
             )
-                .environment(appleScriptManager)
-                .environment(fileSystemManager)
-                .environment(keynoteManager)
-                .environment(mediaManager)
-                .environment(projectManager)
-                .openSettingsAccess()
-                .modelContainer(container)
-                .introspectMenuBarExtraWindow { window in
-                    window.animationBehavior = .utilityWindow
-                }
+            .environment(mediaManager)
+            .environment(projectManager)
+            .openSettingsAccess()
+            .modelContainer(container)
+            .introspectMenuBarExtraWindow { window in
+                window.animationBehavior = .utilityWindow
+            }
         } label: {
             if SystemManager.shared.isAnalyzing {
                 Label("MenubarExtra", image: "menubar-loading-light-\(menubarAnimationCount)")
@@ -237,32 +223,30 @@ struct HighpitchApp: App {
                 menubarAnimationCount += 1
             }
         })
-        #endif
+#endif
     }
 }
 extension HighpitchApp {
     private func setupInit() {
         // MARK: - AppleScript Remove
-//        #if os(macOS)
-//        Task {
-//            let result = await appleScriptManager.runScript(.isActiveKeynoteApp)
-//            if case .boolResult(let isKeynoteOpen) = result {
-//                // logic 1
-//                if isKeynoteOpen {
-//                    print("열려있습니다")
-//                } else {
-//                    print("닫혀있습니다")
-//                }
-//            }
-//        }
-//        #endif
+        //        #if os(macOS)
+        //        Task {
+        //            let result = await appleScriptManager.runScript(.isActiveKeynoteApp)
+        //            if case .boolResult(let isKeynoteOpen) = result {
+        //                // logic 1
+        //                if isKeynoteOpen {
+        //                    print("열려있습니다")
+        //                } else {
+        //                    print("닫혀있습니다")
+        //                }
+        //            }
+        //        }
+        //        #endif
     }
     
     func playPractice() {
         projectManager.playPractice(
             selectedProject: selectedProject,
-            appleScriptManager: appleScriptManager,
-            keynoteManager: keynoteManager,
             mediaManager: mediaManager
         )
     }
@@ -276,7 +260,6 @@ extension HighpitchApp {
             await MainActor.run {
                 projectManager.stopPractice(
                     mediaManager: mediaManager,
-                    keynoteManager: keynoteManager,
                     modelContext: container.mainContext
                 )
             }

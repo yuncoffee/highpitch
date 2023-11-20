@@ -182,8 +182,6 @@ extension MenubarExtraHeader {
         print("------연습이 시작되었습니다.-------")
         projectManager.playPractice(
             selectedProject: selectedProject,
-            appleScriptManager: appleScriptManager,
-            keynoteManager: keynoteManager,
             mediaManager: mediaManager
         )
     }
@@ -198,7 +196,6 @@ extension MenubarExtraHeader {
     private func stopPractice() {
         projectManager.stopPractice(
             mediaManager: mediaManager,
-            keynoteManager: keynoteManager,
             modelContext: modelContext
         )
     }

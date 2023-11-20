@@ -68,7 +68,7 @@ struct HighpitchApp: App {
     
     init() {
         do {
-            let storeURL = URL.applicationDirectory.appending(path: "database.sqlite")
+            let storeURL = URL.getStorePath(fileName: "database.sqlite")
             let config = ModelConfiguration(url: storeURL)
             container = try ModelContainer(
                 for: ProjectModel.self,
@@ -154,6 +154,8 @@ struct HighpitchApp: App {
                 .environment(keynoteManager)
                 .environment(mediaManager)
                 .environment(projectManager)
+                .environment(selectedProject)
+                .environment(selectedKeynote)
                 .modelContainer(container)
                 .onChange(of: systemManager.recordStartCommand, { _, _ in
                     // 변경된 명령어들로 hotKey재설정

@@ -11,7 +11,7 @@ import Combine
 import OSLog
 import SwiftUI
 
-@MainActor
+
 class ScreenRecordManager: ObservableObject {
     
     /// The supported capture types.
@@ -107,6 +107,10 @@ class ScreenRecordManager: ObservableObject {
             await monitorAvailableContent()
             isSetup = true
         }
+        captureDisplayPreviews = []
+        captureDisplayEngines = []
+        captureWindowPreviews = []
+        captureWindowEngines = []
         availableDisplays.forEach { display in
             captureDisplayPreviews.append(CapturePreview(displayName: display.displayName))
             captureDisplayEngines.append(CaptureEngineForPreview(label: display.displayName))
@@ -152,14 +156,18 @@ class ScreenRecordManager: ObservableObject {
     }
     func stopPreview() async {
         for engine in captureWindowEngines {
-            await engine.stopCapture()
+            Task {
+                await engine.stopCapture()
+            }
         }
         for engine in captureDisplayEngines {
-            await engine.stopCapture()
+            Task {
+                await engine.stopCapture()
+            }
         }
     }
     /// Starts capturing screen content.
-    func start() async {
+    func start(fileName: String) async {
         // Exit early if already running.
         guard !isRunning else { return }
         
@@ -177,7 +185,7 @@ class ScreenRecordManager: ObservableObject {
             // Update the running state.
             isRunning = true
             // Start the stream and await new video frames.
-            for try await frame in captureEngine.startCapture(configuration: config, filter: filter) {
+            for try await frame in captureEngine.startCapture(configuration: config, filter: filter, fileName: fileName) {
                 capturePreview.updateFrame(frame)
                 if contentSize != frame.size {
                     // Update the content size if it changed.
@@ -201,7 +209,7 @@ class ScreenRecordManager: ObservableObject {
     private func updateEngine() {
         guard isRunning else { return }
         Task {
-            await captureEngine.update(configuration: streamConfiguration, filter: contentFilter)
+            //await captureEngine.update(configuration: streamConfiguration, filter: contentFilter)
         }
     }
     /// - Tag: UpdateFilter
@@ -237,43 +245,40 @@ class ScreenRecordManager: ObservableObject {
         case .display:
             guard let display = selectedDisplay else { fatalError("No display selected.") }
             var excludedApps = [SCRunningApplication]()
-            // If a user chooses to exclude the app from the stream,
-            // exclude it by matching its bundle identifier.
             if isAppExcluded {
                 excludedApps = availableApps.filter { app in
                     Bundle.main.bundleIdentifier == app.bundleIdentifier
                 }
             }
-            // Create a content filter with excluded apps.
             filter = SCContentFilter(display: display,
                                      excludingApplications: excludedApps,
                                      exceptingWindows: [])
         case .window:
             guard let window = selectedWindow else { fatalError("No window selected.") }
-            
-            // Create a content filter that includes a single window.
             filter = SCContentFilter(desktopIndependentWindow: window)
         }
         return filter
     }
     private func streamConfiguration(scWindow : SCWindow) -> SCStreamConfiguration {
         let streamConfig = SCStreamConfiguration()
-        streamConfig.capturesAudio = isAudioCaptureEnabled
-        streamConfig.excludesCurrentProcessAudio = isAppAudioExcluded
-        streamConfig.width = Int(scWindow.frame.width) * scaleFactor
-        streamConfig.height = Int(scWindow.frame.height) * scaleFactor
-        streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: 60)
-        streamConfig.queueDepth = 5
+        streamConfig.width = 284
+        streamConfig.height = 182
+        streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(5))
+        streamConfig.pixelFormat = kCVPixelFormatType_32BGRA
+        streamConfig.capturesAudio = false
+        streamConfig.showsCursor = false
+        streamConfig.queueDepth = 3
         return streamConfig
     }
     private func streamConfiguration(scDisplay : SCDisplay) -> SCStreamConfiguration {
         let streamConfig = SCStreamConfiguration()
-        streamConfig.capturesAudio = isAudioCaptureEnabled
-        streamConfig.excludesCurrentProcessAudio = isAppAudioExcluded
-        streamConfig.width = Int(scDisplay.frame.width) * 2
-        streamConfig.height = Int(scDisplay.frame.height) * 2
-        streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: 60)
-        streamConfig.queueDepth = 5
+        streamConfig.width = 284
+        streamConfig.height = 182
+        streamConfig.minimumFrameInterval = CMTime(value: 1, timescale: CMTimeScale(5))
+        streamConfig.pixelFormat = kCVPixelFormatType_32BGRA
+        streamConfig.capturesAudio = false
+        streamConfig.showsCursor = false
+        streamConfig.queueDepth = 3
         return streamConfig
     }
     
@@ -301,7 +306,7 @@ class ScreenRecordManager: ObservableObject {
         do {
             // Retrieve the available screen content to capture.
             let availableContent = try await SCShareableContent.excludingDesktopWindows(false,
-                                                                                        onScreenWindowsOnly: true)
+                                                                                        onScreenWindowsOnly: false)
             availableDisplays = availableContent.displays
             
             let windows = filterWindows(availableContent.windows)
@@ -329,6 +334,13 @@ class ScreenRecordManager: ObservableObject {
             .filter { $0.owningApplication != nil && $0.owningApplication?.applicationName != "" }
         // Remove this app's window from the list.
             .filter { $0.owningApplication?.bundleIdentifier != Bundle.main.bundleIdentifier }
+            .filter { $0.isActive }
+            .filter { $0.title != "Item-0" }
+            .filter { $0.title != "" }
+            .filter { $0.title != "Window" }
+            .filter { !$0.displayName.contains("Wallpaper")}
+            .filter { !$0.displayName.contains("제어 센터")}
+        
     }
 }
 

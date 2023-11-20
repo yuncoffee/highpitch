@@ -120,8 +120,9 @@ extension MenubarExtraHeader {
             print("HEEE")
             if !mediaManager.isRecording {
                 print("11111")
+                mediaManager.isStart = true
                 GAManager.shared.analyticsOnClick(.play)
-                playPractice()
+                //playPractice()
             } else if mediaManager.isPause {
                 print("22222")
                 playPractice()
@@ -153,6 +154,7 @@ extension MenubarExtraHeader {
                 await MainActor.run {
                     GAManager.shared.analyticsOnClick(.stop)
                     stopPractice()
+                    NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                 }
             }
         } label: { type, size, color, expandable in
@@ -220,6 +222,7 @@ extension MenubarExtraHeader {
         exit(0)
     }
 }
+//MARK: 스크린 캡쳐 기능
 
 // #Preview {
 //    @State

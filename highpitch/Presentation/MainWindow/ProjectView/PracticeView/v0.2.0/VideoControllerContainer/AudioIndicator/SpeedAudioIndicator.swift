@@ -33,31 +33,50 @@ struct SpeedAudioIndicator: View {
                     let isFastSentence = viewStore.isFastSentence(sentenceIndex: sentence.index)
                     let xRatio = Double(sentence.startAt * 100) / duration
                     let width = Double(sentence.endAt * 100) / duration - Double(sentence.startAt * 100) / duration
-                    if isSlowSentence || isFastSentence {
-                        VStack {
-                            let _width = widthPercent * width
-                            Rectangle()
-                                .frame(
-                                    width: _width,
-                                    height: 32
-                                )
-                                .foregroundStyle(
-                                    isSlowSentence
-                                    ? Color.HPGreen.base
-                                    : Color.HPOrange.base
-                                )
+                    if viewStore.scriptViewSpeedType == .fast {
+                        if isFastSentence {
+                            VStack {
+                                let _width = widthPercent * width
+                                Rectangle()
+                                    .frame(
+                                        width: _width,
+                                        height: viewStore.AUDIO_INDICATOR_HEIGHT
+                                    )
+                                    .foregroundStyle(Color("FF9500").opacity(0.3))
+                            }
+                            .offset(x: widthPercent * xRatio)
+                            .frame(maxHeight: .infinity)
+                            .onTapGesture {
+                                viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
+                            }
                         }
-                        .offset(x: widthPercent * xRatio)
-                        .frame(maxHeight: .infinity)
-                        .onTapGesture {
-                            viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
+                    } else if viewStore.scriptViewSpeedType == .slow {
+                        if isSlowSentence {
+                            VStack {
+                                let _width = widthPercent * width
+                                Rectangle()
+                                    .frame(
+                                        width: _width,
+                                        height: viewStore.AUDIO_INDICATOR_HEIGHT
+                                    )
+                                    .foregroundStyle(Color("FF9500").opacity(0.3))
+                            }
+                            .offset(x: widthPercent * xRatio)
+                            .frame(maxHeight: .infinity)
+                            .onTapGesture {
+                                viewStore.playMediaFromSentence(atTime: Double(sentence.startAt), index: sentence.index)
+                            }
                         }
                     }
+                    
                 }
             }
+            
         }
         .padding(.horizontal, .HPSpacing.xxxsmall)
-        .frame(maxWidth:.infinity, maxHeight: 32, alignment: .leading)
+        .frame(maxWidth:.infinity, maxHeight: viewStore.AUDIO_INDICATOR_HEIGHT, alignment: .leading)
+        .background(Color("FFF8F3").opacity(0.7))
+        .background(.thinMaterial)
         .onAppear {
             // MARK: - Add MockData
 #if PREVIEW
@@ -141,6 +160,7 @@ extension SpeedAudioIndicator {
                 ),
                 mediaManager: MediaManager()))
     }
+    
     .border(.blue)
     .frame(maxWidth: 800)
     .padding(32)

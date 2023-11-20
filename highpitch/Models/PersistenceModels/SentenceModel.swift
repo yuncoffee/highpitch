@@ -24,7 +24,7 @@ class SentenceModel {
     @Attribute(originalName: "empValue")
     var spmValue: Double
     /// 0: defalut, 1: fast, 2: slow
-    var type: Int = 0
+    var type: Int = SpeedType.default.rawValue
     
     init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0) {
         self.index = index
@@ -33,4 +33,10 @@ class SentenceModel {
         self.startAt = startAt
         self.endAt = endAt
     }
+}
+
+enum SpeedType: Int {
+    case `default` = 0
+    case fast = 1
+    case slow = 2
 }

@@ -49,7 +49,6 @@ extension MenubarExtraHeader {
         HStack(spacing: .HPSpacing.xxsmall) {
             openMainWindowButton
             openSettingWindowButton
-            openOverlayWindow
         }
     }
     
@@ -75,23 +74,6 @@ extension MenubarExtraHeader {
     private var openSettingWindowButton: some View {
         HPButton(type: .text, size: .medium, color: .HPGray.system800) {
             try? openSettings()
-        } label: { type, size, color, expandable in
-            HPLabel(
-                content: (label: "Open Settings", icon: "gearshape.fill"),
-                type: type,
-                size: size,
-                color: color,
-                alignStyle: .iconOnly,
-                expandable: expandable
-            )
-        }
-        .frame(width: 24, height: 24)
-    }
-    
-    @ViewBuilder
-    private var openOverlayWindow: some View {
-        HPButton(type: .text, size: .medium, color: .HPGray.system800) {
-            openWindow(id: "overlay3")
         } label: { type, size, color, expandable in
             HPLabel(
                 content: (label: "Open Settings", icon: "gearshape.fill"),
@@ -197,7 +179,6 @@ extension MenubarExtraHeader {
     private func playPractice() {
         print("------연습이 시작되었습니다.-------")
         projectManager.playPractice(
-            selectedKeynote: selectedKeynote,
             selectedProject: selectedProject,
             appleScriptManager: appleScriptManager,
             keynoteManager: keynoteManager,

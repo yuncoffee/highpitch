@@ -23,13 +23,12 @@ struct UsageTopTierChart: View {
     var fillerTypeCount = 0
 
     var body: some View {
-        let maxHeight: CGFloat = 500
+        let maxHeight: CGFloat = 212
         VStack(alignment:.leading, spacing: 0) {
-            header
             GeometryReader { geometry in
                 let breakPoint: (chartSize: CGFloat, offset: CGFloat) =
                 if geometry.size.width < 500 {
-                    (chartSize: maxHeight * 0.5, offset: geometry.size.height * 0.37)
+                    (chartSize: maxHeight * 1, offset: geometry.size.height * 0.5)
                 } else {
                     (chartSize: maxHeight * 0.6, offset: geometry.size.height * 0.45)
                 }
@@ -37,10 +36,10 @@ struct UsageTopTierChart: View {
                     if (fillerWordCount > 0) {
                         VStack(spacing: 0) {
                             Text("\(fillerTypeCount)가지")
-                                .systemFont(.title)
+                                .systemFont(.body, weight: .bold)
                                 .foregroundStyle(Color.HPPrimary.base)
                             Text("습관어")
-                                .systemFont(.footnote)
+                                .systemFont(.caption)
                                 .foregroundStyle(Color.HPTextStyle.base)
                         }
                     } else {
@@ -62,17 +61,16 @@ struct UsageTopTierChart: View {
                     .scaledToFit()
                     .frame(
                         maxWidth: breakPoint.chartSize,
-                        maxHeight: breakPoint.chartSize,
-                        alignment: .center
+                        maxHeight: breakPoint.chartSize
                     )
                     /// annotation을 설정합니다.
                     ForEach(fillerOffset) {each in
                         VStack(alignment: .center, spacing: 0) {
                             Text("\(each.word)")
-                                .systemFont(.title)
+                                .systemFont(.caption, weight: .semibold)
                                 .foregroundStyle(Color.HPTextStyle.dark)
                             Text("\(each.value)회")
-                                .systemFont(.footnote)
+                                .systemFont(.caption2)
                                 .foregroundStyle(Color.HPTextStyle.dark)
                             
                         }
@@ -88,8 +86,7 @@ struct UsageTopTierChart: View {
                 })
                 .frame(
                     maxWidth: .infinity,
-                    maxHeight: geometry.size.height,
-                    alignment: .center
+                    maxHeight: geometry.size.height
                 )
             }
             
@@ -97,8 +94,6 @@ struct UsageTopTierChart: View {
         .onAppear {
             self.data = getFillerCount()
         }
-        .padding(.bottom, .HPSpacing.medium)
-        .padding(.trailing, .HPSpacing.large + .HPSpacing.xxxxsmall)
         .frame(
             maxWidth: .infinity,
             minHeight: maxHeight,

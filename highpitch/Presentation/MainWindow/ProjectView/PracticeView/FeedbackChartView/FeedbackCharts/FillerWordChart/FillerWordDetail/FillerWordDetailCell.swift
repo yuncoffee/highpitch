@@ -24,7 +24,7 @@ struct FillerWordDetailCell: View {
         }
         .padding(.vertical, .HPSpacing.xsmall + .HPSpacing.xxxxsmall)
         .padding(.horizontal, .HPSpacing.medium)
-        .frame(width: 348)
+        .frame(maxWidth: .infinity)
         .background(!isOdd ? Color.HPComponent.Section.point : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }

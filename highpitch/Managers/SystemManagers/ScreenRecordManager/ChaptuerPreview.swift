@@ -20,6 +20,7 @@ struct CapturePreview: NSViewRepresentable {
     
     func makeNSView(context: Context) -> CaptureVideoPreview {
         CaptureVideoPreview(layer: contentLayer)
+        
     }
     
     // Called by ScreenRecorder as it receives new video frames.

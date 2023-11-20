@@ -37,21 +37,26 @@ class CaptureEngine: NSObject, @unchecked Sendable {
     private var stream: SCStream?
     private let videoSampleBufferQueue = DispatchQueue(label: "HighPitch.VideoBufferQueue")
     private let audioSampleBufferQueue = DispatchQueue(label: "HighPitch.AudioBufferQueue")
+    private let voiceSampleBufferQueue = DispatchQueue(label: "HighPitch.VoiceBufferQueue")
     private var streamOutput: CaptureEngineStreamOutput?
     private var assetWriter: AVAssetWriter?
     private var videoInput: AVAssetWriterInput?
     private var audioInput: AVAssetWriterInput?
+    private var voiceInput: AVAssetWriterInput?
     private let audioOutput = AVCaptureAudioDataOutput()
+    private var captureSession: AVCaptureSession?
+    private var audioDataOutput: AVCaptureAudioDataOutput?
     
     // Store the the startCapture continuation, so that you can cancel it when you call stopCapture().
     private var continuation: AsyncThrowingStream<CapturedFrame, Error>.Continuation?
     
     /// - Tag: StartCapture
-    func startCapture(configuration: SCStreamConfiguration, filter: SCContentFilter) -> AsyncThrowingStream<CapturedFrame, Error> {
+    func startCapture(configuration: SCStreamConfiguration, filter: SCContentFilter, fileName: String) -> AsyncThrowingStream<CapturedFrame, Error> {
         AsyncThrowingStream<CapturedFrame, Error> { continuation in
             do {
-                let filePath = getPath(fileName: "hiroo")
-                assetWriter = try AVAssetWriter(url: filePath, fileType: .mov)
+                //let filePath = getPath(fileName: "hiroo")
+                let filePath = URL.getPath(fileName: fileName, type: .video)
+                assetWriter = try AVAssetWriter(url: filePath, fileType: .mp4)
                 // MARK: AVAssetWriter setup
                 let displaySize = CGDisplayBounds(CGMainDisplayID()).size
                 guard let assistant = AVOutputSettingsAssistant(preset: .preset3840x2160) else {
@@ -79,17 +84,44 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 let audioSettings: [String: Any] = [
                     AVFormatIDKey: kAudioFormatLinearPCM,
                     AVNumberOfChannelsKey: 2,
-                    AVSampleRateKey: 44100.0,
+                    AVSampleRateKey: 44100,
                     AVLinearPCMBitDepthKey: 16, // Specify the bit depth
                     AVLinearPCMIsBigEndianKey: false, // Specify whether it's big endian or not
                     AVLinearPCMIsFloatKey: false, // Specify whether it's float or not
                     AVLinearPCMIsNonInterleaved: false // Specify whether it's non-interleaved or not
                 ]
-
+                
                 audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
                 audioInput?.expectsMediaDataInRealTime = true
-                //
                 
+                
+                captureSession = AVCaptureSession()
+                
+                guard let captureSession = captureSession else {
+                    print("Failed to create AVCaptureSession")
+                    return
+                }
+                
+                captureSession.beginConfiguration()
+                let audioDevice = AVCaptureDevice.default(for: .audio)
+                let deviceInput = try AVCaptureDeviceInput(device: audioDevice!)
+                
+                if captureSession.canAddInput(deviceInput) {
+                    captureSession.addInput(deviceInput)
+                }
+                
+                // 오디오 데이터 출력 생성
+                audioDataOutput = AVCaptureAudioDataOutput()
+                
+                if captureSession.canAddOutput(audioDataOutput!) {
+                    captureSession.addOutput(audioDataOutput!)
+                }
+                
+                // AVCaptureSession 설정 완료
+                captureSession.commitConfiguration()
+                voiceInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
+                guard assetWriter!.canAdd(voiceInput!) else { return }
+                assetWriter?.add(voiceInput!)
                 //
                 // The stream output object.
                 let output = CaptureEngineStreamOutput(
@@ -123,6 +155,8 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 try stream?.addStreamOutput(streamOutput!, type: .audio, sampleHandlerQueue: audioSampleBufferQueue)
                 stream?.startCapture()
                 //
+                //captureSession.startRunning()
+                //audioDataOutput?.setSampleBufferDelegate(self, queue: voiceSampleBufferQueue)
                 assetWriter!.startSession(atSourceTime: .zero)
                 streamOutput?.sessionStarted = true
                 //
@@ -171,7 +205,8 @@ class CaptureEngine: NSObject, @unchecked Sendable {
             // Stop the AVAssetWriter session at time of the repeated frame
             assetWriter!.endSession(atSourceTime: streamOutput!.lastSampleBuffer?.presentationTimeStamp ?? .zero)
             assetWriter!.endSession(atSourceTime: streamOutput!.lastAudioSampleBuffer?.presentationTimeStamp ?? .zero)
-
+            
+            captureSession?.stopRunning()
             // Finish writing
             videoInput!.markAsFinished()
             audioInput!.markAsFinished()
@@ -346,7 +381,15 @@ extension CaptureEngine {
         return dataPath.appendingPathComponent(fileName + ".mov")
     }
     private func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let paths = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)
         return paths[0]
     }
+}
+extension CaptureEngine: AVCaptureAudioDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if voiceInput!.isReadyForMoreMediaData {
+            voiceInput!.append(sampleBuffer)
+        }
+    }
+    
 }

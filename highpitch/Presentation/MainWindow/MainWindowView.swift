@@ -51,10 +51,12 @@ struct MainWindowView: View {
     
     var body: some View {
         @Bindable var systemManager = SystemManager.shared
+        @Bindable var mediaManager = mediaManager
         NavigationSplitView(columnVisibility: $columnVisibility) {
             navigationSidebar
         } detail: {
             navigationDetails
+           //ScreenSelectionView()
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
@@ -92,6 +94,9 @@ struct MainWindowView: View {
         .sheet(isPresented: $systemManager.isRequsetAudioPermissionPopoverActive) {
             RequestAudioPermissionPopover()
         }
+        .sheet(isPresented: $mediaManager.isStart, content: {
+            ScreenSelectionView()
+        })
     }
 }
 

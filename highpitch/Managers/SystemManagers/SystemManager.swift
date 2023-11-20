@@ -39,9 +39,13 @@ final class SystemManager {
     var isPassOnbarding: Bool = UserDefaults.standard.bool(forKey: "isPassOnbarding")
 
     func startInstantFeedback() {
-        if (!isRecognizing) {
+        if !isRecognizing {
             instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
             instantFeedbackManager.speechRecognizerManager?.startRecording()
+            instantFeedbackManager.activePanels.insert(InstantPanel.timer)
+            instantFeedbackManager.activePanels.insert(InstantPanel.setting)
+            instantFeedbackManager.activePanels.insert(InstantPanel.speed)
+            instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
             isRecognizing.toggle()
         }
     }
@@ -50,6 +54,7 @@ final class SystemManager {
         if (isRecognizing) {
             instantFeedbackManager.speechRecognizerManager?.stopRecording()
             instantFeedbackManager.speechRecognizerManager = nil
+            instantFeedbackManager.activePanels.removeAll()
             isRecognizing.toggle()
         }
     }

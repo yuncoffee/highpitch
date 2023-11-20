@@ -91,7 +91,6 @@ extension ScreenSelectionView {
                 Text("화면 녹화 없이 연습하기")
                     .systemFont(.caption, weight: .semibold)
                     .foregroundColor(.HPTextStyle.base)
-                
             }
             Spacer()
             HStack {
@@ -108,6 +107,7 @@ extension ScreenSelectionView {
                 Button(action: {
                     mediaManager.isStart = false
                     startCapture()
+                    
                 }, label: {
                     ZStack {
                         screenRecorder.selectedWindow == nil ? Color.HPGray.system200 : Color.HPPrimary.base
@@ -149,6 +149,8 @@ extension ScreenSelectionView {
         Task {
             await screenRecorder.stopPreview()
             //audioRecorder.startRecording(filename: fileName)
+            // MARK: - 연습 시작
+            SystemManager.shared.startInstantFeedback()
             playPractice()
             fileName = mediaManager.fileName
             await screenRecorder.start(fileName: fileName)
@@ -164,6 +166,7 @@ extension ScreenSelectionView {
             //audioRecorder.stopRecording()
             await screenRecorder.stopPreview()
             await screenRecorder.stop()
+            SystemManager.shared.stopInstantFeedback()
             audioRecorder.mergeAudioAndVideo(
                 videoURL: URL.getPath(fileName: fileName, type: .video),
                 audioURL: URL.getPath(fileName: fileName, type: .audio),

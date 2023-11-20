@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import AVFoundation
 
 @Observable
 final class ProjectManager {
@@ -95,6 +96,15 @@ extension ProjectManager {
             )
             /// 프로젝트에 추가한다.
             tempProject.practices.append(newPracticeModel)
+            do {
+                let audioPlayer = try AVAudioPlayer(contentsOf: URL(
+                    fileURLWithPath: mediaManager.getPath(fileName: mediaManager.fileName
+                ).path()))
+                newPracticeModel.summary.practiceLength = audioPlayer.duration
+                print("길이: ", audioPlayer.duration)
+            } catch {
+                print("오디오 플레이어를 생성하는 중 오류 발생: \(error.localizedDescription)")
+            }
             /// words, sentences, summary를 처리한다.
             PracticeManager.getPracticeDetail(practice: newPracticeModel)
             temp = nil
@@ -129,7 +139,7 @@ extension ProjectManager {
     
     private func makeNewUtterancesV2(mediaManager: MediaManager) async -> [UtteranceModel] {
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
-        var returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
+        let returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
             .startFileRecognition(url: URL(
                 fileURLWithPath: URL.getPath(fileName: mediaManager.fileName, type: .audio
             ).path())) ?? []
@@ -166,7 +176,9 @@ extension ProjectManager {
             creatAt: Date().m4aNameToCreateAt(input: mediaManager.fileName),
             audioPath: URL.getPath(fileName: mediaManager.fileName, type: .audio),
             utterances: utterances,
-            summary: PracticeSummaryModel()
+            summary: PracticeSummaryModel(),
+            remarkable: false,
+            projectCreatAt: project.creatAt
         )
 
         if project.practices.count == 0 {

@@ -386,28 +386,28 @@ class SwiftDataMockManager {
                 sentence: "죄송해 봐 게 같래 난 좀 안 썼던 것 같아 녹음 중에 와서 그런가 이게 떠 있을 텐어 왔어.",
                 startAt: 26387,
                 endAt: 45936,
-                epmValue: 101.2839531433833
+                spmValue: 101.2839531433833
             ),
             SentenceModel(
                 index: 2,
                 sentence: "이게 환면 기록 화면 기록도 저런 게 뜰 텐데 몰랐어요.",
                 startAt: 21013,
                 endAt: 26327,
-                epmValue: 237.10952201731277
+                spmValue: 237.10952201731277
             ),
             SentenceModel(
                 index: 0,
                 sentence: "이거 기본 시스템 상해서 아니 없어도 이게 이렇게 뜨거든요 고요.",
                 startAt: 2250,
                 endAt: 14753,
-                epmValue: 124.77005518675517
+                spmValue: 124.77005518675517
             ),
             SentenceModel(
                 index: 1,
                 sentence: "이거 이런 식으로 녹음 중이라 상태를 알고 있는데 얘를 두 번 보여줄 이유가 있을까요?",
                 startAt: 14773,
                 endAt: 20863,
-                epmValue: 344.82758620689657
+                spmValue: 344.82758620689657
             )
         ],
 //        summary: PracticeSummaryModel()

@@ -84,6 +84,49 @@ extension Date {
         }
     }
     
+    func createAtToHM(input: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+        
+        if let date = inputFormatter.date(from: input) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "HH:mm"
+            
+            let dateString = outputFormatter.string(from: date)
+            
+            return dateString
+        } else {
+            return "Invalid Date"
+        }
+    }
+    
+    /// seconds -> mm:ss
+    func secondToMS(_ input: Int) -> String {
+        var answer = ""
+        let minute = input / 60
+        let second = input % 60
+        if minute < 10 { answer += "0" }
+        answer += String(minute)
+        answer += ":"
+        if second < 10 { answer += "0" }
+        answer += String(second)
+        return answer
+    }
+    
+    /// seconds -> mm분 ss초
+    func secondToKoreanMS(_ input: Int) -> String {
+        var answer = ""
+        let minute = input / 60
+        let second = input % 60
+        if minute < 10 { answer += "0" }
+        answer += String(minute)
+        answer += "분 "
+        if second < 10 { answer += "0" }
+        answer += String(second)
+        answer += "초"
+        return answer
+    }
+    
     static func diffNowToPractieDate(input: String) -> String {
         var result = ""
         let dateFormatter = DateFormatter()

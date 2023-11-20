@@ -12,6 +12,19 @@ enum URLType {
     case video
 }
 extension URL {
+    static func getStorePath(fileName : String) -> URL {
+        let dataPath = getApplicationDirectory()
+            .appendingPathComponent("HighPitch")
+            .appendingPathComponent("Store")
+        do {
+            try FileManager.default
+                .createDirectory(at: dataPath, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print("Error creating directory: \(error.localizedDescription)")
+        }
+        return dataPath.appendingPathComponent(fileName)
+    }
+    
     static func getPath(fileName: String, type: URLType) -> URL {
         var folderName: String
         var fileExtension : String

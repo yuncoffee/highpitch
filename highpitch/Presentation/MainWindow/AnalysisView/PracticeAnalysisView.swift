@@ -52,6 +52,10 @@ struct PracticeAnalysisView: View {
                             .systemFont(.subTitle, weight: .semibold)
                             .foregroundColor(Color.HPTextStyle.darker)
                             .padding(.bottom, .HPSpacing.xsmall)
+                        AnalysisFWPMChart()
+                            .padding(.bottom, .HPSpacing.small)
+                        AnalysisSpeedRateChart()
+                            .padding(.bottom, .HPSpacing.xxsmall + .HPSpacing.xxxsmall)
                     }
                 }
                 .padding(.vertical, .HPSpacing.xxsmall + .HPSpacing.xsmall)

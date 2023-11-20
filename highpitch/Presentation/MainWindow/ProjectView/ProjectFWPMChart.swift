@@ -36,7 +36,6 @@ struct ProjectFWPMChart: View {
         .padding(.bottom, .HPSpacing.xxsmall)
         .padding(.horizontal, .HPSpacing.small)
         .frame(
-            minWidth: 286,
             maxWidth: .infinity,
             minHeight: 286,
             maxHeight: .infinity,

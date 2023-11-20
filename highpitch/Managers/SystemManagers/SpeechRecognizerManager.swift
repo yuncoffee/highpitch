@@ -28,8 +28,6 @@ final class SpeechRecognizerManager {
     public var realTimeRate = 300.0
     /// 실시간 습관어 횟수
     public var realTimeFillerCount = 0
-    /// 실시간 말 빠르기 정도
-    public var flagCount = 0
     
     private var rateContainer: [[Double]] = []
     private var prevFillerCount = 0
@@ -40,6 +38,7 @@ final class SpeechRecognizerManager {
     private var endAt = 0.0
     private var message = ""
     private var isFinal = false
+    private var wrong = 0
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
@@ -87,20 +86,15 @@ final class SpeechRecognizerManager {
             if let result = result {
                 if result.speechRecognitionMetadata == nil {
                     if answer < 700 && answer > 0 {
-                        self.realTimeRate = answer
-                        if self.realTimeRate > 405 {
-                            self.flagCount += 1
-                            self.flagCount = max(self.flagCount, 1)
-                        } else if self.realTimeRate < 220 {
-                            self.flagCount -= 1
-                            self.flagCount = min(self.flagCount, -1)
+                        if self.wrong > 5 || abs(answer - self.realTimeRate) < 50 {
+                            self.realTimeRate = answer
+                            self.wrong = 0
                         } else {
-                            self.flagCount = 0
+                            self.wrong += 1
                         }
                     }
                 }
             }
-            print("flagCount: ", self.flagCount)
             print("실시간 말빠르기: ", self.realTimeRate)
             // MARK: - filler word
             /// buffer가 초기화된다면 문장을 새로 시작합니다.

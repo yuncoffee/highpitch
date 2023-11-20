@@ -10,31 +10,18 @@ import SwiftUI
 struct SpeedPanelView: View {
     var floatingPanelController: PanelController
     private let PANEL_FRAME_SIZE = 120.0
-    private let DEFUALT_SPEED = 300.0
+    private let DEFUALT_SPEED = 356.7
     
     private var realTimeRate: Double {
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 0
     }
     
-    private var flagCount: Int {
-        SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.flagCount ?? 0
-    }
-    
     private var underSpeedRate: Double {
-        calcSpeedRate(rate: DEFUALT_SPEED - 80.0)
+        calcSpeedRate(rate: DEFUALT_SPEED - 104.1)
     }
     
     private var overSpeedRate: Double {
-        calcSpeedRate(rate: DEFUALT_SPEED + 120.0)
-    }
-    
-    @State
-    private var blinkStatus = false {
-        didSet {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.blinkStatus = false
-            }
-        }
+        calcSpeedRate(rate: DEFUALT_SPEED + 131.7)
     }
     
     var body: some View {
@@ -115,9 +102,6 @@ struct SpeedPanelView: View {
         }
         .onChange(of: realTimeRate) { _, newValue in
             var percent = calcSpeedRate(rate: newValue)
-            if percent < underSpeedRate && flagCount == -2 || percent > overSpeedRate && flagCount == 2 {
-                blinkStatus = true
-            }
         }
     }
 }
@@ -138,11 +122,11 @@ extension SpeedPanelView {
         )
         .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
         .fill(
-            percent < underSpeedRate && flagCount < -2
-            ? (blinkStatus ? Color.HPOrange.base : Color.HPOrange.light)
-            : percent > overSpeedRate && flagCount > 2
-            ? (blinkStatus ? Color.HPOrange.base : Color.HPOrange.light)
-            : Color.HPGreen.base
+            percent < underSpeedRate
+            ? Color.HPOrange.light
+            : percent > overSpeedRate
+            ? Color.HPOrange.light
+            : Color.HPGreen.light
         )
         .frame(width: 68, height: 68)
         .animation(.bouncy, value: realTimeRate)

@@ -86,8 +86,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // 연습 기록 패널
         let recordPanelController = PanelController(
-            xPosition: Int((NSScreen.main?.visibleFrame.width)! / 2) - 179,
-            yPosition: Int((NSScreen.main?.frame.height)! - 129),
+            xPosition: Int((NSScreen.screens[0].frame.width) / 2) - 179,
+            yPosition: Int((NSScreen.screens[0].frame.height) - 129),
             swidth: 357, sheight: 29
         )
         panelControllers[InstantPanel.record] = recordPanelController
@@ -99,8 +99,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // 연습 저장 패널
         let savePanelController = PanelController(
-            xPosition: Int((NSScreen.main?.visibleFrame.width)! / 2) - 579,
-            yPosition: Int((NSScreen.main?.visibleFrame.height)!) - 288,
+            xPosition: Int((NSScreen.screens[0].visibleFrame.width) / 2) - 579,
+            yPosition: Int(NSScreen.screens[0].visibleFrame.height) - 288,
             swidth: 420, sheight: 280
         )
         panelControllers[InstantPanel.save] = savePanelController
@@ -108,6 +108,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         savePanelController.panel?.contentView = NSHostingView(
             rootView: SavePanelView(panelController: savePanelController)
         )
+        // savePanelController.panel?.screen = NSScreen.screens[0]
+        savePanelController.panel?.center()
         savePanelController.hidePanel(self)
         
         // InstantFeedbackManager에 Controllers 저장

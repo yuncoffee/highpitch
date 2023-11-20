@@ -50,7 +50,7 @@ struct TimerPanelView: View {
                 }
             }
         }
-        .frame(width: 104, height: 56)
+        .frame(width: 108, height: 56)
         .padding(18)
         .overlay {
             ZStack(alignment: .topTrailing) {
@@ -73,7 +73,7 @@ struct TimerPanelView: View {
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 52, y: -24)
+                    .offset(x: 52, y: -26)
                 }
             }
         }
@@ -97,6 +97,6 @@ struct TimerPanelView: View {
                 instantFeedbackManager.focusedPanel = nil
             }
         }
-        .frame(width: 146, height: 94)
+        .frame(width: 132, height: 80)
     }
 }

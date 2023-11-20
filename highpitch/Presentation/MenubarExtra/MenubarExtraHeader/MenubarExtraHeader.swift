@@ -13,20 +13,14 @@ struct MenubarExtraHeader: View {
     private var openSettings
     @Environment(\.openWindow)
     private var openWindow
-    @Environment(AppleScriptManager.self)
-    private var appleScriptManager
     @Environment(ProjectManager.self)
     private var projectManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     @Environment(MediaManager.self)
     private var mediaManager
     @Environment(\.modelContext)
     var modelContext
     @Binding
     var selectedProject: ProjectModel?
-    @Binding
-    var selectedKeynote: OpendKeynote?
     @Binding
     var isRecording: Bool
     

@@ -52,8 +52,6 @@ struct HighpitchApp: App {
     
     @State
     private var selectedProject: ProjectModel?
-    @State
-    private var selectedKeynote: OpendKeynote?
     
     @State
     private var systemManager: SystemManager = SystemManager.shared
@@ -99,7 +97,6 @@ struct HighpitchApp: App {
                     .environment(mediaManager)
                     .environment(projectManager)
                     .environment(selectedProject)
-                    .environment(selectedKeynote)
                     .modelContainer(container)
                     .onChange(of: systemManager.recordStartCommand, { _, _ in
                         // 변경된 명령어들로 hotKey재설정
@@ -186,8 +183,7 @@ struct HighpitchApp: App {
         MenuBarExtra {
             MenubarExtraView(
                 refreshable: $refreshable,
-                selectedProject: $selectedProject,
-                selectedKeynote: $selectedKeynote
+                selectedProject: $selectedProject
             )
             .environment(mediaManager)
             .environment(projectManager)
@@ -228,20 +224,7 @@ struct HighpitchApp: App {
 }
 extension HighpitchApp {
     private func setupInit() {
-        // MARK: - AppleScript Remove
-        //        #if os(macOS)
-        //        Task {
-        //            let result = await appleScriptManager.runScript(.isActiveKeynoteApp)
-        //            if case .boolResult(let isKeynoteOpen) = result {
-        //                // logic 1
-        //                if isKeynoteOpen {
-        //                    print("열려있습니다")
-        //                } else {
-        //                    print("닫혀있습니다")
-        //                }
-        //            }
-        //        }
-        //        #endif
+
     }
     
     func playPractice() {

@@ -14,8 +14,6 @@ struct MenubarExtraContent: View {
  
     @Environment(ProjectManager.self)
     private var projectManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     
     @Query(sort: \ProjectModel.creatAt)
     var projectModels: [ProjectModel]
@@ -38,8 +36,6 @@ struct MenubarExtraContent: View {
         .onChange(of: selectedProject, { _, newValue in
             if let newValue = newValue {
                 selectedProjectName = newValue.projectName
-                if !keynoteManager.opendKeynotes.isEmpty {
-                }
             } else {
                 selectedProjectName = "새 프로젝트 생성"
             }

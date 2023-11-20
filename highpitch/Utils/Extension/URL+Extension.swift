@@ -24,7 +24,7 @@ extension URL {
             fileExtension = ".mp4"
         }
         
-        let dataPath = getDownloadsDirectory()
+        let dataPath = getApplicationDirectory()
             .appendingPathComponent("HighPitch")
             .appendingPathComponent(folderName)
         do {
@@ -45,6 +45,10 @@ extension URL {
     }
     private static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    private static func getLibrariesDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .allLibrariesDirectory, in: .userDomainMask)
         return paths[0]
     }
 }

@@ -56,16 +56,16 @@ struct PracticeListCell: View {
                 .frame(minWidth: 160, maxWidth: .infinity, alignment: .leading)
             Text("\(Date().createAtToPracticeDate(input: practice.creatAt))")
                 .systemFont(.footnote, weight: .medium)
-                .foregroundStyle(Color.HPTextStyle.base)
+                .foregroundStyle(Color.HPTextStyle.light)
                 .frame(minWidth: 160, maxWidth: .infinity, alignment: .leading)
             Text("\(parseDurationToLabel(duration: duration))")
                 .systemFont(.footnote, weight: .medium)
-                .foregroundStyle(Color.HPTextStyle.base)
+                .foregroundStyle(Color.HPTextStyle.light)
                 .frame(minWidth: 80, maxWidth: .infinity, alignment: .leading)
             Image(systemName: "chevron.right")
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(Color.HPTextStyle.light)
+                .foregroundStyle(Color.HPGray.system400)
                 .frame(minWidth: 12, maxWidth: 12, minHeight: 12, maxHeight: 12)
                 .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
         }
@@ -138,9 +138,13 @@ private func indexToOrdinalNumber(index: Int) -> String {
     
     @State
     var selectedPractices: [PracticeModel] = []
-    
     var isEditMode = false
     
-    return PracticeListCell(practice: practice, index: 0, selectedPractices: $selectedPractices, isEditMode: isEditMode)
-        .padding()
+    return PracticeListCell(
+        practice: practice,
+        index: 0,
+        selectedPractices: $selectedPractices, 
+        isEditMode: isEditMode
+    )
+    .padding()
 }

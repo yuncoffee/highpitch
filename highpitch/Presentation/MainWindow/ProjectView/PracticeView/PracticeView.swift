@@ -22,10 +22,7 @@ struct PracticeView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HPTopToolbar(
-                title: title,
-                completion: nil
-            )
+            PracticeViewTopToolbar(title: title)
             PracticeContentContainer()
                 .clipped()
         }
@@ -36,6 +33,7 @@ struct PracticeView: View {
             viewStore.setupPracticeView()
         }
         .environment(viewStore)
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -48,5 +46,21 @@ extension PracticeView {
         }
         .padding(.top, .HPSpacing.small)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+struct PracticeViewTopToolbar: View {
+    @Environment(\.dismiss)
+    var dismiss
+    var title: String = ""
+    
+    var body: some View {
+        HPTopToolbar(
+            title: title,
+            backButtonCompletion: {
+                dismiss()
+            },
+            completion: nil
+        )
     }
 }

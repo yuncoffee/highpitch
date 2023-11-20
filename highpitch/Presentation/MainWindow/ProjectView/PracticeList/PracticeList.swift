@@ -36,16 +36,16 @@ struct PracticeList: View {
                             .padding(.leading, .HPSpacing.medium)
                         Text("연습 회차")
                             .systemFont(.caption)
-                            .foregroundStyle(Color.HPTextStyle.base)
+                            .foregroundStyle(Color.HPTextStyle.light)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .offset(x: -(36 + .HPSpacing.small))
                         Text("연습 일시")
                             .systemFont(.caption)
-                            .foregroundStyle(Color.HPTextStyle.base)
+                            .foregroundStyle(Color.HPTextStyle.light)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("소요 시간")
                             .systemFont(.caption)
-                            .foregroundStyle(Color.HPTextStyle.base)
+                            .foregroundStyle(Color.HPTextStyle.light)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("") // 아이콘 대체
                             .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
@@ -303,4 +303,3 @@ extension PracticeList {
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .border(.blue)
 }
-

@@ -24,7 +24,7 @@ struct FillerWordFeedbackContent: View {
         VStack(spacing: .HPSpacing.xsmall) {
             chartContainer
         }
-        .padding(.bottom, .HPSpacing.small)
+        .padding(.bottom, .HPSpacing.xxxsmall)
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,

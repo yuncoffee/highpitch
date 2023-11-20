@@ -191,16 +191,6 @@ extension MainWindowView {
                     } else {
                         SystemManager.shared.startInstantFeedback()
                     }
-                    
-                    if SystemManager.shared.instantFeedbackManager.activePanels.isEmpty {
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.timer)
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.setting)
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.speed)
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
-                    }
-                    else {
-                        SystemManager.shared.instantFeedbackManager.activePanels.removeAll()
-                    }
                 }
             ScrollView {
                 LazyVGrid(columns: [GridItem()], alignment: .leading) {

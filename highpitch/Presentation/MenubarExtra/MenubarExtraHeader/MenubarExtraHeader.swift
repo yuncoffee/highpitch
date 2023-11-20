@@ -116,7 +116,7 @@ extension MenubarExtraHeader {
                 print("11111")
                 mediaManager.isStart = true
                 GAManager.shared.analyticsOnClick(.play)
-                //playPractice()
+//                playPractice()
             } else if mediaManager.isPause {
                 print("22222")
                 playPractice()

@@ -50,6 +50,16 @@ extension PracticeView {
 }
 
 struct PracticeViewTopToolbar: View {
+    // MARK: - 데이터 컨트롤을 위한 매니저 객체
+    @Environment(AppleScriptManager.self)
+    private var appleScriptManager
+    @Environment(KeynoteManager.self)
+    private var keynoteManager
+    @Environment(MediaManager.self)
+    private var mediaManager
+    @Environment(ProjectManager.self)
+    private var projectManager
+    
     @Environment(\.dismiss)
     var dismiss
     var title: String = ""
@@ -58,9 +68,20 @@ struct PracticeViewTopToolbar: View {
         HPTopToolbar(
             title: title,
             backButtonCompletion: {
-                dismiss()
+                withAnimation(.none) {
+                    dismiss()
+                }
             },
-            completion: nil
+            completion: {
+                if let currentProject = projectManager.current {
+                    projectManager.playPractice(
+                        selectedProject: currentProject,
+                        appleScriptManager: appleScriptManager,
+                        keynoteManager: keynoteManager,
+                        mediaManager: mediaManager
+                    )
+                }
+            }
         )
     }
 }

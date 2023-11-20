@@ -292,7 +292,6 @@ extension HighpitchApp {
     
     func playPractice() {
         projectManager.playPractice(
-            selectedKeynote: selectedKeynote,
             selectedProject: selectedProject,
             appleScriptManager: appleScriptManager,
             keynoteManager: keynoteManager,

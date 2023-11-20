@@ -25,7 +25,6 @@ final class ProjectManager {
 extension ProjectManager {
     // MARK: 연습 시작하기
     func playPractice(
-        selectedKeynote: OpendKeynote?,
         selectedProject: ProjectModel?,
         appleScriptManager: AppleScriptManager,
         keynoteManager: KeynoteManager,
@@ -36,16 +35,7 @@ extension ProjectManager {
             if mediaManager.isRecording {
                 mediaManager.startRecording()
             } else {
-                // MARK: - AppleScript Remove
-    //            if let selectedKeynote = selectedKeynote {
-    //                Task {
-    //                    await appleScriptManager.runScript(.startPresentation(fileName: selectedKeynote.path))
-    //                }
-    //            } else {
-    //                /// 선택된 키노트가 없을 때
-    //            }
                 temp = selectedProject?.persistentModelID
-                keynoteManager.temp = selectedKeynote
                 mediaManager.fileName = Date().makeM4aFileName()
                 mediaManager.startRecording()
             }

@@ -22,10 +22,7 @@ struct PracticeView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HPTopToolbar(
-                title: title,
-                completion: nil
-            )
+            PracticeViewTopToolbar(title: title)
             PracticeContentContainer()
                 .clipped()
         }
@@ -36,6 +33,7 @@ struct PracticeView: View {
             viewStore.setupPracticeView()
         }
         .environment(viewStore)
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -48,5 +46,42 @@ extension PracticeView {
         }
         .padding(.top, .HPSpacing.small)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+struct PracticeViewTopToolbar: View {
+    // MARK: - 데이터 컨트롤을 위한 매니저 객체
+    @Environment(AppleScriptManager.self)
+    private var appleScriptManager
+    @Environment(KeynoteManager.self)
+    private var keynoteManager
+    @Environment(MediaManager.self)
+    private var mediaManager
+    @Environment(ProjectManager.self)
+    private var projectManager
+    
+    @Environment(\.dismiss)
+    var dismiss
+    var title: String = ""
+    
+    var body: some View {
+        HPTopToolbar(
+            title: title,
+            backButtonCompletion: {
+                withAnimation(.none) {
+                    dismiss()
+                }
+            },
+            completion: {
+                if let currentProject = projectManager.current {
+                    projectManager.playPractice(
+                        selectedProject: currentProject,
+                        appleScriptManager: appleScriptManager,
+                        keynoteManager: keynoteManager,
+                        mediaManager: mediaManager
+                    )
+                }
+            }
+        )
     }
 }

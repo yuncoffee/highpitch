@@ -19,7 +19,7 @@ struct HPArcodianView<T: View>: View {
     private let HEADER_HEIGHT = 68.0
      
     var body: some View {
-        VStack {
+        VStack(spacing: .zero) {
             header
             content()
         }

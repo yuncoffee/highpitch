@@ -24,8 +24,6 @@ struct ScreenSelectionView: View {
     @State var disableInput = false
     @State var isUnauthorized = false
     @State var fileName = ""
-    @Environment(OpendKeynote.self)
-    var selectedKeynote: OpendKeynote?
     @Environment(ProjectModel.self)
     var selectedProject: ProjectModel?
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
@@ -141,7 +139,6 @@ extension ScreenSelectionView {
     private func playPractice() {
         print("------연습이 시작되었습니다.-------")
         projectManager.playPractice(
-            selectedKeynote: selectedKeynote,
             selectedProject: selectedProject,
             appleScriptManager: appleScriptManager,
             keynoteManager: keynoteManager,

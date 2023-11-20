@@ -1,6 +1,5 @@
 import AVFoundation
 
-
 class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     var audioDataOutput: AVCaptureAudioDataOutput!
     var assetWriter: AVAssetWriter!

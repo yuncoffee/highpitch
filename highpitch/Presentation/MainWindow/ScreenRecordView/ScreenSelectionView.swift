@@ -9,12 +9,8 @@ import SwiftUI
 import AVFoundation
 
 struct ScreenSelectionView: View {
-    @Environment(AppleScriptManager.self)
-    private var appleScriptManager
     @Environment(ProjectManager.self)
     private var projectManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     @Environment(MediaManager.self)
     var mediaManager
     @State var currentTabItem = 0

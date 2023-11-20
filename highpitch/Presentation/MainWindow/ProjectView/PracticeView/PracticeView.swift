@@ -51,10 +51,6 @@ extension PracticeView {
 
 struct PracticeViewTopToolbar: View {
     // MARK: - 데이터 컨트롤을 위한 매니저 객체
-    @Environment(AppleScriptManager.self)
-    private var appleScriptManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     @Environment(MediaManager.self)
     private var mediaManager
     @Environment(ProjectManager.self)

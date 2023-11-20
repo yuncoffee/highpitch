@@ -28,9 +28,12 @@ class PracticeSummaryModel {
     var eachFillerWordCount: [FillerWordModel]
     var fastSentenceIndex: [Int]
     var slowSentenceIndex: [Int]
+    @Attribute(originalName: "epmAverage")
     var spmAverage: Double
-    var practiceLength: Double = -1.0
-    var fwpm: Double = -1.0
+    var practiceLength: Double
+    var fwpm: Double
+    var maxSpm: Double = 0.0
+    var minSpm: Double = 9999.9
     
     init(
         syllableSum: Int = 0,
@@ -40,7 +43,9 @@ class PracticeSummaryModel {
         eachFillerWordCount: [FillerWordModel] = [],
         fastSentenceIndex: [Int] = [],
         slowSentenceIndex: [Int] = [],
-        spmAverage: Double = -1.0
+        spmAverage: Double = -1.0,
+        practiceLength: Double = -1.0,
+        fwpm: Double = -1.0
     ) {
         self.syllableSum = syllableSum
         self.durationSum = durationSum
@@ -50,5 +55,7 @@ class PracticeSummaryModel {
         self.fastSentenceIndex = fastSentenceIndex
         self.slowSentenceIndex = slowSentenceIndex
         self.spmAverage = spmAverage
+        self.practiceLength = practiceLength
+        self.fwpm = fwpm
     }
 }

@@ -3,8 +3,8 @@ import Security
 
 struct ReturnzeroAPIV2 {
     let keyChainManager = KeychainManager()
-    let returnZero_CLIENT_ID = Bundle().returnZeroClientId
-    let returnZero_CLIENT_SECRET = Bundle().returnZeroClientSecret
+    let returnZero_CLIENT_ID = "Bundle().returnZeroClientId"
+    let returnZero_CLIENT_SECRET = "Bundle().returnZeroClientSecret"
     let authUrl = "http://15.164.153.76:8080/authenticate"
   let tranUrl = "http://15.164.153.76:8080/transcribe"
     

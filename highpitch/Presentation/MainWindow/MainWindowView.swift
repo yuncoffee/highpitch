@@ -51,15 +51,17 @@ struct MainWindowView: View {
     
     var body: some View {
         @Bindable var systemManager = SystemManager.shared
+        @Bindable var mediaManager = mediaManager
         NavigationSplitView(columnVisibility: $columnVisibility) {
             navigationSidebar
         } detail: {
             navigationDetails
+           //ScreenSelectionView()
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
         .frame(
-            minWidth: 1080,
+            minWidth: 1000,
             maxWidth: 1512,
             minHeight: 600,
             maxHeight: .infinity
@@ -81,7 +83,7 @@ struct MainWindowView: View {
         .onChange(of: projects) { _, newValue in
             if !newValue.isEmpty {
                 projectManager.projects = newValue
-                projectManager.current = newValue[0]
+                projectManager.current = newValue.last
             }
         }
         .onChange(of: projectManager.current) { _, newValue in
@@ -92,6 +94,9 @@ struct MainWindowView: View {
         .sheet(isPresented: $systemManager.isRequsetAudioPermissionPopoverActive) {
             RequestAudioPermissionPopover()
         }
+        .sheet(isPresented: $mediaManager.isStart, content: {
+            ScreenSelectionView()
+        })
     }
 }
 
@@ -152,15 +157,40 @@ extension MainWindowView {
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
-                print("전체통계")
+                projectManager.current = nil
             } label: {
-                Text("전체 통계")
+                Text("내 연습 분석")
+                    .systemFont(
+                        .footnote,
+                        weight: projectManager.current == nil ? .bold : .medium)
+                    .foregroundStyle(
+                        projectManager.current == nil 
+                        ? Color.HPTextStyle.darker
+                        : Color.HPTextStyle.base
+                    )
+                    .frame(maxWidth: .infinity, minHeight: 36, alignment: .leading)
+                    .padding(.horizontal, .HPSpacing.xxxsmall)
+                    .background(
+                        projectManager.current == nil
+                        ? Color.HPPrimary.lightness
+                        : Color.clear
+                    )
+                    .cornerRadius(7)
+                    .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
+            .padding(.horizontal, .HPSpacing.xxxsmall)
+            Divider()
+                .background(Color.HPComponent.stroke)
+                .padding(.top, .HPSpacing.xxxsmall)
+                .padding(.bottom, .HPSpacing.small)
+                .padding(.horizontal, .HPSpacing.xxxsmall)
+                .padding(.bottom, .HPSpacing.xxsmall)
             Text("내 프로젝트")
-                .systemFont(.body, weight: .semibold)
-                .foregroundStyle(Color.HPTextStyle.darker)
+                .systemFont(.footnote, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.base)
                 .padding(.bottom, .HPSpacing.xsmall)
-                .padding(.horizontal, .HPSpacing.xxsmall)
+                .padding(.horizontal, .HPSpacing.xsmall)
                 .onTapGesture {
                     if (SystemManager.shared.isRecognizing) {
                         SystemManager.shared.stopInstantFeedback()
@@ -186,7 +216,7 @@ extension MainWindowView {
         }
         .frame(alignment: .topLeading)
         .navigationSplitViewColumnWidth(200)
-        .padding(.top, .HPSpacing.medium)
+        .padding(.top, .HPSpacing.xsmall)
         .background(
             Color.HPComponent.Sidebar.background)
     }
@@ -206,7 +236,16 @@ extension MainWindowView {
             .background(Color.HPComponent.Detail.background)
             .ignoresSafeArea()
         } else {
-            emptyProject
+            VStack(alignment: .leading, spacing: 0) {
+                projectToolbar
+                VStack {
+                    PracticeAnalysisView()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(Color.HPComponent.Detail.background)
+            .ignoresSafeArea()
         }
     }
     
@@ -222,7 +261,16 @@ extension MainWindowView {
     @ViewBuilder
     var projectToolbar: some View {
         if let projectName = projectManager.current?.projectName {
-            HPTopToolbar(title: projectName, completion: nil, popOverContent: {
+            HPTopToolbar(title: projectName, completion: {
+                if let currentProject = projectManager.current {
+                    projectManager.playPractice(
+                        selectedProject: currentProject,
+                        appleScriptManager: appleScriptManager,
+                        keynoteManager: keynoteManager,
+                        mediaManager: mediaManager
+                    )
+                }
+            }, popOverContent: {
                 VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
                     Text("프로젝트 명 변경하기")
                         .systemFont(.caption2)
@@ -257,6 +305,8 @@ extension MainWindowView {
                     localProjectName = projectName
                 }
             })
+        } else {
+            HPTopToolbar(title: "내 연습 분석", completion: nil)
         }
     }
 }

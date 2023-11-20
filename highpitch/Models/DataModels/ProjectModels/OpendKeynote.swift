@@ -6,8 +6,8 @@
 //
 
 import Foundation
-
-struct OpendKeynote: Identifiable, Equatable, Hashable {
+@Observable
+class OpendKeynote: Identifiable, Equatable, Hashable {
     
     var id = UUID()
     var path = ""

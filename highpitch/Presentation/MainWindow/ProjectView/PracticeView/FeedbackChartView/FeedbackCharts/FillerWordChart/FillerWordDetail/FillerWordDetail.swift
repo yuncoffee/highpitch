@@ -22,8 +22,7 @@ struct FillerWordDetail: View {
         }
         .padding(.HPSpacing.xsmall + .HPSpacing.xxxxsmall)
         .frame(
-            minWidth: 388,
-            maxWidth: 388,
+            maxWidth: .infinity,
             minHeight: 70,
             maxHeight: 374,
             alignment: .top
@@ -34,7 +33,6 @@ struct FillerWordDetail: View {
                 .foregroundStyle(Color.HPComponent.stroke)
         )
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .padding(.trailing, .HPSpacing.xxxlarge)
     }
 }
 

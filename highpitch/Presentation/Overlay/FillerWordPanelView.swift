@@ -80,10 +80,10 @@ struct FillerWordPanelView: View {
         .frame(width: 158, height: 158)
         .onAppear {
             #if PREVIEW
-            PanelData.shared.isDetailSettingActive = true
-            PanelData.shared.focusedPanel = 3
-            instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
-            instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
+            SystemManager.shared
+                .instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+            SystemManager.shared
+                .instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
             #endif
         }
     }

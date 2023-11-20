@@ -68,9 +68,11 @@ struct HighpitchApp: App {
     
     init() {
         do {
+            let storeURL = URL.getStorePath(fileName: "database.sqlite")
+            let config = ModelConfiguration(url: storeURL)
             container = try ModelContainer(
                 for: ProjectModel.self,
-                configurations: ModelConfiguration())
+                configurations: config)
         } catch {
             fatalError("Could not initialize ModelContainer")
         }
@@ -152,6 +154,8 @@ struct HighpitchApp: App {
                 .environment(keynoteManager)
                 .environment(mediaManager)
                 .environment(projectManager)
+                .environment(selectedProject)
+                .environment(selectedKeynote)
                 .modelContainer(container)
                 .onChange(of: systemManager.recordStartCommand, { _, _ in
                     // 변경된 명령어들로 hotKey재설정
@@ -288,7 +292,6 @@ extension HighpitchApp {
     
     func playPractice() {
         projectManager.playPractice(
-            selectedKeynote: selectedKeynote,
             selectedProject: selectedProject,
             appleScriptManager: appleScriptManager,
             keynoteManager: keynoteManager,

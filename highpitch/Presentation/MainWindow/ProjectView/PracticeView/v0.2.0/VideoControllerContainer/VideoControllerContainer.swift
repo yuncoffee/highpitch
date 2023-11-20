@@ -19,13 +19,11 @@ struct VideoControllerContainer: View {
     @Query(sort: \PracticeModel.creatAt)
     var practices: [PracticeModel]
 #endif
-    
-    private let INDICATOR_HEIGHT = 32.0
-    
+
     var body: some View {
         VStack(spacing: .zero) {
             viewStore.currentFeedbackViewType.audioIndicator
-                .frame(maxWidth:.infinity, maxHeight: 32)
+                .frame(maxWidth:.infinity, maxHeight: viewStore.AUDIO_INDICATOR_HEIGHT)
             if let audioPath = viewStore.practice.audioPath {
                 AudioControllerView(audioPlayer: viewStore.mediaManager, audioPath: audioPath)
             }

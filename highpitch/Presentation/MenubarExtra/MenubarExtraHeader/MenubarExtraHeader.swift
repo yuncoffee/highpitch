@@ -168,11 +168,11 @@ extension MenubarExtraHeader {
     private var stopButton: some View {
         let content = (label: "끝내기", icon: "stop.fill")
         HPButton(type: .text, size: .medium, color: .HPSecondary.base) {
-            NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
             Task {
                 await MainActor.run {
                     GAManager.shared.analyticsOnClick(.stop)
                     stopPractice()
+                    NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                 }
             }
         } label: { type, size, color, expandable in

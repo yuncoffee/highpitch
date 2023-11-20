@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct FillerWordPanelView: View {
-    var floatingPanelController: PanelController
     private let PANEL_FRAME_SIZE = 120.0
     
+    var panelController: PanelController
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
+    
     var body: some View {
-        let realTimeFillerCount = SystemManager.shared
-            .instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount ?? 0
+        let realTimeFillerCount = instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount ?? 0
         
         ZStack(alignment: .topTrailing) {
             VStack(spacing: .HPSpacing.xxxxsmall) {
@@ -42,18 +43,10 @@ struct FillerWordPanelView: View {
         .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
         .overlay {
             ZStack(alignment: .topTrailing) {
-                RoundedRectangle(cornerRadius: .HPCornerRadius.large)
-                    .stroke(Color.HPGray.systemWhite.opacity(0.1))
-                    .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
-                    .padding(6)
-                    .border(
-                        SystemManager.shared.instantFeedbackManager.focusedPanel == .fillerWord
-                           ? Color.HPPrimary.base
-                           : Color.clear, width: 2)
-                if SystemManager.shared.instantFeedbackManager.focusedPanel == .fillerWord {
+                if instantFeedbackManager.focusedPanel == .fillerWord {
                     Button {
-                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.fillerWord) {
-                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
+                        if instantFeedbackManager.activePanels.contains(InstantPanel.fillerWord) {
+                            instantFeedbackManager.activePanels.remove(InstantPanel.fillerWord)
                         }
                     } label: {
                         Circle()
@@ -69,19 +62,19 @@ struct FillerWordPanelView: View {
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 10, y: -10)
+                    .offset(x: 57, y: -57)
                 }
             }
         }
         .onHover { value in
             if value {
-                SystemManager.shared.instantFeedbackManager.focusedPanel = .fillerWord
+                instantFeedbackManager.focusedPanel = .fillerWord
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "FillerWordPanelX")
-                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "FillerWordPanelY")
+                UserDefaults.standard.set( String(Int(panelController.getPanelPosition()!.x)), forKey: "FillerWordPanelX")
+                UserDefaults.standard.set(String(Int(panelController.getPanelPosition()!.y)), forKey: "FillerWordPanelY")
                 
-                SystemManager.shared.instantFeedbackManager.focusedPanel = nil
+                instantFeedbackManager.focusedPanel = nil
             }
         }
         .frame(width: 158, height: 158)
@@ -123,7 +116,7 @@ struct FillerWordStatus: View {
 
 #Preview {
     FillerWordPanelView(
-        floatingPanelController: PanelController(
+        panelController: PanelController(
             xPosition: Int((NSScreen.main?.frame.width)!) - 120,
             yPosition: 120,
             swidth: 132,

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct SpeedPanelView: View {
-    var floatingPanelController: PanelController
     private let PANEL_FRAME_SIZE = 120.0
     private let DEFUALT_SPEED = 356.7
     
+    var panelController: PanelController
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
+    
     private var realTimeRate: Double {
-        SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 0
+        instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 0
     }
     
     private var underSpeedRate: Double {
@@ -45,18 +47,10 @@ struct SpeedPanelView: View {
         .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
         .overlay {
             ZStack(alignment: .topTrailing) {
-                RoundedRectangle(cornerRadius: .HPCornerRadius.large)
-                    .stroke(Color.HPGray.systemWhite.opacity(0.1))
-                    .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
-                    .padding(6)
-                    .border(
-                        SystemManager.shared.instantFeedbackManager.focusedPanel == .speed
-                           ? Color.HPPrimary.base
-                           : Color.clear, width: 2)
-                if SystemManager.shared.instantFeedbackManager.focusedPanel == .speed {
+                if instantFeedbackManager.focusedPanel == .speed {
                     Button {
-                        if SystemManager.shared.instantFeedbackManager.activePanels.contains(InstantPanel.speed) {
-                            SystemManager.shared.instantFeedbackManager.activePanels.remove(InstantPanel.speed)
+                        if instantFeedbackManager.activePanels.contains(InstantPanel.speed) {
+                            instantFeedbackManager.activePanels.remove(InstantPanel.speed)
                         }
                     } label: {
                         Circle()
@@ -72,32 +66,28 @@ struct SpeedPanelView: View {
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 10, y: -10)
+                    .offset(x: 57, y: -57)
                 }
             }
         }
         .onHover { value in
             if value {
-                SystemManager.shared.instantFeedbackManager.focusedPanel = .speed
+                instantFeedbackManager.focusedPanel = .speed
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                UserDefaults.standard.set( String(Int(floatingPanelController.getPanelPosition()!.x)), forKey: "SpeedPanelX")
-                UserDefaults.standard.set(String(Int(floatingPanelController.getPanelPosition()!.y)), forKey: "SpeedPanelY")
+                UserDefaults.standard.set( String(Int(panelController.getPanelPosition()!.x)), forKey: "SpeedPanelX")
+                UserDefaults.standard.set(String(Int(panelController.getPanelPosition()!.y)), forKey: "SpeedPanelY")
                 
-                SystemManager.shared.instantFeedbackManager.focusedPanel = nil
+                instantFeedbackManager.focusedPanel = nil
             }
-            // floatingPanelController.panel?.setFrameOrigin(NSPoint(x: 500, y: 500))
-            
         }
         .frame(width: 158, height: 158)
         .onAppear {
             #if PREVIEW
 //            PanelData.shared.isEditMode = true
 //            PanelData.shared.isFocused = 2
-            SystemManager.shared
-                .instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
-            SystemManager.shared
-                .instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
+            instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+            instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
             #endif
         }
         .onChange(of: realTimeRate) { _, newValue in
@@ -155,7 +145,7 @@ extension SpeedPanelView {
 
 #Preview {
     SpeedPanelView(
-        floatingPanelController:
+        panelController:
             PanelController(
                 xPosition: -120,
                 yPosition: 120,

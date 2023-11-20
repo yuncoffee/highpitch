@@ -17,6 +17,7 @@ class PanelController: NSWindowController {
             backing: .buffered,
             defer: true
         )
+        
         panel.backgroundColor = NSColor(.clear)
         panel.level = .mainMenu
         panel.collectionBehavior = [.fullScreenAuxiliary, .canJoinAllSpaces]

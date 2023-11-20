@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.timer] = timerPanelController
         
         timerPanelController.panel?.contentView = NSHostingView(
-            rootView: TimerPanelView(floatingPanelController: timerPanelController)
+            rootView: TimerPanelView(panelController: timerPanelController)
         )
         timerPanelController.hidePanel(self)
         
@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         settingPanelController.panel?.isMovableByWindowBackground = false
         settingPanelController.panel?.contentView = NSHostingView(
-            rootView: SettingPanelView(floatingPanelController: settingPanelController)
+            rootView: SettingPanelView(panelController: settingPanelController)
         )
         settingPanelController.hidePanel(self)
         
@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.speed] = speedPanelController
         
         speedPanelController.panel?.contentView = NSHostingView(
-            rootView: SpeedPanelView(floatingPanelController: speedPanelController)
+            rootView: SpeedPanelView(panelController: speedPanelController)
         )
         speedPanelController.hidePanel(self)
         
@@ -65,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
         
         fillerWordPanelController.panel?.contentView = NSHostingView(
-            rootView: FillerWordPanelView(floatingPanelController: fillerWordPanelController)
+            rootView: FillerWordPanelView(panelController: fillerWordPanelController)
         )
         fillerWordPanelController.hidePanel(self)
         
@@ -78,12 +78,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panelControllers[InstantPanel.detailSetting] = detailSettingPanelController
         
         detailSettingPanelController.panel?.styleMask.insert(.titled)
-        
         detailSettingPanelController.panel?.title = "실시간 피드백 레이아웃 편집"
         detailSettingPanelController.panel?.contentView = NSHostingView(
-            rootView: EditPanelView(floatingPanelController: detailSettingPanelController)
+            rootView: EditPanelView(panelController: detailSettingPanelController)
         )
         detailSettingPanelController.hidePanel(self)
+        
+        // 연습 기록 패널
+        let recordPanelController = PanelController(
+            xPosition: Int((NSScreen.screens[0].frame.width) / 2) - 179,
+            yPosition: Int((NSScreen.screens[0].frame.height) - 129),
+            swidth: 357, sheight: 29
+        )
+        panelControllers[InstantPanel.record] = recordPanelController
+        
+        recordPanelController.panel?.contentView = NSHostingView(
+            rootView: RecordPanelView(panelController: recordPanelController)
+        )
+        recordPanelController.showPanel(self)
+        
+        // 연습 저장 패널
+        let savePanelController = PanelController(
+            xPosition: Int((NSScreen.screens[0].visibleFrame.width) / 2) - 579,
+            yPosition: Int(NSScreen.screens[0].visibleFrame.height) - 288,
+            swidth: 420, sheight: 280
+        )
+        panelControllers[InstantPanel.save] = savePanelController
+        
+        savePanelController.panel?.contentView = NSHostingView(
+            rootView: SavePanelView(panelController: savePanelController)
+        )
+        // savePanelController.panel?.screen = NSScreen.screens[0]
+        savePanelController.panel?.center()
+        savePanelController.hidePanel(self)
         
         // InstantFeedbackManager에 Controllers 저장
         SystemManager.shared.instantFeedbackManager.feedbackPanelControllers = panelControllers

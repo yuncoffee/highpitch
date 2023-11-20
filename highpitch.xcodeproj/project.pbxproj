@@ -142,6 +142,8 @@
 		43976D522B01A0DA00816620 /* SpeedPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D512B01A0DA00816620 /* SpeedPanelView.swift */; };
 		43976D542B01A0F900816620 /* FillerWordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D532B01A0F900816620 /* FillerWordPanelView.swift */; };
 		43976D562B01A13500816620 /* InstantFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D552B01A13500816620 /* InstantFeedbackManager.swift */; };
+		43BE52392B08CF6700BFE033 /* RecordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE52382B08CF6700BFE033 /* RecordPanelView.swift */; };
+		43BE523B2B08CFB200BFE033 /* SavePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE523A2B08CFB200BFE033 /* SavePanelView.swift */; };
 		43F1D9B92AE6F094001A7225 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 43F1D9B82AE6F094001A7225 /* HotKey */; };
 /* End PBXBuildFile section */
 
@@ -295,6 +297,8 @@
 		43976D512B01A0DA00816620 /* SpeedPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedPanelView.swift; sourceTree = "<group>"; };
 		43976D532B01A0F900816620 /* FillerWordPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordPanelView.swift; sourceTree = "<group>"; };
 		43976D552B01A13500816620 /* InstantFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantFeedbackManager.swift; sourceTree = "<group>"; };
+		43BE52382B08CF6700BFE033 /* RecordPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPanelView.swift; sourceTree = "<group>"; };
+		43BE523A2B08CFB200BFE033 /* SavePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePanelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -831,6 +835,8 @@
 				43976D512B01A0DA00816620 /* SpeedPanelView.swift */,
 				43976D532B01A0F900816620 /* FillerWordPanelView.swift */,
 				4373739D2B021F1A00DEEDBD /* EditPanelView.swift */,
+				43BE52382B08CF6700BFE033 /* RecordPanelView.swift */,
+				43BE523A2B08CFB200BFE033 /* SavePanelView.swift */,
 				4373739F2B0224BD00DEEDBD /* PanelController.swift */,
 			);
 			path = Overlay;
@@ -1257,6 +1263,7 @@
 				1D0ECD7E2ADE05D500B95A74 /* HPStyledLabel.swift in Sources */,
 				1DF659BB2AD5959200AE5601 /* HighPitchApp.swift in Sources */,
 				1D0467CC2AFA9A5B003EF427 /* EPMSheet.swift in Sources */,
+				43BE52392B08CF6700BFE033 /* RecordPanelView.swift in Sources */,
 				1D0ECD7C2ADE010500B95A74 /* HPTooltip.swift in Sources */,
 				1DE8B6452AECD0C500E0746E /* HPButton.swift in Sources */,
 				1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */,
@@ -1300,6 +1307,7 @@
 				1D1EC69F2AFB978900CB72E9 /* VideoControllerContainer.swift in Sources */,
 				43976D562B01A13500816620 /* InstantFeedbackManager.swift in Sources */,
 				1D1EC68C2AFB351800CB72E9 /* SentenceInfo.swift in Sources */,
+				43BE523B2B08CFB200BFE033 /* SavePanelView.swift in Sources */,
 				43556EAB2ADE80A900B3E7B7 /* UtteranceModel.swift in Sources */,
 				1DDB9D072AF2B1D4001CA7CC /* SystemManager.swift in Sources */,
 				43556EA92ADE809F00B3E7B7 /* PracticeModel.swift in Sources */,

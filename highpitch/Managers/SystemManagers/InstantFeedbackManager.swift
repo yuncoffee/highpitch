@@ -13,6 +13,8 @@ enum InstantPanel: CaseIterable {
     case timer
     case speed
     case fillerWord
+    case record
+    case save
 }
 
 @Observable

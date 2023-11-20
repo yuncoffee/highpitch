@@ -28,30 +28,21 @@ struct SpeedPanelView: View {
         calcSpeedRate(rate: DEFUALT_SPEED + 120.0)
     }
     
+    @State
+    private var blinkStatus = false {
+        didSet {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.blinkStatus = false
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             VStack(spacing: .zero) {
                 ZStack {
                     speedIndicatorTrack()
                     speedIndicator(percent: calcSpeedRate(rate: realTimeRate))
-                    Image(
-                        systemName: calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -2
-                        ? "tortoise.fill"
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 2
-                        ? "hare.fill"
-                        : ""
-                    )
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(
-                        calcSpeedRate(rate: realTimeRate) < underSpeedRate && flagCount < -2
-                        ? Color("22D71E")
-                        : calcSpeedRate(rate: realTimeRate) > overSpeedRate && flagCount > 2
-                        ? Color("FF9500")
-                        : Color("FFFFFF").opacity(0.2)
-                    )
-                    .frame(width: 24, height: 24)
-                    .symbolEffect(.bounce, value: realTimeRate)
                     Text("말 빠르기")
                         .systemFont(.caption)
                         .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
@@ -122,6 +113,12 @@ struct SpeedPanelView: View {
                 .instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
             #endif
         }
+        .onChange(of: realTimeRate) { _, newValue in
+            var percent = calcSpeedRate(rate: newValue)
+            if percent < underSpeedRate && flagCount == -2 || percent > overSpeedRate && flagCount == 2 {
+                blinkStatus = true
+            }
+        }
     }
 }
 
@@ -142,10 +139,10 @@ extension SpeedPanelView {
         .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
         .fill(
             percent < underSpeedRate && flagCount < -2
-            ? Color("22D71E")
+            ? (blinkStatus ? Color.HPOrange.base : Color.HPOrange.light)
             : percent > overSpeedRate && flagCount > 2
-            ? Color("FF9500")
-            : Color("FFFFFF").opacity(0.2)
+            ? (blinkStatus ? Color.HPOrange.base : Color.HPOrange.light)
+            : Color.HPGreen.base
         )
         .frame(width: 68, height: 68)
         .animation(.bouncy, value: realTimeRate)

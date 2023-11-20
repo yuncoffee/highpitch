@@ -45,6 +45,7 @@ struct ProjectOutLine: View {
                         ProjectLengthChart()
                             .padding(.bottom, .HPSpacing.small)
                     }
+                    .padding(.horizontal, .HPSpacing.medium)
                 }
             } else { emptyView }
         } else { emptyView }

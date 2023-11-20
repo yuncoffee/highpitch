@@ -68,9 +68,11 @@ struct HighpitchApp: App {
     
     init() {
         do {
+            let storeURL = URL.applicationDirectory.appending(path: "database.sqlite")
+            let config = ModelConfiguration(url: storeURL)
             container = try ModelContainer(
                 for: ProjectModel.self,
-                configurations: ModelConfiguration())
+                configurations: config)
         } catch {
             fatalError("Could not initialize ModelContainer")
         }

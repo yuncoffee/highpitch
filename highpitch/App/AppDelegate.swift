@@ -95,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         recordPanelController.panel?.contentView = NSHostingView(
             rootView: RecordPanelView(panelController: recordPanelController)
         )
-        recordPanelController.showPanel(self)
+        recordPanelController.hidePanel(self)
         
         // 연습 저장 패널
         let savePanelController = PanelController(

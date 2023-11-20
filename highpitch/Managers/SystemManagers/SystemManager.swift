@@ -46,6 +46,7 @@ final class SystemManager {
             instantFeedbackManager.activePanels.insert(InstantPanel.setting)
             instantFeedbackManager.activePanels.insert(InstantPanel.speed)
             instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
+            instantFeedbackManager.activePanels.insert(InstantPanel.record)
             isRecognizing.toggle()
         }
     }
@@ -58,4 +59,7 @@ final class SystemManager {
             isRecognizing.toggle()
         }
     }
+    
+    // MARK: 함수 테스트
+    var stopPractice: () -> Void = {}
 }

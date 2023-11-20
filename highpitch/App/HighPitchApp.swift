@@ -82,7 +82,8 @@ struct HighpitchApp: App {
         systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
         systemManager.hotkeyPause = stringToHotKeySetting(input: systemManager.recordPauseCommand)
         systemManager.hotkeySave = stringToHotKeySetting(input: systemManager.recordSaveCommand)
-        
+        // MARK: - 테스트
+        systemManager.stopPractice = stopPractice
         print("시작할때 Start 키콤보: ",systemManager.hotkeyStart.keyCombo)
         print("시작할때 Pause 키콤보: ",systemManager.hotkeyPause.keyCombo)
         print("시작할때 Save 키콤보: ",systemManager.hotkeySave.keyCombo)

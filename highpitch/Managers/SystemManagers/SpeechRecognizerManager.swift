@@ -194,6 +194,12 @@ final class SpeechRecognizerManager {
         SFSpeechRecognizer.requestAuthorization { authStatus in
             // Divert to the app's main thread so that the UI
             // can be updated.
+            print(url.absoluteString)
+            if(self.checkFile(url: url)) {
+                print("OKOKOKOK")
+            } else {
+                print("NONONONO")
+            }
             if authStatus == .authorized {
                 print("authorized with speech recognition")
                 // Cancel the previous task if it's running.
@@ -261,5 +267,20 @@ final class SpeechRecognizerManager {
             }
         }
         return answer
+    }
+    func checkFile(url: URL) -> Bool {
+        if FileManager.default.fileExists(atPath: url.path()) {
+            do {
+                // AVAudioPlayer를 사용하여 파일을 읽을 수 있는지 확인합니다.
+                let audioPlayer = try AVAudioPlayer(contentsOf: url)
+                return true
+            } catch {
+                print("Error initializing AVAudioPlayer: \(error.localizedDescription)")
+                return false
+            }
+        } else {
+            print("파일이 존재하지 않아!")
+            return false
+        }
     }
 }

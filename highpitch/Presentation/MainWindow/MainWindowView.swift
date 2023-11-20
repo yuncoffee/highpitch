@@ -265,8 +265,6 @@ extension MainWindowView {
                 if let currentProject = projectManager.current {
                     projectManager.playPractice(
                         selectedProject: currentProject,
-                        appleScriptManager: appleScriptManager,
-                        keynoteManager: keynoteManager,
                         mediaManager: mediaManager
                     )
                 }

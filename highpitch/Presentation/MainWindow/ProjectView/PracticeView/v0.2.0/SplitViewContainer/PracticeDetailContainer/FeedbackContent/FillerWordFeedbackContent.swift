@@ -45,7 +45,19 @@ extension FillerWordFeedbackContent {
     @ViewBuilder
     private var chartContainer: some View {
         HPArcodianView(label: "사용된 습관어 종류 및 횟수") {
-            Text("Hello")
+            VStack {
+                UsageTopTierChart(
+                    fillerWordCount: viewStore.practice.summary.fillerWordCount,
+                    fillerWords: viewStore.getSortedFillerWord()
+                )
+                if viewStore.hasFillerWord() {
+                    FillerWordDetail(fillerWords: viewStore.getSortedFillerWord())
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, .HPSpacing.medium)
+                }
+            }
+            .padding(.HPSpacing.xsmall)
+            .frame(alignment: .top)
         }
         .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         .padding(.horizontal, .HPSpacing.small)
@@ -56,17 +68,17 @@ extension FillerWordFeedbackContent {
     let modelContainer = SwiftDataMockManager.previewContainer
     return VStack {
         FillerWordFeedbackContent()
-        .modelContainer(modelContainer)
-        .environment(PracticeViewStore(
-            practice: PracticeModel(
-                practiceName: "",
-                index: 0,
-                isVisited: false,
-                creatAt: "",
-                utterances: [],
-                summary: PracticeSummaryModel()
-            ),
-            mediaManager: MediaManager()))
+            .modelContainer(modelContainer)
+            .environment(PracticeViewStore(
+                practice: PracticeModel(
+                    practiceName: "",
+                    index: 0,
+                    isVisited: false,
+                    creatAt: "",
+                    utterances: [],
+                    summary: PracticeSummaryModel()
+                ),
+                mediaManager: MediaManager()))
     }
     .frame(minWidth: 440, maxWidth: 440,  minHeight: 600)
     .padding(24)

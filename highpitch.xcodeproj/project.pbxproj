@@ -86,6 +86,8 @@
 		1D30E62F2AD6EA7500623A58 /* AppleScriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */; };
 		1D30E6352AD6EE3300623A58 /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E6342AD6EE3300623A58 /* AppleScript.swift */; };
 		1D58FA292AE2956E00B92B4A /* HPMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58FA282AE2956E00B92B4A /* HPMenu.swift */; };
+		1D5BE1AD2B0B93CC003DCCE4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5BE1AC2B0B93CC003DCCE4 /* OnboardingView.swift */; };
+		1D5BE1AF2B0BA222003DCCE4 /* SpeechTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5BE1AE2B0BA222003DCCE4 /* SpeechTestView.swift */; };
 		1D600BA72AF9DCBA001FC5EB /* PracticeViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D600BA62AF9DCBA001FC5EB /* PracticeViewStore.swift */; };
 		1D600BAB2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D600BAA2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift */; };
 		1D7A3ED82ADC0FBD0084E962 /* OpendKeynote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7A3ED72ADC0FBD0084E962 /* OpendKeynote.swift */; };
@@ -251,6 +253,8 @@
 		1D30E62E2AD6EA7500623A58 /* AppleScriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScriptManager.swift; sourceTree = "<group>"; };
 		1D30E6342AD6EE3300623A58 /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
 		1D58FA282AE2956E00B92B4A /* HPMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPMenu.swift; sourceTree = "<group>"; };
+		1D5BE1AC2B0B93CC003DCCE4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		1D5BE1AE2B0BA222003DCCE4 /* SpeechTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechTestView.swift; sourceTree = "<group>"; };
 		1D600BA62AF9DCBA001FC5EB /* PracticeViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewStore.swift; sourceTree = "<group>"; };
 		1D600BAA2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAudioPermissionPopover.swift; sourceTree = "<group>"; };
 		1D7A3ED72ADC0FBD0084E962 /* OpendKeynote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpendKeynote.swift; sourceTree = "<group>"; };
@@ -772,6 +776,15 @@
 			path = DataModels;
 			sourceTree = "<group>";
 		};
+		1D5BE1AB2B0B93B7003DCCE4 /* OnboardingView */ = {
+			isa = PBXGroup;
+			children = (
+				1D5BE1AC2B0B93CC003DCCE4 /* OnboardingView.swift */,
+				1D5BE1AE2B0BA222003DCCE4 /* SpeechTestView.swift */,
+			);
+			path = OnboardingView;
+			sourceTree = "<group>";
+		};
 		1D600BA52AF9DCAC001FC5EB /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -1031,6 +1044,7 @@
 		1DF659BE2AD5960100AE5601 /* MainWindow */ = {
 			isa = PBXGroup;
 			children = (
+				1D5BE1AB2B0B93B7003DCCE4 /* OnboardingView */,
 				1DF659C22AD5974C00AE5601 /* MainWindowView.swift */,
 				11A9F27F2B09EEA9003CAFFD /* AnalysisView */,
 				10D6FA5D2B02FD40003F8FBD /* ScreenRecordView */,
@@ -1294,6 +1308,7 @@
 				1D0467CC2AFA9A5B003EF427 /* EPMSheet.swift in Sources */,
 				43BE52392B08CF6700BFE033 /* RecordPanelView.swift in Sources */,
 				1D0ECD7C2ADE010500B95A74 /* HPTooltip.swift in Sources */,
+				1D5BE1AF2B0BA222003DCCE4 /* SpeechTestView.swift in Sources */,
 				1DE8B6452AECD0C500E0746E /* HPButton.swift in Sources */,
 				113469662B09038600CA16AE /* ProjectLengthChart.swift in Sources */,
 				1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */,
@@ -1369,6 +1384,7 @@
 				10F3F27C2B04976800CFC817 /* VideoWithAudioRecordEngine.swift in Sources */,
 				1D1EC6962AFB6DC500CB72E9 /* PracticeContentContainer.swift in Sources */,
 				1D98941F2AE6199000DE57A1 /* PracticeList.swift in Sources */,
+				1D5BE1AD2B0B93CC003DCCE4 /* OnboardingView.swift in Sources */,
 				1D600BA72AF9DCBA001FC5EB /* PracticeViewStore.swift in Sources */,
 				1D09AF6E2AD98B0100C1400E /* NotificationManager.swift in Sources */,
 				10C7D1F82ADD8E6A008691CD /* AuthManager.swift in Sources */,

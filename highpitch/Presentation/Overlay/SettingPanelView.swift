@@ -14,8 +14,10 @@ struct SettingPanelView: View {
     var body: some View {
         VStack {
             Image(systemName: "rectangle.3.group.fill")
+                .resizable()
                 .frame(width:44, height: 28.11)
-                .foregroundColor(SystemManager.shared.instantFeedbackManager.isDetailSettingActive ? .red : .white)
+                .foregroundColor(instantFeedbackManager.isDetailSettingActive ? Color("FFFFFF").opacity(0.5) :
+                                    (instantFeedbackManager.focusedPanel == .setting ? .white.opacity(0.5) : .white.opacity(0.15)))
         }
         .overlay {
             ZStack(alignment: .topTrailing) {
@@ -26,7 +28,7 @@ struct SettingPanelView: View {
                         .foregroundStyle(Color.white)
                         .background(Color.black)
                         .clipShape(RoundedRectangle(cornerRadius: 6))
-                        .offset(x: 0, y: 28)
+                        .offset(x: 0, y: 35)
                         
                 }
             }

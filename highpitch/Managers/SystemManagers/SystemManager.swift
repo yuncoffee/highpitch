@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import HotKey
 import AppKit
 
@@ -34,6 +35,9 @@ final class SystemManager {
     var hotkeyPause = HotKey(key: .space, modifiers: [.command, .control])
     var hotkeySave = HotKey(key: .escape, modifiers: [.command, .control])
     
+    // MARK: - onBoarding을 봤는지 확인하는 뷰
+    var isPassOnbarding: Bool = UserDefaults.standard.bool(forKey: "isPassOnbarding")
+
     func startInstantFeedback() {
         if (!isRecognizing) {
             instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()

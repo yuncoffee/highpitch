@@ -15,7 +15,8 @@ struct SavePanelView: View {
     
     var body: some View {
         VStack {
-            VStack(alignment: .listRowSeparatorTrailing) {
+            HStack {
+                Spacer()
                 HStack {
                     Button {
                         instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
@@ -27,7 +28,11 @@ struct SavePanelView: View {
                     }
                     .buttonStyle(.plain)
                 }
+                .padding(.trailing, 17)
             }
+            .padding(.top, 16)
+            
+            Spacer()
             
             VStack {
                 Text("연습 기록을 저장하시겠어요?")
@@ -42,6 +47,8 @@ struct SavePanelView: View {
                         .foregroundStyle(Color.HPTextStyle.base)
                 }
             }
+            
+            Spacer()
             
             HStack(alignment: .center) {
                 HPButton(color: .HPGray.system200) {
@@ -62,7 +69,6 @@ struct SavePanelView: View {
                 
                 HPButton(color: .HPPrimary.base) {
                     // 연습 저장하는 로직
-                    print("NSPanel에서 연습 저장하기 버튼을 눌렀다.")
                     SystemManager.shared.stopPractice()
                     NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
@@ -73,14 +79,17 @@ struct SavePanelView: View {
                         size: .large,
                         color: color,
                         expandable: expandable,
-                        fontStyle: .system(.caption),
+                        fontStyle: .systemDetail(.caption, .semibold),
                         padding: (v:34, h:8.5)
                     )
                 }
                 .frame(width: 144)
             }
+            .padding(.bottom, 35)
         }
         .frame(width: SAVE_PANEL_INFO.size.width, height: SAVE_PANEL_INFO.size.height)
         .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        
     }
 }

@@ -24,22 +24,14 @@ final class InstantFeedbackManager {
     var activePanels: Set<InstantPanel> = []
     var speechRecognizerManager: SpeechRecognizerManager?
     var feedbackPanelControllers: [InstantPanel:PanelController] = [:]
-    
-    // Panel들의 위치
-    var timerPanelX = UserDefaults.standard.string(forKey: "TimerPanelX").flatMap { Int($0) } ?? 48
-    var timerPanelY = UserDefaults.standard.string(forKey: "TimerPanelY").flatMap { Int($0) } ?? Int((NSScreen.main?.visibleFrame.height)!) - 56
-    var speedPanelX = UserDefaults.standard.string(forKey: "SpeedPanelX").flatMap { Int($0) } ?? Int((NSScreen.main?.visibleFrame.width)!) - 178
-    var speedPanelY = UserDefaults.standard.string(forKey: "SpeedPanelY").flatMap { Int($0) } ?? 276
-    var fillerWordPanelX = UserDefaults.standard.string(forKey: "FillerWordPanelX").flatMap { Int($0) } ?? Int((NSScreen.main?.visibleFrame.width)!) - 178
-    var fillerWordPanelY = UserDefaults.standard.string(forKey: "FillerWordPanelY").flatMap { Int($0) } ?? 129
-    
+
     typealias PanelFrameInfo = (
         size: CGSize,
         topLeftPoint: CGPoint?,
         bottomRightPoint: CGPoint?
     )
     
-    // (Panel들의 가로세로 길이) + (NSScreen과 Panel이 떨어진 거리)
+    // (Panel들의 가로세로 길이) + (NSScreen위에서 Panel의 좌상단 좌표) + (NSScreen위에서 Panel의 우하단 좌표)
     let TIMER_PANEL_INFO: PanelFrameInfo = (
         size: CGSize(width: 108.0, height: 56.0),
         topLeftPoint: CGPoint(x: 48, y: 56),
@@ -96,34 +88,38 @@ extension InstantFeedbackManager {
         activePanels.removeAll()
     }
     
+    /// NSScreen에서 Panel이 왼쪽에서부터 얼마나 떨어져 있는지 x좌표 반환
     func getPanelPositionX(left: CGFloat, padding: CGFloat) -> Int {
         return Int(left - padding)
     }
-    
+    /// NSScreen에서 Panel이 왼쪽에서부터 얼마나 떨어져 있는지 x좌표 반환
     func getPanelPositionX(right: CGFloat, width: CGFloat, padding: CGFloat?) -> Int {
         return Int(NSScreen.screens[0].frame.width - (right + width + (padding ?? 0)))
     }
     
+    /// NSScreen에서 Panel이 바닥에서부터 얼마나 떨어져 있는지 y좌표 반환
     func getPanelPositionY(top: CGFloat, height: CGFloat, padding: CGFloat?) -> Int {
         return Int(NSScreen.screens[0].frame.height - (top + height + (padding ?? 0)))
     }
-    
+    /// NSScreen에서 Panel이 바닥에서부터 얼마나 떨어져 있는지 y좌표 반환
     func getPanelPositionY(bottom: CGFloat, padding: CGFloat) -> Int {
         return Int(bottom - padding)
     }
     
+    /// Panel의 전체 프레임의 너비 반환 (오버로딩)
     func getTotalFrameWidth(width: CGFloat, padding: CGFloat) -> Int {
         return Int(width + padding * 2)
     }
-    
-    func getTotalFrameHeight(height: CGFloat, padding: CGFloat) -> Int {
-        return Int(height + padding * 2)
-    }
-    
+    /// Panel의 전체 프레임의 너비 반환 (오버로딩)
     func getTotalFrameWidth(width: CGFloat, padding: CGFloat) -> CGFloat {
         return width + padding * 2
     }
     
+    /// Panel의 전체 프레임의 높이 반환 (오버로딩)
+    func getTotalFrameHeight(height: CGFloat, padding: CGFloat) -> Int {
+        return Int(height + padding * 2)
+    }
+    /// Panel의 전체 프레임의 높이 반환 (오버로딩)
     func getTotalFrameHeight(height: CGFloat, padding: CGFloat) -> CGFloat {
         return height + padding * 2
     }

@@ -44,6 +44,7 @@ struct SplitViewContainer: View {
     return SplitViewContainer()
         .modelContainer(modelContainer)
         .environment(PracticeViewStore(
+            projectName: "",
             practice: PracticeModel(
                 practiceName: "",
                 index: 0,

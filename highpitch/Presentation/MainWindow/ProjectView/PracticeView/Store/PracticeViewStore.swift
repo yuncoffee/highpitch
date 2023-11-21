@@ -63,7 +63,8 @@ final class PracticeViewStore {
     }
     // ************* V2 ************* //
     
-    init(practice: PracticeModel, mediaManager: MediaManager) {
+    init(projectName: String, practice: PracticeModel, mediaManager: MediaManager) {
+        self.projectName = projectName
         self.practice = practice
         self.mediaManager = mediaManager
     }

@@ -15,7 +15,6 @@ struct ReportView: View {
         ScrollView {
             header
         }
-        .
         .frame(
             width: 650,
             height: 520,

@@ -261,4 +261,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         savePanelController.hidePanel(self)
     }
     
+    func loadPanelPosition(key: String, originalPos: CGFloat) -> Bool {
+        let value = UserDefaults.standard.string(forKey: key) ?? nil
+        if value == nil {
+            return false
+        }
+        if value != String(Int(originalPos)) {
+            return true
+        }
+        return false
+    }
+    
 }

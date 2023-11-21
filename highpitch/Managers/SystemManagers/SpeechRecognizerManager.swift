@@ -184,6 +184,7 @@ final class SpeechRecognizerManager {
     }
     
     func startFileRecognition(url: URL) async -> [UtteranceModel] {
+        let currentTime = CACurrentMediaTime()
         var answer: [UtteranceModel] = []
         SFSpeechRecognizer.requestAuthorization { authStatus in
             // Divert to the app's main thread so that the UI
@@ -253,7 +254,7 @@ final class SpeechRecognizerManager {
                 print("access denied")
             }
         }
-        while(!isFinal) {
+        while(!isFinal && answer.isEmpty && (CACurrentMediaTime() - currentTime) < 20.0) {
             do {
                 try await Task.sleep(nanoseconds: 100_000_000)
             } catch {

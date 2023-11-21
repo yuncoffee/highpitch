@@ -20,6 +20,7 @@ final class PracticeViewStore {
     var toolbarInfo: (title: String, subTitle: String) = (title: "", subTitle: "")
     /// 현재 선택된 문장의 인덱스
     var nowSentence = 0
+    var projectName: String
     
     // ************* V2 ************* //
     
@@ -94,7 +95,8 @@ extension PracticeViewStore {
     
     func getEpmRange() -> (first: Double, last: Double) {
         let sortedSentences = practice.sentences.sorted(by: { $0.spmValue < $1.spmValue })
-        if let firstEpmValue = sortedSentences.first?.spmValue, let lastEpmValue = sortedSentences.last?.spmValue {
+        if let firstEpmValue = sortedSentences.first?.spmValue,
+           let lastEpmValue = sortedSentences.last?.spmValue {
             return (firstEpmValue, lastEpmValue)
         } else {
             return (-1, -1)

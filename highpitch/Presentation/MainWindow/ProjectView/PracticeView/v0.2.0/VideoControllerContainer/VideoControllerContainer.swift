@@ -54,6 +54,7 @@ struct VideoControllerContainer: View {
     return VStack {
         VideoControllerContainer()
             .environment(PracticeViewStore(
+                projectName: "",
                 practice: PracticeModel(
                     practiceName: "",
                     index: 0,

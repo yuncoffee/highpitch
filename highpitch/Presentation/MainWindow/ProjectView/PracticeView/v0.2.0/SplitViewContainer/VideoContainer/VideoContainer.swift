@@ -108,6 +108,7 @@ extension VideoContainer {
         VideoContainer()
             .modelContainer(modelContainer)
             .environment(PracticeViewStore(
+                projectName: "",
                 practice: PracticeModel(
                     practiceName: "",
                     index: 0,

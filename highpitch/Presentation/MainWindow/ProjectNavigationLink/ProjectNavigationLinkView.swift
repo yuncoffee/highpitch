@@ -9,12 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct ProjectNavigationLink: View {
-    @Environment(FileSystemManager.self)
-    private var fileSystemManager
     @Environment(ProjectManager.self)
     private var projectManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     //
     @Environment(\.modelContext)
     var modelContext
@@ -128,7 +124,6 @@ extension ProjectNavigationLink {
 
 #Preview {
     ProjectNavigationLink()
-        .environment(FileSystemManager())
         .environment(ProjectManager())
         .frame(maxWidth: 200)
         .frame(minHeight: 860)

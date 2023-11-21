@@ -11,12 +11,6 @@ import SwiftData
 
 struct MainWindowView: View {
     // MARK: - 데이터 컨트롤을 위한 매니저 객체
-    @Environment(AppleScriptManager.self)
-    private var appleScriptManager
-    @Environment(FileSystemManager.self)
-    private var fileSystemManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     @Environment(MediaManager.self)
     private var mediaManager
     @Environment(ProjectManager.self)
@@ -197,16 +191,6 @@ extension MainWindowView {
                     } else {
                         SystemManager.shared.startInstantFeedback()
                     }
-                    
-                    if SystemManager.shared.instantFeedbackManager.activePanels.isEmpty {
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.timer)
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.setting)
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.speed)
-                        SystemManager.shared.instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
-                    }
-                    else {
-                        SystemManager.shared.instantFeedbackManager.activePanels.removeAll()
-                    }
                 }
             ScrollView {
                 LazyVGrid(columns: [GridItem()], alignment: .leading) {
@@ -265,8 +249,6 @@ extension MainWindowView {
                 if let currentProject = projectManager.current {
                     projectManager.playPractice(
                         selectedProject: currentProject,
-                        appleScriptManager: appleScriptManager,
-                        keynoteManager: keynoteManager,
                         mediaManager: mediaManager
                     )
                 }
@@ -313,9 +295,7 @@ extension MainWindowView {
 
 #Preview {
     MainWindowView()
-        .environment(FileSystemManager())
         .environment(MediaManager())
-        .environment(KeynoteManager())
         .environment(ProjectManager())
 }
 #endif

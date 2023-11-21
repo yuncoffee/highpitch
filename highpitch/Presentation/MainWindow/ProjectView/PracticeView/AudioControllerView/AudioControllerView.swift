@@ -92,6 +92,15 @@ extension AudioControllerView {
                 .foregroundStyle(Color.HPGray.system200)
 //                .offset(y: .HPSpacing.xxxxsmall)
             VStack(spacing: .zero) {
+                HPSlider(value: $currentTime, bounds: 0...audioPlayer.getDuration()) { edit in
+                    if edit {
+                        isDragging = true
+                        prevState = isPlaying
+                    } else {
+                        isDragging = false
+                        audioPlayer.setCurrentTime(time: currentTime)
+                    }
+                }
                 ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration()) { edit in
                     if edit {
                         isDragging = true

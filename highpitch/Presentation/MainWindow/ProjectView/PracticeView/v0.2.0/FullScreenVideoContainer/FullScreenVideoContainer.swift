@@ -14,6 +14,8 @@ import AVKit
 struct FullScreenVideoContainer: View {
     @Environment(PracticeViewStore.self)
     var viewStore
+    @State
+    private var isRegister = false
     
 #if PREVIEW
     // MARK: - MockData
@@ -48,7 +50,11 @@ struct FullScreenVideoContainer: View {
             ZStack(alignment: .topLeading) {
                 /// video
                 VStack {
-                    VideoPlayer(player: viewStore.player)
+                    if let videoPath = viewStore.practice.videoPath {
+                        if let avPlayer = viewStore.mediaManager.avPlayer {
+                            VideoView(avPlayer: avPlayer)
+                        }
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity )
                 .background(viewStore.isFullScreenTransition ? Color.brown : .clear)

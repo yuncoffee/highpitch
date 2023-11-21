@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		107034FE2AF258070097A685 /* FeedbackSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107034FD2AF258070097A685 /* FeedbackSettingView.swift */; };
 		107035002AF258390097A685 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107034FF2AF258390097A685 /* GeneralSettingView.swift */; };
+		10B5EF0E2B0C3090006A58A6 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5EF0D2B0C3090006A58A6 /* VideoView.swift */; };
 		10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */; };
 		10C7D1B22ADCD4AB008691CD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */; };
 		10C7D1F82ADD8E6A008691CD /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1F72ADD8E6A008691CD /* AuthManager.swift */; };
@@ -174,6 +175,7 @@
 /* Begin PBXFileReference section */
 		107034FD2AF258070097A685 /* FeedbackSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingView.swift; sourceTree = "<group>"; };
 		107034FF2AF258390097A685 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
+		10B5EF0D2B0C3090006A58A6 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		10C7D1F72ADD8E6A008691CD /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				1D1EC6A22AFB98C900CB72E9 /* VideoContainer.swift */,
+				10B5EF0D2B0C3090006A58A6 /* VideoView.swift */,
 			);
 			path = VideoContainer;
 			sourceTree = "<group>";
@@ -1388,6 +1391,7 @@
 				1D5BE1AD2B0B93CC003DCCE4 /* OnboardingView.swift in Sources */,
 				1D600BA72AF9DCBA001FC5EB /* PracticeViewStore.swift in Sources */,
 				1D09AF6E2AD98B0100C1400E /* NotificationManager.swift in Sources */,
+				10B5EF0E2B0C3090006A58A6 /* VideoView.swift in Sources */,
 				10C7D1F82ADD8E6A008691CD /* AuthManager.swift in Sources */,
 				1DDB9D012AEF1F95001CA7CC /* HPListCell.swift in Sources */,
 				1D0ECD702ADCE8FA00B95A74 /* Typography.swift in Sources */,

@@ -94,6 +94,45 @@ extension PracticeViewStore {
         practice.summary.eachFillerWordCount.sorted(by: {$0.count > $1.count})
     }
     
+    func getFillerWordTypeCount() -> Int {
+        var answer = 0
+        for fillerword in practice.summary.eachFillerWordCount
+        where fillerword.count > 0 { answer += 1 }
+        return answer
+    }
+    
+    // swiftlint: disable large_tuple
+    /// (습관어, index, 습관어 사용 횟수)
+    func getFillerWordGridData() -> [(String, Int, Int)] {
+        var answer: [(String, Int, Int)] = []
+        for fillerword in getSortedFillerWord()
+        where fillerword.count > 0 && answer.count < 18 {
+            answer.append((fillerword.fillerWord, answer.count + 1, fillerword.count))
+        }
+        while answer.count % 6 != 0 { answer.append(("", answer.count + 1, 0)) }
+        if answer.isEmpty {
+            for index in 1...6 {
+                answer.append(("", index, 0))
+            }
+        }
+        return answer
+    }
+    // swiftlint: enable large_tuple
+    
+    /// 가장 큰 속도 변화가 있는 부분을 반환합니다.
+    func returnMostVarianceTime() -> String {
+        var answer = 0
+        var temp = 0.0
+        var average = practice.summary.spmAverage
+        for sentence in practice.sentences
+        where abs(average - sentence.spmValue) >= temp {
+            temp = abs(average - sentence.spmValue)
+            answer = (sentence.startAt + sentence.endAt) / 2
+            answer /= 1000
+        }
+        return "\"\(Date().secondToMS(Int(answer)))\""
+    }
+    
     func getEpmRange() -> (first: Double, last: Double) {
         let sortedSentences = practice.sentences.sorted(by: { $0.spmValue < $1.spmValue })
         if let firstEpmValue = sortedSentences.first?.spmValue,

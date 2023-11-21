@@ -62,6 +62,10 @@ struct SavePanelView: View {
                 HPButton(color: .HPPrimary.base) {
                     // 연습 저장하는 로직
                     print("NSPanel에서 연습 저장하기 버튼을 눌렀다.")
+                    SystemManager.shared.stopPractice()
+                    NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
+                    instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+                    
                 } label: { type, size, color, expandable in
                     HPLabel(
                         content: (label: "연습 저장하기", icon: nil),

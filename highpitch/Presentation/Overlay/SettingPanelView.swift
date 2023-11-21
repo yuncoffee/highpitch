@@ -49,6 +49,6 @@ struct SettingPanelView: View {
             // instantFeedbackManager.focusedPanel = .setting
             print("편집기능: \(SystemManager.shared.instantFeedbackManager.isDetailSettingActive)")
         }
-        .frame(width: 120, height: 120)
+        .frame(width: 116, height: 98)
     }
 }

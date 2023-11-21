@@ -66,7 +66,7 @@ struct SpeedPanelView: View {
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 57, y: -57)
+                    .offset(x: 58, y: -58)
                 }
             }
         }
@@ -81,7 +81,7 @@ struct SpeedPanelView: View {
                 instantFeedbackManager.focusedPanel = nil
             }
         }
-        .frame(width: 158, height: 158)
+        .frame(width: 144, height: 144)
         .onAppear {
             #if PREVIEW
 //            PanelData.shared.isEditMode = true

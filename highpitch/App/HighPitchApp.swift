@@ -22,21 +22,15 @@ struct HighpitchApp: App {
     
     // MARK: - 데이터 컨트롤을 위한 매니저 객체 선언(전역 싱글 인스턴스)
     @State
-    private var fileSystemManager = FileSystemManager()
-    @State
     private var mediaManager = MediaManager()
-    @State 
+    @State
     private var projectManager = ProjectManager()
-    #if os(macOS)
-    @State 
-    private var appleScriptManager = AppleScriptManager()
-    @State 
-    private var keynoteManager = KeynoteManager()
+#if os(macOS)
     @State
     private var practiceManager = PracticeManager()
     @State
     private var isMenuPresented: Bool = false
-        
+    
     @State
     var refreshable = false
     
@@ -53,13 +47,11 @@ struct HighpitchApp: App {
         }
     }
     
-    #endif
+#endif
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     @State
     private var selectedProject: ProjectModel?
-    @State
-    private var selectedKeynote: OpendKeynote?
     
     @State
     private var systemManager: SystemManager = SystemManager.shared
@@ -76,35 +68,6 @@ struct HighpitchApp: App {
         } catch {
             fatalError("Could not initialize ModelContainer")
         }
-        
-        // MARK: 정리 후보
-        // UserDefaults에 Panel들의 위치값이 저장되어있지 않다면 기본값으로 세팅해준다.
-//        if UserDefaults.standard.string(forKey: "TimerPanelX") == nil {
-//            UserDefaults.standard.set("TimerPanelX", forKey: String(Int((NSScreen.main?.visibleFrame.width)! / 2) - 73))
-//        }
-//        if UserDefaults.standard.string(forKey: "TimerPanelY") == nil {
-//            UserDefaults.standard.set("TimerPanelY", forKey: String(Int((NSScreen.main?.visibleFrame.height)!) - 15))
-//        }
-//        if UserDefaults.standard.string(forKey: "SpeedPanelX") == nil {
-//            UserDefaults.standard.set("SpeedPanelX", forKey: String(Int((NSScreen.main?.visibleFrame.width)!) - 178))
-//        }
-//        if UserDefaults.standard.string(forKey: "SpeedPanelY") == nil {
-//            UserDefaults.standard.set("SpeedPanelY", forKey: String(276))
-//        }
-//        if UserDefaults.standard.string(forKey: "FillerWordPanelX") == nil {
-//            UserDefaults.standard.set("FillerWordPanelX", forKey: String(Int((NSScreen.main?.visibleFrame.width)!) - 178))
-//        }
-//        if UserDefaults.standard.string(forKey: "FillerWordPanelY") == nil {
-//            UserDefaults.standard.set("FillerWordPanelY", forKey: String(129))
-//        }
-//        if UserDefaults.standard.string(forKey: "DetailPanelX") == nil {
-//            UserDefaults.standard.set("DetailPanelX", forKey: String(56))
-//        }
-//        if UserDefaults.standard.string(forKey: "DetailPanelY") == nil {
-//            UserDefaults.standard.set("DetailPanelY", forKey: String(116))
-//        }
-        
-        // UserDefaults에 저장된 것이 없으면 기본값으로 세팅해준다.
         if UserDefaults.standard.string(forKey: "recordStartCommand") == nil {
             UserDefaults.standard.set("Command + Control + P", forKey: "recordStartCommand")
         }
@@ -119,109 +82,101 @@ struct HighpitchApp: App {
         systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
         systemManager.hotkeyPause = stringToHotKeySetting(input: systemManager.recordPauseCommand)
         systemManager.hotkeySave = stringToHotKeySetting(input: systemManager.recordSaveCommand)
-        
+        // MARK: - 테스트
+        systemManager.stopPractice = stopPractice
         print("시작할때 Start 키콤보: ",systemManager.hotkeyStart.keyCombo)
         print("시작할때 Pause 키콤보: ",systemManager.hotkeyPause.keyCombo)
         print("시작할때 Save 키콤보: ",systemManager.hotkeySave.keyCombo)
     }
-
+    
     var body: some Scene {
-        #if os(macOS)
-//        // MARK: - MainWindow Scene
-//        Window("overlay", id: "overlay") {
-//            @Bindable var systemManager = SystemManager.shared
-//                OverlayView(isActive: $systemManager.isOverlayView1Active)
-//            
-//        }
-//        .windowResizability(.contentSize)
-//        Window("overlay2", id: "overlay2") {
-//            @Bindable var systemManager = SystemManager.shared
-//                OverlayView(isActive: $systemManager.isOverlayView2Active)
-//            
-//        }
-//        .windowResizability(.contentSize)
-//        Window("overlay3", id: "overlay3") {
-//            @Bindable var systemManager = SystemManager.shared
-//                OverlayView(isActive: $systemManager.isOverlayView3Active)
-//            
-//        }
-//        .windowResizability(.contentSize)
+#if os(macOS)
         Window("mainwindow", id: "main") {
-            MainWindowView()
-                .environment(appleScriptManager)
-                .environment(fileSystemManager)
-                .environment(practiceManager)
-                .environment(keynoteManager)
-                .environment(mediaManager)
-                .environment(projectManager)
-                .environment(selectedProject)
-                .environment(selectedKeynote)
-                .modelContainer(container)
-                .onChange(of: systemManager.recordStartCommand, { _, _ in
-                    // 변경된 명령어들로 hotKey재설정
-                    systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
-                    systemManager.hotkeyStart.keyDownHandler = playPractice
-                    
-                    // UserDefaults에 해당 명령어들로 저장
-                    UserDefaults.standard.setValue(
-                        systemManager.recordStartCommand,
-                        forKey: "recordStartCommand"
-                    )
-                })
-                .onChange(of: systemManager.recordPauseCommand, { _, _ in
-                    // 변경된 명령어들로 hotKey재설정
-                    systemManager.hotkeyPause = stringToHotKeySetting(input: systemManager.recordPauseCommand)
-                    systemManager.hotkeyPause.keyDownHandler = pausePractice
-                    
-                    // UserDefaults에 해당 명령어들로 저장
-                    UserDefaults.standard.setValue(
-                        systemManager.recordPauseCommand,
-                        forKey: "recordPauseCommand"
-                    )
-                })
-                .onChange(of: systemManager.recordSaveCommand, { _, _ in
-                    // 변경된 명령어들로 hotKey재설정
-                    systemManager.hotkeySave = stringToHotKeySetting(input: systemManager.recordSaveCommand)
-                    systemManager.hotkeySave.keyDownHandler = stopPractice
-                    
-                    // UserDefaults에 해당 명령어들로 저장
-                    UserDefaults.standard.setValue(
-                        systemManager.recordSaveCommand,
-                        forKey: "recordSaveCommand"
-                    )
-                })
-                .onAppear {
-                    systemManager.hotkeyStart.keyDownHandler = playPractice
-                    systemManager.hotkeyPause.keyDownHandler = pausePractice
-                    systemManager.hotkeySave.keyDownHandler = stopPractice
-                }
+            if SystemManager.shared.isPassOnbarding {
+                MainWindowView()
+                    .environment(practiceManager)
+                    .environment(mediaManager)
+                    .environment(projectManager)
+                    .environment(selectedProject)
+                    .modelContainer(container)
+                    .onChange(of: systemManager.recordStartCommand, { _, _ in
+                        // 변경된 명령어들로 hotKey재설정
+                        systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
+                        systemManager.hotkeyStart.keyDownHandler = playPractice
+                        
+                        // UserDefaults에 해당 명령어들로 저장
+                        UserDefaults.standard.setValue(
+                            systemManager.recordStartCommand,
+                            forKey: "recordStartCommand"
+                        )
+                    })
+                    .onChange(of: systemManager.recordPauseCommand, { _, _ in
+                        // 변경된 명령어들로 hotKey재설정
+                        systemManager.hotkeyPause = stringToHotKeySetting(input: systemManager.recordPauseCommand)
+                        systemManager.hotkeyPause.keyDownHandler = pausePractice
+                        
+                        // UserDefaults에 해당 명령어들로 저장
+                        UserDefaults.standard.setValue(
+                            systemManager.recordPauseCommand,
+                            forKey: "recordPauseCommand"
+                        )
+                    })
+                    .onChange(of: systemManager.recordSaveCommand, { _, _ in
+                        // 변경된 명령어들로 hotKey재설정
+                        systemManager.hotkeySave = stringToHotKeySetting(input: systemManager.recordSaveCommand)
+                        systemManager.hotkeySave.keyDownHandler = stopPractice
+                        
+                        // UserDefaults에 해당 명령어들로 저장
+                        UserDefaults.standard.setValue(
+                            systemManager.recordSaveCommand,
+                            forKey: "recordSaveCommand"
+                        )
+                    })
+                    .onAppear {
+                        systemManager.hotkeyStart.keyDownHandler = playPractice
+                        systemManager.hotkeyPause.keyDownHandler = pausePractice
+                        systemManager.hotkeySave.keyDownHandler = stopPractice
+                    }
                 // Panel들 관리: isDetailSettingActive가 true로 변경 시, 상세설정 Panel 띄워준다.
-                .onChange(of: systemManager.instantFeedbackManager.isDetailSettingActive) { _, activeOn in
-                    if activeOn {
-                        appDelegate.panelControllers[InstantPanel.detailSetting]?.showPanel(self)
-                    } else {
-                        appDelegate.panelControllers[InstantPanel.detailSetting]?.hidePanel(self)
+                    .onChange(of: systemManager.instantFeedbackManager.isDetailSettingActive) { _, activeOn in
+                        if activeOn {
+                            appDelegate.panelControllers[InstantPanel.detailSetting]?.showPanel(self)
+                        } else {
+                            appDelegate.panelControllers[InstantPanel.detailSetting]?.hidePanel(self)
+                        }
                     }
-                }
                 // Panel들 관리: 활성화된 Panel은 화면에 띄워지고, 비활성화 Panel들은 화면에서 숨긴다.
-                .onChange(of: systemManager.instantFeedbackManager.activePanels) { hidePanels, showPanels in
-                    for hidePanel in hidePanels {
-                        appDelegate.panelControllers[hidePanel]?.hidePanel(self)
+                    .onChange(of: systemManager.instantFeedbackManager.activePanels) { hidePanels, showPanels in
+                        for hidePanel in hidePanels {
+                            appDelegate.panelControllers[hidePanel]?.hidePanel(self)
+                        }
+                        for showPanel in showPanels {
+                            appDelegate.panelControllers[showPanel]?.showPanel(self)
+                        }
                     }
-                    for showPanel in showPanels {
-                        appDelegate.panelControllers[showPanel]?.showPanel(self)
+            } else {
+                OnboardingView()
+                    .frame(width: 1000, height: 628)
+                    .onAppear {
+                        NSApp.windows.forEach { window in
+                            window.standardWindowButton(.miniaturizeButton)?.isEnabled = false
+                            window.standardWindowButton(.zoomButton)?.isEnabled = false
+                        }
                     }
-                }
-            
+                    .onDisappear {
+                        NSApp.windows.forEach { window in
+                            window.standardWindowButton(.miniaturizeButton)?.isEnabled = true
+                            window.standardWindowButton(.zoomButton)?.isEnabled = true
+                        }
+                    }
+            }
         }
-        .defaultSize(width: 1080, height: 600)
+        .defaultSize(width: 1000, height: 628)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
         // MARK: - Settings Scene
         Settings {
             SettingsView()
-                .environment(appleScriptManager)
-                .environment(keynoteManager)
                 .environment(mediaManager)
                 .modelContainer(container)
         }
@@ -229,19 +184,15 @@ struct HighpitchApp: App {
         MenuBarExtra {
             MenubarExtraView(
                 refreshable: $refreshable,
-                selectedProject: $selectedProject,
-                selectedKeynote: $selectedKeynote
+                selectedProject: $selectedProject
             )
-                .environment(appleScriptManager)
-                .environment(fileSystemManager)
-                .environment(keynoteManager)
-                .environment(mediaManager)
-                .environment(projectManager)
-                .openSettingsAccess()
-                .modelContainer(container)
-                .introspectMenuBarExtraWindow { window in
-                    window.animationBehavior = .utilityWindow
-                }
+            .environment(mediaManager)
+            .environment(projectManager)
+            .openSettingsAccess()
+            .modelContainer(container)
+            .introspectMenuBarExtraWindow { window in
+                window.animationBehavior = .utilityWindow
+            }
         } label: {
             if SystemManager.shared.isAnalyzing {
                 Label("MenubarExtra", image: "menubar-loading-light-\(menubarAnimationCount)")
@@ -269,32 +220,17 @@ struct HighpitchApp: App {
                 menubarAnimationCount += 1
             }
         })
-        #endif
+#endif
     }
 }
 extension HighpitchApp {
     private func setupInit() {
-        // MARK: - AppleScript Remove
-//        #if os(macOS)
-//        Task {
-//            let result = await appleScriptManager.runScript(.isActiveKeynoteApp)
-//            if case .boolResult(let isKeynoteOpen) = result {
-//                // logic 1
-//                if isKeynoteOpen {
-//                    print("열려있습니다")
-//                } else {
-//                    print("닫혀있습니다")
-//                }
-//            }
-//        }
-//        #endif
+
     }
     
     func playPractice() {
         projectManager.playPractice(
             selectedProject: selectedProject,
-            appleScriptManager: appleScriptManager,
-            keynoteManager: keynoteManager,
             mediaManager: mediaManager
         )
     }
@@ -308,7 +244,6 @@ extension HighpitchApp {
             await MainActor.run {
                 projectManager.stopPractice(
                     mediaManager: mediaManager,
-                    keynoteManager: keynoteManager,
                     modelContext: container.mainContext
                 )
             }

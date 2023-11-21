@@ -246,6 +246,7 @@ extension FullScreenVideoContainer {
     return FullScreenVideoContainer()
         .modelContainer(modelContainer)
         .environment(PracticeViewStore(
+            projectName: "",
             practice: PracticeModel(
                 practiceName: "",
                 index: 0,

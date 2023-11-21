@@ -42,6 +42,7 @@ struct EveryFeedbackContent: View {
         EveryFeedbackContent()
         .modelContainer(modelContainer)
         .environment(PracticeViewStore(
+            projectName: "",
             practice: PracticeModel(
                 practiceName: "",
                 index: 0,

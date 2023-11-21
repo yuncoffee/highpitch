@@ -74,16 +74,32 @@ extension VideoContainer {
             // MARK: - 영상으로 대체
             GeometryReader { geometry in
                 let maxHeight = geometry.size.height - 96
-                VStack {
-                    Text("전체 화면 벝은")
-                        .onTapGesture {
-                            withAnimation {
-                                viewStore.isFullScreenVideoVisible = true
-                                viewStore.currentFeedbackViewType = .fillerWord
+                ZStack {
+                    VStack {
+                        if let videoPath = viewStore.practice.videoPath {
+                            if let avPlayer = viewStore.mediaManager.avPlayer {
+                                VideoView(avPlayer: avPlayer)
                             }
                         }
-                        .border(.blue)
+                    }
+                    Button {
+                        withAnimation {
+                            viewStore.isFullScreenVideoVisible = true
+                            viewStore.currentFeedbackViewType = .fillerWord
+                        }
+                    } label: {
+                        Text("벝은")
+                    }
+
                 }
+           
+                .onTapGesture {
+                    withAnimation {
+                        viewStore.isFullScreenVideoVisible = true
+                        viewStore.currentFeedbackViewType = .fillerWord
+                    }
+                }
+                .border(.blue)
                 .frame(
                     width: geometry.size.width,
                     height: maxHeight
@@ -103,6 +119,7 @@ extension VideoContainer {
         VideoContainer()
             .modelContainer(modelContainer)
             .environment(PracticeViewStore(
+                projectName: "",
                 practice: PracticeModel(
                     practiceName: "",
                     index: 0,

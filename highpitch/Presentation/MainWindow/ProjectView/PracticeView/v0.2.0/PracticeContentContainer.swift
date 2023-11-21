@@ -13,7 +13,8 @@ import SwiftData
 struct PracticeContentContainer: View {
     @Environment(PracticeViewStore.self)
     var viewStore
-    
+    @State
+    private var isRegisterd = false
 #if PREVIEW
     // MARK: - MockData
     @Query(sort: \PracticeModel.creatAt)
@@ -22,16 +23,28 @@ struct PracticeContentContainer: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            ZStack {
-                FullScreenVideoContainer()
-                SplitViewContainer()
-            }
-//            .padding(.bottom, .HPSpacing.xxxlarge)
-            if viewStore.isFullScreenTransition {
-                VideoControllerContainer()
+            if isRegisterd {
+                ZStack {
+                    FullScreenVideoContainer()
+                    SplitViewContainer()
+                }
+    //            .padding(.bottom, .HPSpacing.xxxlarge)
+                if viewStore.isFullScreenTransition {
+                    VideoControllerContainer()
+                }
             }
         }
         .onAppear {
+            if let videoPath = viewStore.practice.videoPath,
+               let audioPath = viewStore.practice.audioPath {
+                do {
+                    try viewStore.mediaManager.registerAudio(url: audioPath)
+                } catch {
+                    print("오디오 생성 실패")
+                }
+                viewStore.mediaManager.registerVideo(url: videoPath)
+            }
+            isRegisterd = true
             // MARK: - Add MockData
 #if PREVIEW
             if let sample = practices.first {
@@ -52,6 +65,7 @@ struct PracticeContentContainer: View {
     return PracticeContentContainer()
         .modelContainer(modelContainer)
         .environment(PracticeViewStore(
+            projectName: "",
             practice: PracticeModel(
                 practiceName: "",
                 index: 0,

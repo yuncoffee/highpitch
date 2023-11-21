@@ -28,6 +28,8 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var audioRecorder: AVAudioRecorder?
     var audioRecorderV2 = AudioRecorder()
     
+    /// 비디오 재생 관련 프로퍼티
+    var avPlayer: AVPlayer?
     /// 음성메모 재생 관련 프로퍼티
     /// audioPlayer.currentTime을 통해서 음성 이동하기
     var audioPlayer: AVAudioPlayer?
@@ -109,6 +111,7 @@ extension MediaManager: Recordable {
 extension MediaManager: AudioPlayable {
     func registerAudio(url: URL) throws {
         do {
+            avPlayer = AVPlayer(url: url)
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             // MARK: 음성 녹음 및 재생 볼륨 설정
             audioPlayer?.volume = 10.0
@@ -118,6 +121,7 @@ extension MediaManager: AudioPlayable {
         }
     }
     func play() {
+        avPlayer?.play()
         audioPlayer?.play()
         isPlaying = true
         if !(timer?.isValid ?? false) {
@@ -128,27 +132,34 @@ extension MediaManager: AudioPlayable {
     }
     func playAt(atTime: Double) {
         let offset = atTime/1000
+        let targetTime = CMTime(seconds: offset, preferredTimescale: 600)
+        avPlayer?.seek(to: targetTime)
         audioPlayer?.currentTime = offset
         currentTime = offset
     }
     ///
     func playAfter(second: Double) {
+        let targetTime = CMTime(seconds: second + (avPlayer?.currentTime().seconds ?? 0), preferredTimescale: 600)
+        avPlayer?.seek(to: targetTime)
         audioPlayer?.currentTime = second + (audioPlayer?.currentTime ?? 0)
     }
-    ///
+    ///0
     func stopPlaying() {
+        avPlayer?.pause()
         audioPlayer?.stop()
         isPlaying = false
         timer?.invalidate()
     }
     
     func pausePlaying() {
+        avPlayer?.pause()
         audioPlayer?.pause()
         isPlaying = false
         timer?.invalidate()
     }
     
     func resumePlaying() {
+        avPlayer?.play()
         audioPlayer?.play()
         isPlaying = true
     }

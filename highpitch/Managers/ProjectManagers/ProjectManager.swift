@@ -161,6 +161,7 @@ extension ProjectManager {
             isVisited: false,
             creatAt: Date().m4aNameToCreateAt(input: mediaManager.fileName),
             audioPath: URL.getPath(fileName: mediaManager.fileName, type: .audio),
+            videoPath: URL.getPath(fileName: mediaManager.fileName, type: .video),
             utterances: utterances,
             summary: PracticeSummaryModel(),
             remarkable: false,

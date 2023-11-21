@@ -36,7 +36,8 @@ struct AudioControllerView: View {
         .background(.ultraThinMaterial)
         //        .border(.HPComponent.stroke, width: 1, edges: [.top])
         .onAppear {
-            settingAudio(filePath: audioPath)
+            currentTime = audioPlayer.currentTime
+            //settingAudio(filePath: audioPath)
         }.onChange(of: audioPlayer.currentTime) { _, newValue in
             self.currentTime = newValue
             if newValue == 0 {
@@ -60,13 +61,13 @@ struct AudioControllerView: View {
 
 extension AudioControllerView {
     /// 음성파일 URL을 MediaManager에 등록
-    private func settingAudio(filePath: URL) {
-        do {
-            try audioPlayer.registerAudio(url: filePath)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    private func settingAudio(filePath: URL) {
+//        do {
+//            try audioPlayer.registerAudio(url: filePath)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
     private func play() {
         audioPlayer.play()
     }

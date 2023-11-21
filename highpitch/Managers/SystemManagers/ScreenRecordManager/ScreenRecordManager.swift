@@ -11,14 +11,14 @@ import Combine
 import OSLog
 import SwiftUI
 
-
+enum CaptureType {
+    case display
+    case window
+}
+@MainActor
 class ScreenRecordManager: ObservableObject {
     
-    /// The supported capture types.
-    enum CaptureType {
-        case display
-        case window
-    }
+    /// The supported capture types
     
     private let logger = Logger()
     
@@ -45,9 +45,9 @@ class ScreenRecordManager: ObservableObject {
     private var scaleFactor: Int { Int(NSScreen.main?.backingScaleFactor ?? 2) }
     
     /// A view that renders the screen content.
-    lazy var capturePreview: CapturePreview = {
-        CapturePreview()
-    }()
+//    lazy var capturePreview: CapturePreview = {
+//        CapturePreview()
+//    }()
     var captureDisplayPreviews: [CapturePreview] = []
     var captureWindowPreviews: [CapturePreview] = []
     
@@ -100,7 +100,6 @@ class ScreenRecordManager: ObservableObject {
     
     func startPreview() async {
         // Exit early if already running.
-        guard !isRunning else { return }
         
         if !isSetup {
             // Starting polling for available screen content.
@@ -112,12 +111,14 @@ class ScreenRecordManager: ObservableObject {
         captureWindowPreviews = []
         captureWindowEngines = []
         availableDisplays.forEach { display in
-            captureDisplayPreviews.append(CapturePreview(displayName: display.displayName))
-            captureDisplayEngines.append(CaptureEngineForPreview(label: display.displayName))
+            captureDisplayPreviews.append(
+                CapturePreview(displayName: display.displayName,type: CaptureType.display))
+            captureDisplayEngines.append(CaptureEngineForPreview())
         }
         availableWindows.forEach { window in
-            captureWindowPreviews.append(CapturePreview(displayName: window.displayName))
-            captureWindowEngines.append(CaptureEngineForPreview(label: window.displayName))
+            captureWindowPreviews.append(
+                CapturePreview(displayName: window.displayName,type: CaptureType.window))
+            captureWindowEngines.append(CaptureEngineForPreview())
         }
         for index in 0..<availableWindows.count {
             Task {
@@ -141,6 +142,7 @@ class ScreenRecordManager: ObservableObject {
                 let config = streamConfiguration(scDisplay: availableDisplays[index])
                 let filter = contentFilter(scDisplay: availableDisplays[index])
                 do {
+                    print(availableDisplays[index].displayName)
                     for try await frame in captureDisplayEngines[index]
                         .startCapture(configuration: config, filter: filter) {
                         captureDisplayPreviews[index].updateFrame(frame)
@@ -186,11 +188,7 @@ class ScreenRecordManager: ObservableObject {
             isRunning = true
             // Start the stream and await new video frames.
             for try await frame in captureEngine.startCapture(configuration: config, filter: filter, fileName: fileName) {
-                capturePreview.updateFrame(frame)
-                if contentSize != frame.size {
-                    // Update the content size if it changed.
-                    contentSize = frame.size
-                }
+
             }
         } catch {
             logger.error("\(error.localizedDescription)")
@@ -226,14 +224,13 @@ class ScreenRecordManager: ObservableObject {
     }
     private func contentFilter(scDisplay: SCDisplay) -> SCContentFilter {
         let filter: SCContentFilter
-        guard let display = selectedDisplay else { fatalError("No display selected.") }
         var excludedApps = [SCRunningApplication]()
         if isAppExcluded {
             excludedApps = availableApps.filter { app in
                 Bundle.main.bundleIdentifier == app.bundleIdentifier
             }
         }
-        filter = SCContentFilter(display: display,
+        filter = SCContentFilter(display: scDisplay,
                                  excludingApplications: excludedApps,
                                  exceptingWindows: [])
         return filter

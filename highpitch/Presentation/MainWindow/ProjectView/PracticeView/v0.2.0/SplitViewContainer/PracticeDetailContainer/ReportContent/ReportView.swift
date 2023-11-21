@@ -183,8 +183,9 @@ extension ReportView {
                 .systemFont(.caption, weight: .semibold)
                 .foregroundColor(Color.HPTextStyle.base)
                 .padding(.bottom, .HPSpacing.medium)
-            Rectangle()
-                .padding(.bottom, .HPSpacing.xxxlarge)
+            ReportSpeakingRateChart()
+                .padding(.horizontal, 65)
+                .padding(.bottom, 54)
             Rectangle()
                 .frame(maxWidth: .infinity, minHeight: 1, maxHeight: 1)
                 .foregroundColor(Color.HPComponent.stroke)
@@ -269,8 +270,11 @@ extension ReportView {
             
         }
         .frame(height: 108)
-        .background(Color("FCFBFF"))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .background(Color.HPComponent.Detail.background)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.HPComponent.Sidebar.background, lineWidth: 1)
+        )
     }
     
     @ViewBuilder

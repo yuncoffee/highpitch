@@ -123,7 +123,7 @@ extension PracticeViewStore {
     func returnMostVarianceTime() -> String {
         var answer = 0
         var temp = 0.0
-        var average = practice.summary.spmAverage
+        let average = practice.summary.spmAverage
         for sentence in practice.sentences
         where abs(average - sentence.spmValue) >= temp {
             temp = abs(average - sentence.spmValue)
@@ -131,6 +131,23 @@ extension PracticeViewStore {
             answer /= 1000
         }
         return "\"\(Date().secondToMS(Int(answer)))\""
+    }
+    
+    /// (문장 중앙 시간, SPM)
+    func getSentenceSpeakingRateData() -> [(Int, Double)] {
+        var answer: [(Int, Double)] = []
+        answer.append((0, practice.summary.spmAverage))
+        for sentence in getSortedSentences() {
+            answer.append((
+                Int(Double(sentence.startAt + sentence.endAt) / 2000.0),
+                sentence.spmValue
+            ))
+        }
+        answer.append((
+            Int(practice.summary.practiceLength),
+            practice.summary.spmAverage
+        ))
+        return answer
     }
     
     func getEpmRange() -> (first: Double, last: Double) {

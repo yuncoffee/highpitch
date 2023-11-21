@@ -19,6 +19,8 @@ struct MainWindowView: View {
     // MARK: - 데이터 저장을 위한 컨텍스트 객체
     @Environment(\.modelContext)
     var modelContext
+    @Environment(ProjectModel.self)
+    var selectedProject: ProjectModel?
     @Query(sort: \ProjectModel.creatAt)
     var projects: [ProjectModel]
     
@@ -43,6 +45,9 @@ struct MainWindowView: View {
         projectManager.current
     }
     
+    @Binding
+    var currentSelectedProject: ProjectModel?
+    
     var body: some View {
         @Bindable var systemManager = SystemManager.shared
         @Bindable var mediaManager = mediaManager
@@ -50,7 +55,6 @@ struct MainWindowView: View {
             navigationSidebar
         } detail: {
             navigationDetails
-           //ScreenSelectionView()
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
@@ -246,11 +250,9 @@ extension MainWindowView {
     var projectToolbar: some View {
         if let projectName = projectManager.current?.projectName {
             HPTopToolbar(title: projectName, completion: {
+                mediaManager.isStart = true
                 if let currentProject = projectManager.current {
-                    projectManager.playPractice(
-                        selectedProject: currentProject,
-                        mediaManager: mediaManager
-                    )
+                    currentSelectedProject = currentProject
                 }
             }, popOverContent: {
                 VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
@@ -294,7 +296,10 @@ extension MainWindowView {
 }
 
 #Preview {
-    MainWindowView()
+    @State
+    var selectedProject: ProjectModel?
+    
+    return MainWindowView(currentSelectedProject: $selectedProject)
         .environment(MediaManager())
         .environment(ProjectManager())
 }

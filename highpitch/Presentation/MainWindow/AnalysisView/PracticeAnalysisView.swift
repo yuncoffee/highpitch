@@ -57,9 +57,9 @@ struct PracticeAnalysisView: View {
                         AnalysisSpeedRateChart()
                             .padding(.bottom, .HPSpacing.xxsmall + .HPSpacing.xxxsmall)
                     }
+                    .padding(.vertical, .HPSpacing.xxsmall + .HPSpacing.xsmall)
+                    .padding(.horizontal, .HPSpacing.medium)
                 }
-                .padding(.vertical, .HPSpacing.xxsmall + .HPSpacing.xsmall)
-                .padding(.horizontal, .HPSpacing.medium)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             } else {
                 emptyView

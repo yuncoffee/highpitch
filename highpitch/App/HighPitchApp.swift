@@ -93,7 +93,7 @@ struct HighpitchApp: App {
 #if os(macOS)
         Window("mainwindow", id: "main") {
             if SystemManager.shared.isPassOnbarding {
-                MainWindowView()
+                MainWindowView(currentSelectedProject: $selectedProject)
                     .environment(practiceManager)
                     .environment(mediaManager)
                     .environment(projectManager)

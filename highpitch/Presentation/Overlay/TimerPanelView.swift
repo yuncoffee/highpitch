@@ -15,6 +15,10 @@ struct TimerPanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
+    let TIMER_PANEL_INFO = SystemManager.shared.instantFeedbackManager.TIMER_PANEL_INFO
+    let XMARK_RADIUS = SystemManager.shared.instantFeedbackManager.PANEL_XMARK_RADIUS
+    let XMARK_WIDTH = SystemManager.shared.instantFeedbackManager.PANEL_XMARK_CIRCLE_WIDTH
+    
     var formattedElapsedTime: String {
         let minutes = Int(elapsedTime) / 60
         let seconds = Int(elapsedTime) % 60
@@ -50,7 +54,10 @@ struct TimerPanelView: View {
                 }
             }
         }
-        .frame(width: 108, height: 56)
+        .frame(
+            width: TIMER_PANEL_INFO.size.width,
+            height: TIMER_PANEL_INFO.size.height
+        )
         .padding(18)
         .overlay {
             ZStack(alignment: .topTrailing) {
@@ -62,18 +69,30 @@ struct TimerPanelView: View {
                     } label: {
                         Circle()
                             .fill(Color.HPPrimary.lightness)
-                            .stroke(Color.HPPrimary.base, lineWidth: 2)
-                            .frame(width: 24, height: 24)
+                            .stroke(
+                                Color.HPPrimary.base,
+                                lineWidth: XMARK_WIDTH
+                            )
+                            .frame(
+                                width: XMARK_RADIUS * 2,
+                                height: XMARK_RADIUS * 2
+                            )
                             .overlay {
                                 Image(systemName: "xmark")
                                     .resizable()
-                                    .frame(width: 12, height: 12)
+                                    .frame(
+                                        width: XMARK_RADIUS,
+                                        height: XMARK_RADIUS
+                                    )
                                     .fontWeight(.black)
                                     .foregroundStyle(Color.HPPrimary.base)
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 52, y: -26)
+                    .offset(
+                        x: TIMER_PANEL_INFO.size.width / 2 - XMARK_WIDTH,
+                        y: XMARK_WIDTH - (TIMER_PANEL_INFO.size.height / 2)
+                    )
                 }
             }
         }
@@ -81,22 +100,18 @@ struct TimerPanelView: View {
             if value {
                 instantFeedbackManager.focusedPanel = .timer
             } else {
-                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                UserDefaults.standard.set( String(Int((panelController.panel?.frame.minX)!)), forKey: "TimerPanelX")
-                UserDefaults.standard.set(String(Int((panelController.panel?.frame.minY)!)), forKey: "TimerPanelY")
-                //                    print("TimerX: \(floatingPanelController.getPanelPosition()!.x)")
-                //                    print("TimerY: \(floatingPanelController.getPanelPosition()!.y)")
-                
-                print("floatingPanelController.panel?.frame.minX: \(panelController.panel?.frame.minX)")
-                print("floatingPanelController.panel?.frame.maxX: \(panelController.panel?.frame.maxX)")
-                print("floatingPanelController.panel?.frame.minY: \(panelController.panel?.frame.minY)")
-                print("floatingPanelController.panel?.frame.maxY: \(panelController.panel?.frame.maxY)")
-                
-                print("Int((NSScreen.main?.visibleFrame.height)!) - 56): \(Int((NSScreen.main?.visibleFrame.height)!) - 56))")
-                
                 instantFeedbackManager.focusedPanel = nil
             }
         }
-        .frame(width: 132, height: 80)
+        .frame(
+            width: instantFeedbackManager.getTotalFrameWidth(
+                width: TIMER_PANEL_INFO.size.width,
+                padding: XMARK_RADIUS
+            ),
+            height: instantFeedbackManager.getTotalFrameHeight(
+                height: TIMER_PANEL_INFO.size.height,
+                padding: XMARK_RADIUS
+            )
+        )
     }
 }

@@ -11,6 +11,8 @@ struct SavePanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
+    let SAVE_PANEL_INFO = SystemManager.shared.instantFeedbackManager.SAVE_PANEL_INFO
+    
     var body: some View {
         VStack {
             VStack(alignment: .listRowSeparatorTrailing) {
@@ -25,7 +27,6 @@ struct SavePanelView: View {
                     }
                     .buttonStyle(.plain)
                 }
-                
             }
             
             VStack {
@@ -45,7 +46,7 @@ struct SavePanelView: View {
             HStack(alignment: .center) {
                 HPButton(color: .HPGray.system200) {
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
-                } label: { type, size, color, expandable in
+                } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "저장하지 않기", icon: nil),
                         type: type,
@@ -65,8 +66,7 @@ struct SavePanelView: View {
                     SystemManager.shared.stopPractice()
                     NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
-                    
-                } label: { type, size, color, expandable in
+                } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "연습 저장하기", icon: nil),
                         type: type,
@@ -80,7 +80,7 @@ struct SavePanelView: View {
                 .frame(width: 144)
             }
         }
-        .frame(width: 420, height: 280)
+        .frame(width: SAVE_PANEL_INFO.size.width, height: SAVE_PANEL_INFO.size.height)
         .background(Color.white)
     }
 }

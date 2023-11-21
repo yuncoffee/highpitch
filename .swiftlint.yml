@@ -57,6 +57,7 @@ identifier_name:
     - box
     - day
     - top
+    - key
   allowed_symbols: ["_"]
 opt_in_rules:
   - missing_docs

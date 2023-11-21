@@ -61,5 +61,7 @@ final class SystemManager {
     }
     
     // MARK: 함수 테스트
+    var playPractice: () -> Void = {}
+    var pausePractice: () -> Void = {}
     var stopPractice: () -> Void = {}
 }

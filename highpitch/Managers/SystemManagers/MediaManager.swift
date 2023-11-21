@@ -38,6 +38,7 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var fileName: String = ""
     var stopPoint: TimeInterval?
     var isStart = false
+    
 }
 
 // MARK: - 음성메모 녹음 관련 메서드
@@ -109,9 +110,11 @@ extension MediaManager: Recordable {
 
 // MARK: - 음성메모 재생 관련 메서드
 extension MediaManager: AudioPlayable {
+    func registerVideo(url: URL) {
+        avPlayer = AVPlayer(url: url)
+    }
     func registerAudio(url: URL) throws {
         do {
-            avPlayer = AVPlayer(url: url)
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             // MARK: 음성 녹음 및 재생 볼륨 설정
             audioPlayer?.volume = 10.0
@@ -171,6 +174,11 @@ extension MediaManager: AudioPlayable {
     }
     func setCurrentTime(time: TimeInterval) {
         audioPlayer?.currentTime = time
+        let targetTime = CMTime(seconds: time, preferredTimescale: 600)
+        avPlayer?.seek(to: targetTime)
+    }
+    func getCurrentTime() -> TimeInterval {
+        return audioPlayer?.currentTime ?? 0
     }
 }
 
@@ -187,6 +195,7 @@ protocol Recordable {
     func stopRecording()
 }
 protocol AudioPlayable {
+    var audioPlayer: AVAudioPlayer? { get set }
     var isPlaying: Bool { get set }
     var currentTime: TimeInterval { get set }
     func registerAudio(url: URL) throws
@@ -197,4 +206,5 @@ protocol AudioPlayable {
     func getState() -> Bool
     func setCurrentTime(time: TimeInterval)
     func getDuration() -> Double
+    func getCurrentTime() -> TimeInterval
 }

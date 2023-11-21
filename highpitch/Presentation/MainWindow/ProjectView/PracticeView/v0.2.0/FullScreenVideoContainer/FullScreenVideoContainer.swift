@@ -13,6 +13,8 @@ import SwiftData
 struct FullScreenVideoContainer: View {
     @Environment(PracticeViewStore.self)
     var viewStore
+    @State
+    private var isRegister = false
     
 #if PREVIEW
     // MARK: - MockData
@@ -47,7 +49,11 @@ struct FullScreenVideoContainer: View {
             ZStack(alignment: .topLeading) {
                 /// video
                 VStack {
-                    //                    Text("Video")
+                    if let videoPath = viewStore.practice.videoPath {
+                        if let avPlayer = viewStore.mediaManager.avPlayer {
+                            VideoView(avPlayer: avPlayer)
+                        }
+                    }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity )
                 .background(viewStore.isFullScreenTransition ? Color.brown : .clear)
@@ -246,6 +252,7 @@ extension FullScreenVideoContainer {
     return FullScreenVideoContainer()
         .modelContainer(modelContainer)
         .environment(PracticeViewStore(
+            projectName: "",
             practice: PracticeModel(
                 practiceName: "",
                 index: 0,

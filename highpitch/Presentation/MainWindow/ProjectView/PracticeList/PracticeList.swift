@@ -72,6 +72,7 @@ struct PracticeList: View {
                         .navigationDestination(for: PracticeModel.self) { practice in
                             PracticeView(
                                 viewStore: PracticeViewStore(
+                                    projectName: projectManager.current?.projectName ?? "",
                                     practice: practice,
                                     mediaManager: MediaManager()
                                 ),

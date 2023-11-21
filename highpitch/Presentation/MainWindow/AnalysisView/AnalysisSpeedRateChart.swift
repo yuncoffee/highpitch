@@ -88,7 +88,7 @@ extension AnalysisSpeedRateChart {
                 if practice.summary.minSpm == rawRange.first! {
                     PointMark(
                         x: .value("연습회차", index + 1),
-                        y: .value(title, practice.summary.maxSpm)
+                        y: .value(title, practice.summary.minSpm)
                     )
                     .symbolSize(113)
                     .offset(y: practice.summary.maxSpm == practice.summary.minSpm ? 0 : -8)

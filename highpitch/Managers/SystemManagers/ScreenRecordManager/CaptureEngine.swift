@@ -94,7 +94,6 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
                 audioInput?.expectsMediaDataInRealTime = true
                 
-                
                 captureSession = AVCaptureSession()
                 
                 guard let captureSession = captureSession else {
@@ -151,12 +150,12 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 stream = SCStream(filter: filter, configuration: configuration, delegate: streamOutput)
                 
                 // Add a stream output to capture screen content.
-                try stream?.addStreamOutput(streamOutput!, type: .screen, sampleHandlerQueue: videoSampleBufferQueue)
-                try stream?.addStreamOutput(streamOutput!, type: .audio, sampleHandlerQueue: audioSampleBufferQueue)
+                try stream?.addStreamOutput(
+                    streamOutput!, type: .screen, sampleHandlerQueue: videoSampleBufferQueue)
+                try stream?.addStreamOutput(
+                    streamOutput!, type: .audio, sampleHandlerQueue: audioSampleBufferQueue)
                 stream?.startCapture()
                 //
-                //captureSession.startRunning()
-                //audioDataOutput?.setSampleBufferDelegate(self, queue: voiceSampleBufferQueue)
                 assetWriter!.startSession(atSourceTime: .zero)
                 streamOutput?.sessionStarted = true
                 //

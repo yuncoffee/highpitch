@@ -1,4 +1,11 @@
 //
+//  ReportFillerWordChart.swift
+//  highpitch
+//
+//  Created by 이용준의 Macbook on 11/21/23.
+//
+
+//
 //  UsageTopTierChart.swift
 //  highpitch
 //
@@ -11,7 +18,7 @@
 import SwiftUI
 import Charts
 
-struct UsageTopTierChart: View {
+struct ReportFillerWordChart: View {
     var fillerWordCount: Int
     var fillerWords: [FillerWordModel]
     
@@ -103,7 +110,7 @@ struct UsageTopTierChart: View {
     }
 }
 
-extension UsageTopTierChart {
+extension ReportFillerWordChart {
     @ViewBuilder
     var header: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -118,7 +125,25 @@ extension UsageTopTierChart {
     }
 }
 
-extension UsageTopTierChart {
+/// 각 습관어의 사용 횟수를 기록하기 위한 구조체입니다.
+struct FillerCountData: Identifiable {
+    var id = UUID()
+    var index: Int
+    var value: Int
+    var word: String
+    var color: Color?
+}
+
+/// donut chart의 annotation offset을 설정하기 위한 구조체입니다.
+struct FillerCountOffset: Identifiable {
+    var id = UUID()
+    var index: Int
+    var value: Int
+    var word: String
+    var offset: CGSize
+}
+
+extension ReportFillerWordChart {
     /// 습관어 사용 횟수를 '순서대로' 반환합니다.
     func getFillerCount() -> [FillerCountData] {
         if fillerWordCount == 0 {
@@ -210,3 +235,4 @@ extension UsageTopTierChart {
         return returnContainer
     }
 }
+

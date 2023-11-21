@@ -23,6 +23,8 @@ struct ScreenSelectionView: View {
     @Environment(ProjectModel.self)
     var selectedProject: ProjectModel?
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
+    @State
+    private var selectedName = ""
     
     var body: some View {
         VStack {
@@ -55,34 +57,50 @@ struct ScreenSelectionView: View {
 }
 extension ScreenSelectionView {
     var screenItemView: some View {
-        ScrollView {
+        let views: [CapturePreview] = 
+        screenRecorder.captureDisplayPreviews + screenRecorder.captureWindowPreviews
+        return ScrollView {
             LazyVGrid(columns: columns, spacing: .HPSpacing.large) {
-                ForEach(screenRecorder.availableWindows, id: \.self) { window in
+                ForEach(views, id: \.self) { preview in
                     Button {
-                        screenRecorder.selectedWindow = window
-                        screenRecorder.captureType = .window
+                        if preview.type == .window {
+                            screenRecorder.selectedWindow = screenRecorder.availableWindows
+                                .first(where: { window in
+                                window.displayName == preview.displayName
+                            })
+                            screenRecorder.captureType = .window
+                        } else {
+                            screenRecorder.selectedDisplay = screenRecorder.availableDisplays
+                                .first(where: { display in
+                                display.displayName == preview.displayName
+                            })
+                            screenRecorder.captureType = .display
+                        }
+                        selectedName = preview.displayName
                     } label: {
                         VStack(alignment: .center) {
-                            screenRecorder.captureWindowPreviews.first(
-                                where: { $0.displayName == window.displayName })
+                            preview
                                 .frame(width:160,height: 104)
                                 .aspectRatio(screenRecorder.contentSize, contentMode: .fit)
                                 .border(Color.HPPrimary.base,
-                                        width: (screenRecorder.selectedWindow == window && !isChecked) ? 6 : 0)
+                                        width: (preview.displayName == selectedName && !isChecked) ? 6 : 0)
                                 .cornerRadius(.HPCornerRadius.small)
                                 .padding(0)
-                            Text(window.owningApplication!.applicationName)
+                            Text(preview.displayName.split(separator: ":").first ?? "")
                                 .systemFont(.caption, weight: .semibold)
                                 .foregroundColor(.HPTextStyle.dark)
                         }
                     }
                     .buttonStyle(.plain)
-                    .opacity((screenRecorder.selectedWindow == window && !isChecked) ? 1 : 0.5)
+                    .opacity((preview.displayName == selectedName && !isChecked) ? 1 : 0.5)
                     .disabled(isChecked)
                     .padding(0)
                 }
             }
             .padding(0)
+        }
+        .onChange(of: views) { _, _ in
+            setDefalut()
         }
     }
     var bottomButtons: some View {
@@ -123,12 +141,18 @@ extension ScreenSelectionView {
         }.padding(.bottom, .HPSpacing.small)
     }
 }
-//MARK: 기능
+// MARK: 기능
 extension ScreenSelectionView {
+    private func setDefalut() {
+        print("hirooo")
+        screenRecorder.selectedDisplay = screenRecorder.availableDisplays.first ?? nil
+        screenRecorder.captureType = .display
+        selectedName = screenRecorder.availableDisplays.first?.displayName ?? "bb"
+        print(selectedName)
+    }
     private func registerNotification() {
         NotificationCenter.default.addObserver(forName: Notification.Name("stopButtonClicked"),
                                                object: nil, queue: nil) { value in
-            print("hello hello")
             stopCapture()
         }
     }
@@ -148,7 +172,7 @@ extension ScreenSelectionView {
         fileName = Date().makeM4aFileName()
         Task {
             await screenRecorder.stopPreview()
-            //audioRecorder.startRecording(filename: fileName)
+            // audioRecorder.startRecording(filename: fileName)
             // MARK: - 연습 시작
             SystemManager.shared.startInstantFeedback()
             playPractice()
@@ -163,7 +187,7 @@ extension ScreenSelectionView {
     }
     func stopCapture() {
         Task {
-            //audioRecorder.stopRecording()
+            // audioRecorder.stopRecording()
             await screenRecorder.stopPreview()
             await screenRecorder.stop()
             SystemManager.shared.stopInstantFeedback()
@@ -172,7 +196,7 @@ extension ScreenSelectionView {
                 audioURL: URL.getPath(fileName: fileName, type: .audio),
                 outputURL: URL.getPath(fileName: fileName + "_merge", type: .video)
             ) { error in
-                print(error)
+                print(error ?? "nil")
             }
         }
     }

@@ -39,6 +39,8 @@
 		11A9F2832B09EFE7003CAFFD /* AnalysisFWPMChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2822B09EFE7003CAFFD /* AnalysisFWPMChart.swift */; };
 		11A9F2852B09F009003CAFFD /* AnalysisSpeedRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2842B09F009003CAFFD /* AnalysisSpeedRateChart.swift */; };
 		11A9F2882B0C2D66003CAFFD /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2872B0C2D66003CAFFD /* ReportView.swift */; };
+		11A9F28A2B0CA624003CAFFD /* ReportFillerWordChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F2892B0CA624003CAFFD /* ReportFillerWordChart.swift */; };
+		11A9F28C2B0CDBD4003CAFFD /* ReportSpeakingRateChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A9F28B2B0CDBD4003CAFFD /* ReportSpeakingRateChart.swift */; };
 		11B94A252B01A2160086DF08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11B94A232B01A2160086DF08 /* GoogleService-Info.plist */; };
 		11B94A262B01A2160086DF08 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 11B94A242B01A2160086DF08 /* SecretKey.plist */; };
 		11EF719B2ADADBA400D991E6 /* FillerWordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF719A2ADADBA400D991E6 /* FillerWordList.swift */; };
@@ -203,6 +205,8 @@
 		11A9F2822B09EFE7003CAFFD /* AnalysisFWPMChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisFWPMChart.swift; sourceTree = "<group>"; };
 		11A9F2842B09F009003CAFFD /* AnalysisSpeedRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisSpeedRateChart.swift; sourceTree = "<group>"; };
 		11A9F2872B0C2D66003CAFFD /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		11A9F2892B0CA624003CAFFD /* ReportFillerWordChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportFillerWordChart.swift; sourceTree = "<group>"; };
+		11A9F28B2B0CDBD4003CAFFD /* ReportSpeakingRateChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSpeakingRateChart.swift; sourceTree = "<group>"; };
 		11B94A232B01A2160086DF08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		11B94A242B01A2160086DF08 /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		11EF719A2ADADBA400D991E6 /* FillerWordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordList.swift; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 			isa = PBXGroup;
 			children = (
 				11A9F2872B0C2D66003CAFFD /* ReportView.swift */,
+				11A9F2892B0CA624003CAFFD /* ReportFillerWordChart.swift */,
+				11A9F28B2B0CDBD4003CAFFD /* ReportSpeakingRateChart.swift */,
 			);
 			path = ReportContent;
 			sourceTree = "<group>";
@@ -1281,6 +1287,7 @@
 				1DED4EF72AFFE4F7000109B3 /* HPArcodianView.swift in Sources */,
 				1134695E2B04A8C500CA16AE /* ProjectOutLine.swift in Sources */,
 				1D09AF742AD98C0900C1400E /* Date+Extension.swift in Sources */,
+				11A9F28A2B0CA624003CAFFD /* ReportFillerWordChart.swift in Sources */,
 				437373EB2B05E5AC00DEEDBD /* VersionedSchema2.swift in Sources */,
 				1DE8B64E2AECDC1200E0746E /* HPLabelStyle.swift in Sources */,
 				10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */,
@@ -1380,6 +1387,7 @@
 				10F3F27C2B04976800CFC817 /* VideoWithAudioRecordEngine.swift in Sources */,
 				1D1EC6962AFB6DC500CB72E9 /* PracticeContentContainer.swift in Sources */,
 				1D98941F2AE6199000DE57A1 /* PracticeList.swift in Sources */,
+				11A9F28C2B0CDBD4003CAFFD /* ReportSpeakingRateChart.swift in Sources */,
 				1D5BE1AD2B0B93CC003DCCE4 /* OnboardingView.swift in Sources */,
 				1D600BA72AF9DCBA001FC5EB /* PracticeViewStore.swift in Sources */,
 				1D09AF6E2AD98B0100C1400E /* NotificationManager.swift in Sources */,

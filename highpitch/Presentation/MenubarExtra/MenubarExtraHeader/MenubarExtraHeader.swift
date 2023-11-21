@@ -13,20 +13,14 @@ struct MenubarExtraHeader: View {
     private var openSettings
     @Environment(\.openWindow)
     private var openWindow
-    @Environment(AppleScriptManager.self)
-    private var appleScriptManager
     @Environment(ProjectManager.self)
     private var projectManager
-    @Environment(KeynoteManager.self)
-    private var keynoteManager
     @Environment(MediaManager.self)
     private var mediaManager
     @Environment(\.modelContext)
     var modelContext
     @Binding
     var selectedProject: ProjectModel?
-    @Binding
-    var selectedKeynote: OpendKeynote?
     @Binding
     var isRecording: Bool
     
@@ -122,7 +116,7 @@ extension MenubarExtraHeader {
                 print("11111")
                 mediaManager.isStart = true
                 GAManager.shared.analyticsOnClick(.play)
-                //playPractice()
+//                playPractice()
             } else if mediaManager.isPause {
                 print("22222")
                 playPractice()
@@ -182,8 +176,6 @@ extension MenubarExtraHeader {
         print("------연습이 시작되었습니다.-------")
         projectManager.playPractice(
             selectedProject: selectedProject,
-            appleScriptManager: appleScriptManager,
-            keynoteManager: keynoteManager,
             mediaManager: mediaManager
         )
     }
@@ -198,7 +190,6 @@ extension MenubarExtraHeader {
     private func stopPractice() {
         projectManager.stopPractice(
             mediaManager: mediaManager,
-            keynoteManager: keynoteManager,
             modelContext: modelContext
         )
     }

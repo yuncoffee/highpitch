@@ -26,8 +26,6 @@ extension ProjectManager {
     // MARK: 연습 시작하기
     func playPractice(
         selectedProject: ProjectModel?,
-        appleScriptManager: AppleScriptManager,
-        keynoteManager: KeynoteManager,
         mediaManager: MediaManager
     ) {
         if(mediaManager.checkMicrophonePermission()) {
@@ -51,7 +49,6 @@ extension ProjectManager {
     @MainActor
     func stopPractice(
         mediaManager: MediaManager,
-        keynoteManager: KeynoteManager,
         modelContext: ModelContext
     ) {
         if !mediaManager.isRecording {
@@ -75,7 +72,7 @@ extension ProjectManager {
                 /// 시작할 때 프로젝트 세팅이 안되어 있을 경우, 새 프로젝트를 생성 하고, temp에 반영한다.
                 /// temp는 새로 만들어진 ProjectModel.persistentModelID 을 들고 있다.
                 if temp == nil {
-                    makeNewProject(keynoteManager: keynoteManager, modelContext: modelContext)
+                    makeNewProject(modelContext: modelContext)
                 }
                 /// 생성한 ID로 프로젝트 모델을 가져온다.
                 guard let id = self.temp else { return }
@@ -141,18 +138,13 @@ extension ProjectManager {
         return returnValue
     }
     
-    private func makeNewProject(keynoteManager: KeynoteManager, modelContext: ModelContext) {
+    private func makeNewProject(modelContext: ModelContext) {
         let newProject = ProjectModel(
             projectName: "\(Date.now.formatted())",
             creatAt: Date.now.formatted(),
             keynotePath: nil,
             keynoteCreation: "temp"
         )
-        if let selectedKeynote = keynoteManager.temp {
-            newProject.keynoteCreation = selectedKeynote.creation
-            newProject.keynotePath = URL(fileURLWithPath: selectedKeynote.path)
-            newProject.projectName = selectedKeynote.getFileName().components(separatedBy: ".")[0]
-        }
         modelContext.insert(newProject)
         temp = newProject.persistentModelID
     }

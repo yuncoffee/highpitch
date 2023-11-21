@@ -18,6 +18,8 @@ struct PracticeDetailContainer: View {
     
     @State
     private var scrollY: CGFloat = 0.0
+    @State
+    private var shouldPresentSheet = false
     
 #if PREVIEW
     // MARK: - MockData
@@ -83,7 +85,7 @@ extension PracticeDetailContainer {
                 segmentedControl
                 Spacer()
                 HPButton(type: .text, color: .HPTextStyle.light) {
-                    print("리포트 보기")
+                    shouldPresentSheet = true
                 } label: { type, size, color, expandable in
                     HPLabel(
                         content: ("리포트 보기", nil),
@@ -94,6 +96,14 @@ extension PracticeDetailContainer {
                     )
                 }
                 .fixedSize()
+                .sheet(isPresented: $shouldPresentSheet) {
+                    print("리포트 보기")
+                } content: {
+                    ReportView()
+                        .onTapGesture {
+                            shouldPresentSheet = false
+                        }
+                }
             }
             if viewStore.currentFeedbackViewType == .speed {
                 speedTabRadios

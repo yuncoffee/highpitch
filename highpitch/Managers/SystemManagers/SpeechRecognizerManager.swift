@@ -257,7 +257,16 @@ final class SpeechRecognizerManager {
                 print("access denied")
             }
         }
-        while(!isFinal) {
+        // !isFinal && answer.isEmpty && CACurrentMediaTime() - currentTime > 20.0
+        // isFinal
+        /// 시작한지 15초가 지났지만 isFinal이 false이며 answer가 비었다면 종료합니다.
+        /// isFinal이 true라면 종료합니다.
+        while(
+            (isFinal
+            || !answer.isEmpty
+            || CACurrentMediaTime() - currentTime < 15.0)
+            && !isFinal
+        ) {
             do {
                 try await Task.sleep(nanoseconds: 100_000_000)
             } catch {

@@ -22,7 +22,7 @@ final class InstantFeedbackManager {
     var isDetailSettingActive = false
     var focusedPanel: InstantPanel?
     var activePanels: Set<InstantPanel> = []
-    var speechRecognizerManager: SpeechRecognizerManager?
+    var speechRecognizerManager: SpeechRecognizerManager? = SpeechRecognizerManager()
     var feedbackPanelControllers: [InstantPanel:PanelController] = [:]
     
     // Panel들의 위치

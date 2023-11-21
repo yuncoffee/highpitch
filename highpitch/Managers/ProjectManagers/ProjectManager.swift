@@ -60,49 +60,47 @@ extension ProjectManager {
         /// mediaManager.fileName에 음성 파일이 저장되어있을거다!!
         /// 녹음본 파일 위치 : /Users/{사용자이름}/Documents/HighPitch/Audio.YYYYMMDDHHMMSS.m4a
         /// ReturnZero API를 이용해서 UtteranceModel완성
-        DispatchQueue.main.asyncAfter(deadline: .now()+5) {
-            Task { [self] in
-                let newUtteranceModels = await self.makeNewUtterances(mediaManager: mediaManager)
-                /// 아무말도 하지 않았을 경우 종료한다.
-                if newUtteranceModels.isEmpty {
-                    print("none of words!")
-                    SystemManager.shared.isAnalyzing = false
-                    return
-                }
-                /// 시작할 때 프로젝트 세팅이 안되어 있을 경우, 새 프로젝트를 생성 하고, temp에 반영한다.
-                /// temp는 새로 만들어진 ProjectModel.persistentModelID 을 들고 있다.
-                if temp == nil {
-                    makeNewProject(modelContext: modelContext)
-                }
-                /// 생성한 ID로 프로젝트 모델을 가져온다.
-                guard let id = self.temp else { return }
-                guard let tempProject = modelContext.model(for: id) as? ProjectModel else { return }
-                let newPracticeModel = makeNewPractice(
-                    project: tempProject,
-                    utterances: newUtteranceModels,
-                    mediaManager: mediaManager
-                )
-                /// 프로젝트에 추가한다.
-                tempProject.practices.append(newPracticeModel)
-                do {
-                    let audioPlayer = try AVAudioPlayer(contentsOf: URL(
-                        fileURLWithPath: URL.getPath(fileName: mediaManager.fileName,type: .audio
-                    ).path()))
-                    newPracticeModel.summary.practiceLength = audioPlayer.duration
-                    print("길이: ", audioPlayer.duration)
-                } catch {
-                    print("오디오 플레이어를 생성하는 중 오류 발생: \(error.localizedDescription)")
-                }
-                /// words, sentences, summary를 처리한다.
-                PracticeManager.getPracticeDetail(practice: newPracticeModel)
-                temp = nil
-                if current == nil {
-                    current = tempProject
-                }
-                NotificationManager.shared.sendNotification(
-                    name: newPracticeModel.creatAt
-                )
+        Task { [self] in
+            let newUtteranceModels = await self.makeNewUtterances(mediaManager: mediaManager)
+            /// 아무말도 하지 않았을 경우 종료한다.
+            if newUtteranceModels.isEmpty {
+                print("none of words!")
+                SystemManager.shared.isAnalyzing = false
+                return
             }
+            /// 시작할 때 프로젝트 세팅이 안되어 있을 경우, 새 프로젝트를 생성 하고, temp에 반영한다.
+            /// temp는 새로 만들어진 ProjectModel.persistentModelID 을 들고 있다.
+            if temp == nil {
+                makeNewProject(modelContext: modelContext)
+            }
+            /// 생성한 ID로 프로젝트 모델을 가져온다.
+            guard let id = self.temp else { return }
+            guard let tempProject = modelContext.model(for: id) as? ProjectModel else { return }
+            let newPracticeModel = makeNewPractice(
+                project: tempProject,
+                utterances: newUtteranceModels,
+                mediaManager: mediaManager
+            )
+            /// 프로젝트에 추가한다.
+            tempProject.practices.append(newPracticeModel)
+            do {
+                let audioPlayer = try AVAudioPlayer(contentsOf: URL(
+                    fileURLWithPath: URL.getPath(fileName: mediaManager.fileName,type: .audio
+                ).path()))
+                newPracticeModel.summary.practiceLength = audioPlayer.duration
+                print("길이: ", audioPlayer.duration)
+            } catch {
+                print("오디오 플레이어를 생성하는 중 오류 발생: \(error.localizedDescription)")
+            }
+            /// words, sentences, summary를 처리한다.
+            PracticeManager.getPracticeDetail(practice: newPracticeModel)
+            temp = nil
+            if current == nil {
+                current = tempProject
+            }
+            NotificationManager.shared.sendNotification(
+                name: newPracticeModel.creatAt
+            )
         }
     }
     

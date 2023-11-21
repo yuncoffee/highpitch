@@ -76,7 +76,7 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 ]
                 videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: outputSettings)
                 videoInput!.expectsMediaDataInRealTime = true
-                //
+                
                 guard AVCaptureDevice.default(for: .audio) != nil else {
                     print("No audio device found")
                     return
@@ -94,7 +94,6 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
                 audioInput?.expectsMediaDataInRealTime = true
                 
-                
                 captureSession = AVCaptureSession()
                 
                 guard let captureSession = captureSession else {
@@ -103,7 +102,15 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 }
                 
                 captureSession.beginConfiguration()
-                let audioDevice = AVCaptureDevice.default(for: .audio)
+                
+                let audioDevices = AVCaptureDevice.DiscoverySession(deviceTypes: [.microphone], mediaType: .audio, position: .unspecified).devices
+                audioDevices.map { item in
+                    print(item.localizedName)
+                    print(item.deviceType)
+                    print(item.position)
+                }
+                
+                let audioDevice = AVCaptureDevice.default(.microphone, for: .audio, position: .unspecified)
                 let deviceInput = try AVCaptureDeviceInput(device: audioDevice!)
                 
                 if captureSession.canAddInput(deviceInput) {

@@ -110,6 +110,7 @@ extension MainWindowView {
 //        } else {
 //            
 //        }
+//        UserDefaults.standard.set(true, forKey: "isPassOnbarding")
         if !unVisitedPractices.isEmpty {
             SystemManager.shared.hasUnVisited = true
         }

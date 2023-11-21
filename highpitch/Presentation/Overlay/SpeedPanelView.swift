@@ -123,6 +123,7 @@ extension SpeedPanelView {
         )
         .frame(width: 68, height: 68)
         .animation(.bouncy, value: realTimeRate)
+        .animation(.bouncy, value: isSpeaking)
     }
     func speedIndicatorTrack() -> some View {
         RingShape(

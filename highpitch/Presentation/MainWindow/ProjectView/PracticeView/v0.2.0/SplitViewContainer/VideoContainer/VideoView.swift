@@ -6,15 +6,11 @@
 //
 
 import SwiftUI
-
-import SwiftUI
 import AVKit
 
 struct VideoView: NSViewRepresentable {
     typealias NSViewType = NSView
-    
-    var videoURL: URL
-    var avPlayer: AVPlayer
+    let avPlayer: AVPlayer
     
     func makeNSView(context: Context) -> NSView {
         let playerView = AVPlayerView()
@@ -27,7 +23,3 @@ struct VideoView: NSViewRepresentable {
         // Update code if needed
     }
 }
-
-//#Preview {
-//    VideoView()
-//}

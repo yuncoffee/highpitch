@@ -7,14 +7,16 @@ A view that renders a video frame.
 
 import SwiftUI
 
-struct CapturePreview: NSViewRepresentable {
+struct CapturePreview: NSViewRepresentable, Hashable {
     
     // A layer that renders the video contents.
     private let contentLayer = CALayer()
-    var displayName: String?
+    var displayName: String
+    var type: CaptureType
     
-    init(displayName: String? = nil) {
+    init(displayName: String, type: CaptureType) {
         self.displayName = displayName
+        self.type = type
         contentLayer.contentsGravity = .resizeAspect
     }
     

@@ -18,6 +18,10 @@ struct SpeedPanelView: View {
         instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 0
     }
     
+    private var isSpeaking: Bool {
+        instantFeedbackManager.speechRecognizerManager?.isSpeaking ?? false
+    }
+    
     private var underSpeedRate: Double {
         calcSpeedRate(rate: DEFUALT_SPEED - 104.1)
     }
@@ -31,7 +35,9 @@ struct SpeedPanelView: View {
             VStack(spacing: .zero) {
                 ZStack {
                     speedIndicatorTrack()
-                    speedIndicator(percent: calcSpeedRate(rate: realTimeRate))
+                    if isSpeaking {
+                        speedIndicator(percent: calcSpeedRate(rate: realTimeRate))
+                    }
                     Text("말 빠르기")
                         .systemFont(.caption)
                         .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
@@ -89,9 +95,6 @@ struct SpeedPanelView: View {
             instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
             instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
             #endif
-        }
-        .onChange(of: realTimeRate) { _, newValue in
-            var percent = calcSpeedRate(rate: newValue)
         }
     }
 }

@@ -11,6 +11,7 @@ struct OnboardingView: View {
     @State
     private var processCount = 0
     let IMAGE_SIZE = (width: 636.0, height: 628.0)
+    let LEFT_CONTAINER_WIDTH = 364.0
 
     var body: some View {
         HStack(spacing: .zero) {
@@ -21,6 +22,28 @@ struct OnboardingView: View {
         }
         .toolbarBackground(.hidden)
         .ignoresSafeArea()
+    }
+}
+
+extension OnboardingView {
+    private func goToPrev() {
+        withAnimation {
+            if processCount > 0 {
+                processCount -= 1
+            }
+        }
+    }
+    
+    private func goToNext() {
+        withAnimation {
+            if processCount < 5 {
+                processCount += 1
+            }
+            if processCount == 5 {
+                SystemManager.shared.isPassOnbarding = true
+                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
+            }
+        }
     }
 }
 
@@ -54,70 +77,17 @@ extension OnboardingView {
             Spacer()
             VStack(alignment: .leading, spacing: .HPSpacing.xxsmall) {
                 HStack {
-                    Button {
-                        withAnimation {
-                            if processCount > 0 {
-                                processCount -= 1
-                            }
-                        }
-                    } label: {
-                        Text("이전")
-                            .systemFont(.footnote, weight: .medium)
-                            .foregroundStyle(Color.HPTextStyle.dark)
-                            .padding(.vertical, .HPSpacing.xxxsmall)
-                            .padding(.horizontal, .HPSpacing.xsmall)
-                            .frame(maxWidth: 60, maxHeight: 40)
-                            .background(
-                                RoundedRectangle(cornerRadius: .HPSpacing.xxxsmall)
-                                    .fill(Color.HPGray.system200)
-                                    .stroke(Color.HPComponent.stroke)
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: .HPSpacing.xxxsmall))
-                            
-                    }
-                    .buttonStyle(.plain)
-                    .contentShape(Rectangle())
-                    HPButton(type: .blockFill(.HPCornerRadius.medium), size: .large) {
-                        withAnimation {
-                            if processCount < 5 {
-                                processCount += 1
-                            }
-                            if processCount == 5 {
-                                SystemManager.shared.isPassOnbarding = true
-                                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
-                            }
-                        }
-                    } label: { type, size, color, expandable in
-                        HPLabel(
-                            content: (processCount == 5 ? "하이피치 시작하기" : "다음", nil),
-                            type: type,
-                            size: size,
-                            color: color,
-                            expandable: expandable
-                        )
-                    }
-                    .frame(maxWidth: 128)
+                    prevButton
+                    nextButton
                 }
-                HPButton(type: .text, size: .small, color: .HPTextStyle.base) {
-                    SystemManager.shared.isPassOnbarding = true
-                } label: { type, size, color, expandable in
-                    HPLabel(
-                        content: ("건너뛰기", "chevron.right"),
-                        type: type,
-                        size: size,
-                        color: color, alignStyle: .textWithIcon,
-                        expandable: expandable, 
-                        fontStyle: .systemDetail(.caption, .semibold)
-                    )
-                }
-                .fixedSize()
+                skipButton
             }
             .padding(.bottom, .HPSpacing.large)
             .frame(alignment: .leading)
         }
         .padding(.top, .HPSpacing.xxxlarge)
         .padding(.horizontal, .HPSpacing.xxlarge)
-        .frame(minWidth: 364, maxWidth: 364, maxHeight:.infinity, alignment: .topLeading)
+        .frame(minWidth: LEFT_CONTAINER_WIDTH, maxWidth: LEFT_CONTAINER_WIDTH, maxHeight:.infinity, alignment: .topLeading)
         .background(Color.HPGray.systemWhite)
         .zIndex(10.0)
     }
@@ -150,6 +120,62 @@ extension OnboardingView {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    var prevButton: some View {
+        Button {
+            goToPrev()
+        } label: {
+            Text("이전")
+                .systemFont(.footnote, weight: .medium)
+                .foregroundStyle(Color.HPTextStyle.dark)
+                .padding(.vertical, .HPSpacing.xxxsmall)
+                .padding(.horizontal, .HPSpacing.xsmall)
+                .frame(maxWidth: 60, maxHeight: 40)
+                .background(
+                    RoundedRectangle(cornerRadius: .HPSpacing.xxxsmall)
+                        .fill(Color.HPGray.system200)
+                        .stroke(Color.HPComponent.stroke)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: .HPSpacing.xxxsmall))
+                
+        }
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+    }
+    
+    @ViewBuilder
+    var nextButton: some View {
+        HPButton(type: .blockFill(.HPCornerRadius.medium), size: .large) {
+            goToNext()
+        } label: { type, size, color, expandable in
+            HPLabel(
+                content: (processCount == 5 ? "하이피치 시작하기" : "다음", nil),
+                type: type,
+                size: size,
+                color: color,
+                expandable: expandable
+            )
+        }
+        .frame(maxWidth: 128)
+    }
+    
+    @ViewBuilder
+    var skipButton: some View {
+        HPButton(type: .text, size: .small, color: .HPTextStyle.base) {
+            SystemManager.shared.isPassOnbarding = true
+        } label: { type, size, color, expandable in
+            HPLabel(
+                content: ("건너뛰기", "chevron.right"),
+                type: type,
+                size: size,
+                color: color, alignStyle: .textWithIcon,
+                expandable: expandable,
+                fontStyle: .systemDetail(.caption, .semibold)
+            )
+        }
+        .fixedSize()
     }
 }
 

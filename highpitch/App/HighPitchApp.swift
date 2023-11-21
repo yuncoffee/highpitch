@@ -77,12 +77,10 @@ struct HighpitchApp: App {
         if UserDefaults.standard.string(forKey: "recordSaveCommand") == nil {
             UserDefaults.standard.set("Command + Control + Esc", forKey: "recordSaveCommand")
         }
-        
         // UserDefaults에서 명령어조합 가져와서 hotKey로 세팅. 초기 함수 연결은 onAppear에서 한다.
         systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
         systemManager.hotkeyPause = stringToHotKeySetting(input: systemManager.recordPauseCommand)
         systemManager.hotkeySave = stringToHotKeySetting(input: systemManager.recordSaveCommand)
-        // MARK: - 테스트
         systemManager.playPractice = playPractice
         systemManager.pausePractice = pausePractice
         systemManager.stopPractice = stopPractice

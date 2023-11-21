@@ -75,14 +75,17 @@ extension VideoContainer {
             GeometryReader { geometry in
                 let maxHeight = geometry.size.height - 96
                 VStack {
-                    Text("전체 화면 벝은")
-                        .onTapGesture {
-                            withAnimation {
-                                viewStore.isFullScreenVideoVisible = true
-                                viewStore.currentFeedbackViewType = .fillerWord
+                    if let audioPath = viewStore.practice.audioPath,
+                       let avPlayer = viewStore.mediaManager.avPlayer {
+                        VideoView(videoURL: audioPath, avPlayer: avPlayer)
+                            .onTapGesture {
+                                withAnimation {
+                                    viewStore.isFullScreenVideoVisible = true
+                                    viewStore.currentFeedbackViewType = .fillerWord
+                                }
                             }
-                        }
-                        .border(.blue)
+                            .border(.blue)
+                    }
                 }
                 .frame(
                     width: geometry.size.width,

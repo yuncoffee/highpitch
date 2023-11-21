@@ -15,6 +15,8 @@ struct EditPanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
+    let EDIT_PANEL_INFO = SystemManager.shared.instantFeedbackManager.EDIT_PANEL_INFO
+    
     var body: some View {
         VStack {
             Spacer()
@@ -123,7 +125,7 @@ struct EditPanelView: View {
                     UserDefaults.standard.set(String(56), forKey: "DetailPanelX")
                     UserDefaults.standard.set(String(116), forKey: "DetailPanelY")
                     
-                } label: { type, size, color, expandable in
+                } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "기본 레이아웃 사용", icon: nil),
                         type: type,
@@ -139,7 +141,7 @@ struct EditPanelView: View {
             
             Spacer()
         }
-        .frame(width: 240, height: 229)
+        .frame(width: EDIT_PANEL_INFO.size.width, height: EDIT_PANEL_INFO.size.height)
         .background(Color.white)
         .onTapGesture {
             instantFeedbackManager.focusedPanel = .detailSetting

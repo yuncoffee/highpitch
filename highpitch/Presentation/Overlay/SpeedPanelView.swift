@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct SpeedPanelView: View {
-    private let PANEL_FRAME_SIZE = 120.0
     private let DEFUALT_SPEED = 356.7
     
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
+    
+    let SPEED_PANEL_INFO = SystemManager.shared.instantFeedbackManager.SPEED_PANEL_INFO
+    let XMARK_RADIUS = SystemManager.shared.instantFeedbackManager.PANEL_XMARK_RADIUS
+    let XMARK_WIDTH = SystemManager.shared.instantFeedbackManager.PANEL_XMARK_CIRCLE_WIDTH
     
     private var realTimeRate: Double {
         instantFeedbackManager.speechRecognizerManager?.realTimeRate ?? 0
@@ -44,7 +47,10 @@ struct SpeedPanelView: View {
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }
-        .frame(width: PANEL_FRAME_SIZE, height: PANEL_FRAME_SIZE)
+        .frame(
+            width: SPEED_PANEL_INFO.size.width,
+            height: SPEED_PANEL_INFO.size.height
+        )
         .overlay {
             ZStack(alignment: .topTrailing) {
                 if instantFeedbackManager.focusedPanel == .speed {
@@ -55,18 +61,21 @@ struct SpeedPanelView: View {
                     } label: {
                         Circle()
                             .fill(Color.HPPrimary.lightness)
-                            .stroke(Color.HPPrimary.base, lineWidth: 2)
-                            .frame(width: 24, height: 24)
+                            .stroke(Color.HPPrimary.base, lineWidth: XMARK_WIDTH)
+                            .frame(width: XMARK_RADIUS * 2, height: XMARK_RADIUS * 2)
                             .overlay {
                                 Image(systemName: "xmark")
                                     .resizable()
-                                    .frame(width: 12, height: 12)
+                                    .frame(width: XMARK_RADIUS, height: XMARK_RADIUS)
                                     .fontWeight(.black)
                                     .foregroundStyle(Color.HPPrimary.base)
                             }
                     }
                     .buttonStyle(.plain)
-                    .offset(x: 58, y: -58)
+                    .offset(
+                        x: SPEED_PANEL_INFO.size.width / 2 - XMARK_WIDTH,
+                        y: XMARK_WIDTH - (SPEED_PANEL_INFO.size.height / 2)
+                    )
                 }
             }
         }
@@ -81,7 +90,18 @@ struct SpeedPanelView: View {
                 instantFeedbackManager.focusedPanel = nil
             }
         }
-        .frame(width: 144, height: 144)
+        .frame(
+            width:
+                instantFeedbackManager.getTotalFrameWidth(
+                    width: SPEED_PANEL_INFO.size.width,
+                    padding: XMARK_RADIUS
+                ),
+            height:
+                instantFeedbackManager.getTotalFrameWidth(
+                    width: SPEED_PANEL_INFO.size.height,
+                    padding: XMARK_RADIUS
+                )
+        )
         .onAppear {
             #if PREVIEW
 //            PanelData.shared.isEditMode = true

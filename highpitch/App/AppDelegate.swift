@@ -13,12 +13,57 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var panelControllers: [InstantPanel:PanelController] = [:]
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
         // 타이머 패널
+        timerPanelControllerSetting()
+        
+        // 세팅 패널
+        settingPanelControllerSetting()
+        
+        // 스피드 패널
+        speedPanelControllerSetting()
+        
+        // 필러워드 패널
+        fillerWordPanelControllerSetting()
+        
+        // 편집 패널
+        editPanelControllerSetting()
+        
+        // 연습 기록 패널
+        recordPanelControllerSetting()
+        
+        // 연습 저장 패널
+        savePanelControllerSetting()
+        
+        // InstantFeedbackManager에 Controllers 저장
+        instantFeedbackManager.feedbackPanelControllers = panelControllers
+    }
+    
+    func timerPanelControllerSetting() {
+        let TIMER_PANEL_INFO = instantFeedbackManager.TIMER_PANEL_INFO
+        let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
+        
         let timerPanelController = PanelController(
-            xPosition: 36,
-            yPosition: Int(NSScreen.screens[0].frame.height) - 124,
-            swidth: 132, sheight: 80
+            xPosition:
+                instantFeedbackManager.getPanelPositionX(
+                    left: TIMER_PANEL_INFO.topLeftPoint!.x,
+                    padding: XMARK_RADIUS
+                ),
+            yPosition:
+                instantFeedbackManager.getPanelPositionY(
+                    head: TIMER_PANEL_INFO.topLeftPoint!.y,
+                    height: TIMER_PANEL_INFO.size.height,
+                    padding: XMARK_RADIUS
+                ),
+            swidth:
+                instantFeedbackManager.getTotalFrameWidth(
+                    width: TIMER_PANEL_INFO.size.width,
+                    padding: XMARK_RADIUS
+                ),
+            sheight:
+                instantFeedbackManager.getTotalFrameHeight(
+                    height: TIMER_PANEL_INFO.size.height,
+                    padding: XMARK_RADIUS
+                )
         )
         panelControllers[InstantPanel.timer] = timerPanelController
         
@@ -26,12 +71,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: TimerPanelView(panelController: timerPanelController)
         )
         timerPanelController.hidePanel(self)
+    }
+    
+    func settingPanelControllerSetting() {
+        let SETTING_PANEL_INFO = instantFeedbackManager.SETTING_PANEL_INFO
+        let MSG_WIDTH = instantFeedbackManager.SETTING_PANEL_HOVER_MSG_WIDTH
+        let MSG_HEIGHT = instantFeedbackManager.SETTING_PANEL_HOVER_MSG_HEIGHT
+        let MSG_DISTANCE = instantFeedbackManager.SETTING_PANEL_DISTANCE
         
-        // 세팅 패널
         let settingPanelController = PanelController(
-            xPosition: Int(NSScreen.screens[0].frame.width) - 152,
-            yPosition: Int(NSScreen.screens[0].frame.height) - 140,
-            swidth: 116, sheight: 98
+            xPosition:
+                instantFeedbackManager.getPanelPositionX(
+                    right: SETTING_PANEL_INFO.bottomRightPoint!.x,
+                    width: SETTING_PANEL_INFO.size.width,
+                    padding: (MSG_WIDTH - SETTING_PANEL_INFO.size.width) / 2
+                ),
+            yPosition:
+                instantFeedbackManager.getPanelPositionY(
+                    head: SETTING_PANEL_INFO.topLeftPoint!.y,
+                    height: SETTING_PANEL_INFO.size.height,
+                    padding: MSG_DISTANCE + MSG_HEIGHT
+                ),
+            swidth:
+                instantFeedbackManager.getTotalFrameWidth(
+                    width: SETTING_PANEL_INFO.size.width,
+                    padding: (MSG_WIDTH - SETTING_PANEL_INFO.size.width) / 2
+                ),
+            sheight:
+                instantFeedbackManager.getTotalFrameHeight(
+                    height: SETTING_PANEL_INFO.size.height,
+                    padding: MSG_DISTANCE + MSG_HEIGHT
+                )
         )
         panelControllers[InstantPanel.setting] = settingPanelController
         
@@ -40,12 +110,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: SettingPanelView(panelController: settingPanelController)
         )
         settingPanelController.hidePanel(self)
+    }
+    
+    func speedPanelControllerSetting() {
+        let SPEED_PANEL_INFO = instantFeedbackManager.SPEED_PANEL_INFO
+        let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
-        // 스피드 패널
         let speedPanelController = PanelController(
-            xPosition: Int(NSScreen.screens[0].frame.width) - 207,
-            yPosition: 249,
-            swidth: 144, sheight: 144
+            xPosition:
+                instantFeedbackManager.getPanelPositionX(
+                    right: SPEED_PANEL_INFO.bottomRightPoint!.x,
+                    width: SPEED_PANEL_INFO.size.width,
+                    padding: XMARK_RADIUS
+                ),
+            yPosition:
+                instantFeedbackManager.getPanelPositionY(
+                    bottom: SPEED_PANEL_INFO.bottomRightPoint!.y,
+                    padding: XMARK_RADIUS
+                ),
+            swidth:
+                instantFeedbackManager.getTotalFrameWidth(
+                    width: SPEED_PANEL_INFO.size.width,
+                    padding: XMARK_RADIUS
+                ),
+            sheight:
+                instantFeedbackManager.getTotalFrameHeight(
+                    height: SPEED_PANEL_INFO.size.height,
+                    padding: XMARK_RADIUS
+                )
         )
         panelControllers[InstantPanel.speed] = speedPanelController
         
@@ -53,12 +145,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: SpeedPanelView(panelController: speedPanelController)
         )
         speedPanelController.hidePanel(self)
+    }
+    
+    func fillerWordPanelControllerSetting() {
+        let FILLERWORD_PANEL_INFO = instantFeedbackManager.FILLERWORD_PANEL_INFO
+        let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
-        // 필러워드 패널
         let fillerWordPanelController = PanelController(
-            xPosition: Int(NSScreen.screens[0].frame.width) - 207,
-            yPosition: 113,
-            swidth: 144, sheight: 144
+            xPosition:
+                instantFeedbackManager.getPanelPositionX(
+                    right: FILLERWORD_PANEL_INFO.bottomRightPoint!.x,
+                    width: FILLERWORD_PANEL_INFO.size.width,
+                    padding: XMARK_RADIUS
+                ),
+            yPosition:
+                instantFeedbackManager.getPanelPositionY(
+                    bottom: FILLERWORD_PANEL_INFO.bottomRightPoint!.y,
+                    padding: XMARK_RADIUS
+                ),
+            swidth:
+                instantFeedbackManager.getTotalFrameWidth(
+                    width: FILLERWORD_PANEL_INFO.size.width,
+                    padding: XMARK_RADIUS
+                ),
+            sheight:
+                instantFeedbackManager.getTotalFrameHeight(
+                    height: FILLERWORD_PANEL_INFO.size.height,
+                    padding: XMARK_RADIUS
+                )
         )
         panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
         
@@ -66,18 +180,31 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: FillerWordPanelView(panelController: fillerWordPanelController)
         )
         fillerWordPanelController.hidePanel(self)
+    }
+    
+    func editPanelControllerSetting() {
+        let EDIT_PANEL_INFO = instantFeedbackManager.EDIT_PANEL_INFO
         
-        // 편집 패널
+        let titleBarLength: CGFloat = 28.0
+        
         let detailSettingPanelController = PanelController(
-            xPosition: Int(NSScreen.screens[0].frame.width) - 304,
-            yPosition: Int(NSScreen.screens[0].frame.height) - 362,
-            swidth: 240, sheight: 229
+            xPosition: 
+                instantFeedbackManager.getPanelPositionX(
+                    right: EDIT_PANEL_INFO.bottomRightPoint!.x,
+                    width: EDIT_PANEL_INFO.size.width,
+                    padding: nil
+                ),
+            yPosition:
+                instantFeedbackManager.getPanelPositionY(
+                    head: EDIT_PANEL_INFO.topLeftPoint!.y,
+                    height: EDIT_PANEL_INFO.size.height,
+                    padding: titleBarLength
+                ),
+            swidth: Int(EDIT_PANEL_INFO.size.width),
+            sheight: Int(EDIT_PANEL_INFO.size.height)
         )
         panelControllers[InstantPanel.detailSetting] = detailSettingPanelController
-        print(NSScreen.screens[0].frame.size)
-        print(NSScreen.screens[0].frame.origin)
-        print(NSScreen.screens[0].frame.minX)
-        print(NSScreen.screens[0].frame.width)
+        
         detailSettingPanelController.panel?.styleMask.insert(.titled)
         detailSettingPanelController.panel?.title = "실시간 피드백 레이아웃 편집"
         detailSettingPanelController.panel?.isMovableByWindowBackground = false
@@ -85,26 +212,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: EditPanelView(panelController: detailSettingPanelController)
         )
         detailSettingPanelController.hidePanel(self)
+    }
+    
+    func recordPanelControllerSetting() {
+        let RECORD_PANEL_INFO = instantFeedbackManager.RECORD_PANEL_INFO
         
-        // 연습 기록 패널
+        let centerX = (NSScreen.screens[0].frame.width - RECORD_PANEL_INFO.size.width) / 2
+        
         let recordPanelController = PanelController(
-            xPosition: Int((NSScreen.screens[0].frame.width) / 2) - 179,
-            yPosition: Int((NSScreen.screens[0].frame.height) - 67),
-            swidth: 357, sheight: 29
+            xPosition: Int(centerX),
+            yPosition:
+                instantFeedbackManager.getPanelPositionY(
+                    head: RECORD_PANEL_INFO.topLeftPoint!.y,
+                    height: RECORD_PANEL_INFO.size.height,
+                    padding: nil
+                ),
+            swidth: Int(RECORD_PANEL_INFO.size.width),
+            sheight: Int(RECORD_PANEL_INFO.size.height)
         )
         panelControllers[InstantPanel.record] = recordPanelController
-        // recordPanelController.panel?.isMovableByWindowBackground = false
+        recordPanelController.panel?.isMovableByWindowBackground = false
         
         recordPanelController.panel?.contentView = NSHostingView(
             rootView: RecordPanelView(panelController: recordPanelController)
         )
         recordPanelController.hidePanel(self)
+    }
+    
+    func savePanelControllerSetting() {
+        let SAVE_PANEL_INFO = instantFeedbackManager.SAVE_PANEL_INFO
         
-        // 연습 저장 패널
+        let centerX = (NSScreen.screens[0].frame.width - SAVE_PANEL_INFO.size.width) / 2
+        let centerY = (NSScreen.screens[0].frame.height - SAVE_PANEL_INFO.size.height) / 2
+        
         let savePanelController = PanelController(
-            xPosition: Int((NSScreen.screens[0].frame.width) / 2) - 210,
-            yPosition: Int((NSScreen.screens[0].frame.height) / 2) - 140,
-            swidth: 420, sheight: 280
+            xPosition: Int(centerX),
+            yPosition: Int(centerY),
+            swidth: Int(SAVE_PANEL_INFO.size.width),
+            sheight: Int(SAVE_PANEL_INFO.size.height)
         )
         panelControllers[InstantPanel.save] = savePanelController
         
@@ -113,8 +258,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: SavePanelView(panelController: savePanelController)
         )
         savePanelController.hidePanel(self)
-        
-        // InstantFeedbackManager에 Controllers 저장
-        SystemManager.shared.instantFeedbackManager.feedbackPanelControllers = panelControllers
     }
+    
 }

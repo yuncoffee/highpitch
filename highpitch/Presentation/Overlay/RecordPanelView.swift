@@ -11,6 +11,8 @@ struct RecordPanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
+    let RECORD_PANEL_INFO = SystemManager.shared.instantFeedbackManager.RECORD_PANEL_INFO
+    
     var body: some View {
         HStack(spacing:0) {
             HStack {
@@ -36,7 +38,10 @@ struct RecordPanelView: View {
             .frame(width:142, height: 29)
             .background(Color("FFFFFF").opacity(0.4))
         }
-        .frame(width: 357, height: 29)
+        .frame(
+            width: RECORD_PANEL_INFO.size.width,
+            height: RECORD_PANEL_INFO.size.height
+        )
         .background(Color.black)
         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous)) // Add clipShape here
         

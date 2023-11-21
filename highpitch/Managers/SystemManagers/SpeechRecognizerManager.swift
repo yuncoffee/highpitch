@@ -28,6 +28,8 @@ final class SpeechRecognizerManager {
     public var realTimeRate = 300.0
     /// 실시간 습관어 횟수
     public var realTimeFillerCount = 0
+    /// 사용자가 말하고 있습니다.
+    public var isSpeaking = false
     
     private var rateContainer: [[Double]] = []
     private var prevFillerCount = 0
@@ -93,7 +95,8 @@ final class SpeechRecognizerManager {
                             self.wrong += 1
                         }
                     }
-                }
+                    self.isSpeaking = true
+                } else { self.isSpeaking = false }
             }
             print("실시간 말빠르기: ", self.realTimeRate)
             // MARK: - filler word

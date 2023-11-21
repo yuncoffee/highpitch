@@ -85,7 +85,7 @@ extension MenubarExtraHeader {
     private var rightButtonGroup: some View {
         HStack(spacing: .HPSpacing.xsmall + .HPSpacing.xxxxsmall) {
             playAndPauseButton
-            stopButton
+//            stopButton
         }
     }
     

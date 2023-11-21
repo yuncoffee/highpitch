@@ -11,7 +11,7 @@ struct FillerWordDetail: View {
     var fillerWords: [FillerWordModel]
 
     @State
-    private var isDetailActive = false
+    private var isDetailActive = true
     
     var body: some View {
         VStack(spacing: 0) {

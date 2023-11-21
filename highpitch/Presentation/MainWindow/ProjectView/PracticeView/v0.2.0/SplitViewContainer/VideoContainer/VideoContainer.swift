@@ -37,7 +37,7 @@ struct VideoContainer: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             // MARK: - Add MockData
-            viewStore.player = AVPlayer(url: Bundle.main.url(forResource: "20231121090816_merge", withExtension: "mp4")!)
+            viewStore.player = AVPlayer(url: Bundle.main.url(forResource: "Screen Recording 2023-11-21 at 11.47.45 AM", withExtension: "mov")!)
 #if PREVIEW
             if let sample = practices.first {
                 viewStore.practice = sample

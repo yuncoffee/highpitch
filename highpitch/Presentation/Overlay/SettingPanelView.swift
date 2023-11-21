@@ -49,7 +49,6 @@ struct SettingPanelView: View {
             if value {
                 instantFeedbackManager.focusedPanel = .setting
             } else {
-                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
                 instantFeedbackManager.focusedPanel = nil
             }
         }

@@ -32,8 +32,6 @@ final class InstantFeedbackManager {
     var speedPanelY = UserDefaults.standard.string(forKey: "SpeedPanelY").flatMap { Int($0) } ?? 276
     var fillerWordPanelX = UserDefaults.standard.string(forKey: "FillerWordPanelX").flatMap { Int($0) } ?? Int((NSScreen.main?.visibleFrame.width)!) - 178
     var fillerWordPanelY = UserDefaults.standard.string(forKey: "FillerWordPanelY").flatMap { Int($0) } ?? 129
-    var detailPanelX = UserDefaults.standard.string(forKey: "DetailPanelX").flatMap { Int($0) } ?? 56
-    var detailPanelY = UserDefaults.standard.string(forKey: "DetailPanelY").flatMap { Int($0) } ?? 116
     
     typealias PanelFrameInfo = (
         size: CGSize,
@@ -106,8 +104,8 @@ extension InstantFeedbackManager {
         return Int(NSScreen.screens[0].frame.width - (right + width + (padding ?? 0)))
     }
     
-    func getPanelPositionY(head: CGFloat, height: CGFloat, padding: CGFloat?) -> Int {
-        return Int(NSScreen.screens[0].frame.height - (head + height + (padding ?? 0)))
+    func getPanelPositionY(top: CGFloat, height: CGFloat, padding: CGFloat?) -> Int {
+        return Int(NSScreen.screens[0].frame.height - (top + height + (padding ?? 0)))
     }
     
     func getPanelPositionY(bottom: CGFloat, padding: CGFloat) -> Int {

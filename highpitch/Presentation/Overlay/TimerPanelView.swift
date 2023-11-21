@@ -100,6 +100,16 @@ struct TimerPanelView: View {
             if value {
                 instantFeedbackManager.focusedPanel = .timer
             } else {
+                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
+                UserDefaults.standard.set(
+                    String(Int(panelController.getPanelPosition()!.x)),
+                    forKey: "TimerPanelX"
+                )
+                UserDefaults.standard.set(
+                    String(Int(panelController.getPanelPosition()!.y)),
+                    forKey: "TimerPanelY"
+                )
+                
                 instantFeedbackManager.focusedPanel = nil
             }
         }

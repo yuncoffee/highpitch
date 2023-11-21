@@ -79,8 +79,14 @@ struct FillerWordPanelView: View {
                 instantFeedbackManager.focusedPanel = .fillerWord
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                UserDefaults.standard.set( String(Int(panelController.getPanelPosition()!.x)), forKey: "FillerWordPanelX")
-                UserDefaults.standard.set(String(Int(panelController.getPanelPosition()!.y)), forKey: "FillerWordPanelY")
+                UserDefaults.standard.set(
+                    String(Int(panelController.getPanelPosition()!.x)),
+                    forKey: "FillerWordPanelX"
+                )
+                UserDefaults.standard.set(
+                    String(Int(panelController.getPanelPosition()!.y)),
+                    forKey: "FillerWordPanelY"
+                )
                 
                 instantFeedbackManager.focusedPanel = nil
             }
@@ -136,10 +142,10 @@ struct FillerWordStatus: View {
 #Preview {
     FillerWordPanelView(
         panelController: PanelController(
-            xPosition: Int((NSScreen.main?.frame.width)!) - 120,
-            yPosition: 120,
-            swidth: 132,
-            sheight: 132
+            xpos: Int((NSScreen.main?.frame.width)!) - 120,
+            ypos: 120,
+            width: 132,
+            height: 132
         )
     )
     .frame(maxWidth: 132, maxHeight: 132)

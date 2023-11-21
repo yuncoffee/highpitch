@@ -43,23 +43,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
         let timerPanelController = PanelController(
-            xPosition:
+            xpos:
                 instantFeedbackManager.getPanelPositionX(
                     left: TIMER_PANEL_INFO.topLeftPoint!.x,
                     padding: XMARK_RADIUS
                 ),
-            yPosition:
+            ypos:
                 instantFeedbackManager.getPanelPositionY(
-                    head: TIMER_PANEL_INFO.topLeftPoint!.y,
+                    top: TIMER_PANEL_INFO.topLeftPoint!.y,
                     height: TIMER_PANEL_INFO.size.height,
                     padding: XMARK_RADIUS
                 ),
-            swidth:
+            width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: TIMER_PANEL_INFO.size.width,
                     padding: XMARK_RADIUS
                 ),
-            sheight:
+            height:
                 instantFeedbackManager.getTotalFrameHeight(
                     height: TIMER_PANEL_INFO.size.height,
                     padding: XMARK_RADIUS
@@ -80,24 +80,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let MSG_DISTANCE = instantFeedbackManager.SETTING_PANEL_DISTANCE
         
         let settingPanelController = PanelController(
-            xPosition:
+            xpos:
                 instantFeedbackManager.getPanelPositionX(
                     right: SETTING_PANEL_INFO.bottomRightPoint!.x,
                     width: SETTING_PANEL_INFO.size.width,
                     padding: (MSG_WIDTH - SETTING_PANEL_INFO.size.width) / 2
                 ),
-            yPosition:
+            ypos:
                 instantFeedbackManager.getPanelPositionY(
-                    head: SETTING_PANEL_INFO.topLeftPoint!.y,
+                    top: SETTING_PANEL_INFO.topLeftPoint!.y,
                     height: SETTING_PANEL_INFO.size.height,
                     padding: MSG_DISTANCE + MSG_HEIGHT
                 ),
-            swidth:
+            width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: SETTING_PANEL_INFO.size.width,
                     padding: (MSG_WIDTH - SETTING_PANEL_INFO.size.width) / 2
                 ),
-            sheight:
+            height:
                 instantFeedbackManager.getTotalFrameHeight(
                     height: SETTING_PANEL_INFO.size.height,
                     padding: MSG_DISTANCE + MSG_HEIGHT
@@ -117,23 +117,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
         let speedPanelController = PanelController(
-            xPosition:
+            xpos:
                 instantFeedbackManager.getPanelPositionX(
                     right: SPEED_PANEL_INFO.bottomRightPoint!.x,
                     width: SPEED_PANEL_INFO.size.width,
                     padding: XMARK_RADIUS
                 ),
-            yPosition:
+            ypos:
                 instantFeedbackManager.getPanelPositionY(
                     bottom: SPEED_PANEL_INFO.bottomRightPoint!.y,
                     padding: XMARK_RADIUS
                 ),
-            swidth:
+            width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: SPEED_PANEL_INFO.size.width,
                     padding: XMARK_RADIUS
                 ),
-            sheight:
+            height:
                 instantFeedbackManager.getTotalFrameHeight(
                     height: SPEED_PANEL_INFO.size.height,
                     padding: XMARK_RADIUS
@@ -152,23 +152,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
         let fillerWordPanelController = PanelController(
-            xPosition:
+            xpos:
                 instantFeedbackManager.getPanelPositionX(
                     right: FILLERWORD_PANEL_INFO.bottomRightPoint!.x,
                     width: FILLERWORD_PANEL_INFO.size.width,
                     padding: XMARK_RADIUS
                 ),
-            yPosition:
+            ypos:
                 instantFeedbackManager.getPanelPositionY(
                     bottom: FILLERWORD_PANEL_INFO.bottomRightPoint!.y,
                     padding: XMARK_RADIUS
                 ),
-            swidth:
+            width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: FILLERWORD_PANEL_INFO.size.width,
                     padding: XMARK_RADIUS
                 ),
-            sheight:
+            height:
                 instantFeedbackManager.getTotalFrameHeight(
                     height: FILLERWORD_PANEL_INFO.size.height,
                     padding: XMARK_RADIUS
@@ -188,26 +188,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let titleBarLength: CGFloat = 28.0
         
         let detailSettingPanelController = PanelController(
-            xPosition: 
+            xpos:
                 instantFeedbackManager.getPanelPositionX(
                     right: EDIT_PANEL_INFO.bottomRightPoint!.x,
                     width: EDIT_PANEL_INFO.size.width,
                     padding: nil
                 ),
-            yPosition:
+            ypos:
                 instantFeedbackManager.getPanelPositionY(
-                    head: EDIT_PANEL_INFO.topLeftPoint!.y,
+                    top: EDIT_PANEL_INFO.topLeftPoint!.y,
                     height: EDIT_PANEL_INFO.size.height,
                     padding: titleBarLength
                 ),
-            swidth: Int(EDIT_PANEL_INFO.size.width),
-            sheight: Int(EDIT_PANEL_INFO.size.height)
+            width: Int(EDIT_PANEL_INFO.size.width),
+            height: Int(EDIT_PANEL_INFO.size.height)
         )
         panelControllers[InstantPanel.detailSetting] = detailSettingPanelController
         
         detailSettingPanelController.panel?.styleMask.insert(.titled)
         detailSettingPanelController.panel?.title = "실시간 피드백 레이아웃 편집"
         detailSettingPanelController.panel?.isMovableByWindowBackground = false
+        detailSettingPanelController.panel?.isMovable = false
         detailSettingPanelController.panel?.contentView = NSHostingView(
             rootView: EditPanelView(panelController: detailSettingPanelController)
         )
@@ -220,15 +221,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let centerX = (NSScreen.screens[0].frame.width - RECORD_PANEL_INFO.size.width) / 2
         
         let recordPanelController = PanelController(
-            xPosition: Int(centerX),
-            yPosition:
+            xpos: Int(centerX),
+            ypos:
                 instantFeedbackManager.getPanelPositionY(
-                    head: RECORD_PANEL_INFO.topLeftPoint!.y,
+                    top: RECORD_PANEL_INFO.topLeftPoint!.y,
                     height: RECORD_PANEL_INFO.size.height,
                     padding: nil
                 ),
-            swidth: Int(RECORD_PANEL_INFO.size.width),
-            sheight: Int(RECORD_PANEL_INFO.size.height)
+            width: Int(RECORD_PANEL_INFO.size.width),
+            height: Int(RECORD_PANEL_INFO.size.height)
         )
         panelControllers[InstantPanel.record] = recordPanelController
         recordPanelController.panel?.isMovableByWindowBackground = false
@@ -246,10 +247,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let centerY = (NSScreen.screens[0].frame.height - SAVE_PANEL_INFO.size.height) / 2
         
         let savePanelController = PanelController(
-            xPosition: Int(centerX),
-            yPosition: Int(centerY),
-            swidth: Int(SAVE_PANEL_INFO.size.width),
-            sheight: Int(SAVE_PANEL_INFO.size.height)
+            xpos: Int(centerX),
+            ypos: Int(centerY),
+            width: Int(SAVE_PANEL_INFO.size.width),
+            height: Int(SAVE_PANEL_INFO.size.height)
         )
         panelControllers[InstantPanel.save] = savePanelController
         

@@ -28,6 +28,8 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var audioRecorder: AVAudioRecorder?
     var audioRecorderV2 = AudioRecorder()
     
+    /// 비디오 재생 관련 프로퍼티
+    var avPlayer: AVPlayer?
     /// 음성메모 재생 관련 프로퍼티
     /// audioPlayer.currentTime을 통해서 음성 이동하기
     var audioPlayer: AVAudioPlayer?
@@ -36,6 +38,7 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var fileName: String = ""
     var stopPoint: TimeInterval?
     var isStart = false
+    
 }
 
 // MARK: - 음성메모 녹음 관련 메서드
@@ -107,6 +110,9 @@ extension MediaManager: Recordable {
 
 // MARK: - 음성메모 재생 관련 메서드
 extension MediaManager: AudioPlayable {
+    func registerVideo(url: URL) {
+        avPlayer = AVPlayer(url: url)
+    }
     func registerAudio(url: URL) throws {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -118,6 +124,7 @@ extension MediaManager: AudioPlayable {
         }
     }
     func play() {
+        avPlayer?.play()
         audioPlayer?.play()
         isPlaying = true
         if !(timer?.isValid ?? false) {
@@ -128,27 +135,34 @@ extension MediaManager: AudioPlayable {
     }
     func playAt(atTime: Double) {
         let offset = atTime/1000
+        let targetTime = CMTime(seconds: offset, preferredTimescale: 600)
+        avPlayer?.seek(to: targetTime)
         audioPlayer?.currentTime = offset
         currentTime = offset
     }
     ///
     func playAfter(second: Double) {
+        let targetTime = CMTime(seconds: second + (avPlayer?.currentTime().seconds ?? 0), preferredTimescale: 600)
+        avPlayer?.seek(to: targetTime)
         audioPlayer?.currentTime = second + (audioPlayer?.currentTime ?? 0)
     }
-    ///
+    ///0
     func stopPlaying() {
+        avPlayer?.pause()
         audioPlayer?.stop()
         isPlaying = false
         timer?.invalidate()
     }
     
     func pausePlaying() {
+        avPlayer?.pause()
         audioPlayer?.pause()
         isPlaying = false
         timer?.invalidate()
     }
     
     func resumePlaying() {
+        avPlayer?.play()
         audioPlayer?.play()
         isPlaying = true
     }
@@ -160,6 +174,11 @@ extension MediaManager: AudioPlayable {
     }
     func setCurrentTime(time: TimeInterval) {
         audioPlayer?.currentTime = time
+        let targetTime = CMTime(seconds: time, preferredTimescale: 600)
+        avPlayer?.seek(to: targetTime)
+    }
+    func getCurrentTime() -> TimeInterval {
+        return audioPlayer?.currentTime ?? 0
     }
 }
 
@@ -176,6 +195,7 @@ protocol Recordable {
     func stopRecording()
 }
 protocol AudioPlayable {
+    var audioPlayer: AVAudioPlayer? { get set }
     var isPlaying: Bool { get set }
     var currentTime: TimeInterval { get set }
     func registerAudio(url: URL) throws
@@ -186,4 +206,5 @@ protocol AudioPlayable {
     func getState() -> Bool
     func setCurrentTime(time: TimeInterval)
     func getDuration() -> Double
+    func getCurrentTime() -> TimeInterval
 }

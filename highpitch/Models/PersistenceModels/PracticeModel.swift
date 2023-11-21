@@ -21,6 +21,7 @@ class PracticeModel: Comparable {
     var isVisited: Bool
     var creatAt: String
     var audioPath: URL?
+    var videoPath: URL?
     @Relationship(deleteRule: .cascade)
     var utterances: [UtteranceModel]
     @Relationship(deleteRule: .cascade)
@@ -38,6 +39,7 @@ class PracticeModel: Comparable {
         isVisited: Bool,
         creatAt: String,
         audioPath: URL? = nil,
+        videoPath: URL? = nil,
         utterances: [UtteranceModel],
         words: [WordModel] = [],
         sentences: [SentenceModel] = [],
@@ -50,6 +52,7 @@ class PracticeModel: Comparable {
         self.isVisited = isVisited
         self.creatAt = creatAt
         self.audioPath = audioPath
+        self.videoPath = videoPath
         self.utterances = utterances
         self.words = words
         self.sentences = sentences

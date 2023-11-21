@@ -62,7 +62,7 @@ extension ProjectManager {
         /// ReturnZero API를 이용해서 UtteranceModel완성
         DispatchQueue.main.asyncAfter(deadline: .now()+5) {
             Task { [self] in
-                let newUtteranceModels = await self.makeNewUtterancesV2(mediaManager: mediaManager)
+                let newUtteranceModels = await self.makeNewUtterances(mediaManager: mediaManager)
                 /// 아무말도 하지 않았을 경우 종료한다.
                 if newUtteranceModels.isEmpty {
                     print("none of words!")
@@ -161,6 +161,7 @@ extension ProjectManager {
             isVisited: false,
             creatAt: Date().m4aNameToCreateAt(input: mediaManager.fileName),
             audioPath: URL.getPath(fileName: mediaManager.fileName, type: .audio),
+            videoPath: URL.getPath(fileName: mediaManager.fileName, type: .video),
             utterances: utterances,
             summary: PracticeSummaryModel(),
             remarkable: false,

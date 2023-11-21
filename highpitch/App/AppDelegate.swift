@@ -42,18 +42,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let TIMER_PANEL_INFO = instantFeedbackManager.TIMER_PANEL_INFO
         let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
+        let originalXpos = instantFeedbackManager.getPanelPositionX(
+            left: TIMER_PANEL_INFO.topLeftPoint!.x,
+            padding: XMARK_RADIUS
+        )
+        let originalYpos = instantFeedbackManager.getPanelPositionY(
+            top: TIMER_PANEL_INFO.topLeftPoint!.y,
+            height: TIMER_PANEL_INFO.size.height,
+            padding: XMARK_RADIUS
+        )
+        
+        let xpos = loadPanelPosition(
+            key: "TimerPanelX",
+            originalPos: instantFeedbackManager.getPanelPositionX(
+                left: TIMER_PANEL_INFO.topLeftPoint!.x,
+                padding: XMARK_RADIUS
+            )
+        )
+        let ypos = loadPanelPosition(
+            key: "TimerPanelY",
+            originalPos: instantFeedbackManager.getPanelPositionY(
+                top: TIMER_PANEL_INFO.topLeftPoint!.y,
+                height: TIMER_PANEL_INFO.size.height,
+                padding: XMARK_RADIUS
+            )
+        )
+        
         let timerPanelController = PanelController(
-            xpos:
-                instantFeedbackManager.getPanelPositionX(
-                    left: TIMER_PANEL_INFO.topLeftPoint!.x,
-                    padding: XMARK_RADIUS
-                ),
-            ypos:
-                instantFeedbackManager.getPanelPositionY(
-                    top: TIMER_PANEL_INFO.topLeftPoint!.y,
-                    height: TIMER_PANEL_INFO.size.height,
-                    padding: XMARK_RADIUS
-                ),
+            xpos: xpos,
+            ypos: ypos,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: TIMER_PANEL_INFO.size.width,
@@ -212,6 +229,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         detailSettingPanelController.panel?.contentView = NSHostingView(
             rootView: EditPanelView(panelController: detailSettingPanelController)
         )
+        detailSettingPanelController.panel?.animationBehavior = .utilityWindow
         detailSettingPanelController.hidePanel(self)
     }
     
@@ -258,18 +276,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         savePanelController.panel?.contentView = NSHostingView(
             rootView: SavePanelView(panelController: savePanelController)
         )
+        savePanelController.panel?.animationBehavior = .documentWindow
         savePanelController.hidePanel(self)
     }
     
-    func loadPanelPosition(key: String, originalPos: CGFloat) -> Bool {
+    func loadPanelPosition(key: String, originalPos: Int) -> Int {
+        let XMARK_RADIUS = Int(instantFeedbackManager.PANEL_XMARK_RADIUS)
+        
         let value = UserDefaults.standard.string(forKey: key) ?? nil
+        
         if value == nil {
-            return false
+            return originalPos
         }
-        if value != String(Int(originalPos)) {
-            return true
-        }
-        return false
+        return UserDefaults.standard.string(forKey: key).flatMap { Int($0) }!
     }
     
 }

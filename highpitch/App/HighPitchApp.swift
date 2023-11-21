@@ -252,7 +252,7 @@ extension HighpitchApp {
     
     func stringToHotKeySetting(input: String) -> HotKey {
         
-        var keyMap: [String : Key] =
+        let keyMap: [String : Key] =
         ["1":Key.one, "2":Key.two, "3":Key.three, "4":Key.four, "5":Key.five,
          "6":Key.six, "7":Key.seven, "8":Key.eight, "9":Key.nine, "0":Key.zero,
          "Q":Key.q, "W":Key.w, "E":Key.e, "R":Key.r, "T":Key.t,
@@ -262,9 +262,9 @@ extension HighpitchApp {
          "X":Key.x, "C":Key.c, "V":Key.v, "B":Key.b, "N":Key.n,
          "M":Key.m, "Esc": Key.escape, "Space":Key.space]
         
-        var tempArray = input.split(separator: "+").map { String($0.trimmingCharacters(in: .whitespaces)) }
+        let tempArray = input.split(separator: "+").map { String($0.trimmingCharacters(in: .whitespaces)) }
         
-        var tempKey: Key = keyMap[tempArray.last!] ?? Key.escape
+        let tempKey: Key = keyMap[tempArray.last!] ?? Key.escape
         var tempModifiers = NSEvent.modifierFlags
         for index in 0..<tempArray.count - 1 {
             if tempArray[index] == "Command" {

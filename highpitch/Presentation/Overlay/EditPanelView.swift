@@ -139,7 +139,7 @@ struct EditPanelView: View {
             
             Spacer()
         }
-        .frame(width: 240, height: 247)
+        .frame(width: 240, height: 229)
         .background(Color.white)
         .onTapGesture {
             instantFeedbackManager.focusedPanel = .detailSetting

@@ -81,7 +81,6 @@ struct SavePanelView: View {
             }
         }
         .frame(width: 420, height: 280)
-        .border(.red, width: 4)
         .background(Color.white)
     }
 }

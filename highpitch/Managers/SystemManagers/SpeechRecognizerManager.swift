@@ -257,7 +257,7 @@ final class SpeechRecognizerManager {
                 print("access denied")
             }
         }
-        while(!isFinal && answer.isEmpty && (CACurrentMediaTime() - currentTime) < 20.0) {
+        while(!isFinal) {
             do {
                 try await Task.sleep(nanoseconds: 100_000_000)
             } catch {

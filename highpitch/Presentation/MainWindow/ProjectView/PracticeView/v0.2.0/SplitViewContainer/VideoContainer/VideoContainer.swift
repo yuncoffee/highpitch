@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import AVFoundation
+import AVKit
 
 struct VideoContainer: View {
     @Environment(PracticeViewStore.self)
@@ -35,6 +37,7 @@ struct VideoContainer: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             // MARK: - Add MockData
+            viewStore.player = AVPlayer(url: Bundle.main.url(forResource: "20231121090816_merge", withExtension: "mp4")!)
 #if PREVIEW
             if let sample = practices.first {
                 viewStore.practice = sample
@@ -75,6 +78,8 @@ extension VideoContainer {
             GeometryReader { geometry in
                 let maxHeight = geometry.size.height - 96
                 VStack {
+                    VideoPlayer(player: viewStore.player)
+                        .frame(width: geometry.size.width,height: maxHeight)
                     Text("전체 화면 벝은")
                         .onTapGesture {
                             withAnimation {

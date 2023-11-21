@@ -21,6 +21,7 @@ class PracticeModel: Comparable {
     var isVisited: Bool
     var creatAt: String
     var audioPath: URL?
+    var videoPath: URL?
     @Relationship(deleteRule: .cascade)
     var utterances: [UtteranceModel]
     @Relationship(deleteRule: .cascade)

@@ -9,6 +9,7 @@ import SwiftUI
 #if PREVIEW
 import SwiftData
 #endif
+import AVKit
 
 struct FullScreenVideoContainer: View {
     @Environment(PracticeViewStore.self)
@@ -47,7 +48,7 @@ struct FullScreenVideoContainer: View {
             ZStack(alignment: .topLeading) {
                 /// video
                 VStack {
-                    //                    Text("Video")
+                    VideoPlayer(player: viewStore.player)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity )
                 .background(viewStore.isFullScreenTransition ? Color.brown : .clear)

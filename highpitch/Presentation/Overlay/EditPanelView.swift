@@ -15,6 +15,8 @@ struct EditPanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
+    let EDIT_PANEL_INFO = SystemManager.shared.instantFeedbackManager.EDIT_PANEL_INFO
+    
     var body: some View {
         VStack {
             Spacer()
@@ -97,33 +99,52 @@ struct EditPanelView: View {
                     instantFeedbackManager.activePanels.insert(InstantPanel.speed)
                     instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
                     
-//                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
-//                        .setFrameTopLeftPoint(NSPoint(x:48, y:Int((NSScreen.main?.visibleFrame.height)!)))
-//
-                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
-                        .setFrameOrigin(NSPoint(x: 48, y: Int((NSScreen.main?.visibleFrame.height)!) - 56))
-                        
+                    // Panel들의 기본 위치 계산
+                    let timerPanelX = instantFeedbackManager.getPanelPositionX(
+                        left: instantFeedbackManager.TIMER_PANEL_INFO.topLeftPoint!.x,
+                        padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+                    )
+                    let timerPanelY = instantFeedbackManager.getPanelPositionY(
+                        top: instantFeedbackManager.TIMER_PANEL_INFO.topLeftPoint!.y,
+                        height: instantFeedbackManager.TIMER_PANEL_INFO.size.height,
+                        padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+                    )
+                    let speedPanelX = instantFeedbackManager.getPanelPositionX(
+                        right: instantFeedbackManager.SPEED_PANEL_INFO.bottomRightPoint!.x,
+                        width: instantFeedbackManager.SPEED_PANEL_INFO.size.width,
+                        padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+                    )
+                    let speedPanelY = instantFeedbackManager.getPanelPositionY(
+                        bottom: instantFeedbackManager.SPEED_PANEL_INFO.bottomRightPoint!.y,
+                        padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+                    )
+                    let fillerWordPanelX = instantFeedbackManager.getPanelPositionX(
+                        right: instantFeedbackManager.FILLERWORD_PANEL_INFO.bottomRightPoint!.x,
+                        width: instantFeedbackManager.FILLERWORD_PANEL_INFO.size.width,
+                        padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+                    )
+                    let fillerWordPanelY = instantFeedbackManager.getPanelPositionY(
+                        bottom: instantFeedbackManager.FILLERWORD_PANEL_INFO.bottomRightPoint!.y,
+                        padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+                    )
+                    
                     // 위치 기본값으로 조절
-//                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
-//                        .setFrameOrigin(NSPoint(x:48, y:Int((NSScreen.main?.visibleFrame.height)!) - 56))
+                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
+                        .setFrameOrigin(NSPoint(x: timerPanelX, y: timerPanelY))
                     instantFeedbackManager.feedbackPanelControllers[InstantPanel.speed]?.panel?
-                        .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)!) - 178, y:276))
+                        .setFrameOrigin(NSPoint(x: speedPanelX, y: speedPanelY))
                     instantFeedbackManager.feedbackPanelControllers[InstantPanel.fillerWord]?.panel?
-                        .setFrameOrigin(NSPoint(x:Int((NSScreen.main?.visibleFrame.width)!) - 178, y:129))
-                    instantFeedbackManager.feedbackPanelControllers[InstantPanel.detailSetting]?.panel?
-                        .setFrameOrigin(NSPoint(x:56, y:116))
+                        .setFrameOrigin(NSPoint(x: fillerWordPanelX, y: fillerWordPanelY))
                     
                     // UserDefaults도 원상복귀
-                    UserDefaults.standard.set( String(48), forKey: "TimerPanelX")
-                    UserDefaults.standard.set(String(Int((NSScreen.main?.visibleFrame.height)!) - 56), forKey: "TimerPanelY")
-                    UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)!) - 178), forKey: "SpeedPanelX")
-                    UserDefaults.standard.set(String(276), forKey: "SpeedPanelY")
-                    UserDefaults.standard.set( String(Int((NSScreen.main?.visibleFrame.width)!) - 178), forKey: "FillerWordPanelX")
-                    UserDefaults.standard.set(String(129), forKey: "FillerWordPanelY")
-                    UserDefaults.standard.set(String(56), forKey: "DetailPanelX")
-                    UserDefaults.standard.set(String(116), forKey: "DetailPanelY")
+                    UserDefaults.standard.set(String(timerPanelX), forKey: "TimerPanelX")
+                    UserDefaults.standard.set(String(timerPanelY), forKey: "TimerPanelY")
+                    UserDefaults.standard.set(String(speedPanelX), forKey: "SpeedPanelX")
+                    UserDefaults.standard.set(String(speedPanelY), forKey: "SpeedPanelY")
+                    UserDefaults.standard.set(String(fillerWordPanelX), forKey: "FillerWordPanelX")
+                    UserDefaults.standard.set(String(fillerWordPanelY), forKey: "FillerWordPanelY")
                     
-                } label: { type, size, color, expandable in
+                } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "기본 레이아웃 사용", icon: nil),
                         type: type,
@@ -139,17 +160,10 @@ struct EditPanelView: View {
             
             Spacer()
         }
-        .frame(width: 240, height: 229)
+        .frame(width: EDIT_PANEL_INFO.size.width, height: EDIT_PANEL_INFO.size.height)
         .background(Color.white)
         .onTapGesture {
             instantFeedbackManager.focusedPanel = .detailSetting
-        }
-        .onHover { value in
-            if !value {
-                // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
-                UserDefaults.standard.set( String(Int(panelController.getPanelPosition()!.x)), forKey: "DetailPanelX")
-                UserDefaults.standard.set(String(Int(panelController.getPanelPosition()!.y)), forKey: "DetailPanelY")
-            }
         }
     }
 }

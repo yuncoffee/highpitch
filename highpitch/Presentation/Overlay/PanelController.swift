@@ -10,9 +10,9 @@ import SwiftUI
 class PanelController: NSWindowController {
     var panel: NSPanel?
     
-    init(xPosition: Int, yPosition: Int, swidth: Int, sheight: Int) {
+    init(xpos: Int, ypos: Int, width: Int, height: Int) {
         let panel = NSPanel(
-            contentRect: NSRect(x: xPosition, y: yPosition, width: swidth, height: sheight),
+            contentRect: NSRect(x: xpos, y: ypos, width: width, height: height),
             styleMask: [.nonactivatingPanel],
             backing: .buffered,
             defer: true

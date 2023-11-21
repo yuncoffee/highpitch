@@ -25,14 +25,12 @@ class CaptureEngineForPreview: NSObject, @unchecked Sendable {
     private let logger = Logger()
     private var stream: SCStream?
     private var videoSampleBufferQueue: DispatchQueue
-    private var label: String
     private var streamOutput: CaptureEngineStreamOutput?
     
     // Store the the startCapture continuation, so that you can cancel it when you call stopCapture().
     private var continuation: AsyncThrowingStream<CapturedFrame, Error>.Continuation?
-    init(label: String) {
-        self.label = label
-        self.videoSampleBufferQueue = DispatchQueue(label: label)
+    override init() {
+        self.videoSampleBufferQueue = DispatchQueue(label: UUID().uuidString)
     }
     
     /// - Tag: StartCapture

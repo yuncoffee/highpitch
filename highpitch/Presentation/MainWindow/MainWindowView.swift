@@ -39,6 +39,12 @@ struct MainWindowView: View {
     @State
     private var isAlertActive = false
     
+    @FocusState
+    var focusField: String?
+    
+    @State
+    private var addedProjectID: String?
+    
     private var selected: ProjectModel? {
         projectManager.current
     }
@@ -50,7 +56,7 @@ struct MainWindowView: View {
             navigationSidebar
         } detail: {
             navigationDetails
-           //ScreenSelectionView()
+           // ScreenSelectionView()
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
@@ -156,7 +162,7 @@ extension MainWindowView {
                 Text("내 연습 분석")
                     .systemFont(
                         .footnote,
-                        weight: projectManager.current == nil ? .bold : .medium)
+                        weight: projectManager.current == nil ? .bold : .semibold)
                     .foregroundStyle(
                         projectManager.current == nil 
                         ? Color.HPTextStyle.darker
@@ -166,7 +172,7 @@ extension MainWindowView {
                     .padding(.horizontal, .HPSpacing.xxxsmall)
                     .background(
                         projectManager.current == nil
-                        ? Color.HPPrimary.lightness
+                        ? Color.HPComponent.Sidebar.select
                         : Color.clear
                     )
                     .cornerRadius(7)
@@ -174,29 +180,60 @@ extension MainWindowView {
             }
             .buttonStyle(.plain)
             .padding(.horizontal, .HPSpacing.xxxsmall)
+            .padding(.top, .HPSpacing.xxxsmall)
             Divider()
                 .background(Color.HPComponent.stroke)
-                .padding(.top, .HPSpacing.xxxsmall)
+                .padding(.top, .HPSpacing.xxsmall)
                 .padding(.bottom, .HPSpacing.small)
-                .padding(.horizontal, .HPSpacing.xxxsmall)
-                .padding(.bottom, .HPSpacing.xxsmall)
-            Text("내 프로젝트")
-                .systemFont(.footnote, weight: .semibold)
-                .foregroundStyle(Color.HPTextStyle.base)
-                .padding(.bottom, .HPSpacing.xsmall)
-                .padding(.horizontal, .HPSpacing.xsmall)
-                .onTapGesture {
-                    if (SystemManager.shared.isRecognizing) {
-                        SystemManager.shared.stopInstantFeedback()
-                    } else {
-                        SystemManager.shared.startInstantFeedback()
+                .padding(.horizontal, .HPSpacing.xxsmall)
+            HStack(alignment: .center) {
+                Text("내 프로젝트")
+                    .systemFont(.footnote, weight: .semibold)
+                    .foregroundStyle(Color.HPTextStyle.base)
+                    .padding(.leading, .HPSpacing.xsmall)
+                    .onTapGesture {
+                        if (SystemManager.shared.isRecognizing) {
+                            SystemManager.shared.stopInstantFeedback()
+                        } else {
+                            SystemManager.shared.startInstantFeedback()
+                        }
                     }
+                Spacer()
+                Button {
+                    addNewProject()
+                } label: {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(Color.HPPrimary.dark)
+                        .frame(height: 14)
                 }
+                .buttonStyle(.plain)
+                .padding(.trailing, .HPSpacing.xsmall)
+            }
+            .frame(height: .HPSpacing.small)
+            .padding(.bottom, 14)
             ScrollView {
                 LazyVGrid(columns: [GridItem()], alignment: .leading) {
-                    ProjectNavigationLink()
+                    ProjectNavigationLink(
+                        focusField: $focusField,
+                        addedProjectID: $addedProjectID
+                    )
                 }
             }
+            Spacer()
+            Button {
+                print("아임 설정이에요")
+            } label: {
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20)
+                    .foregroundColor(Color.HPGray.system600)
+                    .padding(.leading, .HPSpacing.xxsmall + .HPSpacing.xsmall)
+                    .padding(.bottom, .HPSpacing.medium)
+            }
+            .buttonStyle(.plain)
         }
         .frame(alignment: .topLeading)
         .navigationSplitViewColumnWidth(200)
@@ -289,6 +326,27 @@ extension MainWindowView {
             })
         } else {
             HPTopToolbar(title: "내 연습 분석", completion: nil)
+        }
+    }
+}
+
+extension MainWindowView {
+    private func addNewProject() {
+        let newProject = ProjectModel(
+            projectName: "\(Date.now.formatted())",
+            creatAt: Date.now.formatted(),
+            keynotePath: nil,
+            keynoteCreation: "temp"
+        )
+        addedProjectID = newProject.creatAt
+        modelContext.insert(newProject)
+        do {
+            try modelContext.save()
+        } catch {
+            print(error)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            focusField = newProject.creatAt
         }
     }
 }

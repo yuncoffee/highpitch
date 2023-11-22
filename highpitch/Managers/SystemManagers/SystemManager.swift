@@ -17,6 +17,16 @@ final class SystemManager {
     
     let instantFeedbackManager = InstantFeedbackManager()
     
+    let ONBOARDING_TESTONE_FILE_NAME = "onboarding_1"
+    let ONBOARDING_TESTTWO_FILE_NAME = "onboarding_2"
+    var spmAverage = 300.0 {
+        didSet {
+            print("spmAverage: \(spmAverage)")
+        }
+    }
+    var test1SPM = 300.0
+    var test2SPM = 300.0
+
     var isDarkMode = false
     var isAnalyzing = false
     var hasUnVisited = false

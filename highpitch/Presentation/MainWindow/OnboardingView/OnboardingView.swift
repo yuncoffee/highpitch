@@ -22,6 +22,12 @@ struct OnboardingView: View {
         }
         .toolbarBackground(.hidden)
         .ignoresSafeArea()
+        .onAppear {
+            SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+        }
+        .onDisappear {
+            SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
+        }
     }
 }
 
@@ -40,8 +46,64 @@ extension OnboardingView {
                 processCount += 1
             }
             if processCount == 5 {
-                SystemManager.shared.isPassOnbarding = true
-                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
+                print("zzz")
+//                Task {
+//                    var syllableSum1 = 0
+//                    var durationSum1 = 0
+//                    let url1 = URL(fileURLWithPath: URL.getPath(fileName: SystemManager.shared.ONBOARDING_TESTONE_FILE_NAME, type: .onboarding).path())
+//                    let result1 = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.startFileRecognition(url: url1)
+//                    result1?.forEach { utterance in
+//                        for word in utterance.message.components(separatedBy: " ") {
+//                            syllableSum1 += word.count
+//                            if word.last! == "." {
+//                                syllableSum1 -= 1
+//                            }
+//                        }
+//                        print("***************")
+//                        durationSum1 += utterance.duration
+//                    }
+//                    print("SPM!!: \(Double(syllableSum1 * 60000) / Double(durationSum1))")
+//                }
+//                Task {
+//                    let url2 = URL(fileURLWithPath: URL.getPath(fileName: SystemManager.shared.ONBOARDING_TESTTWO_FILE_NAME, type: .onboarding).path())
+//                    let result2 = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.startFileRecognition(url: url2)
+//                    print("result2: ", result2?.count)
+//                }
+//                Task {
+//                    print("!!!!!!!!!")
+//                    var syllableSum1 = 0
+//                    var durationSum1 = 0
+//                    var syllableSum2 = 0
+//                    var durationSum2 = 0
+//                    let url1 = URL(fileURLWithPath: URL.getPath(fileName: SystemManager.shared.ONBOARDING_TESTONE_FILE_NAME, type: .onboarding).path())
+//                    let url2 = URL(fileURLWithPath: URL.getPath(fileName: SystemManager.shared.ONBOARDING_TESTTWO_FILE_NAME, type: .onboarding).path())
+//
+////                        result1?.forEach { utterance in
+////                            for word in utterance.message.components(separatedBy: " ") {
+////                                syllableSum1 += word.count
+////                                if word.last! == "." {
+////                                    syllableSum1 -= 1
+////                                }
+////                            }
+////                            print("***************")
+////                            durationSum1 += utterance.duration
+////                        }
+////                        result2?.forEach { utterance in
+////                            for word in utterance.message.components(separatedBy: " ") {
+////                                syllableSum2 += word.count
+////                                if word.last! == "." {
+////                                    syllableSum2 -= 1
+////                                }
+////                            }
+////                            print("------------")
+////                            durationSum2 += utterance.duration
+////                        }
+////                    }
+////                    let spmAverage = (Double(syllableSum1 * 60000) / Double(durationSum1) + Double(syllableSum2 * 60000) / Double(durationSum2)) / 2.0
+////                    SystemManager.shared.spmAverage = spmAverage
+//                }
+////                SystemManager.shared.isPassOnbarding = true
+////                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
             }
         }
     }

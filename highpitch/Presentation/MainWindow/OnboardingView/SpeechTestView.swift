@@ -90,7 +90,11 @@ extension SpeechTestView {
                 .systemFont(.footnote, weight: .semibold)
                 .foregroundStyle(Color.HPSecondary.base)
             Spacer()
-            SpeechTestButtonGroup(status: $testOneStatus)
+            SpeechTestButtonGroup(
+                fileName:SystemManager.shared.ONBOARDING_TESTONE_FILE_NAME,
+                index: 0,
+                status: $testOneStatus
+            )
         }
         .padding(.top, .HPSpacing.xxlarge - .HPSpacing.xsmall)
         .padding(.horizontal, .HPSpacing.xxlarge - .HPSpacing.xsmall)
@@ -117,7 +121,11 @@ extension SpeechTestView {
                 .systemFont(.footnote, weight: .semibold)
                 .foregroundStyle(Color.HPSecondary.base)
             Spacer()
-            SpeechTestButtonGroup(status: $testTwoStatus)
+            SpeechTestButtonGroup(
+                fileName:SystemManager.shared.ONBOARDING_TESTTWO_FILE_NAME,
+                index: 1,
+                status: $testTwoStatus
+            )
         }
         .padding(.top, .HPSpacing.xxlarge - .HPSpacing.xsmall)
         .padding(.horizontal, .HPSpacing.xxlarge - .HPSpacing.xsmall)

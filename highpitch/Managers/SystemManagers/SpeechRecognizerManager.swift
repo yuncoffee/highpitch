@@ -189,6 +189,7 @@ final class SpeechRecognizerManager {
     func startFileRecognition(url: URL) async -> [UtteranceModel] {
         let currentTime = CACurrentMediaTime()
         var answer: [UtteranceModel] = []
+        
         SFSpeechRecognizer.requestAuthorization { authStatus in
             // Divert to the app's main thread so that the UI
             // can be updated.

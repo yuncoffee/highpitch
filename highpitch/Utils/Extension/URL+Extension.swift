@@ -10,6 +10,7 @@ import Foundation
 enum URLType {
     case audio
     case video
+    case onboarding
 }
 extension URL {
     static func getStorePath(fileName : String) -> URL {
@@ -35,8 +36,11 @@ extension URL {
         case .video :
             folderName = "Video"
             fileExtension = ".mp4"
+        case .onboarding:
+            folderName = "Onboarding"
+            fileExtension = ".m4a"
         }
-        
+    
         let dataPath = getApplicationDirectory()
             .appendingPathComponent("HighPitch")
             .appendingPathComponent(folderName)

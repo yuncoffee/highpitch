@@ -38,6 +38,7 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var fileName: String = ""
     var stopPoint: TimeInterval?
     var isStart = false
+    static var count = 0;
     
 }
 
@@ -110,6 +111,22 @@ extension MediaManager: Recordable {
 
 // MARK: - 음성메모 재생 관련 메서드
 extension MediaManager: AudioPlayable {
+    func update() {
+        MediaManager.count += 1
+        if MediaManager.count == 10 {
+            MediaManager.count = 0
+            if let avPlayerCurrent = avPlayer?.currentTime().seconds {
+                audioPlayer?.currentTime = avPlayerCurrent
+                currentTime = audioPlayer?.currentTime ?? 0
+            }
+        }
+    }
+    func updateEnd() {
+        if let avPlayerCurrent = avPlayer?.currentTime().seconds {
+            audioPlayer?.currentTime = avPlayerCurrent
+            currentTime = audioPlayer?.currentTime ?? 0
+        }
+    }
     func registerVideo(url: URL) {
         avPlayer = AVPlayer(url: url)
     }
@@ -124,6 +141,7 @@ extension MediaManager: AudioPlayable {
         }
     }
     func play() {
+        
         if(audioPlayer?.currentTime == 0) {
             avPlayer?.seek(to: CMTime(value: CMTimeValue(0), timescale: 600))
         }

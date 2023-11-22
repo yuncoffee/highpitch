@@ -9,7 +9,7 @@ import SwiftUI
 import Sliders
 
 struct AudioControllerView: View {
-    private var audioPlayer : AudioPlayable
+    private var audioPlayer : MediaManager
     private var audioPath: URL
     @State var currentTime = 0.0
     @State var isPlaying = false
@@ -19,7 +19,7 @@ struct AudioControllerView: View {
     @State private var nextAnimationsRunning = false
     
     init(
-        audioPlayer: AudioPlayable,
+        audioPlayer: MediaManager,
         audioPath: URL
     ) {
         self.audioPlayer = audioPlayer

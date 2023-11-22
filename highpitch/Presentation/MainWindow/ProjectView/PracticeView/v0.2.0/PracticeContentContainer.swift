@@ -8,6 +8,7 @@
 import SwiftUI
 #if PREVIEW
 import SwiftData
+  
 #endif
 
 struct PracticeContentContainer: View {
@@ -35,13 +36,24 @@ struct PracticeContentContainer: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.AVPlayerItemDidPlayToEndTime)) { _ in
-            // 비디오 재생이 끝났을 때 처리
-            // 예를 들어, 반복 재생을 원한다면 player.seek(to: CMTime.zero)와 같은 코드를 추가할 수 있습니다.
             print("비디오 재생 끝")
         }
         .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name.AVPlayerItemFailedToPlayToEndTime)) { _ in
-            // 비디오 재생이 실패했을 때 처리
             print("비디오 재생 실패")
+        }
+        .onAppear {
+            NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
+                if viewStore.mediaManager.isPlaying {
+                    viewStore.mediaManager.play()
+                } else {
+                    viewStore.mediaManager.stopPlaying()
+                }
+                return $0
+            }
+            NSEvent.addLocalMonitorForEvents(matching: .scrollWheel) {
+                viewStore.mediaManager.update()
+                return $0
+            }
         }
         .onAppear {
             if let videoPath = viewStore.practice.videoPath,
@@ -67,6 +79,7 @@ struct PracticeContentContainer: View {
         }
     }
 }
+
 
 #Preview {
     let modelContainer = SwiftDataMockManager.previewContainer

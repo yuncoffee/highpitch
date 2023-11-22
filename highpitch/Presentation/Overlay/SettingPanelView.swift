@@ -71,3 +71,30 @@ struct SettingPanelView: View {
         )
     }
 }
+
+/*
+ ZStack {
+     Rectangle()
+         .frame(
+             width: SETTING_PANEL_INFO.size.width,
+             height: SETTING_PANEL_INFO.size.height
+         )
+         .foregroundStyle(Color.white.opacity(0.01))
+     Image(systemName: "rectangle.3.group.fill")
+         .resizable()
+         .frame(
+             width: SETTING_PANEL_INFO.size.width,
+             height: SETTING_PANEL_INFO.size.height
+         )
+         .foregroundColor(
+             instantFeedbackManager.isDetailSettingActive ? Color("FFFFFF").opacity(0.5) :
+                 (instantFeedbackManager.focusedPanel == .setting ?
+                     .white.opacity(0.5) : .white.opacity(0.15)
+                 )
+         )
+ }
+ .frame(
+     width: SETTING_PANEL_INFO.size.width,
+     height: SETTING_PANEL_INFO.size.height
+ )
+ */

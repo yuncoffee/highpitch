@@ -109,6 +109,9 @@ struct TimerPanelView: View {
                     String(Int(panelController.getPanelPosition()!.y)),
                     forKey: "TimerPanelY"
                 )
+                print("UserDefaults에 넣겠습니다.")
+                print("xpos: \(panelController.getPanelPosition()!.x)")
+                print("ypos: \(panelController.getPanelPosition()!.y)")
                 
                 instantFeedbackManager.focusedPanel = nil
             }

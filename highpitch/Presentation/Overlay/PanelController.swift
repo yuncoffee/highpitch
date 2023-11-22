@@ -41,7 +41,11 @@ class PanelController: NSWindowController {
     }
     
     func getPanelPosition() -> NSPoint? {
-        print(panel?.accessibilityActivationPoint().x)
+//        print("panel.frame.origin.x", panel?.frame.origin.x)
+//        print("panel.frame.origin.y", panel?.frame.origin.y)
+//        
+//        print("panel.accessibilityActivationPoint().x", panel?.accessibilityActivationPoint().x)
+//        print("panel.accessibilityActivationPoint().y", panel?.accessibilityActivationPoint().y)
         return panel?.accessibilityActivationPoint()
     }
     

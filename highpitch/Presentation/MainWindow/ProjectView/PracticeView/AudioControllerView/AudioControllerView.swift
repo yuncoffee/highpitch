@@ -34,10 +34,8 @@ struct AudioControllerView: View {
         .frame(maxWidth: .infinity, maxHeight: 64, alignment: .top)
         .background(Color.HPComponent.audioControllerBackground)
         .background(.ultraThinMaterial)
-        //        .border(.HPComponent.stroke, width: 1, edges: [.top])
         .onAppear {
             currentTime = audioPlayer.currentTime
-            //settingAudio(filePath: audioPath)
         }.onChange(of: audioPlayer.currentTime) { _, newValue in
             self.currentTime = newValue
             if newValue == 0 {

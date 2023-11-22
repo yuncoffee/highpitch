@@ -93,6 +93,8 @@
 		1D5BE1AF2B0BA222003DCCE4 /* SpeechTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5BE1AE2B0BA222003DCCE4 /* SpeechTestView.swift */; };
 		1D600BA72AF9DCBA001FC5EB /* PracticeViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D600BA62AF9DCBA001FC5EB /* PracticeViewStore.swift */; };
 		1D600BAB2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D600BAA2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift */; };
+		1D7058FE2B0D04DB005C8127 /* SpeechTestButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7058FD2B0D04DB005C8127 /* SpeechTestButtonGroup.swift */; };
+		1D7059012B0D0748005C8127 /* RequestMicPermissionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7059002B0D0748005C8127 /* RequestMicPermissionSheet.swift */; };
 		1D7A3EDB2ADC1F6F0084E962 /* MenuBarExtraAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 1D7A3EDA2ADC1F6F0084E962 /* MenuBarExtraAccess */; };
 		1D8C5AF02AD7BB3200B01F10 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C5AEF2AD7BB3200B01F10 /* ProjectModel.swift */; };
 		1D8C5AF52AD7BEDB00B01F10 /* Utterance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */; };
@@ -261,6 +263,8 @@
 		1D5BE1AE2B0BA222003DCCE4 /* SpeechTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechTestView.swift; sourceTree = "<group>"; };
 		1D600BA62AF9DCBA001FC5EB /* PracticeViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewStore.swift; sourceTree = "<group>"; };
 		1D600BAA2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAudioPermissionPopover.swift; sourceTree = "<group>"; };
+		1D7058FD2B0D04DB005C8127 /* SpeechTestButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechTestButtonGroup.swift; sourceTree = "<group>"; };
+		1D7059002B0D0748005C8127 /* RequestMicPermissionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMicPermissionSheet.swift; sourceTree = "<group>"; };
 		1D8C5AEF2AD7BB3200B01F10 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		1D8C5AF42AD7BEDB00B01F10 /* Utterance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utterance.swift; sourceTree = "<group>"; };
 		1D98941E2AE6199000DE57A1 /* PracticeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeList.swift; sourceTree = "<group>"; };
@@ -787,8 +791,10 @@
 		1D5BE1AB2B0B93B7003DCCE4 /* OnboardingView */ = {
 			isa = PBXGroup;
 			children = (
+				1D7058FF2B0D071B005C8127 /* sheet */,
 				1D5BE1AC2B0B93CC003DCCE4 /* OnboardingView.swift */,
 				1D5BE1AE2B0BA222003DCCE4 /* SpeechTestView.swift */,
+				1D7058FD2B0D04DB005C8127 /* SpeechTestButtonGroup.swift */,
 			);
 			path = OnboardingView;
 			sourceTree = "<group>";
@@ -815,6 +821,14 @@
 				1D600BAA2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift */,
 			);
 			path = Popover;
+			sourceTree = "<group>";
+		};
+		1D7058FF2B0D071B005C8127 /* sheet */ = {
+			isa = PBXGroup;
+			children = (
+				1D7059002B0D0748005C8127 /* RequestMicPermissionSheet.swift */,
+			);
+			path = sheet;
 			sourceTree = "<group>";
 		};
 		1D98941D2AE6196500DE57A1 /* PracticeList */ = {
@@ -1315,6 +1329,7 @@
 				1172F1092AE1442900D6B0B9 /* PracticeSummaryModel.swift in Sources */,
 				10C7D2942AE62054008691CD /* ReturnzeroAPIV2.swift in Sources */,
 				1DE8B64C2AECD4C400E0746E /* BaseStyle.swift in Sources */,
+				1D7059012B0D0748005C8127 /* RequestMicPermissionSheet.swift in Sources */,
 				1D0ECD7E2ADE05D500B95A74 /* HPStyledLabel.swift in Sources */,
 				11A9F2882B0C2D66003CAFFD /* ReportView.swift in Sources */,
 				1DF659BB2AD5959200AE5601 /* HighPitchApp.swift in Sources */,
@@ -1326,6 +1341,7 @@
 				113469662B09038600CA16AE /* ProjectLengthChart.swift in Sources */,
 				1D0467C82AFA281D003EF427 /* FillerWordSheet.swift in Sources */,
 				113469602B04BC2900CA16AE /* ProjectSpeakingRateChart.swift in Sources */,
+				1D7058FE2B0D04DB005C8127 /* SpeechTestButtonGroup.swift in Sources */,
 				1DE8B6532AED1C7B00E0746E /* HPButtonStyle.swift in Sources */,
 				1D0467CF2AFA9B2A003EF427 /* PracticeInfoPopover.swift in Sources */,
 				1DED4EE12AFCA64A000109B3 /* FillerWordAudioIndicator.swift in Sources */,

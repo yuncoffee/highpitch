@@ -61,7 +61,7 @@ extension ProjectManager {
         /// 녹음본 파일 위치 : /Users/{사용자이름}/Documents/HighPitch/Audio.YYYYMMDDHHMMSS.m4a
         /// ReturnZero API를 이용해서 UtteranceModel완성
         Task { [self] in
-            let newUtteranceModels = await self.makeNewUtterances(mediaManager: mediaManager)
+            let newUtteranceModels = await self.makeNewUtterancesV2(mediaManager: mediaManager)
             /// 아무말도 하지 않았을 경우 종료한다.
             if newUtteranceModels.isEmpty {
                 print("none of words!")

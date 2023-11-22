@@ -39,6 +39,7 @@ struct HPTopToolbar<T: View>: View {
                     .offset(x: -.HPSpacing.xxsmall)
                 }
             }
+            .offset(y: 8)
             VStack(spacing: 0) {
                 if let popOverContent = popOverContent {
                     Text("\(title)")
@@ -64,6 +65,7 @@ struct HPTopToolbar<T: View>: View {
                 }
             }
             .frame(maxWidth: .infinity)
+            .offset(y: 8)
             HStack(spacing: 0) {
                 // MARK: - AppleScript Remove
                 HPButton(color: .HPSecondary.base) {
@@ -157,4 +159,5 @@ extension HPTopToolbar where T == EmptyView {
     }, popOverContent: {
         Text("zz")
     })
+    .frame(width: 1000)
 }

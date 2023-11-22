@@ -181,6 +181,7 @@ extension MainWindowView {
             .padding(.horizontal, .HPSpacing.xxxsmall)
             Divider()
                 .background(Color.HPComponent.stroke)
+                .opacity(0.5)
                 .padding(.top, .HPSpacing.xxxsmall)
                 .padding(.bottom, .HPSpacing.small)
                 .padding(.horizontal, .HPSpacing.xxxsmall)

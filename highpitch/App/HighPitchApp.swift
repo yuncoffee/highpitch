@@ -156,6 +156,7 @@ struct HighpitchApp: App {
                     }
             } else {
                 OnboardingView()
+                    .environment(mediaManager)
                     .frame(width: 1000, height: 628)
                     .onAppear {
                         NSApp.windows.forEach { window in

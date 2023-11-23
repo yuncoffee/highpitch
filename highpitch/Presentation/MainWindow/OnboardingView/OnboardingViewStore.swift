@@ -10,6 +10,7 @@ import Foundation
 @Observable
 final class OnboardingViewStore {
     var isFinishs = [false, false]
+    var isOnboardingNoticeSheetActive = false
     
     func isTestFinish() -> Bool {
         if isFinishs[0] && isFinishs[1] {

@@ -1,13 +1,13 @@
 //
-//  RequestMicPermissionSheet.swift
+//  NoticeSheet.swift
 //  highpitch
 //
-//  Created by yuncoffee on 11/22/23.
+//  Created by yuncoffee on 11/23/23.
 //
 
 import SwiftUI
 
-struct RequestMicPermissionSheet: View {
+struct OnboardingNoticeSheet: View {
     @Binding var isActive: Bool
     
     var body: some View {
@@ -15,8 +15,8 @@ struct RequestMicPermissionSheet: View {
             VStack(spacing: .HPSpacing.xxsmall + .HPSpacing.small) {
                 header
                 VStack(spacing: .HPSpacing.xxsmall) {
-                    requestPermissionButton
                     dismissButton
+                    skipOnboardingButton
                 }
             }
         }
@@ -28,32 +28,23 @@ struct RequestMicPermissionSheet: View {
     }
 }
 
-extension RequestMicPermissionSheet {
-    private func requestMicrophonePermission() {
-        let workspace = NSWorkspace.shared
-        let urlPath = "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone"
-        if let url = URL(string: urlPath) {
-            if workspace.open(url) {
-                print("보안 및 개인정보 설정 중 '마이크' 섹션으로 이동되었습니다.")
-            } else {
-                print("설정 앱을 열 수 없습니다.")
-            }
-        }
-    }
-    
+extension OnboardingNoticeSheet {
     private func dismissSheet() {
         isActive = false
     }
+    private func skip() {
+        UserDefaults.standard.set(true, forKey: "isPassOnbarding")
+    }
 }
 
-extension RequestMicPermissionSheet {
+extension OnboardingNoticeSheet {
     @ViewBuilder
     var header: some View {
         VStack {
-            Text("원활한 연습기록을 위해\n마이크 권한을 허용해주세요")
+            Text("지금 말할 수 없는 상황인가요?")
                 .systemFont(.subTitle, weight: .bold)
                 .foregroundStyle(Color.HPTextStyle.darker)
-            Text("마이크 권한을 허용해주셔야\n하이피치를 정상적으로 사용할 수 있어요.")
+            Text("나의 말하기 평균 속도를 측정해야\n더 정확한 분석을 받을 수 있어요.")
                 .systemFont(.footnote, weight: .medium)
                 .foregroundStyle(Color.HPTextStyle.base)
         }
@@ -61,12 +52,12 @@ extension RequestMicPermissionSheet {
     }
     
     @ViewBuilder
-    var requestPermissionButton: some View {
+    var dismissButton: some View {
         HPButton(size: .large) {
-            requestMicrophonePermission()
+            dismissSheet()
         } label: { type, size, color, expandable in
             HPLabel(
-                content: ("권한 설정하러 가기", nil),
+                content: ("측정해볼게요", nil),
                 type: type,
                 size: size,
                 color: color,
@@ -77,12 +68,12 @@ extension RequestMicPermissionSheet {
     }
     
     @ViewBuilder
-    var dismissButton: some View {
+    var skipOnboardingButton: some View {
         HPButton(type: .text, size: .small, color: .HPTextStyle.base) {
-            dismissSheet()
+            skip()
         } label: { type, size, color, expandable in
             HPLabel(
-                content: ("나중에 할래요", nil),
+                content: ("괜찮아요, 다음에 할게요", nil),
                 type: type,
                 size: size,
                 color: color,
@@ -91,10 +82,11 @@ extension RequestMicPermissionSheet {
             )
         }
         .frame(width: 178)
+        .underline()
     }
 }
 
 #Preview {
     @State var isActive = false
-    return RequestMicPermissionSheet(isActive: $isActive)
+    return OnboardingNoticeSheet(isActive: $isActive)
 }

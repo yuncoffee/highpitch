@@ -17,6 +17,7 @@ struct OnboardingView: View {
     private var viewStore = OnboardingViewStore()
 
     var body: some View {
+        @Bindable var viewStore = viewStore
         HStack(spacing: .zero) {
             leftContainer
             rightContainer
@@ -24,6 +25,9 @@ struct OnboardingView: View {
                 .background(Color.HPPrimary.lightnest)
         }
         .toolbarBackground(.hidden)
+        .sheet(isPresented: $viewStore.isOnboardingNoticeSheetActive) {
+            OnboardingNoticeSheet(isActive: $viewStore.isOnboardingNoticeSheetActive)
+        }
         .ignoresSafeArea()
         .environment(viewStore)
     }
@@ -51,6 +55,10 @@ extension OnboardingView {
                 
             }
         }
+    }
+    
+    private func skip() {
+        viewStore.isOnboardingNoticeSheetActive = true
     }
 }
 
@@ -172,7 +180,7 @@ extension OnboardingView {
     @ViewBuilder
     var skipButton: some View {
         HPButton(type: .text, size: .small, color: .HPTextStyle.base) {
-            SystemManager.shared.isPassOnbarding = true
+            skip()
         } label: { type, size, color, expandable in
             HPLabel(
                 content: ("건너뛰기", "chevron.right"),

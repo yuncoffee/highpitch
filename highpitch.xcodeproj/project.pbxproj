@@ -87,6 +87,7 @@
 		1D1EC6A32AFB98C900CB72E9 /* VideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1EC6A22AFB98C900CB72E9 /* VideoContainer.swift */; };
 		1D1EC6A52AFB990100CB72E9 /* PracticeDetailContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1EC6A42AFB990100CB72E9 /* PracticeDetailContainer.swift */; };
 		1D2251F02B0ED6560056719B /* OnboardingViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2251EF2B0ED6560056719B /* OnboardingViewStore.swift */; };
+		1D2251F22B0EDA750056719B /* OnboardingNoticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2251F12B0EDA750056719B /* OnboardingNoticeSheet.swift */; };
 		1D30E6252AD6117F00623A58 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30E6242AD6117F00623A58 /* MediaManager.swift */; };
 		1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1D30E62B2AD6E88500623A58 /* .swiftlint.yml */; };
 		1D58FA292AE2956E00B92B4A /* HPMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D58FA282AE2956E00B92B4A /* HPMenu.swift */; };
@@ -258,6 +259,7 @@
 		1D1EC6A22AFB98C900CB72E9 /* VideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoContainer.swift; sourceTree = "<group>"; };
 		1D1EC6A42AFB990100CB72E9 /* PracticeDetailContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDetailContainer.swift; sourceTree = "<group>"; };
 		1D2251EF2B0ED6560056719B /* OnboardingViewStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewStore.swift; sourceTree = "<group>"; };
+		1D2251F12B0EDA750056719B /* OnboardingNoticeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNoticeSheet.swift; sourceTree = "<group>"; };
 		1D30E6242AD6117F00623A58 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		1D30E62B2AD6E88500623A58 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1D58FA282AE2956E00B92B4A /* HPMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPMenu.swift; sourceTree = "<group>"; };
@@ -830,6 +832,7 @@
 			isa = PBXGroup;
 			children = (
 				1D7059002B0D0748005C8127 /* RequestMicPermissionSheet.swift */,
+				1D2251F12B0EDA750056719B /* OnboardingNoticeSheet.swift */,
 			);
 			path = sheet;
 			sourceTree = "<group>";
@@ -1395,6 +1398,7 @@
 				1DBF14612AE1380D00B28CED /* MenubarExtraHeader.swift in Sources */,
 				10F3F2842B05FD8C00CFC817 /* AudioRecorder.swift in Sources */,
 				437373A02B0224BD00DEEDBD /* PanelController.swift in Sources */,
+				1D2251F22B0EDA750056719B /* OnboardingNoticeSheet.swift in Sources */,
 				437373A02B0224BD00DEEDBD /* PanelController.swift in Sources */,
 				1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */,
 				1D0ECD7A2ADDA35400B95A74 /* HPTopToolbar.swift in Sources */,

@@ -89,11 +89,8 @@ extension SpeechTestButtonGroup {
             durationSum += utterance.duration
         }
         let spmResult = (Double(syllableSum * 60000) / Double(durationSum))
-        if index == 0 {
-            SystemManager.shared.test1SPM = spmResult
-        } else {
-            SystemManager.shared.test2SPM = spmResult
-        }
+        
+        SystemManager.shared.testSPMs[index] = spmResult
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
     }
 }

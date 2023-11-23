@@ -56,6 +56,7 @@ struct ScreenSelectionView: View {
     }
 }
 extension ScreenSelectionView {
+    @ViewBuilder
     var screenItemView: some View {
         let views: [CapturePreview] = 
         screenRecorder.captureDisplayPreviews + screenRecorder.captureWindowPreviews
@@ -103,6 +104,7 @@ extension ScreenSelectionView {
             setDefalut()
         }
     }
+    @ViewBuilder
     var bottomButtons: some View {
         HStack {
             Toggle(isOn: $isChecked) {
@@ -131,7 +133,7 @@ extension ScreenSelectionView {
                         screenRecorder.selectedWindow == nil ? Color.HPGray.system200 : Color.HPPrimary.base
                         Text("연습 시작")
                             .systemFont(.caption, weight: .semibold)
-                            .foregroundColor(.HPTextStyle.dark)
+                            .foregroundColor(screenRecorder.selectedWindow == nil ? .HPTextStyle.dark : .HPGray.systemWhite)
                     }
                 })
                 .frame(width: 92,height:37)

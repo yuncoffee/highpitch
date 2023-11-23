@@ -216,7 +216,11 @@ struct HighpitchApp: App {
         })
         .onChange(of: mediaManager.isStart, { _, newValue in
             if newValue {
-                isMenuPresented = false
+                Task {
+                    await MainActor.run {
+                        isMenuPresented = false
+                    }
+                }
             }
         })
         .onChange(of: mediaManager.isRecording, { _, newValue in

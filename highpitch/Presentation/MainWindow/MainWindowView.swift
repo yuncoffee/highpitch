@@ -61,7 +61,6 @@ struct MainWindowView: View {
             navigationSidebar
         } detail: {
             navigationDetails
-           // ScreenSelectionView()
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
@@ -320,7 +319,9 @@ extension MainWindowView {
                 }
             })
         } else {
-            HPTopToolbar(title: "내 연습 분석", completion: nil)
+            HPTopToolbar(title: "내 연습 분석") {
+                mediaManager.isStart = true
+            }
         }
     }
 }

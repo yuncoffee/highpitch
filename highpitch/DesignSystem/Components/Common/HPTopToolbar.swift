@@ -43,8 +43,8 @@ struct HPTopToolbar<T: View>: View {
             VStack(spacing: 0) {
                 if let popOverContent = popOverContent {
                     Text("\(title)")
-                        .systemFont(.footnote, weight: .semibold)
-                        .foregroundStyle(Color.HPTextStyle.darkness)
+                        .systemFont(.body, weight: .medium)
+                        .foregroundStyle(Color.HPTextStyle.darker)
                         .onTapGesture {
                             if !isPopoverActive {
                                 isPopoverActive = true
@@ -55,8 +55,8 @@ struct HPTopToolbar<T: View>: View {
                         }
                 } else {
                     Text("\(title)")
-                        .systemFont(.footnote, weight: .semibold)
-                        .foregroundStyle(Color.HPTextStyle.darkness)
+                        .systemFont(.body, weight: .medium)
+                        .foregroundStyle(Color.HPTextStyle.darker)
                 }
                 if let subTitle {
                     Text("\(subTitle)")
@@ -86,6 +86,7 @@ struct HPTopToolbar<T: View>: View {
                 .frame(width: 120)
                 .padding(.trailing, .HPSpacing.medium)
                 .frame(maxWidth: .infinity, alignment: .trailing)
+                .disabled(completion == nil)
             }
             .frame(maxWidth: .infinity)
         }

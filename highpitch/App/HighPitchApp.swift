@@ -209,11 +209,15 @@ struct HighpitchApp: App {
         .menuBarExtraAccess(isPresented: $isMenuPresented)
         .commandsRemoved()
         .onChange(of: isMenuPresented, { _, newValue in
-            print(isMenuPresented)
             if newValue {
                 GAManager.shared.analyticsOnClick(.menubarClick)
             }
             refreshable = newValue
+        })
+        .onChange(of: mediaManager.isStart, { _, newValue in
+            if newValue {
+                isMenuPresented = false
+            }
         })
         .onChange(of: mediaManager.isRecording, { _, newValue in
             print("TEST!!!!")

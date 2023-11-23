@@ -71,12 +71,7 @@ struct PracticeViewTopToolbar: View {
                 }
             },
             completion: {
-                if let currentProject = projectManager.current {
-                    projectManager.playPractice(
-                        selectedProject: currentProject,
-                        mediaManager: mediaManager
-                    )
-                }
+                mediaManager.isStart = true
             }
         )
     }

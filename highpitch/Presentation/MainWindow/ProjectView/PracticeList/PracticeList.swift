@@ -63,7 +63,8 @@ struct PracticeList: View {
                                         practice: practice,
                                         index: index,
                                         selectedPractices: $selectedPractices,
-                                        isEditMode: isEditMode
+                                        isEditMode: isEditMode,
+                                        isRemarkable: practice.remarkable
                                     )
                                 }
                                 .buttonStyle(.plain)

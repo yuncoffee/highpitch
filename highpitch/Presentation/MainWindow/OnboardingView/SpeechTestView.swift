@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SpeechTestView: View {
+    @Environment(OnboardingViewStore.self)
+    var store
+
     @State
     private var currentSentenceIndex = 0
     

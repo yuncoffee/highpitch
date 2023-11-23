@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SpeechTestButtonGroup: View {
+    @Environment(OnboardingViewStore.self)
+    var store
     @Environment(MediaManager.self)
     var mediaManager
     let fileName: String
@@ -22,6 +24,8 @@ struct SpeechTestButtonGroup: View {
     private var animationsRunning = false
     @State
     private var isSheetActive = false
+    @State
+    private var duration = 0.0
 
     var body: some View {
         switch status {
@@ -37,9 +41,6 @@ struct SpeechTestButtonGroup: View {
 
 extension SpeechTestButtonGroup {
     private func testBeforeButtonAction() {
-        withAnimation {
-            animationsRunning = true
-        }
         if mediaManager.checkMicrophonePermission() {
             status = .testing
             recording()
@@ -47,16 +48,16 @@ extension SpeechTestButtonGroup {
             isSheetActive = true
         }
     }
-    
     private func recording() {
-        prepareRecording()
+        mediaManager.prepareOnboardingRecording(fileName: fileName)
+        mediaManager.fileName = fileName
+        mediaManager.audioRecorder?.record()
     }
-    
     private func finishRecording() {
         mediaManager.audioRecorder?.stop()
         status = .testAfter
+        store.isFinishs[index] = true
     }
-    
     private func replay() {
         let url = URL(fileURLWithPath: URL.getPath(fileName: fileName, type: .onboarding).path())
         isAudioPlay = true
@@ -65,23 +66,15 @@ extension SpeechTestButtonGroup {
         } catch {
             print(error)
         }
+        duration = mediaManager.getDuration()
         mediaManager.play()
         
     }
-    
     private func reRecord() {
         status = .testing
         mediaManager.stopPlaying()
         recording()
     }
-    
-    private func prepareRecording() {
-        // MARK: 온보딩 폴더를 생성합니다.
-        mediaManager.prepareOnboardingRecording(fileName: fileName)
-        mediaManager.fileName = fileName
-        mediaManager.audioRecorder?.record()
-    }
-    
     private func anlaysisAudio(result: [UtteranceModel]) {
         var syllableSum = 0
         var durationSum = 0
@@ -101,12 +94,8 @@ extension SpeechTestButtonGroup {
         } else {
             SystemManager.shared.test2SPM = spmResult
         }
-        print("SPMRESULT: \(spmResult)")
-        print("SPMRESULT: \(spmResult)")
-        print("SPMRESULT: \(spmResult)")
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
     }
-
 }
 
 extension SpeechTestButtonGroup {
@@ -165,8 +154,13 @@ extension SpeechTestButtonGroup {
                     .offset(x: 10, y: 10)
             )
         }
+        .onAppear(perform: {
+            animationsRunning = true
+        })
         .onDisappear {
-            animationsRunning = false
+            withAnimation {
+                animationsRunning = false
+            }
         }
     }
     
@@ -215,13 +209,18 @@ extension SpeechTestButtonGroup {
         }
         .onAppear {
             mediaManager.audioRecorder = nil
+            
         }
+        .onChange(of: mediaManager.currentTime, { _, newValue in
+            if newValue == 0.0 {
+                isAudioPlay = false
+            }
+        })
         .task {
             SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
             let url = URL(fileURLWithPath: URL.getPath(fileName: fileName, type: .onboarding).path())
             let result = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?.startFileRecognition(url: url)
             anlaysisAudio(result: result ?? [])
-
         }
         .onDisappear {
             isAudioPlay = false
@@ -237,6 +236,8 @@ enum MySPMTestType: Int {
 
 #Preview {
     @State var status: MySPMTestType = .testBefore
+    @State var isFinish = false
     @State var mediaManager = MediaManager()
-    return SpeechTestButtonGroup(fileName: "test", status: $status).environment(mediaManager)
+    return SpeechTestButtonGroup(fileName: "test", status: $status)
+        .environment(mediaManager)
 }

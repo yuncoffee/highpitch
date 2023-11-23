@@ -100,16 +100,6 @@ struct MainWindowView: View {
 
 extension MainWindowView {
     private func setup() {
-//        쿼리해온 데이터에서 맨 앞 데이터 선택
-//        if mediaManager.checkMicrophonePermission() {
-//            print("Hello")
-//            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")
-//            {
-//                 NSWorkspace.shared.open(url)
-//             }
-//        } else {
-//            
-//        }
 //        UserDefaults.standard.set(false, forKey: "isPassOnbarding")
         if !unVisitedPractices.isEmpty {
             SystemManager.shared.hasUnVisited = true

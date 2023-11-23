@@ -116,7 +116,12 @@ struct ReportSpeakingRateChart: View {
                     ))) { value in
                         AxisValueLabel(centered: false) {
                             if value.index % 2 == 0 {
-                                let axisValue = Double(value.index)
+                                let axisValue = 
+                                viewStore.practice.summary.maxSpm == viewStore.practice.summary.minSpm
+                                ? Double(value.index)
+                                * 100.0 / 4
+                                + viewStore.practice.summary.minSpm - 50.0
+                                : Double(value.index)
                                     * (viewStore.practice.summary.maxSpm
                                        - viewStore.practice.summary.minSpm) / 4
                                     + viewStore.practice.summary.minSpm
@@ -130,14 +135,19 @@ struct ReportSpeakingRateChart: View {
                 }
                 .chartLegend(.hidden)
                 .chartXScale(domain: [0.0, viewStore.practice.summary.practiceLength])
-                .chartYScale(domain: [
-                    viewStore.practice.summary.minSpm,
-                    viewStore.practice.summary.maxSpm
-                ])
+                .chartYScale(domain: 
+                                viewStore.practice.summary.minSpm == viewStore.practice.summary.maxSpm
+                             ? [
+                                viewStore.practice.summary.minSpm - 50.0,
+                                viewStore.practice.summary.maxSpm + 50.0
+                             ] : [
+                                viewStore.practice.summary.minSpm - 1.0,
+                                viewStore.practice.summary.maxSpm + 1.0
+                            ])
                 .frame(maxWidth: .infinity, minHeight: 230, maxHeight: 230)
             }
             VStack(alignment:.leading, spacing: 0) {
-                Text("* SPM(Syllable Per Minutes ∙ 분당 음절수):\n1분 동안 얼마나 많은 음절을 말했는지를 기준으로 측정한 단위")
+                Text("* SPM(Syllable Per Minutes∙분당 음절수):\n1분 동안 얼마나 많은 음절을 말했는지를 기준으로 측정한 단위")
                     .systemFont(.caption2, weight: .medium)
                     .foregroundColor(Color.HPTextStyle.base)
                     .offset(x: 40, y: -10)

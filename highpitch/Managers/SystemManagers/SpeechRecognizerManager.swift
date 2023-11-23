@@ -223,9 +223,11 @@ final class SpeechRecognizerManager {
                 = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
                     if let result = result {
                         for word in result.bestTranscription.segments {
+                            print("word.substring:", word.substring)
+                            
                             /// 지난 단어와 간격이 0.4초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
                             if (word.timestamp - self.endAt > 0.5)
-                                || (result.isFinal) {
+                                || (self.isFinal) {
                                 if self.message != "" {
                                     self.message += "."
                                     print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)

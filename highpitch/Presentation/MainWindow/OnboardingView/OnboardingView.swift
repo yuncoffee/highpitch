@@ -44,12 +44,12 @@ extension OnboardingView {
     
     private func goToNext() {
         withAnimation {
-            if processCount < 5 {
-                processCount += 1
-            }
             if processCount == 5 {
                 SystemManager.shared.isPassOnbarding = true
                 UserDefaults.standard.set(true, forKey: "isPassOnbarding")
+            }
+            if processCount < 5 {
+                processCount += 1
             }
         }
     }

@@ -63,7 +63,6 @@ final class PracticeViewStore {
     var SCRIPT_CONTAINER_WIDTH: CGFloat {
         self.currentFeedbackViewType == .every ? 320.0 : 276.0
     }
-    
     var player: AVPlayer?
     // ************* V2 ************* //
     

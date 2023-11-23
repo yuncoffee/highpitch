@@ -22,9 +22,14 @@ final class InstantFeedbackManager {
     var isDetailSettingActive = false
     var focusedPanel: InstantPanel?
     var activePanels: Set<InstantPanel> = []
-    var speechRecognizerManager: SpeechRecognizerManager? = SpeechRecognizerManager()
+    var speechRecognizerManager: SpeechRecognizerManager?
     var feedbackPanelControllers: [InstantPanel:PanelController] = [:]
-
+    
+    var movablePanelMoved: [Bool] = [false, false, false, false, false, false]
+    var resetButtonDisabled = true
+    
+    var isTimerRunning = -2
+    
     typealias PanelFrameInfo = (
         size: CGSize,
         topLeftPoint: CGPoint?,

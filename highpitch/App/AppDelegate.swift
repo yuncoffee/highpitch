@@ -54,23 +54,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let xpos = loadPanelPosition(
             key: "TimerPanelX",
-            originalPos: instantFeedbackManager.getPanelPositionX(
-                left: TIMER_PANEL_INFO.topLeftPoint!.x,
-                padding: XMARK_RADIUS
-            )
+            originalPos: originalXpos
         )
         let ypos = loadPanelPosition(
             key: "TimerPanelY",
-            originalPos: instantFeedbackManager.getPanelPositionY(
-                top: TIMER_PANEL_INFO.topLeftPoint!.y,
-                height: TIMER_PANEL_INFO.size.height,
-                padding: XMARK_RADIUS
-            )
+            originalPos: originalYpos
         )
         
+        instantFeedbackManager.movablePanelMoved[0] = (xpos == originalXpos) ? false : true
+        instantFeedbackManager.movablePanelMoved[1] = (ypos == originalYpos) ? false : true
+        
+        print("init Timer xpos: ", xpos)
+        print("init Timer ypos: ", ypos)
+        
         let timerPanelController = PanelController(
-            xpos: xpos,
-            ypos: ypos,
+            xpos: xpos - 11,
+            ypos: ypos - 11,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: TIMER_PANEL_INFO.size.width,
@@ -133,18 +132,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let SPEED_PANEL_INFO = instantFeedbackManager.SPEED_PANEL_INFO
         let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
+        let originalXpos = instantFeedbackManager.getPanelPositionX(
+            right: SPEED_PANEL_INFO.bottomRightPoint!.x,
+            width: SPEED_PANEL_INFO.size.width,
+            padding: XMARK_RADIUS
+        )
+        let originalYpos = instantFeedbackManager.getPanelPositionY(
+            bottom: SPEED_PANEL_INFO.bottomRightPoint!.y,
+            padding: XMARK_RADIUS
+        )
+        
+        let xpos = loadPanelPosition(
+            key: "SpeedPanelX",
+            originalPos: originalXpos
+        )
+        let ypos = loadPanelPosition(
+            key: "SpeedPanelY",
+            originalPos: originalYpos
+        )
+        
+        print("init Speed xpos: ", xpos)
+        print("init Speed ypos: ", ypos)
+        
+        instantFeedbackManager.movablePanelMoved[2] = (xpos == originalXpos) ? false : true
+        instantFeedbackManager.movablePanelMoved[3] = (ypos == originalYpos) ? false : true
+        
         let speedPanelController = PanelController(
-            xpos:
-                instantFeedbackManager.getPanelPositionX(
-                    right: SPEED_PANEL_INFO.bottomRightPoint!.x,
-                    width: SPEED_PANEL_INFO.size.width,
-                    padding: XMARK_RADIUS
-                ),
-            ypos:
-                instantFeedbackManager.getPanelPositionY(
-                    bottom: SPEED_PANEL_INFO.bottomRightPoint!.y,
-                    padding: XMARK_RADIUS
-                ),
+            xpos: xpos - 11,
+            ypos: ypos - 11,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: SPEED_PANEL_INFO.size.width,
@@ -168,18 +183,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let FILLERWORD_PANEL_INFO = instantFeedbackManager.FILLERWORD_PANEL_INFO
         let XMARK_RADIUS = instantFeedbackManager.PANEL_XMARK_RADIUS
         
+        let originalXpos = instantFeedbackManager.getPanelPositionX(
+            right: FILLERWORD_PANEL_INFO.bottomRightPoint!.x,
+            width: FILLERWORD_PANEL_INFO.size.width,
+            padding: XMARK_RADIUS
+        )
+        let originalYpos = instantFeedbackManager.getPanelPositionY(
+            bottom: FILLERWORD_PANEL_INFO.bottomRightPoint!.y,
+            padding: XMARK_RADIUS
+        )
+        
+        let xpos = loadPanelPosition(
+            key: "FillerWordPanelX",
+            originalPos: originalXpos
+        )
+        let ypos = loadPanelPosition(
+            key: "FillerWordPanelY",
+            originalPos: originalYpos
+        )
+        
+        print("init FillerWord xpos: ", xpos)
+        print("init FillerWord ypos: ", ypos)
+        
+        instantFeedbackManager.movablePanelMoved[4] = (xpos == originalXpos) ? false : true
+        instantFeedbackManager.movablePanelMoved[5] = (ypos == originalYpos) ? true : false
+        
         let fillerWordPanelController = PanelController(
-            xpos:
-                instantFeedbackManager.getPanelPositionX(
-                    right: FILLERWORD_PANEL_INFO.bottomRightPoint!.x,
-                    width: FILLERWORD_PANEL_INFO.size.width,
-                    padding: XMARK_RADIUS
-                ),
-            ypos:
-                instantFeedbackManager.getPanelPositionY(
-                    bottom: FILLERWORD_PANEL_INFO.bottomRightPoint!.y,
-                    padding: XMARK_RADIUS
-                ),
+            xpos: xpos - 11,
+            ypos: ypos - 11,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: FILLERWORD_PANEL_INFO.size.width,
@@ -281,8 +312,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func loadPanelPosition(key: String, originalPos: Int) -> Int {
-        let XMARK_RADIUS = Int(instantFeedbackManager.PANEL_XMARK_RADIUS)
-        
+        print("originalPos: \(originalPos)")
+        print("UserDefaults: \(UserDefaults.standard.string(forKey: key).flatMap { Int($0) }!)")
         let value = UserDefaults.standard.string(forKey: key) ?? nil
         
         if value == nil {

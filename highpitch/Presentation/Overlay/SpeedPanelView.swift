@@ -98,6 +98,9 @@ struct SpeedPanelView: View {
                     String(Int(panelController.getPanelPosition()!.y)),
                     forKey: "SpeedPanelY"
                 )
+                print("UserDefaults에 넣는다")
+                print("Hover아웃시 SpeedPanelController.getPanelPosition.x: \(Int(panelController.getPanelPosition()!.x))")
+                print("Hover아웃시 SpeedPanelController.getPanelPosition.y: \(Int(panelController.getPanelPosition()!.y))")
                 
                 instantFeedbackManager.focusedPanel = nil
             }
@@ -116,8 +119,6 @@ struct SpeedPanelView: View {
         )
         .onAppear {
             #if PREVIEW
-//            PanelData.shared.isEditMode = true
-//            PanelData.shared.isFocused = 2
             instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
             instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
             #endif

@@ -338,7 +338,6 @@ class ScreenRecordManager: ObservableObject {
             .filter { !$0.displayName.contains("Wallpaper")}
             .filter { !$0.displayName.contains("제어 센터")}
             .filter { !$0.displayName.contains("Control Center") && !$0.displayName.contains("Finder")}
-        
     }
 }
 

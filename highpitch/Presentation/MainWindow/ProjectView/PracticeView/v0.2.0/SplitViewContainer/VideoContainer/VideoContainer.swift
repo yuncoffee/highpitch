@@ -7,8 +7,6 @@
 
 import SwiftUI
 import SwiftData
-import AVFoundation
-import AVKit
 
 struct VideoContainer: View {
     @Environment(PracticeViewStore.self)
@@ -37,7 +35,6 @@ struct VideoContainer: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             // MARK: - Add MockData
-            viewStore.player = AVPlayer(url: Bundle.main.url(forResource: "Screen Recording 2023-11-21 at 11.47.45 AM", withExtension: "mov")!)
 #if PREVIEW
             if let sample = practices.first {
                 viewStore.practice = sample

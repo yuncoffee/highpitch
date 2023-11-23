@@ -70,6 +70,8 @@ struct SavePanelView: View {
                 HPButton(color: .HPPrimary.base) {
                     // 연습 저장하는 로직
                     SystemManager.shared.stopPractice()
+                    // TimerPanel의 타이머 정지 및 초기화
+                    SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
                     NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
                 } label: { type, _, color, expandable in

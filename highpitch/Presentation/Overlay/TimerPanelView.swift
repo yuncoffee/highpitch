@@ -10,7 +10,6 @@ import SwiftUI
 struct TimerPanelView: View {
     @State private var timer: Timer? = nil
     @State private var elapsedTime: TimeInterval = 0.0
-    @State private var isTimerRunning = false
     
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
@@ -38,19 +37,19 @@ struct TimerPanelView: View {
             .background(Color("FFFFFF").opacity(0.5))
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
-            .onTapGesture {
-                if isTimerRunning {
-                    // 타이머가 실행 중인 경우
-                    timer?.invalidate()
-                    isTimerRunning = false
-                    print("Timer Stopped. Elapsed Time: \(formattedElapsedTime)")
-                } else {
-                    // 타이머가 실행 중이지 않은 경우
+            .onChange(of: SystemManager.shared.instantFeedbackManager.isTimerRunning) { _, value in
+                if value == 1 {
+                    // 타이머 실행
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                         elapsedTime += 1.0
                     }
-                    isTimerRunning = true
-                    print("Timer Started.")
+                } else if value == 0 {
+                    // 타이머 정지
+                    timer?.invalidate()
+                } else {
+                    // 타이머 정지 및 초기화
+                    timer?.invalidate()
+                    elapsedTime = 0.0
                 }
             }
         }

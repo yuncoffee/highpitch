@@ -28,6 +28,8 @@ final class InstantFeedbackManager {
     var movablePanelMoved: [Bool] = [false, false, false, false, false, false]
     var resetButtonDisabled = true
     
+    var isTimerRunning = -2
+    
     typealias PanelFrameInfo = (
         size: CGSize,
         topLeftPoint: CGPoint?,

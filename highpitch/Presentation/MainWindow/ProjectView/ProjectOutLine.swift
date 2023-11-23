@@ -112,7 +112,7 @@ extension ProjectOutLine {
     func speakingRateView(practices: [PracticeModel]) -> some View {
         let speakingRate = returnSpeakingRate(practices: practices)
         return VStack(spacing: 0) {
-            Text("말 빠르기")
+            Text("평균 말 빠르기")
                 .systemFont(.body)
                 .foregroundColor(Color.HPTextStyle.darker)
             Text("\(speakingRate)SPM")
@@ -128,13 +128,63 @@ extension ProjectOutLine {
                  ? "조금 느린 편이에요"
                  : "느린 편이에요"
             )
-                .systemFont(.caption)
-                .foregroundColor(Color.HPTextStyle.light)
+            .systemFont(.caption)
+            .foregroundColor(Color.HPTextStyle.light)
         }
         .frame(minWidth: 50, maxWidth: .infinity, minHeight: 124, maxHeight: 124, alignment: .center)
         .background(Color.HPComponent.Section.background)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(color: Color.HPComponent.shadowColor ,radius: 10, y: .HPSpacing.xxxxsmall)
+        .overlay(alignment: .topTrailing) {
+            HPTooltip(tooltipContent: "평균 말 빠르기", arrowEdge: .bottom , content: {
+                VStack(alignment: .leading, spacing: .zero) {
+                    Text("평균 말 빠르기란?")
+                        .systemFont(.footnote, weight: .bold)
+                        .foregroundStyle(Color.HPTextStyle.darker)
+                        .padding(.bottom, .HPSpacing.xxxxsmall + 2)
+                    VStack(alignment: .leading, spacing: .zero) {
+                        HStack(spacing: 0) {
+                            Text("이 프로젝트에서 진행한 ").fontWeight(.regular)
+                            + Text("모든 연습의 평균 말 빠르기").bold()
+                            + Text("예요.").fontWeight(.regular)
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                        .systemFont(.caption, weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.darker)
+                        HStack(spacing: 0) {
+                            Text("330~370 SPM 범위로 계산").bold()
+                            + Text("하고, 이를 기준으로 내 평균\n속도가 어떤지 알려드려요.").fontWeight(.regular)
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                        .systemFont(.caption, weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.darker)
+                        HStack(spacing: 0) {
+                            Text("전문 연사를 기준으로 드리는 조언이니, ").fontWeight(.regular)
+                            + Text(" 자신만의 페이스\n에 맞게 참고").bold()
+                            + Text("해보세요.").fontWeight(.regular)
+                        }
+                        .fixedSize(horizontal: false, vertical: true)
+                        .systemFont(.caption, weight: .semibold)
+                        .foregroundStyle(Color.HPTextStyle.darker)
+                    }
+                    .padding(.bottom, .HPSpacing.xxxxsmall + 2)
+                    VStack(alignment: .leading, spacing: .zero) {
+                        Text("*SPM(Syllable Per Minutes•분 당 음절 수) : 1분 동안 말한 음절을 기준으로 측정한 단위")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .systemFont(.caption2, weight: .medium)
+                            .foregroundStyle(Color.HPPrimary.base)
+                        Text("*논문 참고: 이소현. (2020). 설득적 말하기의 핵심메시지 발화에 \n나타나는 준언어 연구: 속도와 휴지를 중심으로")
+                            .fixedSize(horizontal: false, vertical: true)
+                            .systemFont(.caption2, weight: .medium)
+                            .foregroundStyle(Color.HPPrimary.base)
+                    }
+                }
+                .padding(.HPSpacing.small)
+                .frame(maxWidth: 360, maxHeight: 282)
+                .background(Color.HPGray.systemWhite)
+            })
+            .offset(x: -8, y: 8)
+        }
     }
     // MARK: - fillerWordCountView
     func fillerWordCountView(practices: [PracticeModel]) -> some View {

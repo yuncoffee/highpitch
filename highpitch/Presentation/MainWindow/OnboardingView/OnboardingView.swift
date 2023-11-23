@@ -48,7 +48,8 @@ extension OnboardingView {
                 processCount += 1
             }
             if processCount == 5 {
-//                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
+                SystemManager.shared.isPassOnbarding = true
+                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
             }
         }
     }

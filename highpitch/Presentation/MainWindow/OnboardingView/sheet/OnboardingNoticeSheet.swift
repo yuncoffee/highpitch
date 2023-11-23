@@ -33,6 +33,7 @@ extension OnboardingNoticeSheet {
         isActive = false
     }
     private func skip() {
+        SystemManager.shared.isPassOnbarding = true
         UserDefaults.standard.set(true, forKey: "isPassOnbarding")
     }
 }

@@ -48,11 +48,7 @@ extension OnboardingView {
                 processCount += 1
             }
             if processCount == 5 {
-                print(SystemManager.shared.test1SPM)
-                print(SystemManager.shared.test2SPM)
-                print((SystemManager.shared.test1SPM + SystemManager.shared.test2SPM) / 2)
 //                UserDefaults.standard.set(true, forKey: "isPassOnbarding")
-                
             }
         }
     }

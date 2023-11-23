@@ -20,6 +20,7 @@ final class PracticeViewStore {
     var toolbarInfo: (title: String, subTitle: String) = (title: "", subTitle: "")
     /// 현재 선택된 문장의 인덱스
     var nowSentence = 0
+    var preSentence = 0
     var projectName: String
     
     // ************* V2 ************* //
@@ -134,17 +135,17 @@ extension PracticeViewStore {
     }
     
     /// (문장 중앙 시간, SPM)
-    func getSentenceSpeakingRateData() -> [(Int, Double)] {
-        var answer: [(Int, Double)] = []
-        answer.append((0, practice.summary.spmAverage))
+    func getSentenceSpeakingRateData() -> [(Double, Double)] {
+        var answer: [(Double, Double)] = []
+        answer.append((0.0, practice.summary.spmAverage))
         for sentence in getSortedSentences() {
             answer.append((
-                Int(Double(sentence.startAt + sentence.endAt) / 2000.0),
+                Double(sentence.startAt + sentence.endAt) / 2000.0,
                 sentence.spmValue
             ))
         }
         answer.append((
-            Int(practice.summary.practiceLength),
+            practice.summary.practiceLength,
             practice.summary.spmAverage
         ))
         return answer

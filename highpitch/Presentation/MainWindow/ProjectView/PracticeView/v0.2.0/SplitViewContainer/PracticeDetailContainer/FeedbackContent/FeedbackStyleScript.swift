@@ -506,7 +506,7 @@ extension FeedbackStyleScript {
             }
             return false
         }
-        viewStore.nowSentence = currentSentence?.index ?? 0
-        
+        viewStore.nowSentence = currentSentence?.index ?? viewStore.preSentence
+        viewStore.preSentence = viewStore.nowSentence
         }
 }

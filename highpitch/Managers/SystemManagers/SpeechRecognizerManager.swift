@@ -222,7 +222,10 @@ final class SpeechRecognizerManager {
                 = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
                     if let result = result {
                         for word in result.bestTranscription.segments {
-                            /// 지난 단어와 간격이 0.4초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
+                            print()
+                            print("word:", word.substring)
+                            print("isFinal:", result.isFinal)
+                            /// 지난 단어와 간격이 0.5초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
                             if (word.timestamp - self.endAt > 0.5)
                                 || (result.isFinal) {
                                 if self.message != "" {
@@ -244,8 +247,18 @@ final class SpeechRecognizerManager {
                             }
                             self.endAt = word.timestamp + word.duration
                         }
-                        if result.isFinal { self.isFinal = true }
-                        
+                        if result.isFinal {
+                            if self.message != "" {
+                                self.message += "."
+                                print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
+                                answer.append(UtteranceModel(
+                                    startAt: Int(self.startAt * 1000),
+                                    duration: Int((self.endAt - self.startAt) * 1000),
+                                    message: self.message
+                                ))
+                            }
+                            self.isFinal = true
+                        }
                     }
                     if error != nil {
                         self.recognitionRequest = nil

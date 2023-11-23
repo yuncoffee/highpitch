@@ -77,12 +77,12 @@ struct HighpitchApp: App {
         if UserDefaults.standard.string(forKey: "recordSaveCommand") == nil {
             UserDefaults.standard.set("Command + Control + Esc", forKey: "recordSaveCommand")
         }
-        
         // UserDefaults에서 명령어조합 가져와서 hotKey로 세팅. 초기 함수 연결은 onAppear에서 한다.
         systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
         systemManager.hotkeyPause = stringToHotKeySetting(input: systemManager.recordPauseCommand)
         systemManager.hotkeySave = stringToHotKeySetting(input: systemManager.recordSaveCommand)
-        // MARK: - 테스트
+        systemManager.playPractice = playPractice
+        systemManager.pausePractice = pausePractice
         systemManager.stopPractice = stopPractice
         print("시작할때 Start 키콤보: ",systemManager.hotkeyStart.keyCombo)
         print("시작할때 Pause 키콤보: ",systemManager.hotkeyPause.keyCombo)
@@ -93,7 +93,7 @@ struct HighpitchApp: App {
 #if os(macOS)
         Window("mainwindow", id: "main") {
             if SystemManager.shared.isPassOnbarding {
-                MainWindowView()
+                MainWindowView(currentSelectedProject: $selectedProject)
                     .environment(practiceManager)
                     .environment(mediaManager)
                     .environment(projectManager)
@@ -156,6 +156,7 @@ struct HighpitchApp: App {
                     }
             } else {
                 OnboardingView()
+                    .environment(mediaManager)
                     .frame(width: 1000, height: 628)
                     .onAppear {
                         NSApp.windows.forEach { window in

@@ -19,6 +19,8 @@ struct MainWindowView: View {
     // MARK: - 데이터 저장을 위한 컨텍스트 객체
     @Environment(\.modelContext)
     var modelContext
+    @Environment(ProjectModel.self)
+    var selectedProject: ProjectModel?
     @Query(sort: \ProjectModel.creatAt)
     var projects: [ProjectModel]
     
@@ -48,6 +50,9 @@ struct MainWindowView: View {
     private var selected: ProjectModel? {
         projectManager.current
     }
+    
+    @Binding
+    var currentSelectedProject: ProjectModel?
     
     var body: some View {
         @Bindable var systemManager = SystemManager.shared
@@ -102,16 +107,7 @@ struct MainWindowView: View {
 
 extension MainWindowView {
     private func setup() {
-//        쿼리해온 데이터에서 맨 앞 데이터 선택
-//        if mediaManager.checkMicrophonePermission() {
-//            print("Hello")
-//            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone")
-//            {
-//                 NSWorkspace.shared.open(url)
-//             }
-//        } else {
-//            
-//        }
+//        UserDefaults.standard.set(false, forKey: "isPassOnbarding")
         if !unVisitedPractices.isEmpty {
             SystemManager.shared.hasUnVisited = true
         }
@@ -183,7 +179,8 @@ extension MainWindowView {
             .padding(.top, .HPSpacing.xxxsmall)
             Divider()
                 .background(Color.HPComponent.stroke)
-                .padding(.top, .HPSpacing.xxsmall)
+                .opacity(0.5)
+                .padding(.top, .HPSpacing.xxxsmall)
                 .padding(.bottom, .HPSpacing.small)
                 .padding(.horizontal, .HPSpacing.xxsmall)
             HStack(alignment: .center) {
@@ -283,11 +280,9 @@ extension MainWindowView {
     var projectToolbar: some View {
         if let projectName = projectManager.current?.projectName {
             HPTopToolbar(title: projectName, completion: {
+                mediaManager.isStart = true
                 if let currentProject = projectManager.current {
-                    projectManager.playPractice(
-                        selectedProject: currentProject,
-                        mediaManager: mediaManager
-                    )
+                    currentSelectedProject = currentProject
                 }
             }, popOverContent: {
                 VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
@@ -352,7 +347,10 @@ extension MainWindowView {
 }
 
 #Preview {
-    MainWindowView()
+    @State
+    var selectedProject: ProjectModel?
+    
+    return MainWindowView(currentSelectedProject: $selectedProject)
         .environment(MediaManager())
         .environment(ProjectManager())
 }

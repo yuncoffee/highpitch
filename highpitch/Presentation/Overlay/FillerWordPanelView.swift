@@ -87,10 +87,8 @@ struct FillerWordPanelView: View {
                     String(Int(panelController.getPanelPosition()!.y)),
                     forKey: "FillerWordPanelY"
                 )
-                
                 print("HoverOut FillerWord xpos: \(Int(panelController.getPanelPosition()!.x))")
                 print("HoverOut FillerWord ypos: \(Int(panelController.getPanelPosition()!.y))")
-                
                 instantFeedbackManager.focusedPanel = nil
             }
         }

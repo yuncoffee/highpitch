@@ -99,9 +99,7 @@ extension PracticeDetailContainer {
                 .sheet(isPresented: $shouldPresentSheet) {
                     print("리포트 보기")
                 } content: {
-                    ReportView(
-                        eachFillerWordCount: viewStore.getSortedFillerWord()
-                    )
+                    ReportView()
                         .onTapGesture {
                             shouldPresentSheet = false
                         }

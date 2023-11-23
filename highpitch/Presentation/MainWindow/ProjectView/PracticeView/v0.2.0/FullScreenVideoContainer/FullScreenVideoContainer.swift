@@ -9,6 +9,7 @@ import SwiftUI
 #if PREVIEW
 import SwiftData
 #endif
+import AVKit
 
 struct FullScreenVideoContainer: View {
     @Environment(PracticeViewStore.self)

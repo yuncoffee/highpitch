@@ -66,7 +66,6 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         assetWriter.startSession(atSourceTime: CMTime.zero)
         
         isRecording = true
-        
         // TimerPanel의 타이머 시작
         SystemManager.shared.instantFeedbackManager.isTimerRunning = 1
     }
@@ -79,7 +78,6 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         assetWriter.finishWriting {
             print("Recording finished.")
         }
-        
         // TimerPanel의 타이머 정지
         SystemManager.shared.instantFeedbackManager.isTimerRunning = 0
     }

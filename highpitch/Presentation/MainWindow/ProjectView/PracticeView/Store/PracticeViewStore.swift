@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 /**
  PracticeView의 상태를 관리하기 위한 상태저장소
@@ -62,6 +63,7 @@ final class PracticeViewStore {
     var SCRIPT_CONTAINER_WIDTH: CGFloat {
         self.currentFeedbackViewType == .every ? 320.0 : 276.0
     }
+    var player: AVPlayer?
     // ************* V2 ************* //
     
     init(projectName: String, practice: PracticeModel, mediaManager: MediaManager) {

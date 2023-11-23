@@ -15,7 +15,7 @@ struct HPArcodianView<T: View>: View {
     var isActive: Bool?
     
     @State
-    private var localIsActive = false
+    private var localIsActive = true
     private let HEADER_HEIGHT = 68.0
      
     var body: some View {

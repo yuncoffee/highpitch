@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct SpeechTestView: View {
+    @Environment(OnboardingViewStore.self)
+    var store
+
     @State
     private var currentSentenceIndex = 0
     
     @State
-    private var testOneStatus = 0
+    private var testOneStatus: MySPMTestType = .testBefore
     
     @State
-    private var testTwoStatus = 0
+    private var testTwoStatus: MySPMTestType = .testBefore
     
     var body: some View {
         VStack(spacing: .zero) {
@@ -90,7 +93,11 @@ extension SpeechTestView {
                 .systemFont(.footnote, weight: .semibold)
                 .foregroundStyle(Color.HPSecondary.base)
             Spacer()
-            SpeechTestButtonGroup(status: $testOneStatus)
+            SpeechTestButtonGroup(
+                fileName:SystemManager.shared.ONBOARDING_TESTONE_FILE_NAME,
+                index: 0,
+                status: $testOneStatus
+            )
         }
         .padding(.top, .HPSpacing.xxlarge - .HPSpacing.xsmall)
         .padding(.horizontal, .HPSpacing.xxlarge - .HPSpacing.xsmall)
@@ -100,7 +107,11 @@ extension SpeechTestView {
         .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         .background(
             RoundedRectangle(cornerRadius: .HPCornerRadius.large)
-                .stroke(currentSentenceIndex == 0 ?Color.HPPrimary.lighter : .clear, style: .init(lineWidth: 8))
+                .stroke(
+                    currentSentenceIndex == 0
+                    ? Color.HPPrimary.lighter
+                    : .clear, style: .init(lineWidth: 8)
+                )
         )
         .opacity(currentSentenceIndex == 0 ? 1 : 0.5)
     }
@@ -113,7 +124,11 @@ extension SpeechTestView {
                 .systemFont(.footnote, weight: .semibold)
                 .foregroundStyle(Color.HPSecondary.base)
             Spacer()
-            SpeechTestButtonGroup(status: $testTwoStatus)
+            SpeechTestButtonGroup(
+                fileName:SystemManager.shared.ONBOARDING_TESTTWO_FILE_NAME,
+                index: 1,
+                status: $testTwoStatus
+            )
         }
         .padding(.top, .HPSpacing.xxlarge - .HPSpacing.xsmall)
         .padding(.horizontal, .HPSpacing.xxlarge - .HPSpacing.xsmall)
@@ -123,127 +138,13 @@ extension SpeechTestView {
         .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         .background(
             RoundedRectangle(cornerRadius: .HPCornerRadius.large)
-                .stroke(currentSentenceIndex == 1 ?Color.HPPrimary.lighter : .clear, style: .init(lineWidth: 8))
+                .stroke(
+                    currentSentenceIndex == 1
+                    ? Color.HPPrimary.lighter
+                    : .clear, style: .init(lineWidth: 8)
+                )
         )
         .opacity(currentSentenceIndex == 1 ? 1 : 0.5)
-    }
-}
-
-struct SpeechTestButtonGroup: View {
-    @Binding var status: Int
-    
-    @State
-    private var isAudioRecord = false
-    @State
-    private var isAudioPlay = false
-    @State 
-    private var animationsRunning = false
-
-    var body: some View {
-        if status == 0 {
-            HPButton(type: .blockFill(.HPCornerRadius.medium), size: .large, color: .HPPrimary.base) {
-                withAnimation {
-                    status = 1
-                }
-            } label: { type, size, color, expandable in
-                HPLabel(
-                    content: ("해당 문장 읽기", nil),
-                    type: type,
-                    size: size,
-                    color: color,
-                    expandable: expandable
-                )
-            }
-            .frame(maxWidth: 178)
-            .padding(.bottom, .HPSpacing.small)
-        } else if status == 1 {
-            VStack {
-                HStack {
-                    Image(systemName: "ellipsis")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24)
-                        .foregroundStyle(Color.HPPrimary.base)
-                        .symbolEffect(.variableColor.iterative, options: .repeating, value: animationsRunning)
-                }
-                .frame(maxWidth: 178, maxHeight: 40)
-                .background(Color.HPGray.system200)
-                .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
-                HPButton(type: .text, size: .small, color: .HPPrimary.dark) {
-                    status = 2
-                } label: { type, size, color, expandable in
-                    HPLabel(
-                        content: ("다 읽었어요", "arrow.clockwise"),
-                        type: type,
-                        size: size,
-                        color: color,
-                        alignStyle: .iconWithText,
-                        expandable: expandable,
-                        fontStyle: .systemDetail(.caption, .semibold)
-                    )
-                }
-                .frame(maxWidth: 178)
-                .background(
-                    Rectangle()
-                        .fill(Color.HPPrimary.base)
-                        .frame(width: 64, height: 2)
-                        .offset(x: 10, y: 10)
-                )
-            }
-            .onAppear {
-                withAnimation {
-                    animationsRunning = true
-                }
-            }
-            .onDisappear {
-                animationsRunning = false
-            }
-        } else {
-            VStack {
-                HPButton(
-                    type: .blockFill(.HPCornerRadius.medium),
-                    size: .large,
-                    color: isAudioPlay ? .HPPrimary.lightnest : .HPPrimary.base) {
-                    isAudioPlay = true
-                } label: { type, size, color, expandable in
-                    HPLabel(
-                        content: ("녹음 들어보기", nil),
-                        type: type,
-                        size: size,
-                        color: color,
-                        contentColor: isAudioPlay
-                        ? .HPTextStyle.light
-                        : .HPGray.systemWhite,
-                        expandable: expandable
-                    )
-                }
-                .frame(maxWidth: 178)
-                .disabled(isAudioPlay)
-                HPButton(type: .text, size: .small, color: .HPTextStyle.light) {
-                    status = 1
-                } label: { type, size, color, expandable in
-                    HPLabel(
-                        content: ("다시 녹음할래요", "arrow.clockwise"),
-                        type: type,
-                        size: size,
-                        color: color,
-                        alignStyle: .iconWithText,
-                        expandable: expandable, 
-                        fontStyle: .systemDetail(.caption, .semibold)
-                    )
-                }
-                .frame(maxWidth: 178)
-                .background(
-                    Rectangle()
-                        .fill(Color.HPTextStyle.light)
-                        .frame(width: 90, height: 1)
-                        .offset(x: 10, y: 10)
-                )
-            }
-            .onDisappear {
-                isAudioPlay = false
-            }
-        }
     }
 }
 

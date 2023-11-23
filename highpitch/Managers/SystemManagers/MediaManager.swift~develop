@@ -96,32 +96,6 @@ extension MediaManager: Recordable {
         }
     }
     
-    func prepareOnboardingRecording(fileName: String) {
-        // MARK: 파일 이름 전략은 -> YYYYMMDDHHMMSS.m4a
-        var fileURL = URL.getPath(fileName: fileName,type: .onboarding)
-        do {
-            if FileManager.default.fileExists(atPath: fileURL.path()) {
-                try FileManager.default.removeItem(at: fileURL)
-            }
-        } catch {
-            print("파일 제거 중 에러 발생: \(error)")
-        }
-        fileURL = URL.getPath(fileName: fileName,type: .onboarding)
-        
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-        
-        do {
-            audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
-        } catch {
-            print("녹음 중 오류 발생: \(error.localizedDescription)")
-        }
-    }
-    
     func pauseRecording() {
         //audioRecorder?.pause()
         audioRecorderV2.stopRecording()

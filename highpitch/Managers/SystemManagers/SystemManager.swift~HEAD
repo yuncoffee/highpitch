@@ -24,6 +24,7 @@ final class SystemManager {
     var spmAverage: Double {
         (testSPMs[0] + testSPMs[1]) / 2
     }
+    
     var isDarkMode = false
     var isAnalyzing = false
     var hasUnVisited = false

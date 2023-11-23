@@ -104,6 +104,7 @@ extension ProjectManager {
                 )
             }
         }
+        
     }
     
     private func makeNewUtterances(mediaManager: MediaManager) async -> [UtteranceModel] {

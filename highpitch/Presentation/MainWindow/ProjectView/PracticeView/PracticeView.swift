@@ -86,7 +86,40 @@ struct PracticeViewTopToolbar: View {
                 }
             },
             completion: {
-                mediaManager.isStart = true
+                if mediaManager.isRecording {
+                    HPButton(type: .text, color: .HPSecondary.base) {
+                        SystemManager.shared.isMainWindowPracticeSaveSheetActive = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "일시 정지", icon: "pause.fill"),
+                            type: type,
+                            size: size,
+                            color: color,
+                            alignStyle: .iconWithTextVertical,
+                            expandable: expandable,
+                            fontStyle: .system(.caption2)
+                        )
+                    }
+                    .frame(width: 40)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                } else {
+                    HPButton(color: .HPSecondary.base) {
+                        mediaManager.isStart = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "연습 시작하기", icon: nil),
+                            type: type,
+                            size: size,
+                            color: color,
+                            expandable: expandable,
+                            fontStyle: .system(.footnote)
+                        )
+                    }
+                    .frame(width: 120)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
         )
     }

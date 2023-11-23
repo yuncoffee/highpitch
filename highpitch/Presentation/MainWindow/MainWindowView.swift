@@ -15,6 +15,8 @@ struct MainWindowView: View {
     private var mediaManager
     @Environment(ProjectManager.self)
     private var projectManager
+    @Environment(\.openSettings)
+    private var openSettings
     @Environment(\.colorScheme) var colorScheme
     // MARK: - 데이터 저장을 위한 컨텍스트 객체
     @Environment(\.modelContext)
@@ -97,6 +99,9 @@ struct MainWindowView: View {
         }
         .sheet(isPresented: $systemManager.isRequsetAudioPermissionPopoverActive) {
             RequestAudioPermissionPopover()
+        }
+        .sheet(isPresented: $systemManager.isMainWindowPracticeSaveSheetActive) {
+            MainWindowPracticeSaveSheet()
         }
         .sheet(isPresented: $mediaManager.isStart, content: {
             ScreenSelectionView()
@@ -219,7 +224,7 @@ extension MainWindowView {
             }
             Spacer()
             Button {
-                print("아임 설정이에요")
+                try? openSettings()
             } label: {
                 Image(systemName: "gearshape.fill")
                     .resizable()
@@ -279,9 +284,42 @@ extension MainWindowView {
     var projectToolbar: some View {
         if let projectName = projectManager.current?.projectName {
             HPTopToolbar(title: projectName, completion: {
-                mediaManager.isStart = true
-                if let currentProject = projectManager.current {
-                    currentSelectedProject = currentProject
+                if mediaManager.isRecording {
+                    HPButton(type: .text, color: .HPSecondary.base) {
+                        SystemManager.shared.isMainWindowPracticeSaveSheetActive = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "일시 정지", icon: "pause.fill"),
+                            type: type,
+                            size: size,
+                            color: color,
+                            alignStyle: .iconWithTextVertical,
+                            expandable: expandable,
+                            fontStyle: .system(.caption2)
+                        )
+                    }
+                    .frame(width: 40)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                } else {
+                    HPButton(color: .HPSecondary.base) {
+                        mediaManager.isStart = true
+                        if let currentProject = projectManager.current {
+                            currentSelectedProject = currentProject
+                        }
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "연습 시작하기", icon: nil),
+                            type: type,
+                            size: size,
+                            color: color,
+                            expandable: expandable,
+                            fontStyle: .system(.footnote)
+                        )
+                    }
+                    .frame(width: 120)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }, popOverContent: {
                 VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
@@ -320,7 +358,40 @@ extension MainWindowView {
             })
         } else {
             HPTopToolbar(title: "내 연습 분석") {
-                mediaManager.isStart = true
+                if mediaManager.isRecording {
+                    HPButton(type: .text, color: .HPSecondary.base) {
+                        SystemManager.shared.isMainWindowPracticeSaveSheetActive = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "일시 정지", icon: "pause.fill"),
+                            type: type,
+                            size: size,
+                            color: color,
+                            alignStyle: .iconWithTextVertical,
+                            expandable: expandable,
+                            fontStyle: .system(.caption2)
+                        )
+                    }
+                    .frame(width: 40)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                } else {
+                    HPButton(color: .HPSecondary.base) {
+                        mediaManager.isStart = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "연습 시작하기", icon: nil),
+                            type: type,
+                            size: size,
+                            color: color,
+                            expandable: expandable,
+                            fontStyle: .system(.footnote)
+                        )
+                    }
+                    .frame(width: 120)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
         }
     }

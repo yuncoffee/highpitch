@@ -99,6 +99,7 @@ struct HighpitchApp: App {
                     .environment(projectManager)
                     .environment(selectedProject)
                     .modelContainer(container)
+                    .openSettingsAccess()
                     .onChange(of: systemManager.recordStartCommand, { _, _ in
                         // 변경된 명령어들로 hotKey재설정
                         systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)

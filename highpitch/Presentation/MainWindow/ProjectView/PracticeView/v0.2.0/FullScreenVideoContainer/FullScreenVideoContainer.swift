@@ -101,11 +101,15 @@ struct FullScreenVideoContainer: View {
 extension FullScreenVideoContainer {
     @ViewBuilder
     var headerHoverContainer: some View {
+        let subTitle = Date.createAtToYearMonthDayWithTime(input: viewStore.practice.creatAt).components(separatedBy: " • ")
         VStack(alignment: .leading, spacing: .zero) {
             Text("\(viewStore.practice.practiceName)")
                 .systemFont(.largeTitle)
                 .foregroundStyle(Color.HPGray.systemWhite)
-            Text("\(Date.createAtToYearMonthDayWithTime(input: viewStore.practice.creatAt))")
+            Text("\(subTitle.first ?? "") •")
+                .systemFont(.caption)
+                .foregroundStyle(Color.HPGray.systemWhite.opacity(0.6))
+            Text("\(subTitle.last ?? "")")
                 .systemFont(.caption)
                 .foregroundStyle(Color.HPGray.systemWhite.opacity(0.6))
             
@@ -162,57 +166,61 @@ extension FullScreenVideoContainer {
         HStack(alignment: .top) {
             HStack(spacing: .HPSpacing.xxsmall) {
                 // 인디케이터가 보이게 하는 친구
-                currentEveryFeedbackToggleButton
-                if isIndicatorActive {
-                    HStack {
-                        HPButton(
-                            type: .roundFill,
-                            size: .small,
-                            color: viewStore.currentFeedbackViewType == .fillerWord
-                                ? .HPSecondary.base
-                                : .HPGray.system200
-                        ) {
-                            viewStore.currentFeedbackViewType = .fillerWord
-                        } label: { type, size, color, expandable in
-                            HPLabel(
-                                content: ("습관어", nil),
-                                type: type,
-                                size: size,
-                                color: color,
-                                contentColor: viewStore.currentFeedbackViewType == .fillerWord ? nil : .HPTextStyle.base,
-                                expandable: expandable,
-                                padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
-                            )
-                        }
-                        .fixedSize()
-                        HPButton(
-                            type: .roundFill,
-                            size: .small,
-                            color: viewStore.currentFeedbackViewType == .speed
-                            ? .HPSecondary.base
-                            : .HPGray.system200
-                        ) {
-                            viewStore.currentFeedbackViewType = .speed
-                        } label: { type, size, color, expandable in
-                            HPLabel(
-                                content: ("말 빠르기", nil),
-                                type: type,
-                                size: size,
-                                color: color,
-                                contentColor: viewStore.currentFeedbackViewType == .speed ? nil : .HPTextStyle.base,
-                                expandable: expandable,
-                                padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
-                            )
-                        }
-                        .fixedSize()
-                    }
+                HPHoverBox(
+                    description: isIndicatorActive ? "그래프 끄기" : "그래프 켜기") {
+                    currentEveryFeedbackToggleButton
                 }
-                Image("expandVideo")
-                    .onTapGesture {
-                        withAnimation {
-                            viewStore.isFullScreenVideoActive = false
-                        }
+                HStack {
+                    HPButton(
+                        type: .roundFill,
+                        size: .small,
+                        color: viewStore.currentFeedbackViewType == .fillerWord
+                        ? .HPSecondary.base
+                        : .HPGray.system200
+                    ) {
+                        viewStore.currentFeedbackViewType = .fillerWord
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: ("습관어", nil),
+                            type: type,
+                            size: size,
+                            color: color,
+                            contentColor: viewStore.currentFeedbackViewType == .fillerWord ? nil : .HPTextStyle.base,
+                            expandable: expandable,
+                            padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
+                        )
                     }
+                    .fixedSize()
+                    HPButton(
+                        type: .roundFill,
+                        size: .small,
+                        color: viewStore.currentFeedbackViewType == .speed
+                        ? .HPSecondary.base
+                        : .HPGray.system200
+                    ) {
+                        viewStore.currentFeedbackViewType = .speed
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: ("말 빠르기", nil),
+                            type: type,
+                            size: size,
+                            color: color,
+                            contentColor: viewStore.currentFeedbackViewType == .speed ? nil : .HPTextStyle.base,
+                            expandable: expandable,
+                            padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
+                        )
+                    }
+                    .fixedSize()
+                }
+                .disabled(!isIndicatorActive)
+                HPHoverBox(description: "전체화면 종료") {
+                    Image("reduceVideo")
+                        .onTapGesture {
+                            withAnimation {
+                                viewStore.isFullScreenVideoActive = false
+                            }
+                        }
+                }
             }
             .frame(
                 maxWidth: .infinity,

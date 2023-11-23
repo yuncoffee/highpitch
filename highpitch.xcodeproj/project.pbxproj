@@ -106,6 +106,7 @@
 		1DB132342AD78752006711B9 /* ReturnzeroAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */; };
 		1DB8253B2B0F7E0C009BA3CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB825392B0F7E0C009BA3CB /* GoogleService-Info.plist */; };
 		1DB8253C2B0F7E0C009BA3CB /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8253A2B0F7E0C009BA3CB /* SecretKey.plist */; };
+		1DB8253E2B0F9314009BA3CB /* HPHoverBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB8253D2B0F9314009BA3CB /* HPHoverBox.swift */; };
 		1DBF14512ADE1DC100B28CED /* LabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF14502ADE1DC100B28CED /* LabelModifier.swift */; };
 		1DBF14542ADE574F00B28CED /* HPSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF14532ADE574F00B28CED /* HPSegmentedControl.swift */; };
 		1DBF145C2AE0A75700B28CED /* PracticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF145B2AE0A75600B28CED /* PracticeManager.swift */; };
@@ -277,6 +278,7 @@
 		1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnzeroAPI.swift; sourceTree = "<group>"; };
 		1DB825392B0F7E0C009BA3CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DB8253A2B0F7E0C009BA3CB /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		1DB8253D2B0F9314009BA3CB /* HPHoverBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPHoverBox.swift; sourceTree = "<group>"; };
 		1DBF14502ADE1DC100B28CED /* LabelModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelModifier.swift; sourceTree = "<group>"; };
 		1DBF14532ADE574F00B28CED /* HPSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPSegmentedControl.swift; sourceTree = "<group>"; };
 		1DBF145B2AE0A75600B28CED /* PracticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeManager.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 				1DBF14532ADE574F00B28CED /* HPSegmentedControl.swift */,
 				1D58FA282AE2956E00B92B4A /* HPMenu.swift */,
 				1DED4EF62AFFE4F7000109B3 /* HPArcodianView.swift */,
+				1DB8253D2B0F9314009BA3CB /* HPHoverBox.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1420,6 +1423,7 @@
 				10D6FA5A2B02F7B8003F8FBD /* ChaptuerPreview.swift in Sources */,
 				10C7D1FD2ADE12B3008691CD /* TokenData.swift in Sources */,
 				10F3F27C2B04976800CFC817 /* VideoWithAudioRecordEngine.swift in Sources */,
+				1DB8253E2B0F9314009BA3CB /* HPHoverBox.swift in Sources */,
 				1D1EC6962AFB6DC500CB72E9 /* PracticeContentContainer.swift in Sources */,
 				1D98941F2AE6199000DE57A1 /* PracticeList.swift in Sources */,
 				11A9F28C2B0CDBD4003CAFFD /* ReportSpeakingRateChart.swift in Sources */,

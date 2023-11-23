@@ -16,7 +16,7 @@ final class SystemManager {
     static let shared = SystemManager()
     
     let instantFeedbackManager = InstantFeedbackManager()
-    
+ 
     var isDarkMode = false
     var isAnalyzing = false
     var hasUnVisited = false

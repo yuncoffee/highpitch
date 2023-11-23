@@ -147,6 +147,9 @@ struct EditPanelView: View {
                     UserDefaults.standard.set(String(fillerWordPanelX + 11), forKey: "FillerWordPanelX")
                     UserDefaults.standard.set(String(fillerWordPanelY + 11), forKey: "FillerWordPanelY")
                     
+                    //
+                    // resetPanels.toggle()
+                    
                 } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "기본 레이아웃 사용", icon: nil),
@@ -159,6 +162,7 @@ struct EditPanelView: View {
                     )
                 }
                 .frame(width: 144)
+                .disabled(instantFeedbackManager.resetButtonDisabled)
             }
             
             Spacer()

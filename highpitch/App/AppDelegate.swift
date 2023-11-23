@@ -61,6 +61,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             originalPos: originalYpos
         )
         
+        instantFeedbackManager.movablePanelMoved[0] = (xpos == originalXpos) ? false : true
+        instantFeedbackManager.movablePanelMoved[1] = (ypos == originalYpos) ? false : true
+        
         print("init Timer xpos: ", xpos)
         print("init Timer ypos: ", ypos)
         
@@ -151,6 +154,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         print("init Speed xpos: ", xpos)
         print("init Speed ypos: ", ypos)
         
+        instantFeedbackManager.movablePanelMoved[2] = (xpos == originalXpos) ? false : true
+        instantFeedbackManager.movablePanelMoved[3] = (ypos == originalYpos) ? false : true
+        
         let speedPanelController = PanelController(
             xpos: xpos - 11,
             ypos: ypos - 11,
@@ -198,6 +204,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         print("init FillerWord xpos: ", xpos)
         print("init FillerWord ypos: ", ypos)
+        
+        instantFeedbackManager.movablePanelMoved[4] = (xpos == originalXpos) ? false : true
+        instantFeedbackManager.movablePanelMoved[5] = (ypos == originalYpos) ? true : false
         
         let fillerWordPanelController = PanelController(
             xpos: xpos - 11,
@@ -303,7 +312,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func loadPanelPosition(key: String, originalPos: Int) -> Int {
-        let XMARK_RADIUS = Int(instantFeedbackManager.PANEL_XMARK_RADIUS)
         print("originalPos: \(originalPos)")
         print("UserDefaults: \(UserDefaults.standard.string(forKey: key).flatMap { Int($0) }!)")
         let value = UserDefaults.standard.string(forKey: key) ?? nil

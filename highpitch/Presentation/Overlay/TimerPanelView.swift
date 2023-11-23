@@ -114,6 +114,40 @@ struct TimerPanelView: View {
                 print("ypos: \(panelController.getPanelPosition()!.y)")
                 
                 instantFeedbackManager.focusedPanel = nil
+                
+                let originalXpos = instantFeedbackManager.getPanelPositionX(
+                    left: TIMER_PANEL_INFO.topLeftPoint!.x,
+                    padding: XMARK_RADIUS
+                )
+                let originalYpos = instantFeedbackManager.getPanelPositionY(
+                    top: TIMER_PANEL_INFO.topLeftPoint!.y,
+                    height: TIMER_PANEL_INFO.size.height,
+                    padding: XMARK_RADIUS
+                )
+                
+                instantFeedbackManager.movablePanelMoved[0] = (Int(panelController.getPanelPosition()!.x) == originalXpos + 11) ? false : true
+                instantFeedbackManager.movablePanelMoved[1] = (Int(panelController.getPanelPosition()!.y) == originalYpos + 11) ? false : true
+//                print("position.x: \(Int(panelController.getPanelPosition()!.x))")
+//                print("originalXpos: \(originalXpos)")
+//                print("===")
+//                print("movable 0: \(instantFeedbackManager.movablePanelMoved[0])")
+//                print("movable 1: \(instantFeedbackManager.movablePanelMoved[1])")
+//                print("movable 2: \(instantFeedbackManager.movablePanelMoved[2])")
+//                print("movable 3: \(instantFeedbackManager.movablePanelMoved[3])")
+//                print("movable 4: \(instantFeedbackManager.movablePanelMoved[4])")
+//                print("movable 5: \(instantFeedbackManager.movablePanelMoved[5])")
+//                print("===")
+                
+                instantFeedbackManager.resetButtonDisabled = instantFeedbackManager.movablePanelMoved[0] ? false : true
+//                print(instantFeedbackManager.resetButtonDisabled)
+//                print("===")
+            }
+        }
+        .onChange(of: instantFeedbackManager.movablePanelMoved[0]) {
+            if instantFeedbackManager.movablePanelMoved[0] {
+                instantFeedbackManager.resetButtonDisabled = false
+            } else {
+                instantFeedbackManager.movablePanelMoved[0] = true
             }
         }
         .frame(

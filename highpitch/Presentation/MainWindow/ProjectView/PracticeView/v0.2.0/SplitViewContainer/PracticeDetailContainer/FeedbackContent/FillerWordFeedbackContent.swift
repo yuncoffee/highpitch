@@ -50,11 +50,6 @@ extension FillerWordFeedbackContent {
                     fillerWordCount: viewStore.practice.summary.fillerWordCount,
                     fillerWords: viewStore.getSortedFillerWord()
                 )
-                if viewStore.hasFillerWord() {
-                    FillerWordDetail(fillerWords: viewStore.getSortedFillerWord())
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, .HPSpacing.medium)
-                }
             }
             .padding(.HPSpacing.xsmall)
             .frame(alignment: .top)

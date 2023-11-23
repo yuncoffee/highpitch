@@ -228,7 +228,7 @@ extension FullScreenVideoContainer {
                 alignment: .trailing
             )
         }
-        .padding(.horizontal, .HPSpacing.xsmall)
+        .padding(.horizontal, .HPSpacing.medium)
         .frame(
             maxWidth: .infinity,
             maxHeight: FOOTER_HOVER_CONTAINER_HEIGHT + INDICATOR_HEIGHT,

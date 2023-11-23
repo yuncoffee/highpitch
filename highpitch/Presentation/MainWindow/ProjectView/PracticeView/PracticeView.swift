@@ -64,7 +64,9 @@ struct PracticeViewTopToolbar: View {
         HPTopToolbar(
             title: title,
             backButtonCompletion: {
-                withAnimation(.none) {
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
                     dismiss()
                 }
             },

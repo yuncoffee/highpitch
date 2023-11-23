@@ -223,7 +223,7 @@ extension FeedbackViewType {
     var audioIndicator: some View {
         switch self {
         case .every:
-            EmptyView()
+            HStack {}
         case .fillerWord:
             FillerWordAudioIndicator()
         case .speed:

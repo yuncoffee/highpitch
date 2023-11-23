@@ -20,6 +20,7 @@ final class PracticeViewStore {
     var toolbarInfo: (title: String, subTitle: String) = (title: "", subTitle: "")
     /// 현재 선택된 문장의 인덱스
     var nowSentence = 0
+    var preSentence = 0
     var projectName: String
     
     // ************* V2 ************* //

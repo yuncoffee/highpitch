@@ -14,7 +14,7 @@ struct ReportView: View {
     var eachFillerWordCount: [FillerWordModel] {
         viewStore.getSortedFillerWord()
     }
-    
+        
     var body: some View {
         ZStack(alignment: .topTrailing) {
             ScrollView {
@@ -29,19 +29,18 @@ struct ReportView: View {
                 .padding(.top, .HPSpacing.xsmallBetweenSmall)
                 .padding(.trailing, .HPSpacing.xsmallBetweenSmall + 4)
         }
+        .background(Color.HPComponent.Section.background)
         .frame(
             width: 778,
-            height: 628 - 48,
-            alignment: .topLeading
+            height: viewStore.screenSize.height - 48
         )
-        .background(Color.HPComponent.Section.background)
     }
 }
 
 extension ReportView {
     @ViewBuilder
     var content: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             header
             Rectangle()
                 .frame(maxWidth: .infinity, minHeight: 1, maxHeight: 1)
@@ -213,14 +212,14 @@ extension ReportView {
             Text("\(viewStore.projectName)")
                 .systemFont(.title, weight: .semibold)
                 .foregroundColor(Color.HPTextStyle.darker)
-            HStack(spacing: 0) {
+            HStack(spacing: .zero) {
                 Group {
                     Text("\(viewStore.practice.practiceName)")
                     Text(" | ")
                     Text("\(Date().createAtToYMD(input: viewStore.practice.creatAt))")
                     Text(" \(Date().createAtToHM(input: viewStore.practice.creatAt))")
                 }
-                .systemFont(.subTitle, weight: .medium)
+                .systemFont(.body, weight: .medium)
                 .foregroundColor(Color.HPTextStyle.base)
             }
         }

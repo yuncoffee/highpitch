@@ -97,8 +97,6 @@ extension PracticeDetailContainer {
                 }
                 .fixedSize()
                 .sheet(isPresented: $shouldPresentSheet) {
-                    print("리포트 보기")
-                } content: {
                     ReportView()
                         .onTapGesture {
                             shouldPresentSheet = false

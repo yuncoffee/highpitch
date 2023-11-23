@@ -64,6 +64,8 @@ final class PracticeViewStore {
         self.currentFeedbackViewType == .every ? 320.0 : 276.0
     }
     var player: AVPlayer?
+    var screenSize: CGSize = .zero
+    
     // ************* V2 ************* //
     
     init(projectName: String, practice: PracticeModel, mediaManager: MediaManager) {

@@ -20,18 +20,19 @@ struct HPSlider: View {
         GeometryReader(content: { geometry in
             ZStack(alignment:.leading) {
                     Rectangle()
-                        .fill(.gray)
-                        .cornerRadius(3)
+                        .fill(Color.HPGray.system400)
+                        .cornerRadius(4)
                     Rectangle()
                         .fill(Color.HPPrimary.base)
                         .frame(width: max(geometry.size.width * progress, 0))
-                        .cornerRadius(3)
+                        .cornerRadius(4)
                 }
                 .frame(height: 4)
                 .overlay(alignment: .leading) {
                     Circle()
-                        .fill(Color.white)
-                        .frame(width: 15, height: 15)
+                        .fill(Color.HPGray.systemWhite)
+                        .frame(width: 16, height: 16)
+                        .shadow(color: Color("000000").opacity(0.25) ,radius: 2, y: 1)
                         .offset(x: max(geometry.size.width * progress - 8,  -8))
                         .gesture(
                             DragGesture()
@@ -71,6 +72,6 @@ struct HPSlider: View {
         })
     }
 }
-//#Preview {
+// #Preview {
 //    HPSlider()
-//}
+// }

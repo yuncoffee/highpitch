@@ -137,12 +137,18 @@ struct EditPanelView: View {
                         .setFrameOrigin(NSPoint(x: fillerWordPanelX, y: fillerWordPanelY))
                     
                     // UserDefaults도 원상복귀
-                    UserDefaults.standard.set(String(timerPanelX), forKey: "TimerPanelX")
-                    UserDefaults.standard.set(String(timerPanelY), forKey: "TimerPanelY")
-                    UserDefaults.standard.set(String(speedPanelX), forKey: "SpeedPanelX")
-                    UserDefaults.standard.set(String(speedPanelY), forKey: "SpeedPanelY")
-                    UserDefaults.standard.set(String(fillerWordPanelX), forKey: "FillerWordPanelX")
-                    UserDefaults.standard.set(String(fillerWordPanelY), forKey: "FillerWordPanelY")
+                    print("TimerX 원상복귀: \(timerPanelX)")
+                    print("TimerY 원상복귀: \(timerPanelY)")
+                    
+                    UserDefaults.standard.set(String(timerPanelX + 11), forKey: "TimerPanelX")
+                    UserDefaults.standard.set(String(timerPanelY + 11), forKey: "TimerPanelY")
+                    UserDefaults.standard.set(String(speedPanelX + 11), forKey: "SpeedPanelX")
+                    UserDefaults.standard.set(String(speedPanelY + 11), forKey: "SpeedPanelY")
+                    UserDefaults.standard.set(String(fillerWordPanelX + 11), forKey: "FillerWordPanelX")
+                    UserDefaults.standard.set(String(fillerWordPanelY + 11), forKey: "FillerWordPanelY")
+                    
+                    //
+                    // resetPanels.toggle()
                     
                 } label: { type, _, color, expandable in
                     HPLabel(
@@ -156,6 +162,7 @@ struct EditPanelView: View {
                     )
                 }
                 .frame(width: 144)
+                .disabled(instantFeedbackManager.resetButtonDisabled)
             }
             
             Spacer()

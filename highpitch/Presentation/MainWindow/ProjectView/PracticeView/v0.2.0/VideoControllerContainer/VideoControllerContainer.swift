@@ -27,11 +27,6 @@ struct VideoControllerContainer: View {
             if let audioPath = viewStore.practice.audioPath {
                 AudioControllerView(audioPlayer: viewStore.mediaManager, audioPath: audioPath)
             }
-//            HStack {
-//                Text("AudioController")
-//            }
-//            .frame(maxWidth:.infinity, maxHeight: 64)
-//            .background(Color.red)
         }
         .onAppear {
             // MARK: - Add MockData

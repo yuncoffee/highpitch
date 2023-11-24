@@ -34,6 +34,21 @@ struct PracticeView: View {
         }
         .environment(viewStore)
         .navigationBarBackButtonHidden()
+        .overlay {
+            GeometryReader { proxy in
+                Color.clear.preference(key: SizePreferenceKey.self, value: proxy.size)
+            }
+        }
+        .onPreferenceChange(SizePreferenceKey.self) { value in
+            viewStore.screenSize = value
+        }
+    }
+}
+
+struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
     }
 }
 
@@ -64,16 +79,46 @@ struct PracticeViewTopToolbar: View {
         HPTopToolbar(
             title: title,
             backButtonCompletion: {
-                withAnimation(.none) {
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
                     dismiss()
                 }
             },
             completion: {
-                if let currentProject = projectManager.current {
-                    projectManager.playPractice(
-                        selectedProject: currentProject,
-                        mediaManager: mediaManager
-                    )
+                if mediaManager.isRecording {
+                    HPButton(type: .text, color: .HPSecondary.base) {
+                        SystemManager.shared.isMainWindowPracticeSaveSheetActive = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "일시 정지", icon: "pause.fill"),
+                            type: type,
+                            size: size,
+                            color: color,
+                            alignStyle: .iconWithTextVertical,
+                            expandable: expandable,
+                            fontStyle: .system(.caption2)
+                        )
+                    }
+                    .frame(width: 40)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                } else {
+                    HPButton(color: .HPSecondary.base) {
+                        mediaManager.isStart = true
+                    } label: { type, size, color, expandable in
+                        HPLabel(
+                            content: (label: "연습 시작하기", icon: nil),
+                            type: type,
+                            size: size,
+                            color: color,
+                            expandable: expandable,
+                            fontStyle: .system(.footnote)
+                        )
+                    }
+                    .frame(width: 120)
+                    .padding(.trailing, .HPSpacing.medium)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
         )

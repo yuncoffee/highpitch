@@ -65,6 +65,7 @@ enum HPStyledFont {
     case largeTitleLv
     case labeldButton
     case detailTimeFeedback
+    
 }
 
 extension HPStyledFont {

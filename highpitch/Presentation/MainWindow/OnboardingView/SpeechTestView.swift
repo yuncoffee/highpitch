@@ -12,6 +12,9 @@ struct SpeechTestView: View {
     var store
 
     @State
+    var hasHeader = true
+    
+    @State
     private var currentSentenceIndex = 0
     
     @State
@@ -22,16 +25,18 @@ struct SpeechTestView: View {
     
     var body: some View {
         VStack(spacing: .zero) {
-            VStack(spacing: .HPSpacing.xxsmall) {
-                Text("정확한 분석을 위해 두 번의 측정을 할 거에요.")
-                    .systemFont(.subTitle, weight: .bold)
-                    .foregroundColor(Color.HPPrimary.dark)
-                Text("실제 발표 상황이라고 생각한 후,\n제시된 스크립트를 편하게 읽어보세요!")
-                    .multilineTextAlignment(.center)
-                    .systemFont(.footnote, weight: .medium)
-                    .foregroundColor(Color.HPTextStyle.base)
+            if hasHeader {
+                VStack(spacing: .HPSpacing.xxsmall) {
+                    Text("정확한 분석을 위해 두 번의 측정을 할 거에요.")
+                        .systemFont(.subTitle, weight: .bold)
+                        .foregroundColor(Color.HPPrimary.dark)
+                    Text("실제 발표 상황이라고 생각한 후,\n제시된 스크립트를 편하게 읽어보세요!")
+                        .multilineTextAlignment(.center)
+                        .systemFont(.footnote, weight: .medium)
+                        .foregroundColor(Color.HPTextStyle.base)
+                }
+                .padding(.bottom, .HPSpacing.xxlarge)
             }
-            .padding(.bottom, .HPSpacing.xxlarge)
             ZStack {
                 /// carousel
                 HStack(spacing: .HPSpacing.small) {

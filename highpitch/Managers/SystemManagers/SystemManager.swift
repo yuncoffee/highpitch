@@ -30,7 +30,7 @@ final class SystemManager {
     var isRequsetAudioPermissionPopoverActive = false
     /// 음성 인식 중인지 저장합니다.
     var isRecognizing = false
-        
+    var isMainWindowPracticeSaveSheetActive = false
     var recordStartCommand: String = 
         UserDefaults.standard.string(forKey: "recordStartCommand") ?? "Command + Control + P"
     var recordPauseCommand: String =

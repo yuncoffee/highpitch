@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 import AVFoundation
 
 struct PracticeListCell: View {
+    @Environment(\.modelContext)
+    var modelContext
+    @Environment(ProjectManager.self)
+    private var projectManager
+    
     var practice: PracticeModel
     var index: Int
     @State
@@ -46,8 +52,17 @@ struct PracticeListCell: View {
                     .padding(.leading, .HPSpacing.medium)
                     .padding(.trailing, .HPSpacing.small)
                     .onTapGesture {
-                        print("Select..!")
                         isRemarkable.toggle()
+                        practice.remarkable = isRemarkable
+                        Task {
+                            await MainActor.run {
+                                do {
+                                    try modelContext.save()
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        }
                     }
             }
             Text("\(indexToOrdinalNumber(index: practice.index))번째 연습")

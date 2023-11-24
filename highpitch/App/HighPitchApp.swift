@@ -99,6 +99,7 @@ struct HighpitchApp: App {
                     .environment(projectManager)
                     .environment(selectedProject)
                     .modelContainer(container)
+                    .openSettingsAccess()
                     .onChange(of: systemManager.recordStartCommand, { _, _ in
                         // 변경된 명령어들로 hotKey재설정
                         systemManager.hotkeyStart = stringToHotKeySetting(input: systemManager.recordStartCommand)
@@ -209,11 +210,19 @@ struct HighpitchApp: App {
         .menuBarExtraAccess(isPresented: $isMenuPresented)
         .commandsRemoved()
         .onChange(of: isMenuPresented, { _, newValue in
-            print(isMenuPresented)
             if newValue {
                 GAManager.shared.analyticsOnClick(.menubarClick)
             }
             refreshable = newValue
+        })
+        .onChange(of: mediaManager.isStart, { _, newValue in
+            if newValue {
+                Task {
+                    await MainActor.run {
+                        isMenuPresented = false
+                    }
+                }
+            }
         })
         .onChange(of: mediaManager.isRecording, { _, newValue in
             print("TEST!!!!")

@@ -57,9 +57,9 @@ struct PracticeAnalysisView: View {
                         AnalysisSpeedRateChart()
                             .padding(.bottom, .HPSpacing.xxsmall + .HPSpacing.xxxsmall)
                     }
+                    .padding(.vertical, .HPSpacing.xxsmall + .HPSpacing.xsmall)
+                    .padding(.horizontal, .HPSpacing.medium)
                 }
-                .padding(.vertical, .HPSpacing.xxsmall + .HPSpacing.xsmall)
-                .padding(.horizontal, .HPSpacing.medium)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             } else {
                 emptyView
@@ -151,9 +151,15 @@ extension PracticeAnalysisView {
     // MARK: - emptyView
     @ViewBuilder
     var emptyView: some View {
-        VStack {
-            Text("연습결과가 없습니다.")
+        VStack(spacing: .zero) {
+            Text("연습 기록이 없어요")
+                .systemFont(.body, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.base)
+            Text("첫번째 연습을 시작해보세요")
+                .systemFont(.caption, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.light)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     // MARK: - speakingRateView

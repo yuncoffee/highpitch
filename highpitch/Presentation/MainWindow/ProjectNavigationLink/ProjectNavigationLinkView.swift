@@ -20,7 +20,7 @@ struct ProjectNavigationLink: View {
     var body: some View {
         VStack(alignment: .leading, spacing: .HPSpacing.xxsmall) {
             if let projects = projectManager.projects?.reversed() {
-                VStack(spacing: 0) {
+                VStack(spacing: .HPSpacing.xxxsmall) {
                     ForEach(projects, id: \.id) { project in
                         if project.creatAt == addedProjectID {
                             ProjectLinkItem(

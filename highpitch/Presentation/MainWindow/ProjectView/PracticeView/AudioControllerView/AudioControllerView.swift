@@ -84,11 +84,31 @@ extension AudioControllerView {
     @ViewBuilder
     private var sliderContainer: some View {
         ZStack(alignment: .top) {
+            ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration()) { edit in
+                if edit {
+                    isDragging = true
+                    prevState = isPlaying
+                } else {
+                    isDragging = false
+                    audioPlayer.setCurrentTime(time: currentTime)
+                }
+            }
+            .valueSliderStyle(
+                HorizontalValueSliderStyle(
+                    track: HorizontalTrack(view: Color.HPPrimary.base)
+                        .frame(height: 4)
+                        .background(Color.HPGray.system400)
+                        .cornerRadius(4),
+                    thumbSize: CGSize(width: 16, height: 16)
+                )
+            )
+            .padding(.horizontal, .HPSpacing.xxxsmall)
+            .offset(y: 36)
+            .opacity(0)
             // decoration
             Rectangle()
                 .frame(maxHeight: 4)
                 .foregroundStyle(Color.HPGray.system200)
-//                .offset(y: .HPSpacing.xxxxsmall)
             VStack(spacing: .zero) {
                 HPSlider(value: $currentTime, bounds: 0...audioPlayer.getDuration()) { edit in
                     if edit {
@@ -99,25 +119,8 @@ extension AudioControllerView {
                         audioPlayer.setCurrentTime(time: currentTime)
                     }
                 }
-                ValueSlider(value: $currentTime, in: 0...audioPlayer.getDuration()) { edit in
-                    if edit {
-                        isDragging = true
-                        prevState = isPlaying
-                    } else {
-                        isDragging = false
-                        audioPlayer.setCurrentTime(time: currentTime)
-                    }
-                }
-                .valueSliderStyle(
-                    HorizontalValueSliderStyle(
-                        track: HorizontalTrack(view: Color.HPPrimary.base)
-                            .frame(height: 4)
-                            .background(Color.HPGray.system400)
-                            .cornerRadius(4),
-                        thumbSize: CGSize(width: 16, height: 16)
-                    )
-                )
                 .padding(.horizontal, .HPSpacing.xxxsmall)
+                .offset(y: 20)
                 HStack(spacing: 0) {
                     Text(timeString(time: currentTime))
                         .systemFont(.caption2)
@@ -127,8 +130,8 @@ extension AudioControllerView {
                         .systemFont(.caption2)
                         .foregroundStyle(Color.HPTextStyle.light)
                 }
+                .padding(.top, .HPSpacing.xxsmall)
                 .padding(.horizontal, .HPSpacing.xxxsmall)
-                .offset(y: -.HPSpacing.xxsmall)
             }
             .offset(y: -.HPSpacing.xsmallBetweenSmall)
         }
@@ -207,6 +210,6 @@ extension AudioControllerView {
     
     return AudioControllerView(audioPlayer: MediaManager(),audioPath: url!)
         .border(.green)
-        .frame(width: 640)
-    //        .padding(24)
+        .frame(width: 640, height: 400)
+            .padding(24)
 }

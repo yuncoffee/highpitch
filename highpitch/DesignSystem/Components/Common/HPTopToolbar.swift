@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct HPTopToolbar<T: View>: View {
+struct HPTopToolbar<T: View, U: View>: View {
     var title: String
     var subTitle: String?
     var backButtonCompletion: (() -> Void)?
-    var completion: (() -> Void)?
+    var completion: () -> U
     var popOverContent: (() -> T)?
     
     @State
@@ -43,8 +43,8 @@ struct HPTopToolbar<T: View>: View {
             VStack(spacing: 0) {
                 if let popOverContent = popOverContent {
                     Text("\(title)")
-                        .systemFont(.footnote, weight: .semibold)
-                        .foregroundStyle(Color.HPTextStyle.darkness)
+                        .systemFont(.body, weight: .medium)
+                        .foregroundStyle(Color.HPTextStyle.darker)
                         .onTapGesture {
                             if !isPopoverActive {
                                 isPopoverActive = true
@@ -55,8 +55,8 @@ struct HPTopToolbar<T: View>: View {
                         }
                 } else {
                     Text("\(title)")
-                        .systemFont(.footnote, weight: .semibold)
-                        .foregroundStyle(Color.HPTextStyle.darkness)
+                        .systemFont(.body, weight: .medium)
+                        .foregroundStyle(Color.HPTextStyle.darker)
                 }
                 if let subTitle {
                     Text("\(subTitle)")
@@ -68,24 +68,7 @@ struct HPTopToolbar<T: View>: View {
             .offset(y: 8)
             HStack(spacing: 0) {
                 // MARK: - AppleScript Remove
-                HPButton(color: .HPSecondary.base) {
-                    print("키노트 열기")
-                    if let completion = completion {
-                        completion()
-                    }
-                } label: { type, size, color, expandable in
-                    HPLabel(
-                        content: (label: "연습 시작하기", icon: nil),
-                        type: type,
-                        size: size,
-                        color: color,
-                        expandable: expandable, 
-                        fontStyle: .system(.footnote)
-                    )
-                }
-                .frame(width: 120)
-                .padding(.trailing, .HPSpacing.medium)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                completion()
             }
             .frame(maxWidth: .infinity)
         }
@@ -100,7 +83,7 @@ extension HPTopToolbar where T == EmptyView {
         title: String,
         subTitle: String?,
         backButtonCompletion: (() -> Void)?,
-        completion: (() -> Void)?
+        completion: @escaping () -> U
     ) {
         self.init(
             title: title,
@@ -113,7 +96,7 @@ extension HPTopToolbar where T == EmptyView {
     init(
         title: String,
         subTitle: String?,
-        completion: (() -> Void)?
+        completion: @escaping () -> U
     ) {
         self.init(
             title: title,
@@ -125,7 +108,7 @@ extension HPTopToolbar where T == EmptyView {
     }
     init(
         title: String,
-        completion: (() -> Void)?
+        completion: @escaping () -> U
     ) {
         self.init(
             title: title,
@@ -138,7 +121,7 @@ extension HPTopToolbar where T == EmptyView {
     init(
         title: String,
         backButtonCompletion: (() -> Void)?,
-        completion: (() -> Void)?
+        completion: @escaping () -> U
     ) {
         self.init(
             title: title,
@@ -154,8 +137,8 @@ extension HPTopToolbar where T == EmptyView {
     HPTopToolbar(title: "프로젝트 이름",
     backButtonCompletion: {
       print("zz")
-    }, completion:  {
-        print("Hello")
+    }, completion: {
+        Text("zz")
     }, popOverContent: {
         Text("zz")
     })

@@ -16,6 +16,9 @@ struct VideoContainer: View {
     @State
     private var isTimeOverPractice = true
     
+    @State
+    private var isVideoHover = false
+    
 #if PREVIEW
     // MARK: - MockData
     @Query(sort: \PracticeModel.creatAt)
@@ -30,8 +33,6 @@ struct VideoContainer: View {
                 VideoControllerContainer()
             }
         }
-//        .padding(.bottom, calcAudioIndicatorSize())
-//        .padding(.bottom, 64)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             // MARK: - Add MockData
@@ -52,17 +53,53 @@ extension VideoContainer {
     private func calcAudioIndicatorSize() -> CGFloat {
         viewStore.currentFeedbackViewType != .every ? viewStore.AUDIO_INDICATOR_HEIGHT : .zero
     }
+    private func parseDurationToLabel(duration: Double) -> String {
+        var result = ""
+        let _duration = Int(duration)
+        
+        let hour =  _duration / 3600
+        let minute = _duration % 3600 / 60
+        let second = _duration % 60
+        
+        if hour > 0 {
+            result += "\(hour)시"
+        }
+        if minute > 0 {
+            result += "\(minute)분"
+        }
+        if second > 0 {
+            result += "\(second)초"
+        }
+
+        return result
+    }
+
 }
 
 extension VideoContainer {
     @ViewBuilder
     private var header: some View {
-        VStack(alignment: .leading, spacing: .zero) {
-            Text("\(parseDateStyle(input: viewStore.practice.creatAt))")
-                .systemFont(.caption)
-                .foregroundStyle(Color.HPTextStyle.light)
-            Text("\(viewStore.practice.practiceName)")
-                .systemFont(.largeTitle)
+        VStack(alignment: .leading, spacing: .HPSpacing.xxxsmall) {
+            VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
+                Text("\(parseDateStyle(input: viewStore.practice.creatAt))")
+                    .systemFont(.caption)
+                    .foregroundStyle(Color.HPTextStyle.light)
+                Text("\(viewStore.practice.practiceName)")
+                    .systemFont(.largeTitle)
+            }
+            HPLabel(
+                content: (
+                    "\(parseDurationToLabel(duration: viewStore.mediaManager.getDuration())) 소요",
+                    "clock"
+                ),
+                type: .blockFill(4),
+                color: .HPGray.system200,
+                alignStyle: .iconWithText,
+                contentColor: .HPTextStyle.dark,
+                fontStyle: .styled(.detailTimeFeedback),
+                padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxxsmall)
+            )
+            .fixedSize()
         }
         .padding(.top, .HPSpacing.small + .HPSpacing.xxxxsmall)
         .padding(.leading, .HPSpacing.small)
@@ -74,7 +111,7 @@ extension VideoContainer {
             // MARK: - 영상으로 대체
             GeometryReader { geometry in
                 let maxHeight = geometry.size.height - 96
-                ZStack {
+                ZStack(alignment: .bottom) {
                     VStack {
                         if let videoPath = viewStore.practice.videoPath {
                             if let avPlayer = viewStore.mediaManager.avPlayer {
@@ -82,29 +119,51 @@ extension VideoContainer {
                             }
                         }
                     }
-                    Button {
-                        withAnimation {
-                            viewStore.isFullScreenVideoVisible = true
-                            viewStore.currentFeedbackViewType = .fillerWord
+                    HStack {
+                        Button {
+                            withAnimation {
+                                viewStore.isFullScreenVideoVisible = true
+                                viewStore.currentFeedbackViewType = .fillerWord
+                            }
+                        } label: {
+                            Image("expandVideo")
                         }
-                    } label: {
-                        Text("벝은")
+                        .buttonStyle(.plain)
+                        .padding(.bottom, .HPSpacing.xsmall)
+                        .padding(.trailing, .HPSpacing.xsmall)
+                        .onTapGesture {
+                            withAnimation {
+                                viewStore.isFullScreenVideoVisible = true
+                                viewStore.currentFeedbackViewType = .fillerWord
+                            }
+                        }
                     }
-
+                    .frame(maxWidth: .infinity, maxHeight: 40, alignment: .bottomTrailing)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(
+                                colors: [
+                                    .HPGray.systemBlack.opacity(0.6),
+                                    .HPGray.systemBlack.opacity(0)
+                                ]),
+                            startPoint: .bottom,
+                            endPoint: .top
+                        )
+                    )
+                    .offset(y: isVideoHover ? 0 : 40)
                 }
-           
-                .onTapGesture {
-                    withAnimation {
-                        viewStore.isFullScreenVideoVisible = true
-                        viewStore.currentFeedbackViewType = .fillerWord
-                    }
-                }
-                .border(.blue)
+                .clipped()
                 .frame(
                     width: geometry.size.width,
-                    height: maxHeight
+                    height: maxHeight,
+                    alignment: .bottom
                 )
-                .background(Color.red.opacity(0.3))
+                .background(Color.black.opacity(0.3))
+                .onHover { hovering in
+                    withAnimation {
+                        isVideoHover = hovering
+                    }
+                }
             }
         }
         .padding(.vertical, .HPSpacing.xlarge)

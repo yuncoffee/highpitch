@@ -14,8 +14,6 @@ struct ProjectSpeakingRateChart: View {
     private var projectManager
     @State
     var rawSelected: Int?
-    @State
-    var rawSelectedRange: ClosedRange<Int>?
     
     var body: some View {
         VStack(alignment: .leading, spacing: .HPSpacing.xsmall) {
@@ -60,10 +58,10 @@ extension ProjectSpeakingRateChart {
             
             Chart {
                 /// 선 그래프
-                ForEach(practices) { practice in
+                ForEach(Array(practices.enumerated()), id: \.1.id) { index, practice in
                     if practice.summary.minSpm < practice.summary.maxSpm {
                         BarMark(
-                            x: .value("연습회차", practice.index + 1),
+                            x: .value("연습회차", index + 1),
                             yStart: .value(title, practice.summary.minSpm),
                             yEnd: .value(title, practice.summary.maxSpm),
                             width: .fixed(16)
@@ -73,7 +71,7 @@ extension ProjectSpeakingRateChart {
                     }
                     if practice.summary.minSpm == practice.summary.maxSpm {
                         PointMark(
-                            x: .value("연습회차", practice.index + 1),
+                            x: .value("연습회차", index + 1),
                             y: .value(title, practice.summary.minSpm)
                         )
                         .symbolSize(200)
@@ -82,7 +80,7 @@ extension ProjectSpeakingRateChart {
                     /// 모든 연습 중에도 가장 빠르거나 가장 느린 경우가 있다면 추가합니다.
                     if practice.summary.maxSpm == rawRange.last! {
                         PointMark(
-                            x: .value("연습회차", practice.index + 1),
+                            x: .value("연습회차", index + 1),
                             y: .value(title, practice.summary.maxSpm)
                         )
                         .symbolSize(113)
@@ -91,7 +89,7 @@ extension ProjectSpeakingRateChart {
                     }
                     if practice.summary.minSpm == rawRange.first! {
                         PointMark(
-                            x: .value("연습회차", practice.index + 1),
+                            x: .value("연습회차", index + 1),
                             y: .value(title, practice.summary.minSpm)
                         )
                         .symbolSize(113)
@@ -150,7 +148,6 @@ extension ProjectSpeakingRateChart {
             }
             /// 호버 control
             .chartXSelection(value: $rawSelected)
-            .chartXSelection(range: $rawSelectedRange)
             /// chart의 scroll을 설정합니다.
             .chartScrollableAxes(.horizontal)
             .chartScrollPosition(initialX: practices.count)
@@ -235,34 +232,13 @@ extension ProjectSpeakingRateChart {
     
     /// 호버 관련 변수
     var selected: Int? {
-        let practices = projectManager.current?.practices.sorted(by: { $0.index < $1.index })
-        if let practices = practices {
-            if let rawSelected {
-                return practices.first(where: {
-                    return ($0.index ... $0.index + 1).contains(rawSelected)
-                })?.index
-            } else if let selectedRange, selectedRange.lowerBound == selectedRange.upperBound {
-                return selectedRange.lowerBound
+        let practices = projectManager.current?.practices.sorted(by: { $0.creatAt < $1.creatAt })
+        if let rawSelected {
+            if 0 <= rawSelected - 1 && rawSelected - 1 < practices?.count ?? 0 {
+                return rawSelected - 1
             }
             return nil
-        } else { return nil }
-    }
-    var selectedRange: ClosedRange<Int>? {
-        let practices = projectManager.current?.practices.sorted(by: { $0.index < $1.index })
-        if let practices = practices {
-            if let rawSelectedRange {
-                let lower = practices.first(where: {
-                    return ($0.index ... $0.index + 1).contains(rawSelectedRange.lowerBound)
-                })?.index
-                let upper = practices.first(where: {
-                    return ($0.index ... $0.index + 1).contains(rawSelectedRange.upperBound)
-                })?.index
-                
-                if let lower, let upper {
-                    return lower ... upper
-                }
-            }
-            return nil
-        } else { return nil }
+        }
+        return nil
     }
 }

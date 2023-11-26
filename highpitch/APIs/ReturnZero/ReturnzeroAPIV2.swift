@@ -26,21 +26,21 @@ struct ReturnzeroAPIV2 {
         let (data,response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
+            #if DEBUG
             print(response)
+            #endif
             throw RZError.networkErr
         }
         guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
               let token = jsonObject["access_token"] as? String,
               let expired = jsonObject["expire_at"] as? Double
         else {
-            print("err")
             throw RZError.jsonParsingErr
         }
         return TokenData(token: token, expried: Date(timeIntervalSince1970: expired))
     }
     
     private func isAuth() async throws -> String {
-        // MARK: 여기다!!!!!!!!여기다!!!!!!!!여기다!!!!!!!!여기다!!!!!!!!여기다!!!!!!!!
         do {
             if let token = try keyChainManager.load(forKey: .rzToken) as? TokenData {
                 if(Date.now.compare(token.expried).rawValue < 0) {
@@ -53,7 +53,6 @@ struct ReturnzeroAPIV2 {
             }
             throw RZError.networkErr
         } catch {
-            print("here")
             let accessToken = try await getToken()
             try keyChainManager.save(data: accessToken, forKey: .rzToken)
             return accessToken.token
@@ -97,22 +96,27 @@ struct ReturnzeroAPIV2 {
         let (data,response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
+            #if DEBUG
             print(response)
+            #endif
             throw RZError.networkErr
         }
         guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
               let transcribeId = jsonObject["id"] as? String else {
             throw RZError.jsonParsingErr
         }
-        
+        #if DEBUG
         print(jsonObject)
+        #endif
         return transcribeId
         
     }
     // 파일 경로 -> 트랜스크라이브만 반환
     private func getTranscribe(transId: String) async throws -> [Utterance]? {
         let jwtToken = try await isAuth()
+        #if DEBUG
         print(transId)
+        #endif
         guard let url = URL(string: tranUrl + "/" + transId) else {
             throw RZError.jsonParsingErr
         }
@@ -138,11 +142,9 @@ struct ReturnzeroAPIV2 {
             throw RZError.networkErr
         }
         guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-            print("11")
             throw RZError.jsonParsingErr
         }
         guard let status = jsonObject["status"] as? String else {
-            print(jsonObject)
             throw RZError.jsonParsingErr
         }
         if(status == "completed") {

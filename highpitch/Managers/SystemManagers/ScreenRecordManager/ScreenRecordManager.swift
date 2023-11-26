@@ -142,7 +142,9 @@ class ScreenRecordManager: ObservableObject {
                 let config = streamConfiguration(scDisplay: availableDisplays[index])
                 let filter = contentFilter(scDisplay: availableDisplays[index])
                 do {
+                    #if DEBUG
                     print(availableDisplays[index].displayName)
+                    #endif
                     for try await frame in captureDisplayEngines[index]
                         .startCapture(configuration: config, filter: filter) {
                         captureDisplayPreviews[index].updateFrame(frame)

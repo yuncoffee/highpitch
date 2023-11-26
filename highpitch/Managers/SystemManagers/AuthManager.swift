@@ -35,7 +35,9 @@ struct AuthManager {
        guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
              let token = jsonObject["user_token"] as? String
        else {
+           #if DEBUG
            print("err")
+           #endif
            throw AuthError.jsonParsingErr
        }
        return token

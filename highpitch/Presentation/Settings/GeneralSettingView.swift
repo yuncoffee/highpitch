@@ -117,16 +117,12 @@ struct GeneralSettingView: View {
         }
         .onChange(of: systemManager.recordStartCommand, { _, _ in
             isMonitoringEnabled = false
-            print("recordStartCommand 바뀌어서 isMonitoringEnabled false")
         })
         .onChange(of: systemManager.recordPauseCommand, { _, _ in
             isMonitoringEnabled = false
-            print("recordPauseCommand 바뀌어서 isMonitoringEnabled false")
-
         })
         .onChange(of: systemManager.recordSaveCommand, { _, _ in
             isMonitoringEnabled = false
-            print("recordSaveCommand 바뀌어서 isMonitoringEnabled false")
         })
         .onAppear {
             keyComboNameArray[0] = userDefaultsCommandToString(input: UserDefaults.standard.string(forKey: "recordStartCommand") ?? "Command + Control + P")
@@ -306,7 +302,6 @@ struct StartKeyComboButton: View {
             Button(action: {
                 clickIndexHere = 0
                 isMonitoringEnabled = true
-                print("isMonitorEnabled = true -> 0")
             }, label: {
                 ZStack {
                     LeftRoundedRectangle(cornerRadius: 4)
@@ -362,7 +357,6 @@ struct PauseKeyComboButton: View {
             Button(action: {
                 clickIndexHere = 1
                 isMonitoringEnabled = true
-                print("isMonitorEnabled = true -> 1")
             }, label: {
                 ZStack {
                     LeftRoundedRectangle(cornerRadius: 4)
@@ -418,7 +412,6 @@ struct SaveKeyComboButton: View {
         HStack(spacing:0) {
             Button(action: {
                 clickIndexHere = 2
-                print("isMonitorEnabled = true -> 2")
                 isMonitoringEnabled = true
             }, label: {
                 ZStack {

@@ -110,17 +110,12 @@ extension MenubarExtraHeader {
             )
         }
         HPButton(type: .text, size: .medium, color: labels.color) {
-            print("HEEE")
             if !mediaManager.isRecording {
-                print("11111")
                 mediaManager.isStart = true
                 GAManager.shared.analyticsOnClick(.play)
-//                playPractice()
             } else if mediaManager.isPause {
-                print("22222")
                 playPractice()
             } else {
-                print("33333")
                 pausePractice()
             }
         } label: { type, size, color, expandable in
@@ -172,7 +167,9 @@ extension MenubarExtraHeader {
 extension MenubarExtraHeader {
     // MARK: - 연습 시작.
     private func playPractice() {
+        #if DEBUG
         print("------연습이 시작되었습니다.-------")
+        #endif
         projectManager.playPractice(
             selectedProject: selectedProject,
             mediaManager: mediaManager
@@ -203,8 +200,6 @@ extension MenubarExtraHeader {
                 }
                 openWindow(id: "main")
             }
-        } else {
-            print("zz?")
         }
     }
     

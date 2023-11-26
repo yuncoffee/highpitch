@@ -90,7 +90,9 @@ extension PracticeContentContainer {
             do {
                 try viewStore.mediaManager.registerAudio(url: audioPath)
             } catch {
+                #if DEBUG
                 print("오디오 생성 실패")
+                #endif
             }
             viewStore.mediaManager.registerVideo(url: videoPath)
         }

@@ -84,9 +84,11 @@ struct HighpitchApp: App {
         systemManager.playPractice = playPractice
         systemManager.pausePractice = pausePractice
         systemManager.stopPractice = stopPractice
+        #if DEBUG
         print("시작할때 Start 키콤보: ",systemManager.hotkeyStart.keyCombo)
         print("시작할때 Pause 키콤보: ",systemManager.hotkeyPause.keyCombo)
         print("시작할때 Save 키콤보: ",systemManager.hotkeySave.keyCombo)
+        #endif
     }
     
     var body: some Scene {
@@ -225,7 +227,6 @@ struct HighpitchApp: App {
             }
         })
         .onChange(of: mediaManager.isRecording, { _, newValue in
-            print("TEST!!!!")
             if !newValue {
                 menubarAnimationCount += 1
             }

@@ -105,7 +105,9 @@ struct PracticeList: View {
             }
         })
         .onChange(of: selectedPractices) { _, newValue in
+            #if DEBUG
             print(newValue.count)
+            #endif
         }
         .onDisappear {
             isEditMode = false
@@ -135,7 +137,9 @@ extension PracticeList {
                     do {
                         try modelContext.save()
                     } catch {
+                        #if DEBUG
                         print(error)
+                        #endif
                     }
                 }
             }

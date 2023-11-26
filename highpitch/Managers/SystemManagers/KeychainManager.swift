@@ -51,7 +51,9 @@ struct KeychainManager {
             ]
             let updateStatus = SecItemUpdate(updateQuery as CFDictionary, attributesToUpdate as CFDictionary)
             if updateStatus != errSecSuccess {
+                #if DEBUG
                 print("Failed to save data to Keychain")
+                #endif
             }
         }
     }
@@ -68,8 +70,6 @@ struct KeychainManager {
         var data: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &data)
 
-        print(status)
-        
         guard status == errSecSuccess else {
             throw KeyChainError.unowned(status)
         }
@@ -79,9 +79,6 @@ struct KeychainManager {
         guard let data = try? decoder.decode(forkey.getReturnType(), from: data) else{
             throw KeyChainError.invalidItemFormat
         }
-//        guard let data = String(data: data, encoding: .utf8) else{
-//            throw KeyChainError.invalidItemFormat
-//        }
         return data
     }
     
@@ -95,7 +92,9 @@ struct KeychainManager {
         let status = SecItemDelete(query as CFDictionary)
         
         if status != errSecSuccess {
+            #if DEBUG
             print("Failed to delete data from Keychain")
+            #endif
         }
     }
 }

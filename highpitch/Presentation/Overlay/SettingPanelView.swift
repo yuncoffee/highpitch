@@ -66,8 +66,9 @@ struct SettingPanelView: View {
         }
         .onTapGesture {
             instantFeedbackManager.isDetailSettingActive.toggle()
-            // instantFeedbackManager.focusedPanel = .setting
+            #if DEBUG
             print("편집기능: \(SystemManager.shared.instantFeedbackManager.isDetailSettingActive)")
+            #endif
         }
         .frame(
             width:

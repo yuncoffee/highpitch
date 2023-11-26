@@ -56,7 +56,9 @@ class CaptureManager: NSObject, AVCaptureFileOutputRecordingDelegate {
             audioEngine.prepare()
             try audioEngine.start()
         } catch {
+            #if DEBUG
             print("Error setting up audio recording: \(error.localizedDescription)")
+            #endif
         }
     }
 
@@ -86,14 +88,21 @@ class CaptureManager: NSObject, AVCaptureFileOutputRecordingDelegate {
     }
 
     func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        #if DEBUG
         print("Recording started")
+        #endif
+        
     }
 
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
+            #if DEBUG
             print("Recording failed: \(error.localizedDescription)")
+            #endif
         } else {
+            #if DEBUG
             print("Recording finished: \(outputFileURL)")
+            #endif
         }
     }
 }

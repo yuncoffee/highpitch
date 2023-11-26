@@ -84,19 +84,6 @@ extension HPListCell where S == EmptyView, N == EmptyView, B == EmptyView {
                     .foregroundStyle(Color.blue)
             }, button: {
                 ProgressView()
-//                HPButton(type: .text, size: .small, color: .HPTextStyle.base) {
-//                    print("Hello")
-//                } label: { type, size, color, expandable in
-//                    HPLabel(
-//                        content: ("확인하기", "chevron.right"),
-//                        type: type,
-//                        size: size,
-//                        color: color,
-//                        alignStyle: .textWithIcon,
-//                        expandable: expandable,
-//                        fontStyle: .system(.caption)
-//                    )
-//                }
             }
         )
         HPListCell(title: "Hello")

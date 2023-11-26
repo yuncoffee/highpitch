@@ -24,9 +24,14 @@ final class NotificationManager :NSObject,ObservableObject {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options) { (success, error) in
             if let error = error {
+                #if DEBUG
                 print(error.localizedDescription)
+                #endif
             } else {
+                #if DEBUG
                 print("SUCCESS")
+                #endif
+                
             }
         }
     }

@@ -21,7 +21,9 @@ extension URL {
             try FileManager.default
                 .createDirectory(at: dataPath, withIntermediateDirectories: true, attributes: nil)
         } catch {
+            #if DEBUG
             print("Error creating directory: \(error.localizedDescription)")
+            #endif
         }
         return dataPath.appendingPathComponent(fileName)
     }
@@ -48,7 +50,9 @@ extension URL {
             try FileManager.default
                 .createDirectory(at: dataPath, withIntermediateDirectories: true, attributes: nil)
         } catch {
+            #if DEBUG
             print("Error creating directory: \(error.localizedDescription)")
+            #endif
         }
         return dataPath.appendingPathComponent(fileName + fileExtension)
     }

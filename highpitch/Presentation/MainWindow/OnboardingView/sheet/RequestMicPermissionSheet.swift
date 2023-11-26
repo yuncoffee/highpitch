@@ -34,9 +34,13 @@ extension RequestMicPermissionSheet {
         let urlPath = "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone"
         if let url = URL(string: urlPath) {
             if workspace.open(url) {
+                #if DEBUG
                 print("보안 및 개인정보 설정 중 '마이크' 섹션으로 이동되었습니다.")
+                #endif
             } else {
+                #if DEBUG
                 print("설정 앱을 열 수 없습니다.")
+                #endif
             }
         }
     }

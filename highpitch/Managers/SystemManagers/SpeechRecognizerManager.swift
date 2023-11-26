@@ -98,7 +98,9 @@ final class SpeechRecognizerManager {
                     self.isSpeaking = true
                 } else { self.isSpeaking = false }
             }
+            #if DEBUG
             print("실시간 말빠르기: ", self.realTimeRate)
+            #endif
             // MARK: - filler word
             /// buffer가 초기화된다면 문장을 새로 시작합니다.
             if let result = result, result.speechRecognitionMetadata != nil {
@@ -125,11 +127,15 @@ final class SpeechRecognizerManager {
                 self.prevFillerCount = temp
                 self.prevTime = currentTime
             }
+            #if DEBUG
             print("실시간 습관어 횟수: ", self.realTimeFillerCount)
+            #endif
             // MARK: - 나머지
             var isFinal = false
             if let result = result {
+                #if DEBUG
                 print(result.bestTranscription.formattedString)
+                #endif
                 isFinal = result.isFinal
             }
             
@@ -173,15 +179,25 @@ final class SpeechRecognizerManager {
                 do {
                     try self.startanalysis()
                 } catch { }
+                #if DEBUG
                 print("autorized with speech recognition")
+                #endif
             case .denied:
+                #if DEBUG
                 print("access denied")
+                #endif
             case .restricted:
+                #if DEBUG
                 print("access denied")
+                #endif
             case .notDetermined:
+                #if DEBUG
                 print("access denied")
+                #endif
             default:
+                #if DEBUG
                 print("access denied")
+                #endif
             }
         }
     }
@@ -192,14 +208,18 @@ final class SpeechRecognizerManager {
         SFSpeechRecognizer.requestAuthorization { authStatus in
             // Divert to the app's main thread so that the UI
             // can be updated.
+            #if DEBUG
             print(url.absoluteString)
+            #endif
             if(self.checkFile(url: url)) {
-                print("OKOKOKOK")
+//                print("OKOKOKOK")
             } else {
-                print("NONONONO")
+//                print("NONONONO")
             }
             if authStatus == .authorized {
+                #if DEBUG
                 print("authorized with speech recognition")
+                #endif
                 // Cancel the previous task if it's running.
                 if let recognitionTask = self.recognitionTask {
                     recognitionTask.cancel()
@@ -222,15 +242,18 @@ final class SpeechRecognizerManager {
                 = self.speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
                     if let result = result {
                         for word in result.bestTranscription.segments {
-                            print()
+                            #if DEBUG
                             print("word:", word.substring)
                             print("isFinal:", result.isFinal)
+                            #endif
                             /// 지난 단어와 간격이 0.5초 이상이거나 마지막 단어라면 UtteranceModel을 추가합니다.
                             if (word.timestamp - self.endAt > 0.5)
                                 || (result.isFinal) {
                                 if self.message != "" {
                                     self.message += "."
+                                    #if DEBUG
                                     print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
+                                    #endif
                                     answer.append(UtteranceModel(
                                         startAt: Int(self.startAt * 1000),
                                         duration: Int((self.endAt - self.startAt) * 1000),
@@ -250,7 +273,9 @@ final class SpeechRecognizerManager {
                         if result.isFinal {
                             if self.message != "" {
                                 self.message += "."
+                                #if DEBUG
                                 print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
+                                #endif
                                 answer.append(UtteranceModel(
                                     startAt: Int(self.startAt * 1000),
                                     duration: Int((self.endAt - self.startAt) * 1000),
@@ -267,7 +292,9 @@ final class SpeechRecognizerManager {
                 }
             } else {
                 self.isFinal = true
+                #if DEBUG
                 print("access denied")
+                #endif
             }
         }
         // !isFinal && answer.isEmpty && CACurrentMediaTime() - currentTime > 20.0
@@ -283,7 +310,9 @@ final class SpeechRecognizerManager {
             do {
                 try await Task.sleep(nanoseconds: 100_000_000)
             } catch {
+                #if DEBUG
                 print("task.sleep 오류")
+                #endif
             }
         }
         return answer
@@ -295,11 +324,15 @@ final class SpeechRecognizerManager {
                 let audioPlayer = try AVAudioPlayer(contentsOf: url)
                 return true
             } catch {
+                #if DEBUG
                 print("Error initializing AVAudioPlayer: \(error.localizedDescription)")
+                #endif
                 return false
             }
         } else {
+            #if DEBUG
             print("파일이 존재하지 않아!")
+            #endif
             return false
         }
     }

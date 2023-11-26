@@ -29,7 +29,6 @@ extension ProjectManager {
         mediaManager: MediaManager
     ) {
         if(mediaManager.checkMicrophonePermission()) {
-            let fileName = Date().makeM4aFileName()
             if mediaManager.isRecording {
                 mediaManager.startRecording()
             } else {
@@ -54,30 +53,35 @@ extension ProjectManager {
         if !mediaManager.isRecording {
             return
         }
+        #if DEBUG
         print("녹음 종료")
+        #endif
         mediaManager.stopRecording()
         SystemManager.shared.isAnalyzing = true
         /// mediaManager.fileName에 음성 파일이 저장되어있을거다!!
         /// 녹음본 파일 위치 : /Users/{사용자이름}/Documents/HighPitch/Audio.YYYYMMDDHHMMSS.m4a
         /// ReturnZero API를 이용해서 UtteranceModel완성
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
             Task { [self] in
                 let newUtteranceModels = await self.makeNewUtterancesV2(mediaManager: mediaManager)
                 /// 아무말도 하지 않았을 경우 종료한다.
+                // MARK: - 아무말도 하지 않았을 경우 피드백 필요
                 if newUtteranceModels.isEmpty {
+                    #if DEBUG
                     print("none of words!")
+                    #endif
                     SystemManager.shared.isAnalyzing = false
                     return
                 }
                 /// 시작할 때 프로젝트 세팅이 안되어 있을 경우, 새 프로젝트를 생성 하고, temp에 반영한다.
                 /// temp는 새로 만들어진 ProjectModel.persistentModelID 을 들고 있다.
-                if temp == nil {
-                    makeNewProject(modelContext: modelContext)
+                if self.temp == nil {
+                    self.makeNewProject(modelContext: modelContext)
                 }
                 /// 생성한 ID로 프로젝트 모델을 가져온다.
                 guard let id = self.temp else { return }
                 guard let tempProject = modelContext.model(for: id) as? ProjectModel else { return }
-                let newPracticeModel = makeNewPractice(
+                let newPracticeModel = self.makeNewPractice(
                     project: tempProject,
                     utterances: newUtteranceModels,
                     mediaManager: mediaManager
@@ -89,15 +93,20 @@ extension ProjectManager {
                         fileURLWithPath: URL.getPath(fileName: mediaManager.fileName,type: .audio
                     ).path()))
                     newPracticeModel.summary.practiceLength = audioPlayer.duration
+                    #if DEBUG
                     print("길이: ", audioPlayer.duration)
+                    #endif
+                    
                 } catch {
+                    #if DEBUG
                     print("오디오 플레이어를 생성하는 중 오류 발생: \(error.localizedDescription)")
+                    #endif
                 }
                 /// words, sentences, summary를 처리한다.
                 PracticeManager.getPracticeDetail(practice: newPracticeModel)
-                temp = nil
-                if current == nil {
-                    current = tempProject
+                self.temp = nil
+                if self.current == nil {
+                    self.current = tempProject
                 }
                 NotificationManager.shared.sendNotification(
                     name: newPracticeModel.creatAt
@@ -121,19 +130,22 @@ extension ProjectManager {
                 )
             }
         } catch {
+            #if DEBUG
             print(error)
+            #endif
         }
         return result
     }
     
     private func makeNewUtterancesV2(mediaManager: MediaManager) async -> [UtteranceModel] {
+        #if DEBUG
         print(URL.getPath(fileName: mediaManager.fileName,type: .audio))
+        #endif
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
         let returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
             .startFileRecognition(url: URL(
                 fileURLWithPath: URL.getPath(fileName: mediaManager.fileName, type: .audio
             ).path())) ?? []
-        print("here!!!!!")
         SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
         return returnValue
     }

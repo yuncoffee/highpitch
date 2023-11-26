@@ -137,9 +137,10 @@ struct EditPanelView: View {
                         .setFrameOrigin(NSPoint(x: fillerWordPanelX, y: fillerWordPanelY))
                     
                     // UserDefaults도 원상복귀
+                    #if DEBUG
                     print("TimerX 원상복귀: \(timerPanelX)")
                     print("TimerY 원상복귀: \(timerPanelY)")
-                    
+                    #endif
                     UserDefaults.standard.set(String(timerPanelX + 11), forKey: "TimerPanelX")
                     UserDefaults.standard.set(String(timerPanelY + 11), forKey: "TimerPanelY")
                     UserDefaults.standard.set(String(speedPanelX + 11), forKey: "SpeedPanelX")

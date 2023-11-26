@@ -14,8 +14,6 @@ struct ProjectFWPMChart: View {
     private var projectManager
     @State
     var rawSelected: Int?
-    @State
-    var rawSelectedRange: ClosedRange<Int>?
     
     var body: some View {
         VStack(alignment: .leading, spacing: .HPSpacing.xsmall) {
@@ -58,9 +56,9 @@ extension ProjectFWPMChart {
             
             Chart {
                 /// 막대 그래프
-                ForEach(practices) { practice in
+                ForEach(Array(practices.enumerated()), id: \.1.id) { index, practice in
                     BarMark(
-                        x: .value("연습회차", practice.index + 1),
+                        x: .value("연습회차", index + 1),
                         y: .value(title, practice.summary.fwpm),
                         width: MarkDimension(integerLiteral: 20)
                     )
@@ -83,9 +81,10 @@ extension ProjectFWPMChart {
                         )
                     ) {
                         VStack(spacing: 0) {
-                            Text("\(practices[selected].summary.fwpm, specifier: "%.1f")회")
-                                .systemFont(.caption2, weight: .bold)
-                                .foregroundStyle(Color.HPTextStyle.dark)
+                            // MARK: - Fata Error: Index out of range
+//                            Text("\(practices[selected].summary.fwpm, specifier: "%.1f")회")
+//                                .systemFont(.caption2, weight: .bold)
+//                                .foregroundStyle(Color.HPTextStyle.dark)
                             HStack(spacing: 0) {
                                 Text("\(Date().createAtToYMD(input: practices[selected].creatAt))")
                                     .systemFont(.caption2, weight: .medium)
@@ -109,7 +108,6 @@ extension ProjectFWPMChart {
             }
             /// 호버 control
             .chartXSelection(value: $rawSelected)
-            .chartXSelection(range: $rawSelectedRange)
             /// chart의 scroll을 설정합니다.
             .chartScrollableAxes(.horizontal)
             .chartScrollPosition(initialX: practices.count)
@@ -175,34 +173,13 @@ extension ProjectFWPMChart {
     
     /// 호버 관련 변수
     var selected: Int? {
-        let practices = projectManager.current?.practices.sorted(by: { $0.index < $1.index })
-        if let practices = practices {
-            if let rawSelected {
-                return practices.first(where: {
-                    return ($0.index ... $0.index + 1).contains(rawSelected)
-                })?.index
-            } else if let selectedRange, selectedRange.lowerBound == selectedRange.upperBound {
-                return selectedRange.lowerBound
+        let practices = projectManager.current?.practices.sorted(by: { $0.creatAt < $1.creatAt })
+        if let rawSelected {
+            if 0 <= rawSelected - 1 && rawSelected - 1 < practices?.count ?? 0 {
+                return rawSelected - 1
             }
             return nil
-        } else { return nil }
-    }
-    var selectedRange: ClosedRange<Int>? {
-        let practices = projectManager.current?.practices.sorted(by: { $0.index < $1.index })
-        if let practices = practices {
-            if let rawSelectedRange {
-                let lower = practices.first(where: {
-                    return ($0.index ... $0.index + 1).contains(rawSelectedRange.lowerBound)
-                })?.index
-                let upper = practices.first(where: {
-                    return ($0.index ... $0.index + 1).contains(rawSelectedRange.upperBound)
-                })?.index
-                
-                if let lower, let upper {
-                    return lower ... upper
-                }
-            }
-            return nil
-        } else { return nil }
+        }
+        return nil
     }
 }

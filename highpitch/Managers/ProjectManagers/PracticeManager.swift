@@ -56,8 +56,9 @@ extension PracticeManager {
     
     // swiftlint:disable function_body_length
     static func getPracticeDetail(practice: PracticeModel) {
+        #if DEBUG
         print("분석 시작")
-
+        #endif
         initializer(practice: practice)
         /// sentenceIndex와 wordIndex, sentenceSyllable을 관리한다.
         var sentenceIndex = 0; var wordIndex = 0
@@ -125,7 +126,9 @@ extension PracticeManager {
         updateSummary(practice: practice)
         SystemManager.shared.isAnalyzing = false
         SystemManager.shared.hasUnVisited = true
+        #if DEBUG
         print("분석 완료")
+        #endif
     }
     // swiftlint:enable function_body_length
 }

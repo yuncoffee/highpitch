@@ -55,15 +55,22 @@ struct ProjectNavigationLink: View {
                                             await MainActor.run {
                                                 for practice in project.practices {
                                                     guard let fileURL = practice.audioPath else {
+                                                        #if DEBUG
                                                         print("[프로젝트 삭제] 연습 음성파일 URL이 nil입니다.")
+                                                        #endif
+                                                        
                                                         return
                                                     }
                                                     let fileManager = FileManager.default
                                                     do {
                                                         try fileManager.removeItem(at: fileURL)
+                                                        #if DEBUG
                                                         print("[프로젝트 삭제] 연습 파일 삭제 성공: \(fileURL.path)")
+                                                        #endif
                                                     } catch {
+                                                        #if DEBUG
                                                         print("[프로젝트 삭제] 연습 파일 삭제 실패: \(error.localizedDescription)")
+                                                        #endif
                                                     }
                                                 }
                                                 modelContext.delete(project)
@@ -76,7 +83,9 @@ struct ProjectNavigationLink: View {
                                         do {
                                             try modelContext.delete(model: ProjectModel.self)
                                         } catch {
+                                            #if DEBUG
                                             print("Failed to delete projects.")
+                                            #endif
                                         }
                                     }
                                 }
@@ -113,15 +122,21 @@ struct ProjectNavigationLink: View {
                                             await MainActor.run {
                                                 for practice in project.practices {
                                                     guard let fileURL = practice.audioPath else {
+                                                        #if DEBUG
                                                         print("[프로젝트 삭제] 연습 음성파일 URL이 nil입니다.")
+                                                        #endif
                                                         return
                                                     }
                                                     let fileManager = FileManager.default
                                                     do {
                                                         try fileManager.removeItem(at: fileURL)
+                                                        #if DEBUG
                                                         print("[프로젝트 삭제] 연습 파일 삭제 성공: \(fileURL.path)")
+                                                        #endif
                                                     } catch {
+                                                        #if DEBUG
                                                         print("[프로젝트 삭제] 연습 파일 삭제 실패: \(error.localizedDescription)")
+                                                        #endif
                                                     }
                                                 }
                                                 modelContext.delete(project)
@@ -134,7 +149,9 @@ struct ProjectNavigationLink: View {
                                         do {
                                             try modelContext.delete(model: ProjectModel.self)
                                         } catch {
+                                            #if DEBUG
                                             print("Failed to delete projects.")
+                                            #endif
                                         }
                                     }
                                 }

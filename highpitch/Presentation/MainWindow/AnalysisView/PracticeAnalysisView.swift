@@ -17,7 +17,7 @@ struct PracticeAnalysisView: View {
             if practiceCount != 0 {
                 /// 연습 진행 기간
                 let practiceDurationArray = returnPracticeDuration(projects: projects)
-                // swiftlint: disable line_length
+//                 swiftlint: disable line_length
                 let practiceDuration = " | \(Date().createAtToYMD(input: practiceDurationArray.first!)) - \(Date().createAtToYMD(input: practiceDurationArray.last!))"
                 // swiftlint: enable line_length
                 ScrollView {

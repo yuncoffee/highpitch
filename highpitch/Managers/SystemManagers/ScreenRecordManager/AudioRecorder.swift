@@ -34,7 +34,9 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         do {
             assetWriter = try AVAssetWriter(outputURL: outputFileURL, fileType: .m4a)
         } catch {
+            #if DEBUG
             print("Error creating AVAssetWriter: \(error)")
+            #endif
             return
         }
         
@@ -54,7 +56,9 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         if assetWriter.canAdd(assetWriterInput) {
             assetWriter.add(assetWriterInput)
         } else {
+            #if DEBUG
             print("Cannot add AVAssetWriterInput to AVAssetWriter")
+            #endif
             return
         }
         
@@ -76,7 +80,9 @@ class AudioRecorder: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         captureSession!.stopRunning()
         assetWriterInput.markAsFinished()
         assetWriter.finishWriting {
+            #if DEBUG
             print("Recording finished.")
+            #endif
         }
         // TimerPanel의 타이머 정지
         SystemManager.shared.instantFeedbackManager.isTimerRunning = 0

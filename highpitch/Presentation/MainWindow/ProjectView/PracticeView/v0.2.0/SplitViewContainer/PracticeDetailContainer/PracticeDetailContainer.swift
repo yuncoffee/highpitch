@@ -122,7 +122,6 @@ extension PracticeDetailContainer {
                     type: .roundFill,
                     size: .small,
                     color: isSelected ? .HPSecondary.base : .HPGray.system200) {
-                    print("select \(option.rawValue)")
                         withAnimation {
                             viewStore.currentFeedbackViewType = option
                         }

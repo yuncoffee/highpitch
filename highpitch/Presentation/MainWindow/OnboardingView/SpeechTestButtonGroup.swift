@@ -64,7 +64,9 @@ extension SpeechTestButtonGroup {
         do {
             try mediaManager.registerAudio(url: url)
         } catch {
+            #if DEBUG
             print(error)
+            #endif
         }
         duration = mediaManager.getDuration()
         mediaManager.play()
@@ -82,7 +84,7 @@ extension SpeechTestButtonGroup {
         result.forEach { utterance in
             for word in utterance.message.components(separatedBy: " ") {
                 syllableSum += word.count
-                if word.last! == "." {
+                if word.last == "." {
                     syllableSum -= 1
                 }
             }

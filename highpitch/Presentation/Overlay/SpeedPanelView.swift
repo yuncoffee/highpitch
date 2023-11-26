@@ -98,10 +98,11 @@ struct SpeedPanelView: View {
                     String(Int(panelController.getPanelPosition()!.y)),
                     forKey: "SpeedPanelY"
                 )
+                #if DEBUG
                 print("UserDefaults에 넣는다")
                 print("Hover아웃시 SpeedPanelController.getPanelPosition.x: \(Int(panelController.getPanelPosition()!.x))")
                 print("Hover아웃시 SpeedPanelController.getPanelPosition.y: \(Int(panelController.getPanelPosition()!.y))")
-                
+                #endif
                 instantFeedbackManager.focusedPanel = nil
             }
         }

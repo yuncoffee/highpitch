@@ -49,21 +49,30 @@ extension MediaManager: Recordable {
         switch AVCaptureDevice.authorizationStatus(for: .audio) {
         case .authorized:
             // 이미 권한을 얻은 경우
+            #if DEBUG
             print("마이크 녹음 권한이 승인되었습니다.")
+            #endif
+            
             return true
         case .notDetermined:
             // 아직 사용자에게 권한을 요청하지 않은 경우
             AVCaptureDevice.requestAccess(for: .audio) { granted in
                 if granted {
+                    #if DEBUG
                     print("마이크 녹음 권한이 승인되었습니다.")
+                    #endif
                 } else {
+                    #if DEBUG
                     print("마이크 녹음 권한이 거부되었습니다.")
+                    #endif
                 }
             }
             return false
         case .denied, .restricted:
             // 사용자가 권한을 거부하거나 앱 사용을 제한한 경우
+            #if DEBUG
             print("마이크 녹음 권한이 거부되었거나 제한되었습니다.")
+            #endif
             return false
         }
     }
@@ -92,7 +101,9 @@ extension MediaManager: Recordable {
         do {
             audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
         } catch {
+            #if DEBUG
             print("녹음 중 오류 발생: \(error.localizedDescription)")
+            #endif
         }
     }
     
@@ -104,7 +115,9 @@ extension MediaManager: Recordable {
                 try FileManager.default.removeItem(at: fileURL)
             }
         } catch {
+            #if DEBUG
             print("파일 제거 중 에러 발생: \(error)")
+            #endif
         }
         fileURL = URL.getPath(fileName: fileName,type: .onboarding)
         
@@ -118,7 +131,9 @@ extension MediaManager: Recordable {
         do {
             audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
         } catch {
+            #if DEBUG
             print("녹음 중 오류 발생: \(error.localizedDescription)")
+            #endif
         }
     }
     
@@ -163,7 +178,9 @@ extension MediaManager: AudioPlayable {
             audioPlayer?.volume = 10.0
             audioPlayer?.delegate = self
         } catch {
+            #if DEBUG
             print("재생 중 오류 발생: \(error.localizedDescription)")
+            #endif
         }
     }
     func play() {

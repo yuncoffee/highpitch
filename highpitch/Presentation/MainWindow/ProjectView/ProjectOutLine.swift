@@ -40,8 +40,8 @@ struct ProjectOutLine: View {
                         .padding(.bottom, .HPSpacing.small)
                         ProjectFWPMChart()
                             .padding(.bottom, .HPSpacing.small)
-//                        ProjectSpeakingRateChart()
-//                            .padding(.bottom, .HPSpacing.small)
+                        ProjectSpeakingRateChart()
+                            .padding(.bottom, .HPSpacing.small)
                         ProjectLengthChart()
                             .padding(.bottom, .HPSpacing.small)
                     }
@@ -202,7 +202,14 @@ extension ProjectOutLine {
                     .systemFont(.largeTitle)
                     .foregroundColor(Color.HPPrimary.base)
             }
-            Text("적절한 편이에요")
+            Text(
+                fwpmAverage >= 5.0
+                ? "많았어요"
+                : fwpmAverage >= 3.0
+                ? "조금 많았어요"
+                : fwpmAverage > 0.0
+                ? "적절했어요" : "없었어요"
+            )
                 .systemFont(.caption)
                 .foregroundColor(Color.HPTextStyle.light)
         }

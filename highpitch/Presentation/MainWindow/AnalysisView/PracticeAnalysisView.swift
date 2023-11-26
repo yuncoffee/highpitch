@@ -206,7 +206,14 @@ extension PracticeAnalysisView {
                     .systemFont(.largeTitle)
                     .foregroundColor(Color.HPPrimary.base)
             }
-            Text("적절한 편이에요")
+            Text(
+                fwpm >= 5.0
+                ? "많았어요"
+                : fwpm >= 3.0
+                ? "조금 많았어요"
+                : fwpm > 0.0
+                ? "적절했어요" : "없었어요"
+            )
                 .systemFont(.caption)
                 .foregroundColor(Color.HPTextStyle.light)
         }

@@ -14,10 +14,15 @@ struct ProjectLinkItem: View {
     var title: String = "Placeholder1234567890"
     var isSelected = false
     var completion: () -> Void = {
+        #if DEBUG
         print("Default Action")
+        #endif
+        
     }
     var textFieldCompletion: (_ editableText: String) -> Void = { edited in
+        #if DEBUG
         print("\(edited) 변경")
+        #endif
     }
     var focusField: FocusState<String?>.Binding
     @State

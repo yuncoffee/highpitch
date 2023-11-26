@@ -83,9 +83,10 @@ extension ProjectFWPMChart {
                         )
                     ) {
                         VStack(spacing: 0) {
-                            Text("\(practices[selected].summary.fwpm, specifier: "%.1f")회")
-                                .systemFont(.caption2, weight: .bold)
-                                .foregroundStyle(Color.HPTextStyle.dark)
+                            // MARK: - Fata Error: Index out of range
+//                            Text("\(practices[selected].summary.fwpm, specifier: "%.1f")회")
+//                                .systemFont(.caption2, weight: .bold)
+//                                .foregroundStyle(Color.HPTextStyle.dark)
                             HStack(spacing: 0) {
                                 Text("\(Date().createAtToYMD(input: practices[selected].creatAt))")
                                     .systemFont(.caption2, weight: .medium)

@@ -31,14 +31,16 @@ struct ReturnzeroAPI {
         let (data,response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
+            #if DEBUG
             print(response)
+            #endif
+            
             throw RZError.networkErr
         }
         guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
               let token = jsonObject["access_token"] as? String,
               let expired = jsonObject["expire_at"] as? Double
         else {
-            print("err")
             throw RZError.jsonParsingErr
         }
         return TokenData(token: token, expried: Date(timeIntervalSince1970: expired))
@@ -57,7 +59,6 @@ struct ReturnzeroAPI {
             }
             throw RZError.networkErr
         }catch {
-            print("here")
             let accessToken = try await getToken()
             try keyChainManager.save(data: accessToken, forKey: .rzToken)
             return accessToken.token

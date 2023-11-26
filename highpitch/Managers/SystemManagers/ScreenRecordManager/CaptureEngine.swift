@@ -78,7 +78,9 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 videoInput!.expectsMediaDataInRealTime = true
                 
                 guard AVCaptureDevice.default(for: .audio) != nil else {
+                    #if DEBUG
                     print("No audio device found")
+                    #endif
                     return
                 }
                 let audioSettings: [String: Any] = [
@@ -97,19 +99,14 @@ class CaptureEngine: NSObject, @unchecked Sendable {
                 captureSession = AVCaptureSession()
                 
                 guard let captureSession = captureSession else {
+                    #if DEBUG
                     print("Failed to create AVCaptureSession")
+                    #endif
                     return
                 }
                 
                 captureSession.beginConfiguration()
-                
-                let audioDevices = AVCaptureDevice.DiscoverySession(deviceTypes: [.microphone], mediaType: .audio, position: .unspecified).devices
-                audioDevices.map { item in
-                    print(item.localizedName)
-                    print(item.deviceType)
-                    print(item.position)
-                }
-                
+
                 let audioDevice = AVCaptureDevice.default(.microphone, for: .audio, position: .unspecified)
                 let deviceInput = try AVCaptureDeviceInput(device: audioDevice!)
                 
@@ -286,10 +283,15 @@ private class CaptureEngineStreamOutput: NSObject, SCStreamOutput, SCStreamDeleg
                 if let retimedSampleBuffer = try? CMSampleBuffer(copying: sampleBuffer, withNewTiming: [timing]) {
                     videoInput.append(retimedSampleBuffer)
                 } else {
+                    #if DEBUG
                     print("Couldn't copy CMSampleBuffer, dropping frame")
+                    #endif
+                    
                 }
             } else {
+                #if DEBUG
                 print("AVAssetWriterInput isn't ready, dropping frame")
+                #endif
             }
             
             capturedFrameHandler?(frame)
@@ -310,10 +312,14 @@ private class CaptureEngineStreamOutput: NSObject, SCStreamOutput, SCStreamDeleg
                 if let retimedSampleBuffer = try? CMSampleBuffer(copying: sampleBuffer, withNewTiming: [timing]) {
                     audioInput.append(retimedSampleBuffer)
                 } else {
+                    #if DEBUG
                     print("Couldn't copy CMSampleBuffer, dropping frame")
+                    #endif
                 }
             } else {
+                #if DEBUG
                 print("AVAssetWriterInput isn't ready, dropping frame")
+                #endif
             }
             pcmBufferHandler?(samples)
         @unknown default:
@@ -383,7 +389,9 @@ extension CaptureEngine {
             try FileManager.default
                 .createDirectory(at: dataPath, withIntermediateDirectories: true, attributes: nil)
         } catch {
+            #if DEBUG
             print("Error creating directory: \(error.localizedDescription)")
+            #endif
         }
         return dataPath.appendingPathComponent(fileName + ".mov")
     }

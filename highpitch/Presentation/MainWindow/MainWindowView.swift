@@ -157,7 +157,14 @@ extension MainWindowView {
     var navigationSidebar: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
-                projectManager.current = nil
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+                withTransaction(transaction) {
+                    if !projectManager.path.isEmpty {
+                        projectManager.path.removeLast()
+                    }
+                    projectManager.current = nil
+                }
             } label: {
                 Text("내 연습 분석")
                     .systemFont(
@@ -192,6 +199,7 @@ extension MainWindowView {
                     .systemFont(.footnote, weight: .semibold)
                     .foregroundStyle(Color.HPTextStyle.base)
                     .padding(.leading, .HPSpacing.xsmall)
+                    #if DEBUG
                     .onTapGesture {
                         if (SystemManager.shared.isRecognizing) {
                             SystemManager.shared.stopInstantFeedback()
@@ -199,6 +207,7 @@ extension MainWindowView {
                             SystemManager.shared.startInstantFeedback()
                         }
                     }
+                    #endif
                 Spacer()
                 Button {
                     addNewProject()
@@ -330,14 +339,17 @@ extension MainWindowView {
                             .systemFont(.caption)
                         Button(action: {
                             projectManager.current?.projectName = localProjectName
+                            #if DEBUG
                             print("projectName: \(localProjectName)")
+                            #endif
                             Task {
                                 await MainActor.run {
                                     do {
                                         try modelContext.save()
-                                        print("변경됨")
                                     } catch {
+                                        #if DEBUG
                                         print("error: 변경 실패")
+                                        #endif
                                     }
                                 }
                             }
@@ -410,7 +422,9 @@ extension MainWindowView {
         do {
             try modelContext.save()
         } catch {
+            #if DEBUG
             print(error)
+            #endif
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             focusField = newProject.creatAt

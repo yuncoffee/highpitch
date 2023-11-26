@@ -102,7 +102,6 @@ extension SpeedAudioIndicator {
     @ViewBuilder
     var chartView: some View {
         let sentences = viewStore.getSortedSentences()
-        let epmRange = viewStore.getEpmRange()
         let linearGradient = LinearGradient(
             gradient: Gradient(
                 colors: [.HPOrange.base, .HPOrange.base.opacity(0)]),
@@ -135,7 +134,9 @@ extension SpeedAudioIndicator {
                  ZStack(alignment: .top) {
                      Rectangle().fill(.clear).contentShape(Rectangle())
                          .onTapGesture { location in
+                             #if DEBUG
                              print(proxy, geometry, location)
+                             #endif
                          }
                  }
              }

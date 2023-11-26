@@ -146,11 +146,12 @@ extension ScreenSelectionView {
 // MARK: 기능
 extension ScreenSelectionView {
     private func setDefalut() {
-        print("hirooo")
         screenRecorder.selectedDisplay = screenRecorder.availableDisplays.first ?? nil
         screenRecorder.captureType = .display
         selectedName = screenRecorder.availableDisplays.first?.displayName ?? "bb"
+        #if DEBUG
         print(selectedName)
+        #endif
     }
     private func registerNotification() {
         NotificationCenter.default.addObserver(forName: Notification.Name("stopButtonClicked"),
@@ -159,7 +160,9 @@ extension ScreenSelectionView {
         }
     }
     private func playPractice() {
+        #if DEBUG
         print("------연습이 시작되었습니다.-------")
+        #endif
         projectManager.playPractice(
             selectedProject: selectedProject,
             mediaManager: mediaManager
@@ -198,7 +201,9 @@ extension ScreenSelectionView {
                 audioURL: URL.getPath(fileName: fileName, type: .audio),
                 outputURL: URL.getPath(fileName: fileName + "_merge", type: .video)
             ) { error in
+                #if DEBUG
                 print(error ?? "nil")
+                #endif
             }
         }
     }

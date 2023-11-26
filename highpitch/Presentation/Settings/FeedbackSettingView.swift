@@ -51,10 +51,12 @@ struct FeedbackSettingView: View {
                                 FillerWordList.userFillerWordList = list
                                 isValid = true
                             } catch {
-                                switch error as! FillerWordErr {
+                                switch error as? FillerWordErr {
                                 case .outOfIndex : validateText = "30개 이상의 습관어를 등록할 수 없어요"
                                 case .textLengthErr : validateText = "6글자 이상은 등록할 수 없어요"
                                 case .duplicate : validateText = "중복되는 습관어는 등록할 수 없어요"
+                                case .none:
+                                    validateText = "undefined error"
                                 }
                                 isValid = false
                             }
@@ -94,34 +96,6 @@ struct FeedbackSettingView: View {
                     }).buttonStyle(.plain)
                 }
             }.frame(maxWidth: 460)
-//            Divider()
-//            VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
-//                Text("내 적정 발화속도")
-//                    .systemFont(.caption,weight: .semibold)
-//                    .foregroundStyle(Color.HPTextStyle.darker)
-//                Text("기본 설정 EPM 기준의 피드백을 원치 않으시면 내 속도에 적합하도록 수정할 수 있어요.")
-//                    .systemFont(.caption2, weight: .medium)
-//                    .foregroundStyle(Color.HPTextStyle.dark)
-//            }
-//            HStack {
-//                TextField(firstEPM,text: $firstEPM)
-//                .frame(width:60,height: 20)
-//                .multilineTextAlignment(.center)
-//                .textFieldStyle(.roundedBorder)
-//                .accentColor(Color.HPPrimary.light)
-//                Text("~")
-//                    .systemFont(.caption,weight: .regular)
-//                    .foregroundStyle(Color.HPTextStyle.base)
-//                TextField(secondEPM,text: $secondEPM)
-//                .frame(width:60,height: 20)
-//                .multilineTextAlignment(.center)
-//                .textFieldStyle(.roundedBorder)
-//                
-//            }
-//            Text("내 평균 발화속도 290EPM")
-//                .systemFont(.caption,weight: .regular)
-//                .foregroundStyle(Color.HPTextStyle.dark)
-//            //MARK: keybordShortcut을 위한 가짜 버튼
             Button("") {
                 if selected != nil {
                     list.removeAll { $0 == selected}
@@ -133,7 +107,6 @@ struct FeedbackSettingView: View {
         }
         .padding(.leading, .HPSpacing.small)
         .onTapGesture {
-            print("hi")
             fillerWordFocus = false
         }
     }

@@ -38,7 +38,6 @@ struct RecordPanelView: View {
                 
                 HStack(spacing: 0) {
                     Button("연습 끝내기") {
-                        print("연습 끝내기")
                         instantFeedbackManager.feedbackPanelControllers[.save]?.showPanel(self)
                     }
                     .systemFont(.caption, weight: .semibold)

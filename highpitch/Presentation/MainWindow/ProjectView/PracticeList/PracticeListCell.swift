@@ -59,7 +59,9 @@ struct PracticeListCell: View {
                                 do {
                                     try modelContext.save()
                                 } catch {
+                                    #if DEBUG
                                     print(error)
+                                    #endif
                                 }
                             }
                         }
@@ -92,7 +94,9 @@ struct PracticeListCell: View {
             do {
                 duration = try AVAudioPlayer(contentsOf: practice.audioPath!).duration
             } catch {
+                #if DEBUG
                 print(error)
+                #endif            
             }
         }
         .onChange(of: isSelected) { _, newValue in

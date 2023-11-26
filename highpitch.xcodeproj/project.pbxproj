@@ -101,8 +101,6 @@
 		1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */; };
 		1DAABBE32B00CDF100AF4449 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 1DAABBE22B00CDF100AF4449 /* Sliders */; };
 		1DB132342AD78752006711B9 /* ReturnzeroAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */; };
-		1DB8253B2B0F7E0C009BA3CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB825392B0F7E0C009BA3CB /* GoogleService-Info.plist */; };
-		1DB8253C2B0F7E0C009BA3CB /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DB8253A2B0F7E0C009BA3CB /* SecretKey.plist */; };
 		1DB8253E2B0F9314009BA3CB /* HPHoverBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB8253D2B0F9314009BA3CB /* HPHoverBox.swift */; };
 		1DB825412B0FD5A7009BA3CB /* MainWindowPracticeSaveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB825402B0FD5A7009BA3CB /* MainWindowPracticeSaveSheet.swift */; };
 		1DBF14512ADE1DC100B28CED /* LabelModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBF14502ADE1DC100B28CED /* LabelModifier.swift */; };
@@ -165,7 +163,6 @@
 		43976D542B01A0F900816620 /* FillerWordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D532B01A0F900816620 /* FillerWordPanelView.swift */; };
 		43976D562B01A13500816620 /* InstantFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D552B01A13500816620 /* InstantFeedbackManager.swift */; };
 		43A3AEDF2B0F9BA100FA74C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A3AEDE2B0F9BA100FA74C9 /* GoogleService-Info.plist */; };
-		43A3AEE12B0F9BAE00FA74C9 /* SeretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A3AEE02B0F9BAE00FA74C9 /* SeretKey.plist */; };
 		43BE52392B08CF6700BFE033 /* RecordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE52382B08CF6700BFE033 /* RecordPanelView.swift */; };
 		43BE523B2B08CFB200BFE033 /* SavePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE523A2B08CFB200BFE033 /* SavePanelView.swift */; };
 		43F1D9B92AE6F094001A7225 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 43F1D9B82AE6F094001A7225 /* HotKey */; };
@@ -282,7 +279,6 @@
 		1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = 20231107202138.m4a; sourceTree = "<group>"; };
 		1DB132332AD78752006711B9 /* ReturnzeroAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnzeroAPI.swift; sourceTree = "<group>"; };
 		1DB825392B0F7E0C009BA3CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		1DB8253A2B0F7E0C009BA3CB /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		1DB8253D2B0F9314009BA3CB /* HPHoverBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPHoverBox.swift; sourceTree = "<group>"; };
 		1DB825402B0FD5A7009BA3CB /* MainWindowPracticeSaveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowPracticeSaveSheet.swift; sourceTree = "<group>"; };
 		1DBF14502ADE1DC100B28CED /* LabelModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelModifier.swift; sourceTree = "<group>"; };
@@ -881,6 +877,7 @@
 			isa = PBXGroup;
 			children = (
 				10C7D23C2ADF7230008691CD /* PlayBar.swift */,
+				1DB825392B0F7E0C009BA3CB /* GoogleService-Info.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1285,7 +1282,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43A3AEE12B0F9BAE00FA74C9 /* SeretKey.plist in Resources */,
 				205990A72B12E67000CA364A /* Pretendard-Thin.otf in Resources */,
 				205990A52B12E65F00CA364A /* Pretendard-SemiBold.otf in Resources */,
 				205990A32B12E64E00CA364A /* Pretendard-Regular.otf in Resources */,
@@ -1295,16 +1291,12 @@
 				2059909B2B12E60800CA364A /* Pretendard-ExtraBold.otf in Resources */,
 				205990992B12E5F400CA364A /* Pretendard-Bold.otf in Resources */,
 				205990972B12E5E200CA364A /* Pretendard-Black.otf in Resources */,
-				1DB8253B2B0F7E0C009BA3CB /* GoogleService-Info.plist in Resources */,
 				1D09AF8C2ADA271300C1400E /* Colors.xcassets in Resources */,
 				43A3AEDF2B0F9BA100FA74C9 /* GoogleService-Info.plist in Resources */,
 				1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */,
 				1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */,
 				1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */,
 				1DF659902AD594BF00AE5601 /* Assets.xcassets in Resources */,
-				1D0ECD722ADD13C900B95A74 /* FontResource.xcassets in Resources */,
-				11B94A262B01A2160086DF08 /* SecretKey.plist in Resources */,
-				11B94A252B01A2160086DF08 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

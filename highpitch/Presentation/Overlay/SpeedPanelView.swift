@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpeedPanelView: View {
-    private let DEFUALT_SPEED = 356.7
+    private let DEFUALT_SPEED = SystemManager.shared.spmAverage
     
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager

@@ -44,7 +44,10 @@ struct SettingsView: View {
             HStack {
                 HStack(spacing: .HPSpacing.xxsmall) {
                     HPButton(type: .text, color: .HPTextStyle.base) {
-                        print("Reset")
+                        print("변경 전:", SystemManager.shared.spmAverage)
+                        SystemManager.shared.spmAverage = 356.7
+                        UserDefaults.standard.set(356.7, forKey: "spmAverage")
+                        print("변경 후:", SystemManager.shared.spmAverage)
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: ("초기화 하기", nil),
@@ -57,7 +60,15 @@ struct SettingsView: View {
                     .frame(width: 90)
                     .fixedSize()
                     HPButton(color: .HPSecondary.base) {
-                        print("Reset")
+                        print("변경 전:", SystemManager.shared.spmAverage)
+                        SystemManager.shared.spmAverage =
+                        SystemManager.shared.testSPMs[0] + SystemManager.shared.testSPMs[1] / 2.0
+                        UserDefaults.standard.set(
+                            (SystemManager.shared.testSPMs[0]
+                            + SystemManager.shared.testSPMs[1]) / 2.0
+                            , forKey: "spmAverage"
+                        )
+                        print("변경 후:", SystemManager.shared.spmAverage)
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: ("저장하기", nil),
@@ -67,6 +78,8 @@ struct SettingsView: View {
                             expandable: expandable
                         )
                     }
+                    // MARK: TODO disabled 추가 필요
+                    .disabled(true)
                     .frame(width: 90)
                     .fixedSize()
                 }

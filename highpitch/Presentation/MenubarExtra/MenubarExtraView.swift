@@ -10,9 +10,6 @@ import SwiftUI
 import SwiftData
 
 struct MenubarExtraView: View {
-    @Environment(\.openWindow)
-    private var openWindow
-    
     // MARK: - AppleScript Remove
     @Environment(MediaManager.self)
     private var mediaManager

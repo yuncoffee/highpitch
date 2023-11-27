@@ -46,7 +46,6 @@ struct HighpitchApp: App {
             }
         }
     }
-    
 #endif
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     

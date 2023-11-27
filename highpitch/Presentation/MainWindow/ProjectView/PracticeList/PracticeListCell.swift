@@ -14,7 +14,6 @@ struct PracticeListCell: View {
     var modelContext
     @Environment(ProjectManager.self)
     private var projectManager
-    
     var practice: PracticeModel
     var index: Int
     @State
@@ -24,6 +23,8 @@ struct PracticeListCell: View {
     
     @Binding
     var selectedPractices: [PracticeModel]
+    @Binding
+    var refreshable: Bool
     
     var isEditMode: Bool
     // MARK: 모델 변경하고 모델에 반영할꺼
@@ -58,6 +59,7 @@ struct PracticeListCell: View {
                             await MainActor.run {
                                 do {
                                     try modelContext.save()
+                                    refreshable = true
                                 } catch {
                                     #if DEBUG
                                     print(error)
@@ -157,12 +159,15 @@ private func indexToOrdinalNumber(index: Int) -> String {
     
     @State
     var selectedPractices: [PracticeModel] = []
+    @State
+    var isRemarkable: Bool = false
     var isEditMode = false
     
     return PracticeListCell(
         practice: practice,
         index: 0,
-        selectedPractices: $selectedPractices, 
+        selectedPractices: $selectedPractices,
+        refreshable: $isRemarkable, 
         isEditMode: isEditMode
     )
     .padding()

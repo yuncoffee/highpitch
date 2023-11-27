@@ -40,8 +40,8 @@ struct ProjectOutLine: View {
                         .padding(.bottom, .HPSpacing.small)
                         ProjectFWPMChart()
                             .padding(.bottom, .HPSpacing.small)
-//                        ProjectSpeakingRateChart()
-//                            .padding(.bottom, .HPSpacing.small)
+                        ProjectSpeakingRateChart()
+                            .padding(.bottom, .HPSpacing.small)
                         ProjectLengthChart()
                             .padding(.bottom, .HPSpacing.small)
                     }

@@ -53,6 +53,9 @@ struct PracticeContentContainer: View {
             }
 #endif
         }
+        .onDisappear {
+            viewStore.mediaManager.reset()
+        }
     }
 }
 extension PracticeContentContainer {

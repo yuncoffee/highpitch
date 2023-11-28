@@ -152,6 +152,10 @@ extension MediaManager: Recordable {
 
 // MARK: - 음성메모 재생 관련 메서드
 extension MediaManager: AudioPlayable {
+    func reset(){
+       audioPlayer = nil
+       avPlayer = nil
+    }
     func update() {
         MediaManager.count += 1
         if MediaManager.count == 10 {

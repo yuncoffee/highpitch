@@ -308,7 +308,9 @@ class ScreenRecordManager: ObservableObject {
                                                                                         onScreenWindowsOnly: false)
             availableDisplays = availableContent.displays
             
-            let windows = filterWindows(availableContent.windows)
+            let windows = filterWindows(availableContent.windows.filter({ window in
+                window.frame.width != 1.0 && window.frame.height != 1.0
+            }))
             if windows != availableWindows {
                 availableWindows = windows
             }

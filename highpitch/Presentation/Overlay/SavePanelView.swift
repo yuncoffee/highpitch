@@ -53,6 +53,7 @@ struct SavePanelView: View {
             HStack(alignment: .center) {
                 HPButton(color: .HPGray.system200) {
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+                    instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                 } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "저장하지 않기", icon: nil),
@@ -74,6 +75,7 @@ struct SavePanelView: View {
                     SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
                     NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+                    instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                 } label: { type, _, color, expandable in
                     HPLabel(
                         content: (label: "연습 저장하기", icon: nil),

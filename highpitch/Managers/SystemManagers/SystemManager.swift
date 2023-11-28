@@ -63,6 +63,8 @@ final class SystemManager {
             instantFeedbackManager.speechRecognizerManager?.stopRecording()
             instantFeedbackManager.speechRecognizerManager = nil
             instantFeedbackManager.activePanels.removeAll()
+            instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+            instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
             isRecognizing.toggle()
         }
     }

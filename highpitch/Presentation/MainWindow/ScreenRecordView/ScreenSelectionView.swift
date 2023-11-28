@@ -107,11 +107,11 @@ extension ScreenSelectionView {
     @ViewBuilder
     var bottomButtons: some View {
         HStack {
-            Toggle(isOn: $isChecked) {
-                Text("화면 녹화 없이 연습하기")
-                    .systemFont(.caption, weight: .semibold)
-                    .foregroundColor(.HPTextStyle.base)
-            }
+//            Toggle(isOn: $isChecked) {
+//                Text("화면 녹화 없이 연습하기")
+//                    .systemFont(.caption, weight: .semibold)
+//                    .foregroundColor(.HPTextStyle.base)
+//            }
             Spacer()
             HStack {
                 Button(action: {
@@ -174,15 +174,16 @@ extension ScreenSelectionView {
         projectManager.pausePractice(mediaManager: mediaManager)
     }
     func startCapture() {
-        fileName = Date().makeM4aFileName()
         Task {
             await screenRecorder.stopPreview()
             // audioRecorder.startRecording(filename: fileName)
             // MARK: - 연습 시작
             SystemManager.shared.startInstantFeedback()
             playPractice()
-            fileName = mediaManager.fileName
-            await screenRecorder.start(fileName: fileName)
+            if(!isChecked) {
+                fileName = mediaManager.fileName
+                await screenRecorder.start(fileName: fileName)
+            }
         }
     }
     func stopPreview() {

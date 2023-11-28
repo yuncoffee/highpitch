@@ -20,74 +20,81 @@ struct EditPanelView: View {
     var body: some View {
         VStack {
             Spacer()
-            
-            HStack(alignment: .top) {
-                Spacer()
-                VStack(alignment: .leading, spacing: 16) {
+
+            VStack(alignment:.center, spacing: 16) {
+                HStack {
                     Text("타이머")
                         .systemFont(.caption, weight: .semibold)
                         .foregroundStyle(Color.HPTextStyle.base)
+                    Spacer()
+                    Toggle(isOn: $timerPanelOn) {}
+                        .toggleStyle(HPToggleStyle())
+                }
+                .frame(width: 155.27)
+                
+                HStack {
                     Text("습관어")
                         .systemFont(.caption, weight: .semibold)
                         .foregroundStyle(Color.HPTextStyle.base)
+                    Spacer()
+                    Toggle(isOn: $fillerWordPanelOn) {}
+                        .toggleStyle(HPToggleStyle())
+                }
+                .frame(width: 155.27)
+                
+                HStack {
                     Text("말 빠르기")
                         .systemFont(.caption, weight: .semibold)
                         .foregroundStyle(Color.HPTextStyle.base)
-                }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 16) {
-                    Toggle(isOn: $timerPanelOn) {}
-                        .toggleStyle(SwitchToggleStyle(tint: Color("0xBB77AA")))
-                    Toggle(isOn: $fillerWordPanelOn) {}
-                        .toggleStyle(SwitchToggleStyle(tint: Color("0xBB77AA")))
+                    Spacer()
                     Toggle(isOn: $speedPanelOn) {}
-                        .toggleStyle(SwitchToggleStyle(tint: Color("0xBB77AA")))
+                        .toggleStyle(HPToggleStyle())
                 }
-                .onChange(of: instantFeedbackManager.activePanels) {
-                    if instantFeedbackManager.activePanels.contains(.timer) {
-                        timerPanelOn = true
-                    }
-                    if !instantFeedbackManager.activePanels.contains(.timer) {
-                        timerPanelOn = false
-                    }
-                    if instantFeedbackManager.activePanels.contains(.fillerWord) {
-                        fillerWordPanelOn = true
-                    }
-                    if !instantFeedbackManager.activePanels.contains(.fillerWord) {
-                        fillerWordPanelOn = false
-                    }
-                    if instantFeedbackManager.activePanels.contains(.speed) {
-                        speedPanelOn = true
-                    }
-                    if !instantFeedbackManager.activePanels.contains(.speed) {
-                        speedPanelOn = false
-                    }
+                .frame(width: 155.27)
+            }
+            .onChange(of: instantFeedbackManager.activePanels) {
+                if instantFeedbackManager.activePanels.contains(.timer) {
+                    timerPanelOn = true
                 }
-                .onChange(of: timerPanelOn) { _, value in
-                    if value && !instantFeedbackManager.activePanels.contains(.timer) {
-                        instantFeedbackManager.activePanels.insert(.timer)
-                    }
-                    if !value && instantFeedbackManager.activePanels.contains(.timer) {
-                        instantFeedbackManager.activePanels.remove(.timer)
-                    }
+                if !instantFeedbackManager.activePanels.contains(.timer) {
+                    timerPanelOn = false
                 }
-                .onChange(of: fillerWordPanelOn) {  _, value in
-                    if value && !instantFeedbackManager.activePanels.contains(.fillerWord) {
-                        instantFeedbackManager.activePanels.insert(.fillerWord)
-                    }
-                    if !value && instantFeedbackManager.activePanels.contains(.fillerWord) {
-                        instantFeedbackManager.activePanels.remove(.fillerWord)
-                    }
+                if instantFeedbackManager.activePanels.contains(.fillerWord) {
+                    fillerWordPanelOn = true
                 }
-                .onChange(of: speedPanelOn) {  _, value in
-                    if value && !instantFeedbackManager.activePanels.contains(.speed) {
-                        instantFeedbackManager.activePanels.insert(.speed)
-                    }
-                    if !value && instantFeedbackManager.activePanels.contains(.timer) {
-                        instantFeedbackManager.activePanels.remove(.speed)
-                    }
+                if !instantFeedbackManager.activePanels.contains(.fillerWord) {
+                    fillerWordPanelOn = false
                 }
-                Spacer()
+                if instantFeedbackManager.activePanels.contains(.speed) {
+                    speedPanelOn = true
+                }
+                if !instantFeedbackManager.activePanels.contains(.speed) {
+                    speedPanelOn = false
+                }
+            }
+            .onChange(of: timerPanelOn) { _, value in
+                if value && !instantFeedbackManager.activePanels.contains(.timer) {
+                    instantFeedbackManager.activePanels.insert(.timer)
+                }
+                if !value && instantFeedbackManager.activePanels.contains(.timer) {
+                    instantFeedbackManager.activePanels.remove(.timer)
+                }
+            }
+            .onChange(of: fillerWordPanelOn) {  _, value in
+                if value && !instantFeedbackManager.activePanels.contains(.fillerWord) {
+                    instantFeedbackManager.activePanels.insert(.fillerWord)
+                }
+                if !value && instantFeedbackManager.activePanels.contains(.fillerWord) {
+                    instantFeedbackManager.activePanels.remove(.fillerWord)
+                }
+            }
+            .onChange(of: speedPanelOn) {  _, value in
+                if value && !instantFeedbackManager.activePanels.contains(.speed) {
+                    instantFeedbackManager.activePanels.insert(.speed)
+                }
+                if !value && instantFeedbackManager.activePanels.contains(.timer) {
+                    instantFeedbackManager.activePanels.remove(.speed)
+                }
             }
         
             Spacer()
@@ -163,7 +170,7 @@ struct EditPanelView: View {
                     )
                 }
                 .frame(width: 144)
-                .disabled(instantFeedbackManager.resetButtonDisabled)
+                //.disabled(instantFeedbackManager.resetButtonDisabled)
             }
             
             Spacer()
@@ -173,5 +180,32 @@ struct EditPanelView: View {
         .onTapGesture {
             instantFeedbackManager.focusedPanel = .detailSetting
         }
+    }
+}
+
+struct HPToggleStyle: ToggleStyle {
+    private let width = 32.0
+    private let height = 17.6
+    
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            configuration.label
+            ZStack(alignment: configuration.isOn ? .trailing : .leading) {
+                RoundedRectangle(cornerRadius: 11)
+                    .frame(width: width, height: height)
+                    .foregroundColor(configuration.isOn ? Color.HPPrimary.base : Color.HPGray.system400)
+                
+                RoundedRectangle(cornerRadius: 12)
+                    .frame(width: 16, height: 15.25)
+                    .padding(1)
+                    .foregroundColor(.white)
+                    .onTapGesture {
+                        withAnimation {
+                            configuration.$isOn.wrappedValue.toggle()
+                        }
+                    }
+            }
+        }
+        .padding(.vertical, 5)
     }
 }

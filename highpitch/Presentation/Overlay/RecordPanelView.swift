@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RecordPanelView: View {
+    @State private var circleOpacity = 0.2
+    
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
@@ -27,8 +29,16 @@ struct RecordPanelView: View {
             HStack(spacing:0) {
                 HStack {
                     Circle()
+                        .opacity(circleOpacity)
                         .foregroundColor(Color.red)
+                        .animation(
+                            .easeInOut(duration: 1).repeatForever(),
+                            value: circleOpacity
+                        )
                         .frame(width:8, height: 8)
+                        .onAppear {
+                            circleOpacity = 1
+                        }
                     Text("연습을 기록중이에요")
                         .systemFont(.caption, weight: .semibold)
                         .foregroundStyle(Color.white)

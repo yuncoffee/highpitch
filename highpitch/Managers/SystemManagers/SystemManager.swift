@@ -19,11 +19,9 @@ final class SystemManager {
     
     let ONBOARDING_TESTONE_FILE_NAME = "onboarding_1"
     let ONBOARDING_TESTTWO_FILE_NAME = "onboarding_2"
-    var testSPMs = [300.0, 300.0]
+    var testSPMs = [356.7, 356.7]
     
-    var spmAverage: Double {
-        (testSPMs[0] + testSPMs[1]) / 2
-    }
+    var spmAverage: Double = UserDefaults.standard.double(forKey: "spmAverage")
     var isDarkMode = false
     var isAnalyzing = false
     var hasUnVisited = false
@@ -63,6 +61,8 @@ final class SystemManager {
             instantFeedbackManager.speechRecognizerManager?.stopRecording()
             instantFeedbackManager.speechRecognizerManager = nil
             instantFeedbackManager.activePanels.removeAll()
+            instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+            instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
             isRecognizing.toggle()
         }
     }

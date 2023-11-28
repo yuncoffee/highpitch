@@ -46,7 +46,8 @@ struct FillerWordList {
         "뭐였더라",
         "봐봐",
         "그니깐",
-        "그러니까"
+        "그러니까",
+        "아니아니"
     ]
     private static func saveToUserDefaults(_ data: [String]) {
         do {

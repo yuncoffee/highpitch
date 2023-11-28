@@ -59,7 +59,7 @@ struct SpeedAudioIndicator: View {
                                         width: _width,
                                         height: viewStore.AUDIO_INDICATOR_HEIGHT
                                     )
-                                    .foregroundStyle(Color("FF9500").opacity(0.3))
+                                    .foregroundStyle(Color("D0EBFF"))
                             }
                             .offset(x: widthPercent * xRatio)
                             .frame(maxHeight: .infinity)
@@ -75,7 +75,11 @@ struct SpeedAudioIndicator: View {
         }
         .padding(.horizontal, .HPSpacing.xxxsmall)
         .frame(maxWidth:.infinity, maxHeight: viewStore.AUDIO_INDICATOR_HEIGHT, alignment: .leading)
-        .background(Color("FFF8F3").opacity(0.7))
+        .background(
+            viewStore.scriptViewSpeedType == .fast
+            ? Color("FFF8F3").opacity(0.7)
+            : Color("F5FBFF")
+        )
         .background(.thinMaterial)
         .onAppear {
             // MARK: - Add MockData

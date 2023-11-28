@@ -130,7 +130,9 @@ struct ReportSpeakingRateChart: View {
                                 .foregroundStyle(Color.HPTextStyle.base)
                             }
                         }
-                        AxisGridLine()
+                        if value.index != 0 && value.index != 4 {
+                            AxisGridLine()
+                        }
                     }
                 }
                 .chartLegend(.hidden)
@@ -141,8 +143,8 @@ struct ReportSpeakingRateChart: View {
                                 viewStore.practice.summary.minSpm - 50.0,
                                 viewStore.practice.summary.maxSpm + 50.0
                              ] : [
-                                viewStore.practice.summary.minSpm - 1.0,
-                                viewStore.practice.summary.maxSpm + 1.0
+                                viewStore.practice.summary.minSpm - 5.0,
+                                viewStore.practice.summary.maxSpm + 5.0
                             ])
                 .frame(maxWidth: .infinity, minHeight: 230, maxHeight: 230)
             }

@@ -17,7 +17,8 @@ struct SettingsView: View {
     private var mediaStore
     @State private var selectedTab = 0
     @State private var isAlertActive = false
-
+    @State
+    private var store = OnboardingViewStore()
     @State
     private var systemManager: SystemManager = SystemManager.shared
     
@@ -35,7 +36,7 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity, maxHeight: 148)
             .background(Color.HPGray.systemWhite)
             SpeechTestView(hasHeader: false)
-                .environment(OnboardingViewStore())
+                .environment(store)
                 .offset(y: -32)
                 .frame(
                     maxWidth:.infinity,
@@ -44,7 +45,10 @@ struct SettingsView: View {
             HStack {
                 HStack(spacing: .HPSpacing.xxsmall) {
                     HPButton(type: .text, color: .HPTextStyle.base) {
-                        print("Reset")
+                        print("변경 전:", SystemManager.shared.spmAverage)
+                        SystemManager.shared.spmAverage = 356.7
+                        UserDefaults.standard.set(356.7, forKey: "spmAverage")
+                        print("변경 후:", SystemManager.shared.spmAverage)
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: ("초기화 하기", nil),
@@ -57,7 +61,15 @@ struct SettingsView: View {
                     .frame(width: 90)
                     .fixedSize()
                     HPButton(color: .HPSecondary.base) {
-                        print("Reset")
+                        print("변경 전:", SystemManager.shared.spmAverage)
+                        SystemManager.shared.spmAverage =
+                        SystemManager.shared.testSPMs[0] + SystemManager.shared.testSPMs[1] / 2.0
+                        UserDefaults.standard.set(
+                            (SystemManager.shared.testSPMs[0]
+                            + SystemManager.shared.testSPMs[1]) / 2.0
+                            , forKey: "spmAverage"
+                        )
+                        print("변경 후:", SystemManager.shared.spmAverage)
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: ("저장하기", nil),
@@ -67,6 +79,7 @@ struct SettingsView: View {
                             expandable: expandable
                         )
                     }
+                    .disabled(!store.isTestFinish())
                     .frame(width: 90)
                     .fixedSize()
                 }

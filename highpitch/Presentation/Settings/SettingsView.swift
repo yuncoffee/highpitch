@@ -17,7 +17,8 @@ struct SettingsView: View {
     private var mediaStore
     @State private var selectedTab = 0
     @State private var isAlertActive = false
-
+    @State
+    private var store = OnboardingViewStore()
     @State
     private var systemManager: SystemManager = SystemManager.shared
     
@@ -35,7 +36,7 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity, maxHeight: 148)
             .background(Color.HPGray.systemWhite)
             SpeechTestView(hasHeader: false)
-                .environment(OnboardingViewStore())
+                .environment(store)
                 .offset(y: -32)
                 .frame(
                     maxWidth:.infinity,
@@ -78,8 +79,7 @@ struct SettingsView: View {
                             expandable: expandable
                         )
                     }
-                    // MARK: TODO disabled 추가 필요
-//                    .disabled(true)
+                    .disabled(!store.isTestFinish())
                     .frame(width: 90)
                     .fixedSize()
                 }

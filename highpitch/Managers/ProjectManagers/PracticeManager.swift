@@ -16,7 +16,6 @@ extension PracticeManager {
     
     /// 해당 단어가 습관어인지 확인한다.
     static func isFillerWord(practice: PracticeModel, word: String) -> Bool {
-        if word == "아니아니" { return true }
         for (index, fillerWord) in practice.summary.eachFillerWordCount.enumerated() where
         word.last! == "." ? fillerWord.fillerWord + "." == word : fillerWord.fillerWord == word {
             // fillerWordCount, eachFillerWordCount를 업데이트합니다.

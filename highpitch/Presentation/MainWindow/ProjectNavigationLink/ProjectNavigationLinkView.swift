@@ -73,6 +73,7 @@ struct ProjectNavigationLink: View {
                                                         #endif
                                                     }
                                                 }
+                                                modelContext.autosaveEnabled = true
                                                 modelContext.delete(project)
                                             }
                                         }
@@ -139,7 +140,9 @@ struct ProjectNavigationLink: View {
                                                         #endif
                                                     }
                                                 }
+                                                print("Delete할 project: \(project.projectName)")
                                                 modelContext.delete(project)
+                                                try? modelContext.save()
                                             }
                                         }
                                 

@@ -10,9 +10,6 @@ import SwiftUI
 import SwiftData
 
 struct MenubarExtraView: View {
-    @Environment(\.openWindow)
-    private var openWindow
-    
     // MARK: - AppleScript Remove
     @Environment(MediaManager.self)
     private var mediaManager
@@ -46,9 +43,11 @@ struct MenubarExtraView: View {
                     selectedProject: $selectedProject,
                     isRecording: $isRecording
                 )
-                MenubarExtraContent(selectedProject: $selectedProject)
-                if projectManager.current != nil {
-                    MenubarExtraFooter(selectedProject: $selectedProject)
+                if refreshable {
+                    MenubarExtraContent(selectedProject: $selectedProject)
+                    if projectManager.current != nil {
+                        MenubarExtraFooter(selectedProject: $selectedProject)
+                    }
                 }
             }
             .frame(
@@ -59,15 +58,31 @@ struct MenubarExtraView: View {
             .background(Color.HPComponent.Detail.background)
         }
         .frame(alignment: .top)
-        .onChange(of: mediaManager.isRecording) { _, _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                isRecording = true
+        .onAppear(perform: {
+            refreshable = true
+        })
+        .onChange(of: mediaManager.isRecording) { _, newValue in
+            if newValue {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isRecording = true
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isRecording = false
+                }
             }
+            
         }
+        .onChange(of: refreshable, { _, newValue in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.refreshable = true
+            }
+        })
         .onDisappear {
             refreshable = false
         }
     }
+    
 }
 
 // #Preview {

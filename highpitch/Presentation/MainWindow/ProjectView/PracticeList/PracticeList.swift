@@ -13,7 +13,6 @@ struct PracticeList: View {
     var modelContext
     @Environment(ProjectManager.self)
     private var projectManager
-    
     @State
     private var practices: [PracticeModel] = []
     @State
@@ -22,10 +21,11 @@ struct PracticeList: View {
     private var selectedPractices: [PracticeModel] = []
     @State
     private var isDeleteSheetActive = false
-    
+    @State
+    private var refreshable = false
+
     var body: some View {
         @Bindable var projectManager = projectManager
-        
         VStack(spacing: 0) {
             header
             ScrollView {
@@ -63,6 +63,7 @@ struct PracticeList: View {
                                         practice: practice,
                                         index: index,
                                         selectedPractices: $selectedPractices,
+                                        refreshable: $refreshable,
                                         isEditMode: isEditMode,
                                         isRemarkable: practice.remarkable
                                     )
@@ -96,12 +97,45 @@ struct PracticeList: View {
         }
         .onAppear {
             if let current = projectManager.current {
-                practices = current.practices.sorted(by: {$0.creatAt > $1.creatAt})
+                var remarks: [PracticeModel] = []
+                var unRemarks: [PracticeModel]  = []
+                current.practices.sorted(by: {$0.creatAt > $1.creatAt}).forEach { practice in
+                    if practice.remarkable {
+                        remarks.append(practice)
+                    } else {
+                        unRemarks.append(practice)
+                    }
+                }
+                practices = remarks + unRemarks
             }
         }
+        .onChange(of: refreshable, { _, _ in
+            refreshable = false
+            if let current = projectManager.current {
+                var remarks: [PracticeModel] = []
+                var unRemarks: [PracticeModel]  = []
+                current.practices.sorted(by: {$0.creatAt > $1.creatAt}).forEach { practice in
+                    if practice.remarkable {
+                        remarks.append(practice)
+                    } else {
+                        unRemarks.append(practice)
+                    }
+                }
+                practices = remarks + unRemarks
+            }
+        })
         .onChange(of: projectManager.current?.practices, { _, _ in
             if let current = projectManager.current {
-                practices = current.practices.sorted(by: {$0.creatAt > $1.creatAt})
+                var remarks: [PracticeModel] = []
+                var unRemarks: [PracticeModel]  = []
+                current.practices.sorted(by: {$0.creatAt > $1.creatAt}).forEach { practice in
+                    if practice.remarkable {
+                        remarks.append(practice)
+                    } else {
+                        unRemarks.append(practice)
+                    }
+                }
+                practices = remarks + unRemarks
             }
         })
         .onChange(of: selectedPractices) { _, newValue in

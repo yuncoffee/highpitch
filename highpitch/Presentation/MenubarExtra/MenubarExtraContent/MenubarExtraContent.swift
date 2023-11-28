@@ -9,9 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct MenubarExtraContent: View {
-    @Environment(\.openWindow)
-    private var openWindow
- 
     @Environment(ProjectManager.self)
     private var projectManager
     

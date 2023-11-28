@@ -191,16 +191,16 @@ extension MenubarExtraHeader {
     }
             
     private func openSelectedProject() {
-        if let selectedProject = selectedProject {
-            if selectedProject.projectName != "새 프로젝트" {
-                projectManager.current = selectedProject
-                if !projectManager.path.isEmpty {
-                    projectManager.currentTabItem = 0
-                    projectManager.path.removeLast()
-                }
-                openWindow(id: "main")
-            }
-        }
+        openWindow(id: "main")
+//        if let selectedProject = selectedProject {
+//            if selectedProject.projectName != "새 프로젝트" {
+//                projectManager.current = selectedProject
+//                if !projectManager.path.isEmpty {
+//                    projectManager.currentTabItem = 0
+//                    projectManager.path.removeLast()
+//                }
+//            }
+//        }
     }
     
     private func quitApp() {

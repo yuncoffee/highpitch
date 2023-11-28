@@ -14,15 +14,15 @@ struct ProjectLinkItem: View {
     var title: String = "Placeholder1234567890"
     var isSelected = false
     var completion: () -> Void = {
-        #if DEBUG
+#if DEBUG
         print("Default Action")
-        #endif
+#endif
         
     }
     var textFieldCompletion: (_ editableText: String) -> Void = { edited in
-        #if DEBUG
+#if DEBUG
         print("\(edited) 변경")
-        #endif
+#endif
     }
     var focusField: FocusState<String?>.Binding
     @State
@@ -31,7 +31,7 @@ struct ProjectLinkItem: View {
     private var editableText = ""
     @Binding
     var addedProjectID: String?
-  
+    
     var body: some View {
         let weight: FoundationTypoSystemFont.FontWeight = if isSelected { .semibold } else { .medium }
         let color: Color = if isSelected { .HPTextStyle.darker } else { .HPTextStyle.base }
@@ -78,14 +78,18 @@ struct ProjectLinkItem: View {
                     completion()
                     isEditModeActive = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        focusField.wrappedValue = projectManager.current?.creatAt  
+                        focusField.wrappedValue = projectManager.current?.creatAt
                     }
                     
                 }
                 .onTapGesture {
-                    addedProjectID = nil
-                    isEditModeActive = false
-                    completion()
+                    var transaction = Transaction()
+                    transaction.disablesAnimations = true
+                    withTransaction(transaction) {
+                        addedProjectID = nil
+                        isEditModeActive = false
+                        completion()
+                    }
                 }
         }
     }
@@ -93,7 +97,7 @@ struct ProjectLinkItem: View {
 
 #Preview {
     VStack(content: {
-//        ProjectLinkItem()
-//        ProjectLinkItem(isSelected: true)
+        //        ProjectLinkItem()
+        //        ProjectLinkItem(isSelected: true)
     })
 }

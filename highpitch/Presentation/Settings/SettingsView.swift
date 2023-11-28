@@ -79,7 +79,7 @@ struct SettingsView: View {
                         )
                     }
                     // MARK: TODO disabled 추가 필요
-                    .disabled(true)
+//                    .disabled(true)
                     .frame(width: 90)
                     .fixedSize()
                 }

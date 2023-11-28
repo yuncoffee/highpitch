@@ -214,8 +214,8 @@ extension FeedbackStyleScript {
                             content: (intToMMSS(input: sentence.startAt), nil),
                             type: .blockFill(.HPCornerRadius.small),
                             size: .small,
-                            color: isSelected ? .HPComponent.highlight : .clear,
-                            contentColor: isSelected ? .HPOrange.base : .HPOrange.light,
+                            color: isSelected ? Color("D0EBFF") : .clear,
+                            contentColor: isSelected ? Color("1E78FF") : Color("1E78FF").opacity(0.5),
                             fontStyle: .systemDetail(.footnote, .semibold),
                             padding: (.zero, .HPSpacing.xxxsmall)
                         )
@@ -248,7 +248,7 @@ extension FeedbackStyleScript {
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .padding(.vertical, .HPSpacing.xxxsmall)
                 .padding(.horizontal, .HPSpacing.xxsmall)
-                .background(isSelected ? Color.HPComponent.SpeedFeedback.background : .clear)
+                .background(isSelected ? Color("F5FBFF") : .clear)
                 .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
             } else {
                 EmptyView()
@@ -450,8 +450,10 @@ extension FeedbackStyleScript {
                                     : 4
                                 )
                                 .foregroundStyle(
-                                    isFastSentence || isSlowSentence
+                                    isFastSentence
                                     ? Color.HPComponent.highlight
+                                    : isSlowSentence
+                                    ? Color("D0EBFF")
                                     : Color.clear
                                 )
                         )

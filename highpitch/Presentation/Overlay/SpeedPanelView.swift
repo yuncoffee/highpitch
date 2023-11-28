@@ -144,7 +144,7 @@ extension SpeedPanelView {
         .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
         .fill(
             percent < underSpeedRate
-            ? Color.HPOrange.light
+            ? Color("00A3FF").opacity(0.5)
             : percent > overSpeedRate
             ? Color.HPOrange.light
             : Color.HPGreen.light

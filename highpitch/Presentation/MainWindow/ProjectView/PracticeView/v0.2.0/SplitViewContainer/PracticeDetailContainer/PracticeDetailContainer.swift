@@ -177,10 +177,10 @@ extension PracticeDetailContainer {
                     ZStack {
                         Circle()
                             .stroke(lineWidth: 1)
-                            .fill(viewStore.scriptViewSpeedType == .slow ? Color.HPOrange.light : Color.HPComponent.stroke2 )
+                            .fill(viewStore.scriptViewSpeedType == .slow ? Color("1E78FF").opacity(0.5) : Color.HPComponent.stroke2 )
                             .frame(width: 18, height: 18)
                         Circle()
-                            .fill(Color.HPOrange.base)
+                            .fill(Color("1E78FF"))
                             .scaleEffect(viewStore.scriptViewSpeedType == .slow ? 1 : 0, anchor: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                             .opacity(viewStore.scriptViewSpeedType == .slow ? 1 : 0)
                             .frame(width: 10, height: 10)

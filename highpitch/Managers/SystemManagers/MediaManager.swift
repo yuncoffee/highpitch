@@ -38,7 +38,8 @@ final class MediaManager: NSObject, AVAudioPlayerDelegate {
     var fileName: String = ""
     var stopPoint: TimeInterval?
     var isStart = false
-    static var count = 0;
+    var isDictationUnavailable = false
+    static var count = 0
     
 }
 

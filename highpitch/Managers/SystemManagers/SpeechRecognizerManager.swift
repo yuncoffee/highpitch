@@ -44,6 +44,45 @@ final class SpeechRecognizerManager {
     
     // swiftlint: disable function_body_length
     // swiftlint: disable cyclomatic_complexity
+    func isSpeechAvailable() async throws -> Bool {
+        var available = true
+        if let recognitionTask = recognitionTask {
+            recognitionTask.cancel()
+            self.recognitionTask = nil
+        }
+        let inputNode = audioEngine.inputNode
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        guard let recognitionRequest = recognitionRequest
+        else { fatalError("Unable to created a SFSpeechAudioBufferRecognitionRequest object") }
+        recognitionRequest.shouldReportPartialResults = true
+        recognitionRequest.addsPunctuation = true
+        recognitionRequest.requiresOnDeviceRecognition = true
+        recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
+            if error != nil {
+                self.audioEngine.stop()
+                inputNode.removeTap(onBus: 0)
+                self.recognitionRequest = nil
+                self.recognitionTask = nil
+            }
+        }
+        print(recognitionTask?.state.rawValue)
+        var maxCount = 0
+        while(recognitionTask?.state.rawValue == 0) {
+            maxCount += 1
+            try await Task.sleep(nanoseconds: 10_000_000)
+            if maxCount > 3 {
+                break
+            }
+        }
+        print(recognitionTask?.state.rawValue)
+        print(recognitionTask?.error)
+        let recordingFormat = inputNode.outputFormat(forBus:0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
+            self.recognitionRequest?.append(buffer)
+        }
+        return available
+    }
+    
     func startanalysis() throws {
         // Cancel the previous task if it's running.
         if let recognitionTask = recognitionTask {

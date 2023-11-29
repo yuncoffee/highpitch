@@ -59,13 +59,13 @@ final class SpeechRecognizerManager {
         recognitionRequest.requiresOnDeviceRecognition = true
         recognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) { result, error in
             if error != nil {
+                available = false
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
             }
         }
-        print(recognitionTask?.state.rawValue)
         var maxCount = 0
         while(recognitionTask?.state.rawValue == 0) {
             maxCount += 1
@@ -74,8 +74,6 @@ final class SpeechRecognizerManager {
                 break
             }
         }
-        print(recognitionTask?.state.rawValue)
-        print(recognitionTask?.error)
         let recordingFormat = inputNode.outputFormat(forBus:0)
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
             self.recognitionRequest?.append(buffer)

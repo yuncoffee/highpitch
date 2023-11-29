@@ -52,6 +52,10 @@ struct SavePanelView: View {
             
             HStack(alignment: .center) {
                 HPButton(color: .HPGray.system200) {
+                    // 연습 데이터 삭제
+                    NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
+                    
+                    SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
                     instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                 } label: { type, _, color, expandable in

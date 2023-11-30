@@ -175,7 +175,7 @@ extension Color {
         
         struct Onboarding {
             private init() {}
-            static let background = Color.sectionbackground
+            static let background = Color.onboardingbackground
         }
         
         // MARK: - 스타일 정리 필요...

@@ -49,7 +49,6 @@ struct SpeedPanelView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.HPGray.systemBlack.opacity(0.4))
-            .background(.ultraThinMaterial)
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }

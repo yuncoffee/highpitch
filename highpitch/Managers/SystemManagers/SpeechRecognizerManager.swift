@@ -88,7 +88,7 @@ final class SpeechRecognizerManager {
             if let result = result {
                 if result.speechRecognitionMetadata == nil {
                     if answer < 700 && answer > 0 {
-                        if self.wrong > 5 || abs(answer - self.realTimeRate) < 50 {
+                        if self.wrong > 3 || abs(answer - self.realTimeRate) < 50 {
                             self.realTimeRate = answer
                             self.wrong = 0
                         } else {

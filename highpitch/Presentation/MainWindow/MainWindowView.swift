@@ -201,13 +201,10 @@ extension MainWindowView {
                     .padding(.leading, .HPSpacing.xsmall)
                     #if DEBUG
                     .onTapGesture {
-//                        if (SystemManager.shared.isRecognizing) {
-//                            SystemManager.shared.stopInstantFeedback()
-//                        } else {
-//                            SystemManager.shared.startInstantFeedback()
-//                        }
-                        Task {
-                            let newUtteranceModels = await makeNewUtterancesV2()
+                        if (SystemManager.shared.isRecognizing) {
+                            SystemManager.shared.stopInstantFeedback()
+                        } else {
+                            SystemManager.shared.startInstantFeedback()
                         }
                     }
                     #endif

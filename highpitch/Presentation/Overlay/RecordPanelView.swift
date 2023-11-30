@@ -40,7 +40,7 @@ struct RecordPanelView: View {
                             circleOpacity = 1
                         }
                     Text("연습을 기록중이에요")
-                        .systemFont(.caption, weight: .semibold)
+                        .systemFont(.caption, weight: .medium)
                         .foregroundStyle(Color.white)
                 }
                 .frame(width:215, height: 29)
@@ -50,7 +50,7 @@ struct RecordPanelView: View {
                     Button("연습 끝내기") {
                         instantFeedbackManager.feedbackPanelControllers[.save]?.showPanel(self)
                     }
-                    .systemFont(.caption, weight: .semibold)
+                    .systemFont(.caption, weight: .medium)
                     .foregroundStyle(Color.white)
                     .buttonStyle(.plain)
                 }

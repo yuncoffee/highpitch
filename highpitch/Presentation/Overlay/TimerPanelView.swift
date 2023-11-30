@@ -29,12 +29,13 @@ struct TimerPanelView: View {
             VStack(spacing: .zero) {
                 ZStack {
                     Text(formattedElapsedTime)
-                        .systemFont(.title, weight: .semibold)
-                        .foregroundStyle(Color.HPTextStyle.darkness)
+                        .systemFont(.largeTitle, weight: .medium)
+                        .foregroundStyle(Color.HPGray.systemWhite)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("FFFFFF").opacity(0.5))
+            .background(Color.HPGray.systemBlack.opacity(0.4))
+            .background(.ultraThickMaterial)
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
             .onChange(of: SystemManager.shared.instantFeedbackManager.isTimerRunning) { _, value in

@@ -36,9 +36,10 @@ struct FillerWordPanelView: View {
                     .padding(.top, .HPSpacing.xxxxsmall)
                     .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
             }
+            .offset(y: 4)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.HPGray.systemBlack.opacity(0.4))
-            .background(.ultraThinMaterial)
+            .background(.ultraThickMaterial)
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }
@@ -153,4 +154,19 @@ struct FillerWordStatus: View {
     )
     .frame(maxWidth: 132, maxHeight: 132)
     .padding(64)
+}
+
+struct BlurredView: NSViewRepresentable {
+    var material: NSVisualEffectView.Material = .menu
+    
+    func makeNSView(context: Context) -> some NSView {
+        let view = NSVisualEffectView()
+        view.material = material
+        view.blendingMode = .behindWindow
+        
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSViewType, context: Context) {
+    }
 }

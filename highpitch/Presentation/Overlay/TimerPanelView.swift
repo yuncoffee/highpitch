@@ -101,40 +101,18 @@ struct TimerPanelView: View {
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.x)),
+                    Int(panelController.panel?.frame.origin.x ?? 0),
                     forKey: "TimerPanelX"
                 )
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.y)),
+                    Int(panelController.panel?.frame.origin.y ?? 0),
                     forKey: "TimerPanelY"
                 )
-                #if DEBUG
-                print("UserDefaults에 넣겠습니다.")
-                print("xpos: \(panelController.getPanelPosition()!.x)")
-                print("ypos: \(panelController.getPanelPosition()!.y)")
-                #endif
+                
                 instantFeedbackManager.focusedPanel = nil
                 
-                let originalXpos = instantFeedbackManager.getPanelPositionX(
-                    left: TIMER_PANEL_INFO.topLeftPoint!.x,
-                    padding: XMARK_RADIUS
-                )
-                let originalYpos = instantFeedbackManager.getPanelPositionY(
-                    top: TIMER_PANEL_INFO.topLeftPoint!.y,
-                    height: TIMER_PANEL_INFO.size.height,
-                    padding: XMARK_RADIUS
-                )
-                
-                instantFeedbackManager.movablePanelMoved[0] = (Int(panelController.getPanelPosition()!.x) == originalXpos + 11) ? false : true
-                instantFeedbackManager.movablePanelMoved[1] = (Int(panelController.getPanelPosition()!.y) == originalYpos + 11) ? false : true
-                instantFeedbackManager.resetButtonDisabled = instantFeedbackManager.movablePanelMoved[0] ? false : true
-            }
-        }
-        .onChange(of: instantFeedbackManager.movablePanelMoved[0]) {
-            if instantFeedbackManager.movablePanelMoved[0] {
-                instantFeedbackManager.resetButtonDisabled = false
-            } else {
-                instantFeedbackManager.movablePanelMoved[0] = true
+                instantFeedbackManager.userDefaultsPanelPosition[0] = Int(panelController.getPanelPosition()!.x)
+                instantFeedbackManager.userDefaultsPanelPosition[1] = Int(panelController.getPanelPosition()!.y)
             }
         }
         .frame(

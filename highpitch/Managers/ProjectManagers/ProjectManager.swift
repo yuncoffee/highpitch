@@ -115,6 +115,21 @@ extension ProjectManager {
         }
     }
     
+    @MainActor
+    func notSavePractice(
+        mediaManager: MediaManager,
+        modelContext: ModelContext
+    ) {
+        if !mediaManager.isRecording {
+            return
+        }
+        #if DEBUG
+        print("녹음 종료")
+        #endif
+        mediaManager.stopRecording()
+//        SystemManager.shared.isAnalyzing = true
+    }
+    
     private func makeNewUtterances(mediaManager: MediaManager) async -> [UtteranceModel] {
         var result: [UtteranceModel] = []
         do {

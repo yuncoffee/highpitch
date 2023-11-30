@@ -99,6 +99,14 @@ extension Color {
         /// #FF9500, 1
         static let base = Color.orange500
     }
+    struct HPBlue {
+        private init() {}
+        /// #46B3F1, 0.5
+        static let light = Color.blue300
+        /// #1E78FF, 1
+        static let base = Color.blue500
+    }
+    
 }
 
 // MARK: - TextStyle
@@ -188,6 +196,10 @@ extension Color {
         struct SpeedFeedback {
             private init() {}
             static let background = Color.speedfeedbackbackground
+            static let slowBackground = Color.highlightslowbackground
+            static let slowPoint = Color.highlightslowpoint
+            static let instantSlow300 = Color.instantslow300
+            static let instantSlow500 = Color.instantslow500
         }
     }
 }

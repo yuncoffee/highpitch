@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainWindowPracticeSaveSheet: View {
+    var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             Button {
@@ -34,6 +36,14 @@ struct MainWindowPracticeSaveSheet: View {
                 }
                 HStack {
                     HPButton(type: .blockFill(8), size: .large, color: .HPGray.system200) {
+                        // 연습 저장 X, 녹음 종료 및 생성된 비디오, 오디오 삭제
+                        SystemManager.shared.notSavePractice()
+                        // TimerPanel의 타이머 정지 및 초기화
+                        SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
+                        NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
+                        instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+                        instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
+                        
                         SystemManager.shared.isMainWindowPracticeSaveSheetActive = false
                     } label: { type, size, color, expandable in
                         HPLabel(
@@ -47,7 +57,13 @@ struct MainWindowPracticeSaveSheet: View {
                     }
                     .frame(width: 144)
                     HPButton(type: .blockFill(8), size: .large, color: .HPPrimary.base) {
-                        print("연습 저장하기")
+                        // 연습 저장하는 로직
+                        SystemManager.shared.stopPractice()
+                        // TimerPanel의 타이머 정지 및 초기화
+                        SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
+                        NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
+                        instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+                        instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: (label: "연습 저장하기", icon: nil),

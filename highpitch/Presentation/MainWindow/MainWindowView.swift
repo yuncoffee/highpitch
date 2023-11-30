@@ -201,10 +201,13 @@ extension MainWindowView {
                     .padding(.leading, .HPSpacing.xsmall)
                     #if DEBUG
                     .onTapGesture {
-                        if (SystemManager.shared.isRecognizing) {
-                            SystemManager.shared.stopInstantFeedback()
-                        } else {
-                            SystemManager.shared.startInstantFeedback()
+//                        if (SystemManager.shared.isRecognizing) {
+//                            SystemManager.shared.stopInstantFeedback()
+//                        } else {
+//                            SystemManager.shared.startInstantFeedback()
+//                        }
+                        Task {
+                            let newUtteranceModels = await makeNewUtterancesV2()
                         }
                     }
                     #endif
@@ -410,6 +413,16 @@ extension MainWindowView {
 }
 
 extension MainWindowView {
+    
+    private func makeNewUtterancesV2() async {
+        SystemManager.shared.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+        let returnValue = await SystemManager.shared.instantFeedbackManager.speechRecognizerManager?
+            .startFileRecognition(url: URL(
+                fileURLWithPath: "/Users/leeyongjun/Library/Containers/com.windup.highpitch/Data/Applications/HighPitch/Audio/20231130161801.m4a"
+            )) ?? []
+        SystemManager.shared.instantFeedbackManager.speechRecognizerManager = nil
+    }
+    
     private func addNewProject() {
         let newProject = ProjectModel(
             projectName: "\(Date.now.formatted())",

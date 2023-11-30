@@ -33,9 +33,9 @@ struct FeedbackStyleScript: View {
                         scrollViewProxy.scrollTo(viewStore.nowSentence, anchor: .center)
                     }
                 }
-                .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
-                    updateSelectedIndex(currentTime: newValue, sentences: viewStore.getSortedSentences())
-                }
+//                .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
+//                    updateSelectedIndex(currentTime: newValue, sentences: sentences)
+//                }
         }
         .onAppear {
             // MARK: - Add MockData

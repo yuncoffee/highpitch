@@ -71,4 +71,5 @@ final class SystemManager {
     var playPractice: () -> Void = {}
     var pausePractice: () -> Void = {}
     var stopPractice: () -> Void = {}
+    var notSavePractice: () -> Void = {}
 }

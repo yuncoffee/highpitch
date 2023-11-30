@@ -218,7 +218,7 @@ extension ScreenSelectionView {
     // 연습 저장하지 않고 끝내기
     func cancelCapture() {
         Task {
-            // audioRecorder.stopRecording()
+            audioRecorder.stopRecording()
             await screenRecorder.stopPreview()
             await screenRecorder.stop()
             SystemManager.shared.stopInstantFeedback()

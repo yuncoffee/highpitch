@@ -44,8 +44,11 @@ struct HPMenu: View {
         .padding(.trailing, 3)
         .background(Color.HPGray.systemWhite)
         .frame(maxWidth: maxWidth, maxHeight: maxHeight)
-        .clipShape(RoundedRectangle(cornerRadius: 5))
-        .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.3), radius: 2.5, y: 0.5)
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(Color.HPComponent.stroke)
+        )
+//        .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.3), radius: 2.5, y: 0.5)
     }
 }
 

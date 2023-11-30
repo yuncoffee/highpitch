@@ -39,7 +39,7 @@ extension Date {
         
         if let date = inputFormatter.date(from: input) {
             let outputFormatter = DateFormatter()
-            outputFormatter.dateFormat = "YYYY.MM.dd(E) HH:mm:ss"
+            outputFormatter.dateFormat = "YYYY.MM.dd(E) HH:mm"
             outputFormatter.locale = Locale(identifier: "ko_KR")
             
             let dateString = outputFormatter.string(from: date)

@@ -27,73 +27,83 @@ struct PracticeList: View {
     var body: some View {
         @Bindable var projectManager = projectManager
         VStack(spacing: 0) {
-            header
-            ScrollView {
-                VStack(spacing: .HPSpacing.xxxxsmall) {
-                    HStack(spacing: .zero) {
-                        Text("") // 아이콘 대체
-                            .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
-                            .padding(.leading, .HPSpacing.medium)
-                        Text("연습 회차")
-                            .systemFont(.caption)
-                            .foregroundStyle(Color.HPTextStyle.light)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .offset(x: -(36 + .HPSpacing.small))
-                        Text("연습 일시")
-                            .systemFont(.caption)
-                            .foregroundStyle(Color.HPTextStyle.light)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("소요 시간")
-                            .systemFont(.caption)
-                            .foregroundStyle(Color.HPTextStyle.light)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text("") // 아이콘 대체
-                            .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
-                    }
-                    .padding(.top, .HPSpacing.xsmall)
-                    .padding(.bottom, .HPSpacing.xxsmall)
-                    .padding(.horizontal, .HPSpacing.small)
-                    .border(.HPComponent.stroke, width: 1, edges: [.bottom])
-                    .padding(.horizontal, .HPSpacing.xxsmall)
-                    NavigationStack(path: $projectManager.path) {
-                        LazyVGrid(columns: [GridItem()], spacing: .HPSpacing.xxxxsmall) {
-                            ForEach(Array(practices.enumerated()), id: \.1.id) { index, practice in
-                                NavigationLink(value: practice) {
-                                    PracticeListCell(
-                                        practice: practice,
-                                        index: index,
-                                        selectedPractices: $selectedPractices,
-                                        refreshable: $refreshable,
-                                        isEditMode: isEditMode,
-                                        isRemarkable: practice.remarkable
+            if practices.isEmpty {
+                emptyView
+            } else {
+                VStack(spacing: 0) {
+                    header
+                    ScrollView {
+                        VStack(spacing: .HPSpacing.xxxxsmall) {
+                            HStack(spacing: .zero) {
+                                Text("연습 회차")
+                                    .systemFont(.caption)
+                                    .foregroundStyle(Color.HPTextStyle.light)
+                                    .frame(minWidth: 151, maxWidth: .infinity, alignment: .center)
+                                    .border(.red)
+                                Text("연습 일시")
+                                    .systemFont(.caption)
+                                    .foregroundStyle(Color.HPTextStyle.light)
+                                    .frame(minWidth: 160, maxWidth: .infinity, alignment: .center)
+                                    .border(.red)
+                                Text("소요 시간")
+                                    .systemFont(.caption)
+                                    .foregroundStyle(Color.HPTextStyle.light)
+                                    .frame(minWidth: 80, maxWidth: .infinity, alignment: .center)
+                                    .border(.red)
+                                Text("")
+                                    .foregroundStyle(Color.HPGray.system400)
+                                    .frame(minWidth: 12, maxWidth: 12, minHeight: 12, maxHeight: 12)
+                                    .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
+                                    .border(.red)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, .HPSpacing.xsmall)
+                            .padding(.bottom, .HPSpacing.xxsmall)
+                            .padding(.leading, .HPSpacing.small)
+                            .border(.HPComponent.stroke, width: 1, edges: [.bottom])
+                            .padding(.horizontal, .HPSpacing.xxsmall)
+                            NavigationStack(path: $projectManager.path) {
+                                LazyVGrid(columns: [GridItem()], spacing: .HPSpacing.xxxxsmall) {
+                                    ForEach(Array(practices.enumerated()), id: \.1.id) { index, practice in
+                                        NavigationLink(value: practice) {
+                                            PracticeListCell(
+                                                practice: practice,
+                                                index: index,
+                                                selectedPractices: $selectedPractices,
+                                                refreshable: $refreshable,
+                                                isEditMode: isEditMode,
+                                                isRemarkable: practice.remarkable
+                                            )
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                }
+                                .navigationDestination(for: PracticeModel.self) { practice in
+                                    PracticeView(
+                                        viewStore: PracticeViewStore(
+                                            projectName: projectManager.current?.projectName ?? "",
+                                            practice: practice,
+                                            mediaManager: MediaManager()
+                                        ),
+                                        title: projectManager.current?.projectName
                                     )
                                 }
-                                .buttonStyle(.plain)
+                                .padding(.bottom, .HPSpacing.xxsmall)
                             }
                         }
-                        .navigationDestination(for: PracticeModel.self) { practice in
-                            PracticeView(
-                                viewStore: PracticeViewStore(
-                                    projectName: projectManager.current?.projectName ?? "",
-                                    practice: practice,
-                                    mediaManager: MediaManager()
-                                ),
-                                title: projectManager.current?.projectName
-                            )
-                        }
-                        .padding(.bottom, .HPSpacing.xxsmall)
+                        .background(Color.HPComponent.Section.background)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .shadow(color: Color.HPComponent.shadowColor ,radius: 10, y: .HPSpacing.xxxxsmall)
+                        .padding(.bottom, .HPSpacing.small)
+                        .padding(.leading, .HPSpacing.medium + .HPSpacing.xxxxsmall)
+                        .padding(.trailing, .HPSpacing.large)
                     }
                 }
-                .background(Color.HPComponent.Section.background)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .shadow(color: Color.HPComponent.shadowColor ,radius: 10, y: .HPSpacing.xxxxsmall)
-                .padding(.bottom, .HPSpacing.small)
-                .padding(.leading, .HPSpacing.medium + .HPSpacing.xxxxsmall)
-                .padding(.trailing, .HPSpacing.large)
+                .sheet(isPresented: $isDeleteSheetActive) {
+                    sheet
+                }
             }
-        }
-        .sheet(isPresented: $isDeleteSheetActive) {
-            sheet
+            
         }
         .onAppear {
             if let current = projectManager.current {
@@ -151,6 +161,20 @@ struct PracticeList: View {
 }
 
 extension PracticeList {
+    // MARK: - emptyView
+    @ViewBuilder
+    var emptyView: some View {
+        VStack(spacing: .zero) {
+            Text("연습 기록이 없어요")
+                .systemFont(.body, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.base)
+            Text("첫번째 연습을 시작해보세요")
+                .systemFont(.caption, weight: .semibold)
+                .foregroundStyle(Color.HPTextStyle.light)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
     func editList() {
         if isEditMode && !selectedPractices.isEmpty {
             isDeleteSheetActive = true

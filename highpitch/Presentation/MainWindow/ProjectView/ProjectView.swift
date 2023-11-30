@@ -72,7 +72,7 @@ extension ProjectView {
                 PracticesTabItem()
             }
         }
-        .padding(.top, .HPSpacing.xxsmall + .HPSpacing.xsmall)
+        .padding(.top, projectManager.currentTabItem == 0 ? .HPSpacing.xxsmall + .HPSpacing.xsmall : .HPSpacing.xxxsmall)
         .padding(.bottom, projectManager.currentTabItem == 0 ? .HPSpacing.xxxxsmall : .zero)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

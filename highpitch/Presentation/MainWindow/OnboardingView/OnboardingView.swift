@@ -55,6 +55,11 @@ extension OnboardingView {
     }
     
     private func skip() {
+        SystemManager.shared.spmAverage = 356.7
+        UserDefaults.standard.set(
+            356.7
+            , forKey: "spmAverage"
+        )
         viewStore.isOnboardingNoticeSheetActive = true
     }
 }

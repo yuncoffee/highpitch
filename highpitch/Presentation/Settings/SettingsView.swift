@@ -92,8 +92,8 @@ struct SettingsView: View {
                 )
             }
         }
-        .frame(minWidth: 636, minHeight: 645)
-        .background(Color.HPPrimary.lightnest)
+        .frame(width: 636, height: 645)
+        .background(Color.HPComponent.Onboarding.background)
         .navigationTitle("말 빠르기 설정")
 //        TabView(selection: $selectedTab) {
 //            // 첫 번째 탭

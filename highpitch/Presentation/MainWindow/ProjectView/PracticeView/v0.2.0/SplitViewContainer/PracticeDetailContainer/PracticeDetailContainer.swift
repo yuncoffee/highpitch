@@ -122,9 +122,7 @@ extension PracticeDetailContainer {
                     type: .roundFill,
                     size: .small,
                     color: isSelected ? .HPSecondary.base : .HPGray.system200) {
-                        withAnimation {
-                            viewStore.currentFeedbackViewType = option
-                        }
+                        viewStore.currentFeedbackViewType = option
                 } label: { type, size, color, expandable in
                     HPLabel(
                         content: ("\(option.rawValue)", nil),

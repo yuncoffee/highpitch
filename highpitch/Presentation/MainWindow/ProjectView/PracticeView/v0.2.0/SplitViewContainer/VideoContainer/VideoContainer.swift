@@ -113,7 +113,7 @@ extension VideoContainer {
                 let maxHeight = geometry.size.height - 96
                 ZStack(alignment: .bottom) {
                     VStack {
-                        if let videoPath = viewStore.practice.videoPath {
+                        if viewStore.practice.videoPath != nil {
                             if let avPlayer = viewStore.mediaManager.avPlayer {
                                 VideoView(avPlayer: avPlayer)
                             }
@@ -143,8 +143,9 @@ extension VideoContainer {
                         LinearGradient(
                             gradient: Gradient(
                                 colors: [
-                                    .HPGray.systemBlack.opacity(0.6),
-                                    .HPGray.systemBlack.opacity(0)
+                                    Color("000000").opacity(0.6),
+                                    Color("000000").opacity(0)
+                                    
                                 ]),
                             startPoint: .bottom,
                             endPoint: .top

@@ -120,6 +120,10 @@ extension Color {
         static let lighter = Color.text300
         /// #000000, 0.1
         static let lightness = Color.text100
+        
+        //MARK: White 컬러 분리하기
+        static let white1000 = Color.textWhite1000
+        static let white800 = Color.textWhite800
     }
 }
 
@@ -140,6 +144,7 @@ extension Color {
         static let shadowColor = Color("9A8ADA").opacity(0.07)
         static let shadowBlackColor = Color("000000").opacity(0.1)
         static let audioControllerBackground = Color.audiocontroller
+        static let timeGraph = Color.timegrpah
         
         struct Dot {
             private init() {}
@@ -166,6 +171,11 @@ extension Color {
         struct Tag {
             private init() {}
             static let background = Color.tagbackground
+        }
+        
+        struct Onboarding {
+            private init() {}
+            static let background = Color.sectionbackground
         }
         
         // MARK: - 스타일 정리 필요...

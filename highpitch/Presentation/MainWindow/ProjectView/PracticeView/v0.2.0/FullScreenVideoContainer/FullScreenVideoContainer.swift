@@ -31,7 +31,7 @@ struct FullScreenVideoContainer: View {
             if !isIndicatorActive {
                 viewStore.currentFeedbackViewType = .every
             } else {
-                viewStore.currentFeedbackViewType = .fillerWord
+                viewStore.currentFeedbackViewType = viewStore.recentFeedbackViewType
             }
         }
     }
@@ -50,7 +50,7 @@ struct FullScreenVideoContainer: View {
             ZStack(alignment: .topLeading) {
                 /// video
                 VStack {
-                    if let videoPath = viewStore.practice.videoPath {
+                    if viewStore.practice.videoPath != nil {
                         if let avPlayer = viewStore.mediaManager.avPlayer {
                             VideoView(avPlayer: avPlayer)
                         }
@@ -105,13 +105,13 @@ extension FullScreenVideoContainer {
         VStack(alignment: .leading, spacing: .zero) {
             Text("\(viewStore.practice.practiceName)")
                 .systemFont(.largeTitle)
-                .foregroundStyle(Color.HPGray.systemWhite)
+                .foregroundStyle(Color.HPTextStyle.white1000)
             Text("\(subTitle.first ?? "") •")
                 .systemFont(.caption)
-                .foregroundStyle(Color.HPGray.systemWhite.opacity(0.6))
+                .foregroundStyle(Color.HPTextStyle.white800)
             Text("\(subTitle.last ?? "")")
                 .systemFont(.caption)
-                .foregroundStyle(Color.HPGray.systemWhite.opacity(0.6))
+                .foregroundStyle(Color.HPTextStyle.white800)
             
         }
         .padding(.top, .HPSpacing.xxsmall)
@@ -121,8 +121,10 @@ extension FullScreenVideoContainer {
             LinearGradient(
                 gradient: Gradient(
                     colors: [
-                        .HPGray.systemBlack.opacity(0.6),
-                        .HPGray.systemBlack.opacity(0)
+                        Color("000000").opacity(0.6),
+                        Color("000000").opacity(0)
+//                        .HPGray.systemBlack.opacity(0.6),
+//                        .HPGray.systemBlack.opacity(0)
                     ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -147,11 +149,7 @@ extension FullScreenVideoContainer {
                 )
             Circle()
                 .frame(width: 18, height: 18)
-                .foregroundStyle(
-                    isIndicatorActive
-                    ? Color.HPGray.systemWhite
-                    : Color.HPGray.system200
-                )
+                .foregroundStyle(Color.HPTextStyle.white1000)
                 .offset(x: isIndicatorActive ? 16 : -2 )
         }
         .onTapGesture {
@@ -179,13 +177,14 @@ extension FullScreenVideoContainer {
                         : .HPGray.system200
                     ) {
                         viewStore.currentFeedbackViewType = .fillerWord
+                        viewStore.recentFeedbackViewType = .fillerWord
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: ("습관어", nil),
                             type: type,
                             size: size,
                             color: color,
-                            contentColor: viewStore.currentFeedbackViewType == .fillerWord ? nil : .HPTextStyle.base,
+                            contentColor: viewStore.currentFeedbackViewType == .fillerWord ? .HPTextStyle.white1000 : .HPTextStyle.base,
                             expandable: expandable,
                             padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
                         )
@@ -199,13 +198,14 @@ extension FullScreenVideoContainer {
                         : .HPGray.system200
                     ) {
                         viewStore.currentFeedbackViewType = .speed
+                        viewStore.recentFeedbackViewType = .speed
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: ("말 빠르기", nil),
                             type: type,
                             size: size,
                             color: color,
-                            contentColor: viewStore.currentFeedbackViewType == .speed ? nil : .HPTextStyle.base,
+                            contentColor: viewStore.currentFeedbackViewType == .speed ? .HPTextStyle.white1000 : .HPTextStyle.base,
                             expandable: expandable,
                             padding: (.HPSpacing.xxxxsmall, .HPSpacing.xxsmall)
                         )
@@ -238,20 +238,21 @@ extension FullScreenVideoContainer {
             LinearGradient(
                 gradient: Gradient(
                     colors: [
-                        .HPGray.systemBlack.opacity(0.6),
-                        .HPGray.systemBlack.opacity(0)
+                        Color("000000").opacity(0.6),
+                        Color("000000").opacity(0)
                     ]),
                 startPoint: .bottom,
                 endPoint: .top
             )
         )
         .offset(y: viewStore.isFullScreenTransition && isFullScreenVideoHover
-                ? viewStore.currentFeedbackViewType == .every
+                ? !isIndicatorActive
                 ? geoHeight - VIDEO_CONTROLLER_HEIGHT - VERTICAL_PADDING
                 : geoHeight - VIDEO_CONTROLLER_HEIGHT - INDICATOR_HEIGHT - FOOTER_HOVER_CONTAINER_HEIGHT
                 : geoHeight
         )
         .opacity(viewStore.isFullScreenTransition && isFullScreenVideoHover ? 1 : 0)
+        .animation(nil, value: viewStore.isFullScreenTransition)
     }
 }
 

@@ -183,6 +183,7 @@ struct HighpitchApp: App {
                 .environment(mediaManager)
                 .modelContainer(container)
         }
+        .windowResizability(.contentSize)
         // MARK: - MenubarExtra Scene
         MenuBarExtra {
             MenubarExtraView(

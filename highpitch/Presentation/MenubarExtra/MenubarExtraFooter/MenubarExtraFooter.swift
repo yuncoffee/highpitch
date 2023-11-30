@@ -40,7 +40,7 @@ struct MenubarExtraFooter: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            sectionHeader
+            if unVisitedPractices.count > 0 { sectionHeader }
             sectionContent
         }
     }
@@ -173,7 +173,7 @@ extension MenubarExtraFooter {
                     completion()
                 } label: { type, size, color, expandable in
                     HPLabel(
-                        content: ("확인하기", "chevron.right"),
+                        content: ("", "chevron.right"),
                         type: type,
                         size: size,
                         color: color,

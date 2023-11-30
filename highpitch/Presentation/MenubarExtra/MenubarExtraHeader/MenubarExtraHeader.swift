@@ -110,13 +110,23 @@ extension MenubarExtraHeader {
             )
         }
         HPButton(type: .text, size: .medium, color: labels.color) {
-            if !mediaManager.isRecording {
-                mediaManager.isStart = true
-                GAManager.shared.analyticsOnClick(.play)
-            } else if mediaManager.isPause {
-                playPractice()
-            } else {
-                pausePractice()
+            Task {
+                do {
+                    let available = try await SpeechRecognizerManager().isSpeechAvailable()
+                    if available {
+                        if !mediaManager.isRecording {
+                            mediaManager.isDictationUnavailable = false
+                            mediaManager.isStart = true
+                            GAManager.shared.analyticsOnClick(.play)
+                        } else if mediaManager.isPause {
+                            playPractice()
+                        } else {
+                            pausePractice()
+                        }
+                    } else {
+                        mediaManager.isDictationUnavailable = true
+                    }
+                } catch { }
             }
         } label: { type, size, color, expandable in
             HPLabel(

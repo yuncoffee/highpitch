@@ -10,6 +10,7 @@
 		100E33002B0CE8B700174D3F /* HPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100E32FF2B0CE8B700174D3F /* HPSlider.swift */; };
 		107034FE2AF258070097A685 /* FeedbackSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107034FD2AF258070097A685 /* FeedbackSettingView.swift */; };
 		107035002AF258390097A685 /* GeneralSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107034FF2AF258390097A685 /* GeneralSettingView.swift */; };
+		107E10602B17645C004AA879 /* RequestDictationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107E105F2B17645C004AA879 /* RequestDictationView.swift */; };
 		10B5EF0E2B0C3090006A58A6 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5EF0D2B0C3090006A58A6 /* VideoView.swift */; };
 		10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */; };
 		10C7D1B22ADCD4AB008691CD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */; };
@@ -189,6 +190,7 @@
 		100E32FF2B0CE8B700174D3F /* HPSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPSlider.swift; sourceTree = "<group>"; };
 		107034FD2AF258070097A685 /* FeedbackSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSettingView.swift; sourceTree = "<group>"; };
 		107034FF2AF258390097A685 /* GeneralSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingView.swift; sourceTree = "<group>"; };
+		107E105F2B17645C004AA879 /* RequestDictationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDictationView.swift; sourceTree = "<group>"; };
 		10B5EF0D2B0C3090006A58A6 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -903,6 +905,7 @@
 			isa = PBXGroup;
 			children = (
 				1DB825402B0FD5A7009BA3CB /* MainWindowPracticeSaveSheet.swift */,
+				107E105F2B17645C004AA879 /* RequestDictationView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -1350,6 +1353,7 @@
 				1D30E6252AD6117F00623A58 /* MediaManager.swift in Sources */,
 				1D1EC6A32AFB98C900CB72E9 /* VideoContainer.swift in Sources */,
 				1142DDED2AF4C7F8003DBE81 /* SlowSentReplay.swift in Sources */,
+				107E10602B17645C004AA879 /* RequestDictationView.swift in Sources */,
 				1DED4EF72AFFE4F7000109B3 /* HPArcodianView.swift in Sources */,
 				1134695E2B04A8C500CA16AE /* ProjectOutLine.swift in Sources */,
 				1D09AF742AD98C0900C1400E /* Date+Extension.swift in Sources */,

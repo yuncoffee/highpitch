@@ -35,11 +35,11 @@ struct ReportSpeakingRateChart: View {
                     RectangleMark(
                         xStart: .value("", 0.0),
                         xEnd: .value("", viewStore.practice.summary.practiceLength),
-                        yStart: .value("", viewStore.practice.summary.minSpm),
+                        yStart: .value("", viewStore.practice.summary.minSpm - 5.0),
                         yEnd: .value(
                             "",
                             max(
-                                viewStore.practice.summary.minSpm,
+                                viewStore.practice.summary.minSpm - 5.0,
                                 viewStore.practice.summary.spmAverage - 100.0
                         ))
                     )
@@ -47,9 +47,9 @@ struct ReportSpeakingRateChart: View {
                     RectangleMark(
                         xStart: .value("", 0.0),
                         xEnd: .value("", viewStore.practice.summary.practiceLength),
-                        yStart: .value("", min(viewStore.practice.summary.maxSpm,
+                        yStart: .value("", min(viewStore.practice.summary.maxSpm + 5.0,
                                                viewStore.practice.summary.spmAverage + 100.0)),
-                        yEnd: .value("", viewStore.practice.summary.maxSpm)
+                        yEnd: .value("", viewStore.practice.summary.maxSpm + 5.0)
                     )
                     .foregroundStyle(Color.HPComponent.highlight)
                     /// LineChart

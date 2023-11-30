@@ -33,62 +33,65 @@ struct PracticeListCell: View {
     
     var body: some View {
         HStack(spacing: .zero) {
-            if isEditMode {
-                Toggle(isOn: $isSelected) {
-                }
-                .frame(width: 16, height: 16)
-                .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
-                .padding(.leading, .HPSpacing.medium)
-                .padding(.trailing, .HPSpacing.small)
-                .accentColor(Color.HPPrimary.base)
-                .opacity(isEditMode ? 1 : 0)
-                .disabled(!isEditMode)
-            } else {
-                Image(systemName: isRemarkable ? "star.fill" : "star")
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundStyle(isRemarkable ? Color("FEBC2E") : Color.HPTextStyle.light)
-                    .frame(minWidth: 12, maxWidth: 12, minHeight: 12, maxHeight: 12)
-                    .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
-                    .padding(.leading, .HPSpacing.medium)
-                    .padding(.trailing, .HPSpacing.small)
-                    .onTapGesture {
-                        isRemarkable.toggle()
-                        practice.remarkable = isRemarkable
-                        Task {
-                            await MainActor.run {
-                                do {
-                                    try modelContext.save()
-                                    refreshable = true
-                                } catch {
-                                    #if DEBUG
-                                    print(error)
-                                    #endif
+            HStack(spacing: .zero) {
+                if isEditMode {
+                    Toggle(isOn: $isSelected) {
+                    }
+                    .frame(height: 12)
+                    .frame(height: 36)
+                    .accentColor(Color.HPPrimary.base)
+                    .opacity(isEditMode ? 1 : 0)
+                    .disabled(!isEditMode)
+                } else {
+                    Image(systemName: isRemarkable ? "star.fill" : "star")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(isRemarkable ? Color("FEBC2E") : Color.HPTextStyle.light)
+                        .frame(height: 12)
+                        .frame(height: 36)
+                        .onTapGesture {
+                            isRemarkable.toggle()
+                            practice.remarkable = isRemarkable
+                            Task {
+                                await MainActor.run {
+                                    do {
+                                        try modelContext.save()
+                                        refreshable = true
+                                    } catch {
+                                        #if DEBUG
+                                        print(error)
+                                        #endif
+                                    }
                                 }
                             }
                         }
-                    }
+                }
+                Text("\(indexToOrdinalNumber(index: practice.index))번째 연습")
+                    .systemFont(.footnote, weight: .medium)
+                    .foregroundStyle(Color.HPTextStyle.darker)
             }
-            Text("\(indexToOrdinalNumber(index: practice.index))번째 연습")
-                .systemFont(.footnote, weight: .medium)
-                .foregroundStyle(Color.HPTextStyle.darker)
-                .frame(minWidth: 160, maxWidth: .infinity, alignment: .leading)
+            .frame(minWidth: 151, maxWidth: .infinity, alignment: .center)
+            .border(.red)
             Text("\(Date().createAtToPracticeDate(input: practice.creatAt))")
                 .systemFont(.footnote, weight: .medium)
                 .foregroundStyle(Color.HPTextStyle.light)
-                .frame(minWidth: 160, maxWidth: .infinity, alignment: .leading)
+                .frame(minWidth: 160, maxWidth: .infinity, alignment: .center)
+                .border(.red)
             Text("\(parseDurationToLabel(duration: duration))")
                 .systemFont(.footnote, weight: .medium)
                 .foregroundStyle(Color.HPTextStyle.light)
-                .frame(minWidth: 80, maxWidth: .infinity, alignment: .leading)
+                .frame(minWidth: 80, maxWidth: .infinity, alignment: .center)
+                .border(.red)
             Image(systemName: "chevron.right")
                 .resizable()
                 .scaledToFit()
                 .foregroundStyle(Color.HPGray.system400)
                 .frame(minWidth: 12, maxWidth: 12, minHeight: 12, maxHeight: 12)
                 .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
+                .border(.red)
         }
         .frame(minHeight: 56)
+        .padding(.leading, .HPSpacing.small)
         .background(index % 2 == 0 ? Color.HPComponent.Detail.background : .clear)
         .padding(.horizontal, .HPSpacing.xxsmall)
         .contentShape(Rectangle())

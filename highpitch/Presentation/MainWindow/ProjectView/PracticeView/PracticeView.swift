@@ -105,7 +105,17 @@ struct PracticeViewTopToolbar: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 } else {
                     HPButton(color: .HPSecondary.base) {
-                        mediaManager.isStart = true
+                        Task {
+                            do {
+                                let available = try await SpeechRecognizerManager().isSpeechAvailable()
+                                if available {
+                                    mediaManager.isDictationUnavailable = false
+                                    mediaManager.isStart = true
+                                } else {
+                                    mediaManager.isDictationUnavailable = true
+                                }
+                            } catch { }
+                        }
                     } label: { type, size, color, expandable in
                         HPLabel(
                             content: (label: "연습 시작하기", icon: nil),

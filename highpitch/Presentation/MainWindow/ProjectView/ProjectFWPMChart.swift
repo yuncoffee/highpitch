@@ -147,7 +147,8 @@ extension ProjectFWPMChart {
                             Text("\(axisValue, specifier: "%.1f")")
                             .systemFont(.caption)
                             .foregroundStyle(Color.HPTextStyle.base)
-                            .padding(.trailing, 18)
+                            .frame(width: 45, alignment: .center)
+                            .padding(.trailing, 12)
                         }
                     }
                     AxisGridLine()

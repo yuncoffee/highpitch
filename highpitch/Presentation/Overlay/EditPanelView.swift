@@ -15,6 +15,9 @@ struct EditPanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
+    @State private var standardPositionTimerX: Int = 0
+    @State private var standardPositionTimerY: Int = 0
+    
     let EDIT_PANEL_INFO = SystemManager.shared.instantFeedbackManager.EDIT_PANEL_INFO
     
     var body: some View {
@@ -135,6 +138,8 @@ struct EditPanelView: View {
                         padding: instantFeedbackManager.PANEL_XMARK_RADIUS
                     )
                     
+                    print("원래 TimerX: \(UserDefaults.standard.integer(forKey: "TimerPanelX")) TimerY: ", UserDefaults.standard.integer(forKey: "TimerPanelY"))
+                    
                     // 위치 기본값으로 조절
                     instantFeedbackManager.feedbackPanelControllers[InstantPanel.timer]?.panel?
                         .setFrameOrigin(NSPoint(x: timerPanelX, y: timerPanelY))
@@ -148,15 +153,15 @@ struct EditPanelView: View {
                     print("TimerX 원상복귀: \(timerPanelX)")
                     print("TimerY 원상복귀: \(timerPanelY)")
                     #endif
-                    UserDefaults.standard.set(String(timerPanelX + 11), forKey: "TimerPanelX")
-                    UserDefaults.standard.set(String(timerPanelY + 11), forKey: "TimerPanelY")
-                    UserDefaults.standard.set(String(speedPanelX + 11), forKey: "SpeedPanelX")
-                    UserDefaults.standard.set(String(speedPanelY + 11), forKey: "SpeedPanelY")
-                    UserDefaults.standard.set(String(fillerWordPanelX + 11), forKey: "FillerWordPanelX")
-                    UserDefaults.standard.set(String(fillerWordPanelY + 11), forKey: "FillerWordPanelY")
+                    UserDefaults.standard.set(timerPanelX + 11, forKey: "TimerPanelX")
+                    UserDefaults.standard.set(timerPanelY + 11, forKey: "TimerPanelY")
+                    UserDefaults.standard.set(speedPanelX + 11, forKey: "SpeedPanelX")
+                    UserDefaults.standard.set(speedPanelY + 11, forKey: "SpeedPanelY")
+                    UserDefaults.standard.set(fillerWordPanelX + 11, forKey: "FillerWordPanelX")
+                    UserDefaults.standard.set(fillerWordPanelY + 11, forKey: "FillerWordPanelY")
+                    print("원위치로 TimerX: \(UserDefaults.standard.integer(forKey: "TimerPanelX")) TimerY: ", UserDefaults.standard.integer(forKey: "TimerPanelY"))
                     
-                    //
-                    // resetPanels.toggle()
+                    instantFeedbackManager.resetButtonDisabled = true
                     
                 } label: { type, _, color, expandable in
                     HPLabel(
@@ -170,7 +175,7 @@ struct EditPanelView: View {
                     )
                 }
                 .frame(width: 144)
-                //.disabled(instantFeedbackManager.resetButtonDisabled)
+                .disabled(instantFeedbackManager.resetButtonDisabled)
             }
             
             Spacer()
@@ -179,6 +184,33 @@ struct EditPanelView: View {
         .background(Color.white)
         .onTapGesture {
             instantFeedbackManager.focusedPanel = .detailSetting
+            print("Standard value : \(standardPositionTimerX), \(standardPositionTimerY)")
+            print("InstantFeedbackManager value: \(instantFeedbackManager.userDefaultsPanelPosition[0]), \(instantFeedbackManager.userDefaultsPanelPosition[1])")
+        }
+        .onAppear {
+            // Panel들의 기본 위치 계산
+            let timerPanelX = instantFeedbackManager.getPanelPositionX(
+                left: instantFeedbackManager.TIMER_PANEL_INFO.topLeftPoint!.x,
+                padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+            )
+            let timerPanelY = instantFeedbackManager.getPanelPositionY(
+                top: instantFeedbackManager.TIMER_PANEL_INFO.topLeftPoint!.y,
+                height: instantFeedbackManager.TIMER_PANEL_INFO.size.height,
+                padding: instantFeedbackManager.PANEL_XMARK_RADIUS
+            )
+            standardPositionTimerX = timerPanelX + 11
+            standardPositionTimerY = timerPanelY + 11
+        }
+        .onChange(of: instantFeedbackManager.userDefaultsPanelPosition) { _, newValue in
+            if instantFeedbackManager.userDefaultsPanelPosition[0] != standardPositionTimerX {
+                instantFeedbackManager.resetButtonDisabled = false
+            }
+            else if instantFeedbackManager.userDefaultsPanelPosition[1] != standardPositionTimerY {
+                instantFeedbackManager.resetButtonDisabled = false
+            }
+            else {
+                instantFeedbackManager.resetButtonDisabled = true
+            }
         }
     }
 }
@@ -194,6 +226,11 @@ struct HPToggleStyle: ToggleStyle {
                 RoundedRectangle(cornerRadius: 11)
                     .frame(width: width, height: height)
                     .foregroundColor(configuration.isOn ? Color.HPPrimary.base : Color.HPGray.system400)
+                    .onTapGesture {
+                        withAnimation {
+                            configuration.$isOn.wrappedValue.toggle()
+                        }
+                    }
                 
                 RoundedRectangle(cornerRadius: 12)
                     .frame(width: 16, height: 15.25)

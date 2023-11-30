@@ -81,18 +81,18 @@ struct FillerWordPanelView: View {
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.x)),
+                    Int(panelController.panel?.frame.origin.x ?? 0),
                     forKey: "FillerWordPanelX"
                 )
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.y)),
+                    Int(panelController.panel?.frame.origin.y ?? 0),
                     forKey: "FillerWordPanelY"
                 )
-                #if DEBUG
-                print("HoverOut FillerWord xpos: \(Int(panelController.getPanelPosition()!.x))")
-                print("HoverOut FillerWord ypos: \(Int(panelController.getPanelPosition()!.y))")
-                #endif
+                 
                 instantFeedbackManager.focusedPanel = nil
+                
+                instantFeedbackManager.userDefaultsPanelPosition[4] = Int(panelController.getPanelPosition()!.x)
+                instantFeedbackManager.userDefaultsPanelPosition[5] = Int(panelController.getPanelPosition()!.y)
             }
         }
         .frame(

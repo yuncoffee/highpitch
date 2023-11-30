@@ -50,8 +50,13 @@ struct SavePanelView: View {
             
             Spacer()
             
-            HStack(alignment: .center) {
+            HStack(alignment: .center, spacing: 12) {
                 HPButton(color: .HPGray.system200) {
+                    // 연습 저장 X, 녹음 종료 및 생성된 비디오, 오디오 삭제
+                    SystemManager.shared.notSavePractice()
+                    // TimerPanel의 타이머 정지 및 초기화
+                    SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
+                    NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
                     instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
                     instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                 } label: { type, _, color, expandable in

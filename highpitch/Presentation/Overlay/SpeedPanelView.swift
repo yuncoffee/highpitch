@@ -92,19 +92,18 @@ struct SpeedPanelView: View {
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.x)),
+                    Int(panelController.panel?.frame.origin.x ?? 0),
                     forKey: "SpeedPanelX"
                 )
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.y)),
+                    Int(panelController.panel?.frame.origin.y ?? 0),
                     forKey: "SpeedPanelY"
                 )
-                #if DEBUG
-                print("UserDefaults에 넣는다")
-                print("Hover아웃시 SpeedPanelController.getPanelPosition.x: \(Int(panelController.getPanelPosition()!.x))")
-                print("Hover아웃시 SpeedPanelController.getPanelPosition.y: \(Int(panelController.getPanelPosition()!.y))")
-                #endif
+                
                 instantFeedbackManager.focusedPanel = nil
+                
+                instantFeedbackManager.userDefaultsPanelPosition[2] = Int(panelController.getPanelPosition()!.x)
+                instantFeedbackManager.userDefaultsPanelPosition[3] = Int(panelController.getPanelPosition()!.y)
             }
         }
         .frame(

@@ -23,6 +23,7 @@ final class PracticeViewStore {
     var nowSentence = 0
     var preSentence = 0
     var projectName: String
+    var sortedSentences: [SentenceModel]?
     
     // ************* V2 ************* //
     
@@ -87,9 +88,17 @@ extension PracticeViewStore {
         toolbarInfo.subTitle = Date().createAtToYMD(input: practice.creatAt.description) +
         " | " + Date().createAtToHMS(input: practice.creatAt.description)
     }
-    
+    static var count = 0
+    static var count2 = 0
     func getSortedSentences() -> [SentenceModel] {
-        practice.sentences.sorted(by: { $0.index < $1.index })
+        PracticeViewStore.count += 1
+        print(PracticeViewStore.count)
+        return practice.sentences.sorted(by: { $0.index < $1.index })
+    }
+    func setSortedSentences() {
+        PracticeViewStore.count2 += 1
+        print("count2 : ", PracticeViewStore.count2)
+        sortedSentences = practice.sentences.sorted(by: { $0.index < $1.index })
     }
     
     func getSortedWords() -> [WordModel] {

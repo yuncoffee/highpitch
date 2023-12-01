@@ -24,18 +24,15 @@ struct FeedbackStyleScript: View {
         ScrollViewReader { scrollViewProxy in
             scriptContainer
                 .onChange(of: viewStore.nowSentence) { _, newValue in
-                    withAnimation {
-                        scrollViewProxy.scrollTo(newValue, anchor: .center)
-                    }
+//                    withAnimation {
+//                        scrollViewProxy.scrollTo(newValue, anchor: .center)
+//                    }
                 }
                 .onChange(of: viewStore.currentFeedbackViewType) { _, _ in
-                    withAnimation {
-                        scrollViewProxy.scrollTo(viewStore.nowSentence, anchor: .center)
-                    }
+//                    withAnimation {
+//                        scrollViewProxy.scrollTo(viewStore.nowSentence, anchor: .center)
+//                    }
                 }
-//                .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
-//                    updateSelectedIndex(currentTime: newValue, sentences: sentences)
-//                }
         }
         .onAppear {
             // MARK: - Add MockData
@@ -69,17 +66,33 @@ extension FeedbackStyleScript {
 }
 
 extension FeedbackStyleScript {
+    
     @ViewBuilder
     private var scriptContainer: some View {
         VStack(spacing: .zero) {
-            let sentences = viewStore.getSortedSentences()
-            ForEach(sentences) { sentence in
-                scriptCell(sentence: sentence)
+            if let sentences = viewStore.sortedSentences {
+                ForEach(sentences) { sentence in
+                    scriptCell(sentence: sentence)
+                }
+            } else {
+                EmptyView()
             }
         }
         .padding(.horizontal, .HPSpacing.small)
         .padding(.bottom, .HPSpacing.xxxlarge + .HPSpacing.xxxsmall)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            viewStore.setSortedSentences()
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
+                print("hiroo")
+                guard let sentences = viewStore.sortedSentences else { return }
+                updateSelectedIndex(currentTime: viewStore.mediaManager.audioPlayer?.currentTime ?? 0, sentences: sentences)
+            }
+        }
+//        .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
+//            guard let sentences = viewStore.sortedSentences else { return }
+//            updateSelectedIndex(currentTime: newValue, sentences: sentences)
+//        }
     }
     
     func scriptCell(sentence: SentenceModel) -> some View {
@@ -500,15 +513,29 @@ extension FeedbackStyleScript {
     .padding(24)
 }
 extension FeedbackStyleScript {
-    private func updateSelectedIndex(currentTime: TimeInterval,sentences: [SentenceModel]) {
-        let currentSentence = sentences.first { sentence in
-            if sentence.startAt <= Int(currentTime*1000) ,
-               sentence.endAt > Int(currentTime*1000) {
-                return true
+    private func updateSelectedIndex(currentTime: TimeInterval, sentences: [SentenceModel]) {
+        guard let first = sentences.first else { return }
+        if Int(currentTime*1000) < first.startAt {
+            if (viewStore.nowSentence != 0) {
+                viewStore.nowSentence = 0
+                viewStore.preSentence = viewStore.nowSentence
             }
-            return false
+          return
         }
-        viewStore.nowSentence = currentSentence?.index ?? viewStore.preSentence
-        viewStore.preSentence = viewStore.nowSentence
+        var low = 0
+        var high = sentences.count - 1
+        while low <= high {
+          let mid = (low + high) % 2 == 0 ? (low + high) / 2 : (low + high) / 2 + 1
+          if sentences[mid].startAt <= Int(currentTime*1000) {
+            low = mid
+          } else {
+            high = mid - 1
+          }
+          if low == high { break }
         }
+        if (sentences[low].index != viewStore.nowSentence) {
+            viewStore.nowSentence = sentences[low].index
+            viewStore.preSentence = viewStore.nowSentence
+        }
+      }
 }

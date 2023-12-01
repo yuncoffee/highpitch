@@ -58,6 +58,8 @@ identifier_name:
     - day
     - top
     - key
+    - mid
+    - low
   allowed_symbols: ["_"]
 opt_in_rules:
   - missing_docs

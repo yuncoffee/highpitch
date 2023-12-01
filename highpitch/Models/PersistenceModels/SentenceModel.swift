@@ -25,13 +25,15 @@ class SentenceModel {
     var spmValue: Double
     /// 0: defalut, 1: fast, 2: slow
     var type: Int = SpeedType.default.rawValue
+    var fillerWordCount: Int = 0
     
-    init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0) {
+    init(index: Int, sentence: String, startAt: Int = -1, endAt: Int = -1, spmValue: Double = -1.0, fillerWordCount: Int = 0) {
         self.index = index
         self.spmValue = spmValue
         self.sentence = sentence
         self.startAt = startAt
         self.endAt = endAt
+        self.fillerWordCount = fillerWordCount
     }
 }
 

@@ -66,6 +66,7 @@ extension PracticeManager {
         var sentenceDuration: [Int] = [0]
         var tempWords: [WordModel] = []
         var tempSentences: [SentenceModel] = []
+        var fillerWordCount: Int = 0
         
         for (index, utterance) in practice.utterances.sorted().enumerated() {
             for word in utterance.message.components(separatedBy: " ") {
@@ -81,8 +82,10 @@ extension PracticeManager {
                 }
                 
                 /// words, sentences의 sentence를 업데이트한다.
+                let itIsFillerWord = isFillerWord(practice: practice, word: word)
+                if (itIsFillerWord) { fillerWordCount += 1 }
                 tempWords.append(WordModel(
-                    isFillerWord: isFillerWord(practice: practice, word: word),
+                    isFillerWord: itIsFillerWord,
                     sentenceIndex: sentenceIndex,
                     index: wordIndex,
                     word: word + " "))
@@ -113,7 +116,8 @@ extension PracticeManager {
                 /// EPM을 업데이트한다.
                 tempSentences[sentenceIndex].spmValue =
                 Double(sentenceSyllable[sentenceIndex] * 60000) / Double(sentenceDuration[sentenceIndex])
-                
+                /// FillerWordCount를 업데이트한다.
+                tempSentences[sentenceIndex].fillerWordCount = fillerWordCount
                 _ = tempWords.last!.word.popLast()
                 for tempWord in tempWords { practice.words.append(tempWord) }
                 tempWords.removeAll()
@@ -121,6 +125,7 @@ extension PracticeManager {
                 
                 /// 다음 문장으로 넘긴다.
                 sentenceIndex += 1
+                fillerWordCount = 0
             }
         }
         updateSummary(practice: practice)

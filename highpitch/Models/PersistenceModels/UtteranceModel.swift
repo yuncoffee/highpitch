@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class UtteranceModel: Comparable {
+class UtteranceModel: Comparable, Hashable {
     var startAt: Int
     var duration: Int
     var message: String
@@ -26,5 +26,9 @@ class UtteranceModel: Comparable {
 
     static func == (lhs: UtteranceModel, rhs: UtteranceModel) -> Bool {
         return lhs.startAt == rhs.startAt
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(startAt)
     }
 }

@@ -89,8 +89,8 @@ struct FillerWordPanelView: View {
                  
                 instantFeedbackManager.focusedPanel = nil
                 
-                instantFeedbackManager.userDefaultsPanelPosition[4] = Int(panelController.getPanelPosition()!.x)
-                instantFeedbackManager.userDefaultsPanelPosition[5] = Int(panelController.getPanelPosition()!.y)
+                instantFeedbackManager.userDefaultsPanelPosition[4] = Int(panelController.panel?.frame.origin.x ?? 0)
+                instantFeedbackManager.userDefaultsPanelPosition[5] = Int(panelController.panel?.frame.origin.y ?? 0)
             }
         }
         .frame(

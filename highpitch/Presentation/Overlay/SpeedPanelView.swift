@@ -100,8 +100,8 @@ struct SpeedPanelView: View {
                 
                 instantFeedbackManager.focusedPanel = nil
                 
-                instantFeedbackManager.userDefaultsPanelPosition[2] = Int(panelController.getPanelPosition()!.x)
-                instantFeedbackManager.userDefaultsPanelPosition[3] = Int(panelController.getPanelPosition()!.y)
+                instantFeedbackManager.userDefaultsPanelPosition[2] = Int(panelController.panel?.frame.origin.x ?? 0)
+                instantFeedbackManager.userDefaultsPanelPosition[3] = Int(panelController.panel?.frame.origin.y ?? 0)
             }
         }
         .frame(

@@ -61,8 +61,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             originalPos: originalYpos
         )
         
-        instantFeedbackManager.userDefaultsPanelPosition[0] = UserDefaults.standard.integer(forKey: "TimerPanelX")
-        instantFeedbackManager.userDefaultsPanelPosition[1] = UserDefaults.standard.integer(forKey: "TimerPanelY")
+        instantFeedbackManager.standardPanelPosition[0] = UserDefaults.standard.integer(forKey: "TimerPanelX")
+        instantFeedbackManager.standardPanelPosition[1] = UserDefaults.standard.integer(forKey: "TimerPanelY")
         
         let timerPanelController = PanelController(
             xpos: xpos,
@@ -79,6 +79,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 )
         )
         panelControllers[InstantPanel.timer] = timerPanelController
+        
+        instantFeedbackManager.userDefaultsPanelPosition[0] = Int(timerPanelController.panel?.frame.origin.x ?? 0)
+        instantFeedbackManager.userDefaultsPanelPosition[1] = Int(timerPanelController.panel?.frame.origin.y ?? 0)
         
         timerPanelController.panel?.contentView = NSHostingView(
             rootView: TimerPanelView(panelController: timerPanelController)
@@ -148,8 +151,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             originalPos: originalYpos
         )
         
-        instantFeedbackManager.userDefaultsPanelPosition[2] = UserDefaults.standard.integer(forKey: "SpeedPanelX")
-        instantFeedbackManager.userDefaultsPanelPosition[3] = UserDefaults.standard.integer(forKey: "SpeedPanelY")
+        instantFeedbackManager.standardPanelPosition[2] = UserDefaults.standard.integer(forKey: "SpeedPanelX")
+        instantFeedbackManager.standardPanelPosition[3] = UserDefaults.standard.integer(forKey: "SpeedPanelY")
         
         let speedPanelController = PanelController(
             xpos: xpos,
@@ -166,6 +169,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 )
         )
         panelControllers[InstantPanel.speed] = speedPanelController
+        
+        instantFeedbackManager.userDefaultsPanelPosition[2] = Int(speedPanelController.panel?.frame.origin.x ?? 0)
+        instantFeedbackManager.userDefaultsPanelPosition[3] = Int(speedPanelController.panel?.frame.origin.y ?? 0)
         
         speedPanelController.panel?.contentView = NSHostingView(
             rootView: SpeedPanelView(panelController: speedPanelController)
@@ -196,8 +202,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             originalPos: originalYpos
         )
         
-        instantFeedbackManager.userDefaultsPanelPosition[4] = UserDefaults.standard.integer(forKey: "FillerWordPanelX")
-        instantFeedbackManager.userDefaultsPanelPosition[5] = UserDefaults.standard.integer(forKey: "FillerWordPanelY")
+        instantFeedbackManager.standardPanelPosition[4] = UserDefaults.standard.integer(forKey: "FillerWordPanelX")
+        instantFeedbackManager.standardPanelPosition[5] = UserDefaults.standard.integer(forKey: "FillerWordPanelY")
         
         let fillerWordPanelController = PanelController(
             xpos: xpos,
@@ -214,6 +220,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 )
         )
         panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
+        
+        instantFeedbackManager.userDefaultsPanelPosition[4] = Int(fillerWordPanelController.panel?.frame.origin.x ?? 0)
+        instantFeedbackManager.userDefaultsPanelPosition[5] = Int(fillerWordPanelController.panel?.frame.origin.y ?? 0)
         
         fillerWordPanelController.panel?.contentView = NSHostingView(
             rootView: FillerWordPanelView(panelController: fillerWordPanelController)

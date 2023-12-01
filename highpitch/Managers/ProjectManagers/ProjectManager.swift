@@ -127,7 +127,8 @@ extension ProjectManager {
         print("녹음 종료")
         #endif
         mediaManager.stopRecording()
-//        SystemManager.shared.isAnalyzing = true
+        SystemManager.shared.isAnalyzing = false
+        return
     }
     
     private func makeNewUtterances(mediaManager: MediaManager) async -> [UtteranceModel] {

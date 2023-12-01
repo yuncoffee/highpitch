@@ -15,9 +15,6 @@ struct EditPanelView: View {
     var panelController: PanelController
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
-    @State private var standardPositionTimerX: Int = 0
-    @State private var standardPositionTimerY: Int = 0
-    
     let EDIT_PANEL_INFO = SystemManager.shared.instantFeedbackManager.EDIT_PANEL_INFO
     
     var body: some View {
@@ -184,33 +181,6 @@ struct EditPanelView: View {
         .background(Color.white)
         .onTapGesture {
             instantFeedbackManager.focusedPanel = .detailSetting
-            print("Standard value : \(standardPositionTimerX), \(standardPositionTimerY)")
-            print("InstantFeedbackManager value: \(instantFeedbackManager.userDefaultsPanelPosition[0]), \(instantFeedbackManager.userDefaultsPanelPosition[1])")
-        }
-        .onAppear {
-            // Panel들의 기본 위치 계산
-            let timerPanelX = instantFeedbackManager.getPanelPositionX(
-                left: instantFeedbackManager.TIMER_PANEL_INFO.topLeftPoint!.x,
-                padding: instantFeedbackManager.PANEL_XMARK_RADIUS
-            )
-            let timerPanelY = instantFeedbackManager.getPanelPositionY(
-                top: instantFeedbackManager.TIMER_PANEL_INFO.topLeftPoint!.y,
-                height: instantFeedbackManager.TIMER_PANEL_INFO.size.height,
-                padding: instantFeedbackManager.PANEL_XMARK_RADIUS
-            )
-            standardPositionTimerX = timerPanelX + 11
-            standardPositionTimerY = timerPanelY + 11
-        }
-        .onChange(of: instantFeedbackManager.userDefaultsPanelPosition) { _, newValue in
-            if instantFeedbackManager.userDefaultsPanelPosition[0] != standardPositionTimerX {
-                instantFeedbackManager.resetButtonDisabled = false
-            }
-            else if instantFeedbackManager.userDefaultsPanelPosition[1] != standardPositionTimerY {
-                instantFeedbackManager.resetButtonDisabled = false
-            }
-            else {
-                instantFeedbackManager.resetButtonDisabled = true
-            }
         }
     }
 }

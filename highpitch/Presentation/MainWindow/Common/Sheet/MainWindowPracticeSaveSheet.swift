@@ -11,19 +11,26 @@ struct MainWindowPracticeSaveSheet: View {
     var instantFeedbackManager = SystemManager.shared.instantFeedbackManager
     
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            Button {
-                SystemManager.shared.isMainWindowPracticeSaveSheetActive = false
-            } label: {
-                Image(systemName: "xmark")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 14, height: 14)
-                    .foregroundStyle(Color.HPGray.system800)
+        VStack {
+            HStack {
+                Spacer()
+                HStack {
+                    Button {
+                        instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                            .foregroundStyle(Color.HPGray.system600)
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.trailing, 17)
             }
-            .buttonStyle(.plain)
-            .frame(width: 28, height: 28)
-            .offset(x: -16, y: 16)
+            .padding(.top, 16)
+            
+            Spacer()
+            
             VStack(alignment: .center, spacing: .HPSpacing.xxsmall + .HPSpacing.xxxsmall) {
                 VStack(spacing: .HPSpacing.xxsmall) {
                     Text("연습 기록을 저장하시겠어요?")
@@ -40,7 +47,8 @@ struct MainWindowPracticeSaveSheet: View {
                         SystemManager.shared.notSavePractice()
                         // TimerPanel의 타이머 정지 및 초기화
                         SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
-                        NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
+                        // NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
+                        NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                         instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
                         instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                         

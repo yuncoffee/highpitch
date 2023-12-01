@@ -27,6 +27,7 @@ class UtteranceModel: Comparable, Hashable {
     static func == (lhs: UtteranceModel, rhs: UtteranceModel) -> Bool {
         return lhs.startAt == rhs.startAt
     }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(startAt)
     }

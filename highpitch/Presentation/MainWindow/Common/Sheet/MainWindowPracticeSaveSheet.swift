@@ -40,7 +40,8 @@ struct MainWindowPracticeSaveSheet: View {
                         SystemManager.shared.notSavePractice()
                         // TimerPanel의 타이머 정지 및 초기화
                         SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
-                        NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
+                        // NotificationCenter.default.post(name: Notification.Name("cancelButtonClicked"), object: true)
+                        NotificationCenter.default.post(name: Notification.Name("stopButtonClicked"), object: true)
                         instantFeedbackManager.feedbackPanelControllers[.save]?.hidePanel(self)
                         instantFeedbackManager.feedbackPanelControllers[.detailSetting]?.hidePanel(self)
                         

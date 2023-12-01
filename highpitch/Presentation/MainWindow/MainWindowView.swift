@@ -432,6 +432,7 @@ extension MainWindowView {
 }
 
 extension MainWindowView {
+    
     private func addNewProject() {
         let newProject = ProjectModel(
             projectName: "\(Date.now.formatted())",

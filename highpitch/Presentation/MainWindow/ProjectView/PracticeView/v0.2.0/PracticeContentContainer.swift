@@ -36,7 +36,7 @@ struct PracticeContentContainer: View {
         }
         .onAppear {
             spaceAndArrowKeyClicked()
-            wheelChange()
+            // wheelChange()
         }
         .onAppear {
             registerMedia()

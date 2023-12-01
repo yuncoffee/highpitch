@@ -197,7 +197,7 @@ extension MediaManager: AudioPlayable {
         audioPlayer?.play()
         isPlaying = true
         if !(timer?.isValid ?? false) {
-            timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 self.currentTime = self.audioPlayer?.currentTime ?? 0
             }
         }

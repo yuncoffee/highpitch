@@ -15,7 +15,7 @@ import SwiftData
 /// 2. projectID: persistentID
 
 @Model
-class PracticeModel: Comparable {
+class PracticeModel: Comparable, Hashable {
     var practiceName: String
     var index: Int
     var isVisited: Bool
@@ -67,5 +67,9 @@ class PracticeModel: Comparable {
 
     static func == (lhs: PracticeModel, rhs: PracticeModel) -> Bool {
         return lhs.creatAt == rhs.creatAt
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(creatAt)
     }
 }

@@ -36,8 +36,10 @@ struct FillerWordPanelView: View {
                     .padding(.top, .HPSpacing.xxxxsmall)
                     .foregroundColor(Color.HPGray.systemWhite.opacity(0.6))
             }
+            .offset(y: 4)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.HPGray.systemBlack.opacity(0.4))
+            .background(.ultraThickMaterial)
             .edgesIgnoringSafeArea(.all)
             .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.large))
         }
@@ -79,18 +81,18 @@ struct FillerWordPanelView: View {
             } else {
                 // Hover Out 되었을때, 해당 위치를 UserDefaults에 넣는다.
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.x)),
+                    Int(panelController.panel?.frame.origin.x ?? 0),
                     forKey: "FillerWordPanelX"
                 )
                 UserDefaults.standard.set(
-                    String(Int(panelController.getPanelPosition()!.y)),
+                    Int(panelController.panel?.frame.origin.y ?? 0),
                     forKey: "FillerWordPanelY"
                 )
-                #if DEBUG
-                print("HoverOut FillerWord xpos: \(Int(panelController.getPanelPosition()!.x))")
-                print("HoverOut FillerWord ypos: \(Int(panelController.getPanelPosition()!.y))")
-                #endif
+                 
                 instantFeedbackManager.focusedPanel = nil
+                
+                instantFeedbackManager.userDefaultsPanelPosition[4] = Int(panelController.getPanelPosition()!.x)
+                instantFeedbackManager.userDefaultsPanelPosition[5] = Int(panelController.getPanelPosition()!.y)
             }
         }
         .frame(
@@ -152,4 +154,19 @@ struct FillerWordStatus: View {
     )
     .frame(maxWidth: 132, maxHeight: 132)
     .padding(64)
+}
+
+struct BlurredView: NSViewRepresentable {
+    var material: NSVisualEffectView.Material = .menu
+    
+    func makeNSView(context: Context) -> some NSView {
+        let view = NSVisualEffectView()
+        view.material = material
+        view.blendingMode = .behindWindow
+        
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSViewType, context: Context) {
+    }
 }

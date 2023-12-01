@@ -84,6 +84,7 @@ struct HighpitchApp: App {
         systemManager.playPractice = playPractice
         systemManager.pausePractice = pausePractice
         systemManager.stopPractice = stopPractice
+        systemManager.notSavePractice = notSavePractice
         #if DEBUG
         print("시작할때 Start 키콤보: ",systemManager.hotkeyStart.keyCombo)
         print("시작할때 Pause 키콤보: ",systemManager.hotkeyPause.keyCombo)
@@ -184,6 +185,7 @@ struct HighpitchApp: App {
                 .environment(mediaManager)
                 .modelContainer(container)
         }
+        .windowResizability(.contentSize)
         // MARK: - MenubarExtra Scene
         MenuBarExtra {
             MenubarExtraView(
@@ -254,6 +256,17 @@ extension HighpitchApp {
         Task {
             await MainActor.run {
                 projectManager.stopPractice(
+                    mediaManager: mediaManager,
+                    modelContext: container.mainContext
+                )
+            }
+        }
+    }
+    
+    func notSavePractice() {
+        Task {
+            await MainActor.run {
+                projectManager.notSavePractice(
                     mediaManager: mediaManager,
                     modelContext: container.mainContext
                 )

@@ -87,7 +87,7 @@ extension AnalysisSpeedRateChart {
                         )
                         .symbolSize(113)
                         .offset(y: practice.summary.maxSpm == practice.summary.minSpm ? 0 : 8)
-                        .foregroundStyle(Color.HPGray.systemWhite)
+                        .foregroundStyle(Color.HPTextStyle.white1000)
                     }
                     if practice.summary.minSpm == rawFirst {
                         PointMark(
@@ -96,7 +96,7 @@ extension AnalysisSpeedRateChart {
                         )
                         .symbolSize(113)
                         .offset(y: practice.summary.maxSpm == practice.summary.minSpm ? 0 : -8)
-                        .foregroundStyle(Color.HPGray.systemWhite)
+                        .foregroundStyle(Color.HPTextStyle.white1000)
                     }
                 }
                 /// 호버 효과

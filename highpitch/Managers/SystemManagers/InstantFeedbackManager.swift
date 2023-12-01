@@ -25,8 +25,28 @@ final class InstantFeedbackManager {
     var speechRecognizerManager: SpeechRecognizerManager?
     var feedbackPanelControllers: [InstantPanel:PanelController] = [:]
     
-    var movablePanelMoved: [Bool] = [false, false, false, false, false, false]
-    var resetButtonDisabled = true
+    var standardPanelPosition: [Int] = [0,0,0,0,0,0]
+    var userDefaultsPanelPosition: [Int] = [0, 0, 0, 0, 0, 0] {
+        didSet(newVal) {
+            if userDefaultsPanelPosition[0] != standardPanelPosition[0] {
+                resetButtonDisabled = false
+            } else if userDefaultsPanelPosition[1] != standardPanelPosition[1] {
+                resetButtonDisabled = false
+            } else if userDefaultsPanelPosition[2] != standardPanelPosition[2] {
+                resetButtonDisabled = false
+            } else if userDefaultsPanelPosition[3] != standardPanelPosition[3] {
+                resetButtonDisabled = false
+            } else if userDefaultsPanelPosition[4] != standardPanelPosition[4] {
+                resetButtonDisabled = false
+            } else if userDefaultsPanelPosition[5] != standardPanelPosition[5] {
+                resetButtonDisabled = false
+            } else {
+                resetButtonDisabled = true
+            }
+        }
+    }
+    
+    var resetButtonDisabled = false
     
     var isTimerRunning = -2
     
@@ -43,7 +63,7 @@ final class InstantFeedbackManager {
         bottomRightPoint: nil
     )
     let SETTING_PANEL_INFO: PanelFrameInfo = (
-        size: CGSize(width: 44.0, height: 28.0),
+        size: CGSize(width: 32, height: 21),
         topLeftPoint: CGPoint(x: 0, y: 77),
         bottomRightPoint: CGPoint(x:64, y:0)
     )

@@ -61,15 +61,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             originalPos: originalYpos
         )
         
-        instantFeedbackManager.movablePanelMoved[0] = (xpos == originalXpos) ? false : true
-        instantFeedbackManager.movablePanelMoved[1] = (ypos == originalYpos) ? false : true
-        #if DEBUG
-        print("init Timer xpos: ", xpos)
-        print("init Timer ypos: ", ypos)
-        #endif
+        instantFeedbackManager.userDefaultsPanelPosition[0] = UserDefaults.standard.integer(forKey: "TimerPanelX")
+        instantFeedbackManager.userDefaultsPanelPosition[1] = UserDefaults.standard.integer(forKey: "TimerPanelY")
+        
         let timerPanelController = PanelController(
-            xpos: xpos - 11,
-            ypos: ypos - 11,
+            xpos: xpos,
+            ypos: ypos,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: TIMER_PANEL_INFO.size.width,
@@ -150,16 +147,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             key: "SpeedPanelY",
             originalPos: originalYpos
         )
-        #if DEBUG
-        print("init Speed xpos: ", xpos)
-        print("init Speed ypos: ", ypos)
-        #endif
-        instantFeedbackManager.movablePanelMoved[2] = (xpos == originalXpos) ? false : true
-        instantFeedbackManager.movablePanelMoved[3] = (ypos == originalYpos) ? false : true
+        
+        instantFeedbackManager.userDefaultsPanelPosition[2] = UserDefaults.standard.integer(forKey: "SpeedPanelX")
+        instantFeedbackManager.userDefaultsPanelPosition[3] = UserDefaults.standard.integer(forKey: "SpeedPanelY")
         
         let speedPanelController = PanelController(
-            xpos: xpos - 11,
-            ypos: ypos - 11,
+            xpos: xpos,
+            ypos: ypos,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: SPEED_PANEL_INFO.size.width,
@@ -201,16 +195,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             key: "FillerWordPanelY",
             originalPos: originalYpos
         )
-        #if DEBUG
-        print("init FillerWord xpos: ", xpos)
-        print("init FillerWord ypos: ", ypos)
-        #endif
-        instantFeedbackManager.movablePanelMoved[4] = (xpos == originalXpos) ? false : true
-        instantFeedbackManager.movablePanelMoved[5] = (ypos == originalYpos) ? true : false
+        
+        instantFeedbackManager.userDefaultsPanelPosition[4] = UserDefaults.standard.integer(forKey: "FillerWordPanelX")
+        instantFeedbackManager.userDefaultsPanelPosition[5] = UserDefaults.standard.integer(forKey: "FillerWordPanelY")
         
         let fillerWordPanelController = PanelController(
-            xpos: xpos - 11,
-            ypos: ypos - 11,
+            xpos: xpos,
+            ypos: ypos,
             width:
                 instantFeedbackManager.getTotalFrameWidth(
                     width: FILLERWORD_PANEL_INFO.size.width,
@@ -224,9 +215,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
         
-        fillerWordPanelController.panel?.contentView = NSHostingView(
-            rootView: FillerWordPanelView(panelController: fillerWordPanelController)
-        )
+        fillerWordPanelController.panel?.contentView = NSHostingView(rootView: FillerWordPanelView(panelController: fillerWordPanelController))
         fillerWordPanelController.hidePanel(self)
     }
     

@@ -33,12 +33,12 @@ struct PracticeListCell: View {
     
     var body: some View {
         HStack(spacing: .zero) {
-            HStack(spacing: .zero) {
+            HStack(spacing: .HPSpacing.xsmall) {
                 if isEditMode {
                     Toggle(isOn: $isSelected) {
                     }
                     .frame(height: 12)
-                    .frame(height: 36)
+                    .frame(width: 16, height: 24)
                     .accentColor(Color.HPPrimary.base)
                     .opacity(isEditMode ? 1 : 0)
                     .disabled(!isEditMode)
@@ -48,7 +48,7 @@ struct PracticeListCell: View {
                         .scaledToFit()
                         .foregroundStyle(isRemarkable ? Color("FEBC2E") : Color.HPTextStyle.light)
                         .frame(height: 12)
-                        .frame(height: 36)
+                        .frame(width: 16, height: 24)
                         .onTapGesture {
                             isRemarkable.toggle()
                             practice.remarkable = isRemarkable
@@ -70,25 +70,21 @@ struct PracticeListCell: View {
                     .systemFont(.footnote, weight: .medium)
                     .foregroundStyle(Color.HPTextStyle.darker)
             }
-            .frame(minWidth: 151, maxWidth: .infinity, alignment: .center)
-            .border(.red)
+            .frame(minWidth: 151, maxWidth: .infinity, alignment: .leading)
             Text("\(Date().createAtToPracticeDate(input: practice.creatAt))")
                 .systemFont(.footnote, weight: .medium)
                 .foregroundStyle(Color.HPTextStyle.light)
-                .frame(minWidth: 160, maxWidth: .infinity, alignment: .center)
-                .border(.red)
+                .frame(minWidth: 160, maxWidth: .infinity, alignment: .leading)
             Text("\(parseDurationToLabel(duration: duration))")
                 .systemFont(.footnote, weight: .medium)
                 .foregroundStyle(Color.HPTextStyle.light)
-                .frame(minWidth: 80, maxWidth: .infinity, alignment: .center)
-                .border(.red)
+                .frame(minWidth: 80, maxWidth: .infinity, alignment: .leading)
             Image(systemName: "chevron.right")
                 .resizable()
                 .scaledToFit()
                 .foregroundStyle(Color.HPGray.system400)
                 .frame(minWidth: 12, maxWidth: 12, minHeight: 12, maxHeight: 12)
                 .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
-                .border(.red)
         }
         .frame(minHeight: 56)
         .padding(.leading, .HPSpacing.small)

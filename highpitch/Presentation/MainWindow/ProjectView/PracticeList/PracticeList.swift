@@ -35,26 +35,27 @@ struct PracticeList: View {
                     ScrollView {
                         VStack(spacing: .HPSpacing.xxxxsmall) {
                             HStack(spacing: .zero) {
-                                Text("연습 회차")
-                                    .systemFont(.caption)
-                                    .foregroundStyle(Color.HPTextStyle.light)
-                                    .frame(minWidth: 151, maxWidth: .infinity, alignment: .center)
-                                    .border(.red)
+                                HStack(spacing: .HPSpacing.small) {
+                                    Text("")
+                                        .frame(height: 36)
+                                    Text("연습 회차")
+                                        .systemFont(.caption)
+                                        .foregroundStyle(Color.HPTextStyle.light)
+                                        .offset(x: 8)
+                                }
+                                .frame(minWidth: 151, maxWidth: .infinity, alignment: .leading)
                                 Text("연습 일시")
                                     .systemFont(.caption)
                                     .foregroundStyle(Color.HPTextStyle.light)
-                                    .frame(minWidth: 160, maxWidth: .infinity, alignment: .center)
-                                    .border(.red)
+                                    .frame(minWidth: 160, maxWidth: .infinity, alignment: .leading)
                                 Text("소요 시간")
                                     .systemFont(.caption)
                                     .foregroundStyle(Color.HPTextStyle.light)
-                                    .frame(minWidth: 80, maxWidth: .infinity, alignment: .center)
-                                    .border(.red)
+                                    .frame(minWidth: 80, maxWidth: .infinity, alignment: .leading)
                                 Text("")
                                     .foregroundStyle(Color.HPGray.system400)
                                     .frame(minWidth: 12, maxWidth: 12, minHeight: 12, maxHeight: 12)
                                     .frame(minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36)
-                                    .border(.red)
                             }
                             .frame(maxWidth: .infinity)
                             .padding(.top, .HPSpacing.xsmall)

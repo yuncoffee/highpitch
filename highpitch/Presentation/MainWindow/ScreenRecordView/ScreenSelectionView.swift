@@ -158,6 +158,12 @@ extension ScreenSelectionView {
                                                object: nil, queue: nil) { value in
             stopCapture()
         }
+        
+        // 연습 저장하지 않고 끝내기
+        NotificationCenter.default.addObserver(forName: Notification.Name("cancelButtonClicked"),
+                                               object: nil, queue: nil) { value in
+            cancelCapture()
+        }
     }
     private func playPractice() {
         #if DEBUG
@@ -208,6 +214,24 @@ extension ScreenSelectionView {
             }
         }
     }
+    
+    // 연습 저장하지 않고 끝내기
+    func cancelCapture() {
+        Task {
+            // audioRecorder.stopRecording()
+            await screenRecorder.stopPreview()
+            await screenRecorder.stop()
+            SystemManager.shared.stopInstantFeedback()
+            
+            do {
+                try FileManager.default.removeItem(at: URL.getPath(fileName: fileName, type: .video))
+                try FileManager.default.removeItem(at: URL.getPath(fileName: fileName, type: .audio))
+            } catch {
+                print("파일 삭제 실패")
+            }
+        }
+    }
+    
     func startPreview() {
         Task {
             if await screenRecorder.canRecord {

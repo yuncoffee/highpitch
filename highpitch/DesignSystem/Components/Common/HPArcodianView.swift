@@ -49,7 +49,7 @@ extension HPArcodianView {
         // header
         HStack {
             Text(label)
-                .systemFont(.caption, weight: .semibold)
+                .systemFont(.footnote, weight: .semibold)
                 .foregroundStyle(Color.HPTextStyle.darker)
             Spacer()
             HPButton(type: .text, size: .medium, color: .HPTextStyle.base) {

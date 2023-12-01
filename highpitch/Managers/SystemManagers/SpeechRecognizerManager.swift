@@ -298,20 +298,25 @@ final class SpeechRecognizerManager {
                                 self.message = ""
                             }
                             self.endAt = word.timestamp + word.duration
-                            if (self.message != "" && self.message.last! != " ") {
-                                self.message += " "
+                            if word.substring != " " {
+                                if (self.message != "" && self.message.last! != " " && !self.message.isEmpty) {
+                                    self.message += " "
+                                }
+                                self.message += word.substring
                             }
-                            self.message += word.substring
                             if (word == result.bestTranscription.segments.last!) {
-                                #if DEBUG
-                                print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
-                                print()
-                                #endif
-                                answer.append(UtteranceModel(
-                                    startAt: Int(self.startAt * 1000),
-                                    duration: Int((self.endAt - self.startAt) * 1000),
-                                    message: self.message
-                                ))
+                                if self.message != "" {
+                                    self.message += "."
+                                    #if DEBUG
+                                    print(Int(self.startAt * 1000), Int((self.endAt - self.startAt) * 1000), self.message)
+                                    print()
+                                    #endif
+                                    answer.append(UtteranceModel(
+                                        startAt: Int(self.startAt * 1000),
+                                        duration: Int((self.endAt - self.startAt) * 1000),
+                                        message: self.message
+                                    ))
+                                }
                                 self.message = ""
                             }
                         }

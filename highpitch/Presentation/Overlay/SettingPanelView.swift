@@ -31,17 +31,25 @@ struct SettingPanelView: View {
                         width: SETTING_PANEL_INFO.size.width,
                         height: SETTING_PANEL_INFO.size.height
                     )
-                    .foregroundColor(
-                        instantFeedbackManager.isDetailSettingActive ? Color("FFFFFF").opacity(0.5) :
-                            (instantFeedbackManager.focusedPanel == .setting ?
-                                .white.opacity(0.5) : .white.opacity(0.15)
-                            )
-                    )
+                    .foregroundColor(Color.HPGray.systemWhite.opacity(0.3))
+//                    .foregroundColor(Color.HPGray.systemBlack.opacity(0.2))
+//                    .foregroundColor(
+//                        instantFeedbackManager.isDetailSettingActive ? Color("FFFFFF").opacity(0.5) :
+//                            (instantFeedbackManager.focusedPanel == .setting ?
+//                                .HPGray.systemBlack.opacity(0.2) : .HPGray.systemBlack.opacity(0.4)
+//                            )
+//                    )
             }
             .frame(
                 width: SETTING_PANEL_INFO.size.width,
                 height: SETTING_PANEL_INFO.size.height
             )
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(Color.HPGray.systemBlack.opacity(0.2))
+            .background(.ultraThickMaterial)
+            .edgesIgnoringSafeArea(.all)
+            .clipShape(RoundedRectangle(cornerRadius: .HPCornerRadius.medium))
         }
         .overlay {
             ZStack(alignment: .topTrailing) {

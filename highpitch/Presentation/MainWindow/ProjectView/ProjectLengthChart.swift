@@ -63,7 +63,7 @@ extension ProjectLengthChart {
                         y: .value(title, practice.summary.practiceLength),
                         width: MarkDimension(integerLiteral: 20)
                     )
-                    .foregroundStyle(Color("564A61"))
+                    .foregroundStyle(Color.HPComponent.timeGraph)
                 }
                 /// 호버 효과
                 if let selected {

@@ -29,10 +29,9 @@ struct PracticeContentContainer: View {
                     FullScreenVideoContainer()
                     SplitViewContainer()
                 }
-    //            .padding(.bottom, .HPSpacing.xxxlarge)
-                if viewStore.isFullScreenTransition {
-                    VideoControllerContainer()
-                }
+                VideoControllerContainer()
+                    .opacity(viewStore.isFullScreenTransition ? 1 : 0)
+                    .animation(nil, value: viewStore.isFullScreenTransition)
             }
         }
         .onAppear {

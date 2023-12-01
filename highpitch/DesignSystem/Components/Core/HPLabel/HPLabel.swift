@@ -37,6 +37,7 @@ struct HPLabel: View, StyleEssential, LabelStyleEssential {
                 padding: padding
             )
         )
+        .animation(nil, value: UUID())
     }
 }
 

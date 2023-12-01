@@ -20,10 +20,10 @@ struct HPHoverBox<T: View>: View {
                 .overlay(alignment: .top) {
                     Text("\(description)")
                         .styledFont(.labeldButton)
-                        .foregroundStyle(Color.HPGray.systemWhite)
+                        .foregroundStyle(Color.HPTextStyle.white1000)
                         .padding(.vertical, .HPSpacing.xxxxsmall)
                         .padding(.horizontal, .HPSpacing.xxxsmall)
-                        .background(Color.HPGray.systemBlack.opacity(0.7))
+                        .background(Color("000000").opacity(0.7))
                         .clipShape(
                             RoundedRectangle(
                                 cornerRadius: .HPCornerRadius.small

@@ -24,7 +24,7 @@ struct RequestMicPermissionSheet: View {
         .padding(.bottom, .HPSpacing.small)
         .padding(.horizontal, .HPSpacing.xsmallBetweenSmall +  .HPSpacing.xxxsmall)
         .frame(width: 400)
-        .background(Color.HPGray.systemWhite)
+        .background(Color.HPComponent.Onboarding.background)
     }
 }
 

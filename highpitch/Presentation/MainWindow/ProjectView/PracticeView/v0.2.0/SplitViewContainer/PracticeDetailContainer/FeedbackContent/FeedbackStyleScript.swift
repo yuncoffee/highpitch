@@ -136,9 +136,8 @@ extension FeedbackStyleScript {
     @ViewBuilder
     func fillerWordScriptCell(sentence: SentenceModel, isSelected: Bool) -> some View {
         let words = viewStore.getContainsWords(sentenceIndex: sentence.index)
-        let hasFillerWord = words.firstIndex(where: { $0.isFillerWord })
         
-        if hasFillerWord != nil {
+        if sentence.fillerWordCount > 0 {
             HStack(alignment: .top, spacing: .HPSpacing.xxsmall) {
                 HPLabel(
                     content: (intToMMSS(input: sentence.startAt), nil),

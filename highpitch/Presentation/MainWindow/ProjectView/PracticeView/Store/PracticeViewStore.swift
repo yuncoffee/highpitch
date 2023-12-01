@@ -88,16 +88,10 @@ extension PracticeViewStore {
         toolbarInfo.subTitle = Date().createAtToYMD(input: practice.creatAt.description) +
         " | " + Date().createAtToHMS(input: practice.creatAt.description)
     }
-    static var count = 0
-    static var count2 = 0
     func getSortedSentences() -> [SentenceModel] {
-        PracticeViewStore.count += 1
-        print(PracticeViewStore.count)
         return practice.sentences.sorted(by: { $0.index < $1.index })
     }
     func setSortedSentences() {
-        PracticeViewStore.count2 += 1
-        print("count2 : ", PracticeViewStore.count2)
         sortedSentences = practice.sentences.sorted(by: { $0.index < $1.index })
     }
     

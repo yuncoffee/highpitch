@@ -24,14 +24,14 @@ struct FeedbackStyleScript: View {
         ScrollViewReader { scrollViewProxy in
             scriptContainer
                 .onChange(of: viewStore.nowSentence) { _, newValue in
-//                    withAnimation {
-//                        scrollViewProxy.scrollTo(newValue, anchor: .center)
-//                    }
+                    withAnimation {
+                        scrollViewProxy.scrollTo(newValue, anchor: .center)
+                    }
                 }
                 .onChange(of: viewStore.currentFeedbackViewType) { _, _ in
-//                    withAnimation {
-//                        scrollViewProxy.scrollTo(viewStore.nowSentence, anchor: .center)
-//                    }
+                    withAnimation {
+                        scrollViewProxy.scrollTo(viewStore.nowSentence, anchor: .center)
+                    }
                 }
         }
         .onAppear {
@@ -83,16 +83,14 @@ extension FeedbackStyleScript {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             viewStore.setSortedSentences()
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
-                print("hiroo")
+            _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
                 guard let sentences = viewStore.sortedSentences else { return }
-                updateSelectedIndex(currentTime: viewStore.mediaManager.audioPlayer?.currentTime ?? 0, sentences: sentences)
+                updateSelectedIndex(currentTime:
+                    viewStore.mediaManager.audioPlayer?.currentTime ?? 0,
+                    sentences: sentences
+                )
             }
         }
-//        .onChange(of: viewStore.mediaManager.currentTime) { _, newValue in
-//            guard let sentences = viewStore.sortedSentences else { return }
-//            updateSelectedIndex(currentTime: newValue, sentences: sentences)
-//        }
     }
     
     func scriptCell(sentence: SentenceModel) -> some View {
@@ -520,22 +518,22 @@ extension FeedbackStyleScript {
                 viewStore.nowSentence = 0
                 viewStore.preSentence = viewStore.nowSentence
             }
-          return
+            return
         }
         var low = 0
         var high = sentences.count - 1
         while low <= high {
-          let mid = (low + high) % 2 == 0 ? (low + high) / 2 : (low + high) / 2 + 1
-          if sentences[mid].startAt <= Int(currentTime*1000) {
-            low = mid
-          } else {
-            high = mid - 1
-          }
-          if low == high { break }
+            let mid = (low + high) % 2 == 0 ? (low + high) / 2 : (low + high) / 2 + 1
+            if sentences[mid].startAt <= Int(currentTime*1000) {
+                low = mid
+            } else {
+                high = mid - 1
+            }
+            if low == high { break }
         }
         if (sentences[low].index != viewStore.nowSentence) {
             viewStore.nowSentence = sentences[low].index
             viewStore.preSentence = viewStore.nowSentence
         }
-      }
+    }
 }

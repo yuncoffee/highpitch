@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimerPanelView: View {
-    @State private var timer: Timer? = nil
+    @State private var timer: Timer?
     @State private var elapsedTime: TimeInterval = 0.0
     
     var panelController: PanelController

@@ -28,16 +28,15 @@ struct FillerWordAudioIndicator: View {
             GeometryReader { geometry in
                 let widthPercent = geometry.size.width * 0.01
                 ForEach(viewStore.getSortedSentences()) { sentence in
-                    let fillerWordCount = viewStore.getContainsFillerCount(sentenceIndex: sentence.index)
                     let xRatio = Double(sentence.startAt * 100) / duration
-                    if fillerWordCount > 0 {
+                    if sentence.fillerWordCount > 0 {
                         VStack {
     //                        Text("\(fillerWordCount)")
                             Rectangle()
                                 .rotation(Angle(degrees: 45.0))
                                 .frame(width: 8, height: 8)
                                 .foregroundStyle(
-                                    fillerWordCount > 2
+                                    sentence.fillerWordCount > 2
                                     ? Color.HPSecondary.base
                                     : Color.HPPrimary.dark.opacity(0.5)
                                 )

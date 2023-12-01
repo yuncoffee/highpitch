@@ -222,10 +222,19 @@ extension ScreenSelectionView {
             await screenRecorder.stopPreview()
             await screenRecorder.stop()
             SystemManager.shared.stopInstantFeedback()
-            
+            audioRecorder.mergeAudioAndVideo(
+                videoURL: URL.getPath(fileName: fileName, type: .video),
+                audioURL: URL.getPath(fileName: fileName, type: .audio),
+                outputURL: URL.getPath(fileName: fileName + "_merge", type: .video)
+            ) { error in
+                #if DEBUG
+                print(error ?? "nil")
+                #endif
+            }
             do {
                 try FileManager.default.removeItem(at: URL.getPath(fileName: fileName, type: .video))
                 try FileManager.default.removeItem(at: URL.getPath(fileName: fileName, type: .audio))
+                try FileManager.default.removeItem(at: URL.getPath(fileName: fileName + "_merge", type: .video))
             } catch {
                 print("파일 삭제 실패")
             }

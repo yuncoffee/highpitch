@@ -112,8 +112,8 @@ struct TimerPanelView: View {
                 
                 instantFeedbackManager.focusedPanel = nil
                 
-                instantFeedbackManager.userDefaultsPanelPosition[0] = Int(panelController.getPanelPosition()!.x)
-                instantFeedbackManager.userDefaultsPanelPosition[1] = Int(panelController.getPanelPosition()!.y)
+                instantFeedbackManager.userDefaultsPanelPosition[0] = Int(panelController.panel?.frame.origin.x ?? 0)
+                instantFeedbackManager.userDefaultsPanelPosition[1] = Int(panelController.panel?.frame.origin.y ?? 0)
             }
         }
         .frame(

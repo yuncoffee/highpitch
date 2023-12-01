@@ -54,6 +54,7 @@ struct FillerWordAudioIndicator: View {
         .padding(.horizontal, .HPSpacing.xxxsmall)
         .frame(maxWidth:.infinity, maxHeight: viewStore.AUDIO_INDICATOR_HEIGHT, alignment: .leading)
         .background(Color.HPPrimary.lightnest.opacity(0.55))
+        .background(.ultraThinMaterial)
         .onAppear {
             // MARK: - Add MockData
 #if PREVIEW

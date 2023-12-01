@@ -56,6 +56,7 @@ final class PracticeViewStore {
     }
     
     var currentFeedbackViewType: FeedbackViewType = .every
+    var recentFeedbackViewType: FeedbackViewType = .fillerWord
     var scriptViewSpeedType: SpeedViewType = .fast
     
     let AUDIO_INDICATOR_HEIGHT = 24.0

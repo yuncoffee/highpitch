@@ -22,7 +22,7 @@ struct OnboardingView: View {
             leftContainer
             rightContainer
                 .frame(maxWidth: IMAGE_SIZE.width, maxHeight: .infinity, alignment: .bottom)
-                .background(Color.HPPrimary.lightnest)
+                .background(Color.HPComponent.Onboarding.background)
         }
         .toolbarBackground(.hidden)
         .sheet(isPresented: $viewStore.isOnboardingNoticeSheetActive) {
@@ -92,15 +92,19 @@ extension OnboardingView {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
-            VStack(alignment: .leading, spacing: .HPSpacing.xxsmall) {
-                HStack {
-                    prevButton
-                    nextButton
+            VStack(alignment: processCount == 0 ? .center : .leading, spacing: .HPSpacing.xxsmall) {
+                if processCount == 0 {
+                    firstNextButton
+                } else {
+                    HStack {
+                        prevButton
+                        nextButton
+                    }
                 }
                 skipButton
             }
             .padding(.bottom, .HPSpacing.large)
-            .frame(alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.top, .HPSpacing.xxxlarge)
         .padding(.horizontal, .HPSpacing.xxlarge)
@@ -194,6 +198,22 @@ extension OnboardingView {
             )
         }
         .fixedSize()
+    }
+    
+    @ViewBuilder
+    var firstNextButton: some View {
+        HPButton(type: .blockFill(.HPCornerRadius.medium), size: .large) {
+            goToNext()
+        } label: { type, size, color, expandable in
+            HPLabel(
+                content: ("하이피치 사용법 보기", nil),
+                type: type,
+                size: size,
+                color: color,
+                expandable: expandable
+            )
+        }
+        .frame(maxWidth: 251)
     }
 }
 

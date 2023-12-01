@@ -215,9 +215,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         panelControllers[InstantPanel.fillerWord] = fillerWordPanelController
         
-        fillerWordPanelController.panel?.contentView = NSHostingView(
-            rootView: FillerWordPanelView(panelController: fillerWordPanelController)
-        )
+        fillerWordPanelController.panel?.contentView = NSHostingView(rootView: FillerWordPanelView(panelController: fillerWordPanelController))
         fillerWordPanelController.hidePanel(self)
     }
     

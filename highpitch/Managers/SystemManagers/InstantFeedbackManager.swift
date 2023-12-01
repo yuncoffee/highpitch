@@ -63,7 +63,7 @@ final class InstantFeedbackManager {
         bottomRightPoint: nil
     )
     let SETTING_PANEL_INFO: PanelFrameInfo = (
-        size: CGSize(width: 44.0, height: 28.0),
+        size: CGSize(width: 32, height: 21),
         topLeftPoint: CGPoint(x: 0, y: 77),
         bottomRightPoint: CGPoint(x:64, y:0)
     )

@@ -30,7 +30,7 @@ struct HPSlider: View {
                 .frame(height: 4)
                 .overlay(alignment: .leading) {
                     Circle()
-                        .fill(Color.HPGray.systemWhite)
+                        .fill(Color.HPTextStyle.white1000)
                         .frame(width: 16, height: 16)
                         .shadow(color: Color("000000").opacity(0.25) ,radius: 2, y: 1)
                         .offset(x: max(geometry.size.width * progress - 8,  -8))

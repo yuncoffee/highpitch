@@ -59,7 +59,7 @@ struct SpeedAudioIndicator: View {
                                         width: _width,
                                         height: viewStore.AUDIO_INDICATOR_HEIGHT
                                     )
-                                    .foregroundStyle(Color("D0EBFF"))
+                                    .foregroundStyle(Color.HPComponent.SpeedFeedback.instantSlow300)
                             }
                             .offset(x: widthPercent * xRatio)
                             .frame(maxHeight: .infinity)
@@ -78,7 +78,7 @@ struct SpeedAudioIndicator: View {
         .background(
             viewStore.scriptViewSpeedType == .fast
             ? Color("FFF8F3").opacity(0.7)
-            : Color("F5FBFF")
+            : Color.HPComponent.SpeedFeedback.slowBackground
         )
         .background(.thinMaterial)
         .onAppear {

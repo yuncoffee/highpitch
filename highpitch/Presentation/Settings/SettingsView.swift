@@ -63,7 +63,7 @@ struct SettingsView: View {
                     HPButton(color: .HPSecondary.base) {
                         print("변경 전:", SystemManager.shared.spmAverage)
                         SystemManager.shared.spmAverage =
-                        SystemManager.shared.testSPMs[0] + SystemManager.shared.testSPMs[1] / 2.0
+                        (SystemManager.shared.testSPMs[0] + SystemManager.shared.testSPMs[1]) / 2.0
                         UserDefaults.standard.set(
                             (SystemManager.shared.testSPMs[0]
                             + SystemManager.shared.testSPMs[1]) / 2.0

@@ -13,7 +13,7 @@ final class OnboardingViewStore {
     var isOnboardingNoticeSheetActive = false
     
     func isTestFinish() -> Bool {
-        if isFinishs[0] && isFinishs[1] {
+        if isFinishs[0] || isFinishs[1] {
             true
         } else {
             false

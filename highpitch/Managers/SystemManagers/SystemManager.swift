@@ -42,11 +42,11 @@ final class SystemManager {
     
     // MARK: - onBoarding을 봤는지 확인하는 뷰
     var isPassOnbarding: Bool = UserDefaults.standard.bool(forKey: "isPassOnbarding")
+    
+    private var timer: Timer?
 
     func startInstantFeedback() {
         if !isRecognizing {
-            instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
-            instantFeedbackManager.speechRecognizerManager?.startRecording()
             instantFeedbackManager.activePanels.insert(InstantPanel.timer)
             instantFeedbackManager.activePanels.insert(InstantPanel.setting)
             instantFeedbackManager.activePanels.insert(InstantPanel.speed)
@@ -54,10 +54,20 @@ final class SystemManager {
             instantFeedbackManager.activePanels.insert(InstantPanel.record)
             isRecognizing.toggle()
         }
+        timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: true) { _ in
+            #if DEBUG
+            print("실시간 STT 다시 시작되었습니다.")
+            #endif
+            self.instantFeedbackManager.speechRecognizerManager?.stopRecording()
+            self.instantFeedbackManager.speechRecognizerManager = nil
+            self.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+            self.instantFeedbackManager.speechRecognizerManager?.startRecording()
+        }
     }
     
     func stopInstantFeedback() {
         if (isRecognizing) {
+            timer?.invalidate()
             instantFeedbackManager.speechRecognizerManager?.stopRecording()
             instantFeedbackManager.speechRecognizerManager = nil
             instantFeedbackManager.activePanels.removeAll()

@@ -313,8 +313,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func loadPanelPosition(key: String, originalPos: Int) -> Int {
         #if DEBUG
-        print("originalPos: \(originalPos)")
-        print("UserDefaults: \(UserDefaults.standard.string(forKey: key).flatMap { Int($0) }!)")
+//        print("originalPos: \(originalPos)")
+//        print("UserDefaults: \(UserDefaults.standard.string(forKey: key).flatMap { Int($0) }!)")
         #endif
         let value = UserDefaults.standard.string(forKey: key) ?? nil
         

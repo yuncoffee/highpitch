@@ -19,6 +19,8 @@ final class ProjectManager {
     var currentTabItem = 1
     var path: NavigationPath = .init()
     var isEndClicked = false
+    var isScreenRecordpermitted = false
+    var isMicRecordpermitted = false
     
 }
 

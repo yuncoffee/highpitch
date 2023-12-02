@@ -10,6 +10,7 @@ import ScreenCaptureKit
 import Combine
 import OSLog
 import SwiftUI
+import AVFoundation
 
 enum CaptureType {
     case display
@@ -73,7 +74,7 @@ class ScreenRecordManager: ObservableObject {
     // Combine subscribers.
     private var subscriptions = Set<AnyCancellable>()
     
-    var canRecord: Bool {
+    static var canRecord: Bool {
         get async {
             do {
                 // If the app doesn't have Screen Recording permission, this call generates an exception.

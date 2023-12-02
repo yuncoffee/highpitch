@@ -95,7 +95,7 @@ struct HighpitchApp: App {
     var body: some Scene {
 #if os(macOS)
         Window("mainwindow", id: "main") {
-            if SystemManager.shared.isPassOnbarding {
+            if false {
                 MainWindowView(currentSelectedProject: $selectedProject)
                     .environment(practiceManager)
                     .environment(mediaManager)

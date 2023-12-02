@@ -12,8 +12,6 @@ struct SpeechTestButtonGroup: View {
     var store
     @Environment(MediaManager.self)
     var mediaManager
-    @Environment(ProjectManager.self)
-    var projectManager
     let fileName: String
     var index: Int = 0
     @Binding var status: MySPMTestType

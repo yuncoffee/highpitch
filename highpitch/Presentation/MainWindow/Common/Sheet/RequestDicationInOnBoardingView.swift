@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RequestDictationView: View {
-    @Environment(MediaManager.self)
-    private var mediaManager
+struct RequestDictationInOnBoardingView: View {
+    @Binding
+    var isDictationUnavailable: Bool
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             Image(systemName: "exclamationmark.circle.fill")
@@ -32,7 +32,7 @@ struct RequestDictationView: View {
                 .padding(.bottom,.HPSpacing.small)
             HStack {
                 HPButton(type: .blockFill(8), size: .large, color: .HPGray.system200) {
-                    mediaManager.isDictationUnavailable = false
+                    isDictationUnavailable = false
                 } label: { type, size, color, expandable in
                     HPLabel(
                         content: (label: "연습 그만두기", icon: nil),
@@ -45,7 +45,7 @@ struct RequestDictationView: View {
                 }
                 .frame(width: 144)
                 HPButton(type: .blockFill(8), size: .large, color: .HPPrimary.base) {
-                    mediaManager.isDictationUnavailable = false
+                    isDictationUnavailable = false
                     openKeyboardSettings()
                 } label: { type, size, color, expandable in
                     HPLabel(
@@ -62,13 +62,10 @@ struct RequestDictationView: View {
         }.frame(width: 420, height: 280)
     }
 }
-extension RequestDictationView {
+extension RequestDictationInOnBoardingView {
     func openKeyboardSettings() {
         if let url = URL(string: "x-apple.systempreferences:com.apple.preference.keyboard") {
             NSWorkspace.shared.open(url)
         }
     }
-}
-#Preview {
-    RequestDictationView()
 }

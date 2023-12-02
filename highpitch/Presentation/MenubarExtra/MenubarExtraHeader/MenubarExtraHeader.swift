@@ -112,6 +112,18 @@ extension MenubarExtraHeader {
         HPButton(type: .text, size: .medium, color: labels.color) {
             Task {
                 do {
+                    if mediaManager.checkMicrophonePermission() {
+                        projectManager.isMicRecordpermitted = false
+                    } else {
+                        projectManager.isMicRecordpermitted = true
+                        return
+                    }
+                    if await ScreenRecordManager.canRecord {
+                        projectManager.isScreenRecordpermitted = false
+                    } else {
+                        projectManager.isScreenRecordpermitted = true
+                        return
+                    }
                     let available = try await SpeechRecognizerManager().isSpeechAvailable()
                     if available {
                         if !mediaManager.isRecording {

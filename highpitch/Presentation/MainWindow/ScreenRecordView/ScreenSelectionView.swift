@@ -241,9 +241,10 @@ extension ScreenSelectionView {
         }
     }
     
+    
     func startPreview() {
         Task {
-            if await screenRecorder.canRecord {
+            if await ScreenRecordManager.canRecord {
                 await screenRecorder.startPreview()
             } else {
                 isUnauthorized = true

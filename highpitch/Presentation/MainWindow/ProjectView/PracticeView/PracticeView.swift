@@ -107,6 +107,18 @@ struct PracticeViewTopToolbar: View {
                     HPButton(color: .HPSecondary.base) {
                         Task {
                             do {
+                                if mediaManager.checkMicrophonePermission() {
+                                    projectManager.isMicRecordpermitted = false
+                                } else {
+                                    projectManager.isMicRecordpermitted = true
+                                    return
+                                }
+                                if await ScreenRecordManager.canRecord {
+                                    projectManager.isScreenRecordpermitted = false
+                                } else {
+                                    projectManager.isScreenRecordpermitted = true
+                                    return
+                                }
                                 let available = try await SpeechRecognizerManager().isSpeechAvailable()
                                 if available {
                                     mediaManager.isDictationUnavailable = false

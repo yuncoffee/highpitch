@@ -59,6 +59,7 @@ struct MainWindowView: View {
     var body: some View {
         @Bindable var systemManager = SystemManager.shared
         @Bindable var mediaManager = mediaManager
+        @Bindable var projectManager = projectManager
         NavigationSplitView(columnVisibility: $columnVisibility) {
             navigationSidebar
         } detail: {
@@ -106,9 +107,16 @@ struct MainWindowView: View {
         .sheet(isPresented: $mediaManager.isStart, content: {
             ScreenSelectionView()
         })
+        .sheet(isPresented: $projectManager.isMicRecordpermitted, content: {
+            RequestMicView()
+        })
         .sheet(isPresented: $mediaManager.isDictationUnavailable, content: {
             RequestDictationView()
         })
+        .sheet(isPresented: $projectManager.isScreenRecordpermitted, content: {
+            RequestScreenPermissionView()
+        })
+
     }
 }
 
@@ -316,6 +324,18 @@ extension MainWindowView {
                     HPButton(color: .HPSecondary.base) {
                         Task {
                             do {
+                                if mediaManager.checkMicrophonePermission() {
+                                    projectManager.isMicRecordpermitted = false
+                                } else {
+                                    projectManager.isMicRecordpermitted = true
+                                    return
+                                }
+                                if await ScreenRecordManager.canRecord {
+                                    projectManager.isScreenRecordpermitted = false
+                                } else {
+                                    projectManager.isScreenRecordpermitted = true
+                                    return
+                                }
                                 let available = try await SpeechRecognizerManager().isSpeechAvailable()
                                 if available {
                                     mediaManager.isDictationUnavailable = false
@@ -325,6 +345,7 @@ extension MainWindowView {
                                     }
                                 } else {
                                     mediaManager.isDictationUnavailable = true
+                                    return
                                 }
                             } catch { }
                         }
@@ -403,6 +424,18 @@ extension MainWindowView {
                     HPButton(color: .HPSecondary.base) {
                         Task {
                             do {
+                                if mediaManager.checkMicrophonePermission() {
+                                    projectManager.isMicRecordpermitted = false
+                                } else {
+                                    projectManager.isMicRecordpermitted = true
+                                    return
+                                }
+                                if await ScreenRecordManager.canRecord {
+                                    projectManager.isScreenRecordpermitted = false
+                                } else {
+                                    projectManager.isScreenRecordpermitted = true
+                                    return
+                                }
                                 let available = try await SpeechRecognizerManager().isSpeechAvailable()
                                 if available {
                                     mediaManager.isDictationUnavailable = false

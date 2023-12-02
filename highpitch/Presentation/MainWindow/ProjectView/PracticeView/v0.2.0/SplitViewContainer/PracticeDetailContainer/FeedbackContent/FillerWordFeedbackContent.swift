@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
-#if PREVIEW
-import SwiftData
-#endif
+//#if PREVIEW
+//import SwiftData
+//#endif
 
 struct FillerWordFeedbackContent: View {
     @Environment(PracticeViewStore.self)
     var viewStore
     
-#if PREVIEW
-    // MARK: - MockData
-    @Query(sort: \PracticeModel.creatAt)
-    var practices: [PracticeModel]
-#endif
+//#if PREVIEW
+//    // MARK: - MockData
+//    @Query(sort: \PracticeModel.creatAt)
+//    var practices: [PracticeModel]
+//#endif
     
     var body: some View {
         VStack(spacing: .HPSpacing.xsmall) {
@@ -32,11 +32,11 @@ struct FillerWordFeedbackContent: View {
         )
         .onAppear {
             // MARK: - Add MockData
-#if PREVIEW
-            if let sample = practices.first {
-                viewStore.practice = sample
-            }
-#endif
+//#if PREVIEW
+//            if let sample = practices.first {
+//                viewStore.practice = sample
+//            }
+//#endif
         }
     }
 }

@@ -6,21 +6,21 @@
 //
 
 import SwiftUI
-#if PREVIEW
-import SwiftData
-  
-#endif
+//#if PREVIEW
+//import SwiftData
+//  
+//#endif
 
 struct PracticeContentContainer: View {
     @Environment(PracticeViewStore.self)
     var viewStore
     @State
     private var isRegisterd = false
-#if PREVIEW
-    // MARK: - MockData
-    @Query(sort: \PracticeModel.creatAt)
-    var practices: [PracticeModel]
-#endif
+//#if PREVIEW
+//    // MARK: - MockData
+//    @Query(sort: \PracticeModel.creatAt)
+//    var practices: [PracticeModel]
+//#endif
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -42,15 +42,15 @@ struct PracticeContentContainer: View {
             registerMedia()
             
             // MARK: - Add MockData
-#if PREVIEW
-            if let sample = practices.first {
-                viewStore.practice = sample
-            }
-            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
-            if let url = url {
-                viewStore.practice.audioPath = url
-            }
-#endif
+//#if PREVIEW
+//            if let sample = practices.first {
+//                viewStore.practice = sample
+//            }
+//            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+//            if let url = url {
+//                viewStore.practice.audioPath = url
+//            }
+//#endif
         }
         .onDisappear {
             viewStore.mediaManager.reset()

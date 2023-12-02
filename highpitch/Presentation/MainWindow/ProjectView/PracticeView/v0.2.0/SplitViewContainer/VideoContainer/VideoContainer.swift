@@ -19,11 +19,11 @@ struct VideoContainer: View {
     @State
     private var isVideoHover = false
     
-#if PREVIEW
-    // MARK: - MockData
-    @Query(sort: \PracticeModel.creatAt)
-    var practices: [PracticeModel]
-#endif
+//#if PREVIEW
+//    // MARK: - MockData
+//    @Query(sort: \PracticeModel.creatAt)
+//    var practices: [PracticeModel]
+//#endif
     
     var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
@@ -36,11 +36,11 @@ struct VideoContainer: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             // MARK: - Add MockData
-#if PREVIEW
-            if let sample = practices.first {
-                viewStore.practice = sample
-            }
-#endif
+//#if PREVIEW
+//            if let sample = practices.first {
+//                viewStore.practice = sample
+//            }
+//#endif
         }
     }
 }

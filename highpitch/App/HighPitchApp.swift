@@ -59,12 +59,32 @@ struct HighpitchApp: App {
     
     init() {
         do {
+            #if PREVIEW
+            let config = ModelConfiguration(isStoredInMemoryOnly: true)
+            container = try ModelContainer(for: ProjectModel.self, configurations: config)
+            let project = ProjectMock.shared.sampleProject
+            let practice = SampleDigDaPracticesMock1.shared.practice
+//            project.practices.append(SampleDigDaPracticesMock1.shared.practice)
+            container.mainContext.insert(project)
+            container.mainContext.insert(practice)
+            practice.summary = SampleDigDaPracticesMock1.shared.summary
+            practice.summary.maxSpm = 521.8471733278111
+            practice.summary.minSpm = 270.8333333333333
+            practice.utterances = SampleDigDaPracticesMock1.shared.utterance
+            practice.words = SampleDigDaPracticesMock1.shared.words
+            practice.sentences = SampleDigDaPracticesMock1.shared.sentences
+            project.practices.append(practice)
+            
+//            container.mainContext.insert(SampleDigDaPracticesMock1.shared.practice)
+            #endif
+            #if DEBUG
             let storeURL = URL.getStorePath(fileName: "database.sqlite")
 //            let storeURL = URL.getStorePath(fileName: "sample.sqlite")
             let config = ModelConfiguration(url: storeURL)
             container = try ModelContainer(
                 for: ProjectModel.self,
                 configurations: config)
+            #endif
         } catch {
             fatalError("Could not initialize ModelContainer")
         }

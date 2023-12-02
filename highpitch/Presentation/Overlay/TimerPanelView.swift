@@ -31,6 +31,18 @@ struct TimerPanelView: View {
                     Text(formattedElapsedTime)
                         .systemFont(.largeTitle, weight: .medium)
                         .foregroundStyle(Color.HPGray.systemWhite)
+                        .onTapGesture {
+                            if SystemManager.shared.instantFeedbackManager.isTimerRunning != 1 {
+                                SystemManager.shared.instantFeedbackManager.isTimerRunning = 1
+                            } else {
+                                SystemManager.shared.instantFeedbackManager.isTimerRunning = 0
+                            }
+                        }
+                        .contextMenu {
+                            Button("Clear") {
+                                SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
+                            }
+                        }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

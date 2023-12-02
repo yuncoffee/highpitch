@@ -212,12 +212,33 @@ extension ProjectManager {
     }
     
     private func indexToOrdinalNumber(index: Int) -> String {
-        let ordinalNumber = ["첫", "두", "세", "네", "다섯", "여섯", "일곱", "여덟", "아홉", "열",
-                             "열한", "열두", "열세", "열네", "열다섯", "열여섯", "열일곱", "열여덟"]
-        
-        if ordinalNumber.count < index {
-            return "Index 초과"
-        }
-        return ordinalNumber[index]
+        let realIndex = index + 1
+        if (realIndex == 1) { return "첫" }
+        if (realIndex == 20) { return "스무" }
+        let firstNum = [
+            "",
+            "한",
+            "두",
+            "세",
+            "네",
+            "다섯",
+            "여섯",
+            "일곱",
+            "여덟",
+            "아홉"
+        ]
+        let secondNum = [
+            "",
+            "열",
+            "스물",
+            "서른",
+            "마흔",
+            "쉰",
+            "예순",
+            "일흔",
+            "여든",
+            "아흔"
+        ]
+        return secondNum[realIndex / 10] + firstNum[realIndex % 10]
     }
 }

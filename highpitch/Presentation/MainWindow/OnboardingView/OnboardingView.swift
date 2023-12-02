@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @Environment(MediaManager.self)
+    var mediaManager
+    @Environment(ProjectManager.self)
+    var projectManager
     @State
     private var processCount = 0
     let IMAGE_SIZE = (width: 636.0, height: 628.0)

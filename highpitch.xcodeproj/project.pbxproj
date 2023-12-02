@@ -14,6 +14,7 @@
 		10B5EF0E2B0C3090006A58A6 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B5EF0D2B0C3090006A58A6 /* VideoView.swift */; };
 		10B93AA82B19CEDF0096732A /* RequestScreenPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B93AA72B19CEDF0096732A /* RequestScreenPermissionView.swift */; };
 		10B93AAD2B1AF0D70096732A /* RequestMicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B93AAC2B1AF0D70096732A /* RequestMicView.swift */; };
+		10B93AAF2B1AFA5F0096732A /* RequestDicationInOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B93AAE2B1AFA5F0096732A /* RequestDicationInOnBoardingView.swift */; };
 		10C7D1B02ADCD42F008691CD /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */; };
 		10C7D1B22ADCD4AB008691CD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */; };
 		10C7D1F82ADD8E6A008691CD /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C7D1F72ADD8E6A008691CD /* AuthManager.swift */; };
@@ -196,6 +197,7 @@
 		10B5EF0D2B0C3090006A58A6 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		10B93AA72B19CEDF0096732A /* RequestScreenPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestScreenPermissionView.swift; sourceTree = "<group>"; };
 		10B93AAC2B1AF0D70096732A /* RequestMicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMicView.swift; sourceTree = "<group>"; };
+		10B93AAE2B1AFA5F0096732A /* RequestDicationInOnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDicationInOnBoardingView.swift; sourceTree = "<group>"; };
 		10C7D1AF2ADCD42F008691CD /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		10C7D1B12ADCD4AB008691CD /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		10C7D1F72ADD8E6A008691CD /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 				107E105F2B17645C004AA879 /* RequestDictationView.swift */,
 				10B93AA72B19CEDF0096732A /* RequestScreenPermissionView.swift */,
 				10B93AAC2B1AF0D70096732A /* RequestMicView.swift */,
+				10B93AAE2B1AFA5F0096732A /* RequestDicationInOnBoardingView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -1409,6 +1412,7 @@
 				1D09AF6A2AD98A4000C1400E /* PracticeView.swift in Sources */,
 				1D09AF882ADA267500C1400E /* Colors.swift in Sources */,
 				11EF719B2ADADBA400D991E6 /* FillerWordList.swift in Sources */,
+				10B93AAF2B1AFA5F0096732A /* RequestDicationInOnBoardingView.swift in Sources */,
 				1D600BAB2AF9DDBD001FC5EB /* RequestAudioPermissionPopover.swift in Sources */,
 				1DED4EE82AFCA7C0000109B3 /* FillerWordFeedbackContent.swift in Sources */,
 				10D6FA582B02F752003F8FBD /* ChaptureEngineForPreview.swift in Sources */,

@@ -12,6 +12,8 @@ struct SpeechTestButtonGroup: View {
     var store
     @Environment(MediaManager.self)
     var mediaManager
+    @Environment(ProjectManager.self)
+    var projectManager
     let fileName: String
     var index: Int = 0
     @Binding var status: MySPMTestType
@@ -24,6 +26,10 @@ struct SpeechTestButtonGroup: View {
     private var animationsRunning = false
     @State
     private var isSheetActive = false
+    @State
+    var isMicRecordpermitted = false
+    @State
+    var isDictationUnavailable = false
     @State
     private var duration = 0.0
 
@@ -101,7 +107,24 @@ extension SpeechTestButtonGroup {
     @ViewBuilder
     var testBeforeButtonGroup: some View {
         HPButton(type: .blockFill(.HPCornerRadius.medium), size: .large, color: .HPPrimary.base) {
-            testBeforeButtonAction()
+            Task {
+                do {
+                    if mediaManager.checkMicrophonePermission() {
+                        isSheetActive = false
+                    } else {
+                        isSheetActive = true
+                        return
+                    }
+                    let available = try await SpeechRecognizerManager().isSpeechAvailable()
+                    if available {
+                        isDictationUnavailable = false
+                    } else {
+                            isDictationUnavailable = true
+                            return
+                    }
+                    testBeforeButtonAction()
+                } catch { }
+            }
         } label: { type, size, color, expandable in
             HPLabel(
                 content: ("해당 문장 읽기", nil),
@@ -116,6 +139,12 @@ extension SpeechTestButtonGroup {
         .sheet(isPresented: $isSheetActive) {
             RequestMicPermissionSheet(isActive: $isSheetActive)
         }
+        .sheet(isPresented: $isMicRecordpermitted, content: {
+            RequestMicPermissionSheet(isActive: $isSheetActive)
+        })
+        .sheet(isPresented: $isDictationUnavailable, content: {
+            RequestDictationInOnBoardingView(isDictationUnavailable: $isDictationUnavailable)
+        })
     }
     
     @ViewBuilder

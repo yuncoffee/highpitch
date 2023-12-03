@@ -108,12 +108,12 @@ struct FillerWordPanelView: View {
                 )
         )
         .onAppear {
-            #if PREVIEW
-            SystemManager.shared
-                .instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
-            SystemManager.shared
-                .instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
-            #endif
+//            #if PREVIEW
+//            SystemManager.shared
+//                .instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+//            SystemManager.shared
+//                .instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
+//            #endif
         }
     }
 }

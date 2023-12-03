@@ -119,10 +119,10 @@ struct SpeedPanelView: View {
                 )
         )
         .onAppear {
-            #if PREVIEW
-            instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
-            instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
-            #endif
+//            #if PREVIEW
+//            instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+//            instantFeedbackManager.speechRecognizerManager?.realTimeFillerCount = 3
+//            #endif
         }
     }
 }

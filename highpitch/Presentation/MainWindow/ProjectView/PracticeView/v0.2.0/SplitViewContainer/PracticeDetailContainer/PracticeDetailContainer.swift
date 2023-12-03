@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-#if PREVIEW
-import SwiftData
-#endif
+//#if PREVIEW
+//import SwiftData
+//#endif
 
 struct PracticeDetailContainer: View {
     @Environment(PracticeViewStore.self)
@@ -21,11 +21,11 @@ struct PracticeDetailContainer: View {
     @State
     private var shouldPresentSheet = false
     
-#if PREVIEW
-    // MARK: - MockData
-    @Query(sort: \PracticeModel.creatAt)
-    var practices: [PracticeModel]
-#endif
+//#if PREVIEW
+//    // MARK: - MockData
+//    @Query(sort: \PracticeModel.creatAt)
+//    var practices: [PracticeModel]
+//#endif
     
     var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
@@ -68,11 +68,11 @@ struct PracticeDetailContainer: View {
         )
         .onAppear {
             // MARK: - Add MockData
-#if PREVIEW
-            if let sample = practices.first {
-                viewStore.practice = sample
-            }
-#endif
+//#if PREVIEW
+//            if let sample = practices.first {
+//                viewStore.practice = sample
+//            }
+//#endif
         }
     }
 }

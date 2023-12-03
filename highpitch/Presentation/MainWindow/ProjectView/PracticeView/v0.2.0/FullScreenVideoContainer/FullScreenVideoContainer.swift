@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-#if PREVIEW
-import SwiftData
-#endif
+//#if PREVIEW
+//import SwiftData
+//#endif
 import AVKit
 
 struct FullScreenVideoContainer: View {
@@ -17,11 +17,11 @@ struct FullScreenVideoContainer: View {
     @State
     private var isRegister = false
     
-#if PREVIEW
-    // MARK: - MockData
-    @Query(sort: \PracticeModel.creatAt)
-    var practices: [PracticeModel]
-#endif
+//#if PREVIEW
+//    // MARK: - MockData
+//    @Query(sort: \PracticeModel.creatAt)
+//    var practices: [PracticeModel]
+//#endif
     
     @State
     private var isFullScreenVideoHover = false
@@ -82,18 +82,18 @@ struct FullScreenVideoContainer: View {
         .opacity(viewStore.isFullScreenVideoVisible ? 1 : 0)
         .onAppear {
             // MARK: - Add MockData
-#if PREVIEW
-            if let sample = practices.first {
-                viewStore.practice = sample
-            }
-            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
-            if let url = url {
-                viewStore.practice.audioPath = url
-            }
-            viewStore.isFullScreenTransition = true
-            viewStore.isFullScreenVideoVisible = true
-            isFullScreenVideoHover = true
-#endif
+//#if PREVIEW
+//            if let sample = practices.first {
+//                viewStore.practice = sample
+//            }
+//            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+//            if let url = url {
+//                viewStore.practice.audioPath = url
+//            }
+//            viewStore.isFullScreenTransition = true
+//            viewStore.isFullScreenVideoVisible = true
+//            isFullScreenVideoHover = true
+//#endif
         }
     }
 }

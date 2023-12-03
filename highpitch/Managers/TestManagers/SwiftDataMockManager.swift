@@ -24,7 +24,7 @@ class SwiftDataMockManager {
                 utterances: [],
                 summary: PracticeSummaryModel()
             )
-            container.mainContext.insert(SamplePracticeModel)
+            container.mainContext.insert(SampleDigDaPracticesMock1.shared.practice)
 
             return container
         } catch {

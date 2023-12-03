@@ -7,9 +7,9 @@
 
 import SwiftUI
 import Charts
-#if PREVIEW
-import SwiftData
-#endif
+//#if PREVIEW
+//import SwiftData
+//#endif
 
 struct SpeedAudioIndicator: View {
     @Environment(PracticeViewStore.self)
@@ -18,11 +18,11 @@ struct SpeedAudioIndicator: View {
     @State
     private var duration: Double = 1
     
-#if PREVIEW
-    // MARK: - MockData
-    @Query(sort: \PracticeModel.creatAt)
-    var practices: [PracticeModel]
-#endif
+//#if PREVIEW
+//    // MARK: - MockData
+//    @Query(sort: \PracticeModel.creatAt)
+//    var practices: [PracticeModel]
+//#endif
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -83,20 +83,20 @@ struct SpeedAudioIndicator: View {
         .background(.thinMaterial)
         .onAppear {
             // MARK: - Add MockData
-#if PREVIEW
-            if let sample = practices.first {
-                viewStore.practice = sample
-            }
-            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
-            if let url = url {
-                viewStore.practice.audioPath = url
-                do {
-                    try viewStore.mediaManager.registerAudio(url: url)
-                } catch {
-                    print(error)
-                }
-            }
-#endif
+//#if PREVIEW
+//            if let sample = practices.first {
+//                viewStore.practice = sample
+//            }
+//            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
+//            if let url = url {
+//                viewStore.practice.audioPath = url
+//                do {
+//                    try viewStore.mediaManager.registerAudio(url: url)
+//                } catch {
+//                    print(error)
+//                }
+//            }
+//#endif
             duration = viewStore.mediaManager.getDuration() * 1000
         }
     }

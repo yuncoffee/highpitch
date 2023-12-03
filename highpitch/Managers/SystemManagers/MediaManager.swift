@@ -79,13 +79,15 @@ extension MediaManager: Recordable {
     }
     func startRecording() {
         if isRecording {
-            //audioRecorder?.record()
-            audioRecorderV2.startRecording(filename: fileName)
+            audioRecorder?.record()
+            SystemManager.shared.instantFeedbackManager.isTimerRunning = 1
+//            audioRecorderV2.startRecording(filename: fileName)
             isPause = false
         } else {
-            //prepareRecording()
-            //audioRecorder?.record()
-            audioRecorderV2.startRecording(filename: fileName)
+            prepareRecording()
+            audioRecorder?.record()
+            SystemManager.shared.instantFeedbackManager.isTimerRunning = 1
+//            audioRecorderV2.startRecording(filename: fileName)
             isRecording = true
         }
     }
@@ -139,14 +141,16 @@ extension MediaManager: Recordable {
     }
     
     func pauseRecording() {
-        //audioRecorder?.pause()
-        audioRecorderV2.stopRecording()
+        audioRecorder?.pause()
+        SystemManager.shared.instantFeedbackManager.isTimerRunning = 0
+//        audioRecorderV2.stopRecording()
         isPause = true
     }
     
     func stopRecording() {
-        //audioRecorder?.stop()
-        audioRecorderV2.stopRecording()
+        audioRecorder?.stop()
+        SystemManager.shared.instantFeedbackManager.isTimerRunning = -1
+//        audioRecorderV2.stopRecording()
         isRecording = false
     }
 }

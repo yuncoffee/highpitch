@@ -52,6 +52,8 @@ final class SystemManager {
             instantFeedbackManager.activePanels.insert(InstantPanel.speed)
             instantFeedbackManager.activePanels.insert(InstantPanel.fillerWord)
             instantFeedbackManager.activePanels.insert(InstantPanel.record)
+            self.instantFeedbackManager.speechRecognizerManager = SpeechRecognizerManager()
+            self.instantFeedbackManager.speechRecognizerManager?.startRecording()
             isRecognizing.toggle()
         }
         timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: true) { _ in

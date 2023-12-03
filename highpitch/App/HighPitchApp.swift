@@ -62,87 +62,87 @@ struct HighpitchApp: App {
             #if PREVIEW
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
             container = try ModelContainer(for: ProjectModel.self, configurations: config)
-            // ************************************* //
+//            // ************************************* //
             let project = ProjectMock.shared.sampleProject
             let practice1 = SampleDigDaPracticesMock1.shared.practice
-            let practice2 = SampleDigDaPracticesMock2.shared.practice
-            let practice3 = SampleDigDaPracticesMock3.shared.practice
-            let practice4 = SampleDigDaPracticesMock4.shared.practice
-            let practice5 = SampleDigDaPracticesMock5.shared.practice
-            let practice6 = SampleDigDaPracticesMock6.shared.practice
-            let practice7 = SampleDigDaPracticesMock7.shared.practice
-            // ************************************* //
+//            let practice2 = SampleDigDaPracticesMock2.shared.practice
+//            let practice3 = SampleDigDaPracticesMock3.shared.practice
+//            let practice4 = SampleDigDaPracticesMock4.shared.practice
+//            let practice5 = SampleDigDaPracticesMock5.shared.practice
+//            let practice6 = SampleDigDaPracticesMock6.shared.practice
+//            let practice7 = SampleDigDaPracticesMock7.shared.practice
+//            // ************************************* //
             container.mainContext.insert(project)
             container.mainContext.insert(practice1)
-            container.mainContext.insert(practice2)
-            container.mainContext.insert(practice3)
-            container.mainContext.insert(practice4)
-            container.mainContext.insert(practice5)
-            container.mainContext.insert(practice6)
-            container.mainContext.insert(practice7)
-            // ************************************* //
+//            container.mainContext.insert(practice2)
+//            container.mainContext.insert(practice3)
+//            container.mainContext.insert(practice4)
+//            container.mainContext.insert(practice5)
+//            container.mainContext.insert(practice6)
+//            container.mainContext.insert(practice7)
+//            // ************************************* //
             practice1.summary = SampleDigDaPracticesMock1.shared.summary
-            practice1.summary.maxSpm = 480.0
-            practice1.summary.minSpm = 370.0
-            practice1.summary.fwpm = 5.7
-            practice1.utterances = SampleDigDaPracticesMock2.shared.utterance
-            practice1.words = SampleDigDaPracticesMock2.shared.words
-            practice1.sentences = SampleDigDaPracticesMock2.shared.sentences
+            practice1.summary.maxSpm = 563.80721430736583
+            practice1.summary.minSpm = 300.97087378640776
+//            practice1.summary.fwpm = 5.7
+            practice1.utterances = SampleDigDaPracticesMock1.shared.utterances
+            practice1.words = SampleDigDaPracticesMock1.shared.words
+            practice1.sentences = SampleDigDaPracticesMock1.shared.sentences
             project.practices.append(practice1)
-            // ************************************* //
-            practice2.summary = SampleDigDaPracticesMock2.shared.summary
-            practice2.summary.maxSpm = 450.0
-            practice2.summary.minSpm = 350.0
-            practice2.summary.fwpm = 5.2
-            practice2.utterances = SampleDigDaPracticesMock2.shared.utterance
-            practice2.words = SampleDigDaPracticesMock2.shared.words
-            practice2.sentences = SampleDigDaPracticesMock2.shared.sentences
-            project.practices.append(practice2)
-            // ************************************* //
-            practice3.summary = SampleDigDaPracticesMock3.shared.summary
-            practice3.summary.maxSpm = 380.0
-            practice3.summary.minSpm = 320.0
-            practice3.summary.fwpm = 4.0
-            practice3.utterances = SampleDigDaPracticesMock3.shared.utterance
-            practice3.words = SampleDigDaPracticesMock3.shared.words
-            practice3.sentences = SampleDigDaPracticesMock3.shared.sentences
-            project.practices.append(practice3)
-            // ************************************* //
-            practice4.summary = SampleDigDaPracticesMock4.shared.summary
-            practice4.summary.maxSpm = 370.0
-            practice4.summary.minSpm = 260.0
-            practice4.summary.fwpm = 3.2222
-            practice4.utterances = SampleDigDaPracticesMock4.shared.utterance
-            practice4.words = SampleDigDaPracticesMock4.shared.words
-            practice4.sentences = SampleDigDaPracticesMock4.shared.sentences
-            project.practices.append(practice4)
-            // ************************************* //
-            practice5.summary = SampleDigDaPracticesMock5.shared.summary
-            practice5.summary.maxSpm = 350.0
-            practice5.summary.minSpm = 270.0
-            practice5.summary.fwpm = 2.5
-            practice5.utterances = SampleDigDaPracticesMock5.shared.utterance
-            practice5.words = SampleDigDaPracticesMock5.shared.words
-            practice5.sentences = SampleDigDaPracticesMock5.shared.sentences
-            project.practices.append(practice5)
-            // ************************************* //
-            practice6.summary = SampleDigDaPracticesMock6.shared.summary
-            practice6.summary.maxSpm = 350.0
-            practice6.summary.minSpm = 220.0
-            practice6.summary.fwpm = 1.5
-            practice6.utterances = SampleDigDaPracticesMock6.shared.utterance
-            practice6.words = SampleDigDaPracticesMock6.shared.words
-            practice6.sentences = SampleDigDaPracticesMock6.shared.sentences
-            project.practices.append(practice6)
-            // ************************************* //
-            practice7.summary = SampleDigDaPracticesMock7.shared.summary
-            practice7.summary.maxSpm = 340.0
-            practice7.summary.minSpm = 230.0
-            practice7.summary.fwpm = 1.00
-            practice7.utterances = SampleDigDaPracticesMock7.shared.utterance
-            practice7.words = SampleDigDaPracticesMock7.shared.words
-            practice7.sentences = SampleDigDaPracticesMock7.shared.sentences
-            project.practices.append(practice7)
+//            // ************************************* //
+//            practice2.summary = SampleDigDaPracticesMock2.shared.summary
+//            practice2.summary.maxSpm = 450.0
+//            practice2.summary.minSpm = 350.0
+//            practice2.summary.fwpm = 5.2
+//            practice2.utterances = SampleDigDaPracticesMock2.shared.utterance
+//            practice2.words = SampleDigDaPracticesMock2.shared.words
+//            practice2.sentences = SampleDigDaPracticesMock2.shared.sentences
+//            project.practices.append(practice2)
+//            // ************************************* //
+//            practice3.summary = SampleDigDaPracticesMock3.shared.summary
+//            practice3.summary.maxSpm = 380.0
+//            practice3.summary.minSpm = 320.0
+//            practice3.summary.fwpm = 4.0
+//            practice3.utterances = SampleDigDaPracticesMock3.shared.utterance
+//            practice3.words = SampleDigDaPracticesMock3.shared.words
+//            practice3.sentences = SampleDigDaPracticesMock3.shared.sentences
+//            project.practices.append(practice3)
+//            // ************************************* //
+//            practice4.summary = SampleDigDaPracticesMock4.shared.summary
+//            practice4.summary.maxSpm = 370.0
+//            practice4.summary.minSpm = 260.0
+//            practice4.summary.fwpm = 3.2222
+//            practice4.utterances = SampleDigDaPracticesMock4.shared.utterance
+//            practice4.words = SampleDigDaPracticesMock4.shared.words
+//            practice4.sentences = SampleDigDaPracticesMock4.shared.sentences
+//            project.practices.append(practice4)
+//            // ************************************* //
+//            practice5.summary = SampleDigDaPracticesMock5.shared.summary
+//            practice5.summary.maxSpm = 350.0
+//            practice5.summary.minSpm = 270.0
+//            practice5.summary.fwpm = 2.5
+//            practice5.utterances = SampleDigDaPracticesMock5.shared.utterance
+//            practice5.words = SampleDigDaPracticesMock5.shared.words
+//            practice5.sentences = SampleDigDaPracticesMock5.shared.sentences
+//            project.practices.append(practice5)
+//            // ************************************* //
+//            practice6.summary = SampleDigDaPracticesMock6.shared.summary
+//            practice6.summary.maxSpm = 350.0
+//            practice6.summary.minSpm = 220.0
+//            practice6.summary.fwpm = 1.5
+//            practice6.utterances = SampleDigDaPracticesMock6.shared.utterance
+//            practice6.words = SampleDigDaPracticesMock6.shared.words
+//            practice6.sentences = SampleDigDaPracticesMock6.shared.sentences
+//            project.practices.append(practice6)
+//            // ************************************* //
+//            practice7.summary = SampleDigDaPracticesMock7.shared.summary
+//            practice7.summary.maxSpm = 340.0
+//            practice7.summary.minSpm = 230.0
+//            practice7.summary.fwpm = 1.00
+//            practice7.utterances = SampleDigDaPracticesMock7.shared.utterance
+//            practice7.words = SampleDigDaPracticesMock7.shared.words
+//            practice7.sentences = SampleDigDaPracticesMock7.shared.sentences
+//            project.practices.append(practice7)
             
 //            container.mainContext.insert(SampleDigDaPracticesMock1.shared.practice)
             #endif

@@ -56,7 +56,7 @@ struct HighpitchApp: App {
     private var systemManager: SystemManager = SystemManager.shared
     
     let container: ModelContainer
-    
+    // swiftlint: disable function_body_length
     init() {
         do {
             #if PREVIEW
@@ -394,3 +394,4 @@ extension HighpitchApp {
         return HotKey(key: tempKey, modifiers: tempModifiers)
     }
 }
+// swiftlint: enable function_body_length

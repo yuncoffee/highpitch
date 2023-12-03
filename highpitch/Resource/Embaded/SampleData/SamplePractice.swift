@@ -19,6 +19,7 @@ class ProjectMock {
     )
 }
 
+// swiftlint: disable type_body_length file_length
 class SampleDigDaPracticesMock1 {
     static var shared = SampleDigDaPracticesMock1()
     
@@ -7606,4 +7607,4 @@ class SampleDigDaPracticesMock7 {
         )
     ]
 }
-
+// swiftlint: enable type_body_length file_length

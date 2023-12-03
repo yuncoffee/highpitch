@@ -98,7 +98,7 @@ struct SavePanelView: View {
             .padding(.bottom, 35)
         }
         .frame(width: SAVE_PANEL_INFO.size.width, height: SAVE_PANEL_INFO.size.height)
-        .background(Color.white)
+        .background(Color.HPGray.systemWhite)
         .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         
     }

@@ -121,6 +121,8 @@
 		1DDB9D4C2AF7542C001CA7CC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB9D4B2AF7542C001CA7CC /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		1DDB9D4E2AF7542C001CA7CC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB9D4D2AF7542C001CA7CC /* FirebaseAuth */; };
 		1DDB9D502AF75529001CA7CC /* GAManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB9D4F2AF75529001CA7CC /* GAManager.swift */; };
+		1DE15A522B1CBFE600A89946 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE15A502B1CBFE600A89946 /* SecretKey.plist */; };
+		1DE15A532B1CBFE600A89946 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE15A512B1CBFE600A89946 /* GoogleService-Info.plist */; };
 		1DE82ACE2AEDF2FD009925FC /* MenubarExtraFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE82ACD2AEDF2FD009925FC /* MenubarExtraFooter.swift */; };
 		1DE8B6452AECD0C500E0746E /* HPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8B6442AECD0C500E0746E /* HPButton.swift */; };
 		1DE8B64C2AECD4C400E0746E /* BaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8B64B2AECD4C400E0746E /* BaseStyle.swift */; };
@@ -167,7 +169,6 @@
 		43976D522B01A0DA00816620 /* SpeedPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D512B01A0DA00816620 /* SpeedPanelView.swift */; };
 		43976D542B01A0F900816620 /* FillerWordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D532B01A0F900816620 /* FillerWordPanelView.swift */; };
 		43976D562B01A13500816620 /* InstantFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43976D552B01A13500816620 /* InstantFeedbackManager.swift */; };
-		43A3AEDF2B0F9BA100FA74C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A3AEDE2B0F9BA100FA74C9 /* GoogleService-Info.plist */; };
 		43BE52392B08CF6700BFE033 /* RecordPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE52382B08CF6700BFE033 /* RecordPanelView.swift */; };
 		43BE523B2B08CFB200BFE033 /* SavePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BE523A2B08CFB200BFE033 /* SavePanelView.swift */; };
 		43F1D9B92AE6F094001A7225 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = 43F1D9B82AE6F094001A7225 /* HotKey */; };
@@ -298,6 +299,8 @@
 		1DDB9D002AEF1F95001CA7CC /* HPListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPListCell.swift; sourceTree = "<group>"; };
 		1DDB9D062AF2B1D4001CA7CC /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
 		1DDB9D4F2AF75529001CA7CC /* GAManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAManager.swift; sourceTree = "<group>"; };
+		1DE15A502B1CBFE600A89946 /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		1DE15A512B1CBFE600A89946 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DE82ACD2AEDF2FD009925FC /* MenubarExtraFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarExtraFooter.swift; sourceTree = "<group>"; };
 		1DE8B6442AECD0C500E0746E /* HPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPButton.swift; sourceTree = "<group>"; };
 		1DE8B64B2AECD4C400E0746E /* BaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStyle.swift; sourceTree = "<group>"; };
@@ -349,8 +352,6 @@
 		43976D512B01A0DA00816620 /* SpeedPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedPanelView.swift; sourceTree = "<group>"; };
 		43976D532B01A0F900816620 /* FillerWordPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillerWordPanelView.swift; sourceTree = "<group>"; };
 		43976D552B01A13500816620 /* InstantFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstantFeedbackManager.swift; sourceTree = "<group>"; };
-		43A3AEDE2B0F9BA100FA74C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		43A3AEE02B0F9BAE00FA74C9 /* SeretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SeretKey.plist; sourceTree = "<group>"; };
 		43BE52382B08CF6700BFE033 /* RecordPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPanelView.swift; sourceTree = "<group>"; };
 		43BE523A2B08CFB200BFE033 /* SavePanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePanelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -896,8 +897,6 @@
 			isa = PBXGroup;
 			children = (
 				20E0EE882B1B9A2700587D45 /* SampleData */,
-				20E0EE7F2B1B919F00587D45 /* Video */,
-				20E0EE7E2B1B919900587D45 /* Audio */,
 				1DAABBDF2B00C27B00AF4449 /* 20231107202138.m4a */,
 			);
 			path = Embaded;
@@ -1051,6 +1050,8 @@
 		1DF659882AD594BD00AE5601 /* highpitch */ = {
 			isa = PBXGroup;
 			children = (
+				1DE15A512B1CBFE600A89946 /* GoogleService-Info.plist */,
+				1DE15A502B1CBFE600A89946 /* SecretKey.plist */,
 				1D30E6162AD59E0C00623A58 /* Models */,
 				1DF659BC2AD595E100AE5601 /* Presentation */,
 				1D30E6222AD6113C00623A58 /* Managers */,
@@ -1059,8 +1060,6 @@
 				1DF659B92AD5951900AE5601 /* Resource */,
 				1DF659B82AD5950900AE5601 /* App */,
 				1D09AF842ADA260200C1400E /* DesignSystem */,
-				43A3AEDE2B0F9BA100FA74C9 /* GoogleService-Info.plist */,
-				43A3AEE02B0F9BAE00FA74C9 /* SeretKey.plist */,
 			);
 			path = highpitch;
 			sourceTree = "<group>";
@@ -1155,20 +1154,6 @@
 				1DE82ACF2AEDF30B009925FC /* MenubarExtraFooter */,
 			);
 			path = MenubarExtra;
-			sourceTree = "<group>";
-		};
-		20E0EE7E2B1B919900587D45 /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Audio;
-			sourceTree = "<group>";
-		};
-		20E0EE7F2B1B919F00587D45 /* Video */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Video;
 			sourceTree = "<group>";
 		};
 		20E0EE882B1B9A2700587D45 /* SampleData */ = {
@@ -1322,6 +1307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				205990A72B12E67000CA364A /* Pretendard-Thin.otf in Resources */,
+				1DE15A522B1CBFE600A89946 /* SecretKey.plist in Resources */,
 				205990A52B12E65F00CA364A /* Pretendard-SemiBold.otf in Resources */,
 				205990A32B12E64E00CA364A /* Pretendard-Regular.otf in Resources */,
 				205990A12B12E63700CA364A /* Pretendard-Medium.otf in Resources */,
@@ -1329,9 +1315,9 @@
 				2059909D2B12E61C00CA364A /* Pretendard-ExtraLight.otf in Resources */,
 				2059909B2B12E60800CA364A /* Pretendard-ExtraBold.otf in Resources */,
 				205990992B12E5F400CA364A /* Pretendard-Bold.otf in Resources */,
+				1DE15A532B1CBFE600A89946 /* GoogleService-Info.plist in Resources */,
 				205990972B12E5E200CA364A /* Pretendard-Black.otf in Resources */,
 				1D09AF8C2ADA271300C1400E /* Colors.xcassets in Resources */,
-				43A3AEDF2B0F9BA100FA74C9 /* GoogleService-Info.plist in Resources */,
 				1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */,
 				1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */,
 				1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */,
@@ -1627,7 +1613,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20231202;
+				CURRENT_PROJECT_VERSION = 20231205;
 				DEVELOPMENT_ASSET_PATHS = "\"highpitch/App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V7Y39HNV38;
@@ -1840,7 +1826,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20231202;
+				CURRENT_PROJECT_VERSION = 20231205;
 				DEVELOPMENT_ASSET_PATHS = "\"highpitch/App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V7Y39HNV38;
@@ -1893,7 +1879,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 20231202;
+				CURRENT_PROJECT_VERSION = 20231205;
 				DEVELOPMENT_ASSET_PATHS = "\"highpitch/App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V7Y39HNV38;

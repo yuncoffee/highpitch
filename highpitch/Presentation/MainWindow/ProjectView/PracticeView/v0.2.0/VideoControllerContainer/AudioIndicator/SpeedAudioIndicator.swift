@@ -82,21 +82,6 @@ struct SpeedAudioIndicator: View {
         )
         .background(.thinMaterial)
         .onAppear {
-            // MARK: - Add MockData
-//#if PREVIEW
-//            if let sample = practices.first {
-//                viewStore.practice = sample
-//            }
-//            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
-//            if let url = url {
-//                viewStore.practice.audioPath = url
-//                do {
-//                    try viewStore.mediaManager.registerAudio(url: url)
-//                } catch {
-//                    print(error)
-//                }
-//            }
-//#endif
             duration = viewStore.mediaManager.getDuration() * 1000
         }
     }

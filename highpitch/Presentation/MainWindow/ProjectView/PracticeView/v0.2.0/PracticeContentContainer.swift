@@ -40,17 +40,6 @@ struct PracticeContentContainer: View {
         }
         .onAppear {
             registerMedia()
-            
-            // MARK: - Add MockData
-//#if PREVIEW
-//            if let sample = practices.first {
-//                viewStore.practice = sample
-//            }
-//            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
-//            if let url = url {
-//                viewStore.practice.audioPath = url
-//            }
-//#endif
         }
         .onDisappear {
             viewStore.mediaManager.reset()

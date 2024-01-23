@@ -80,21 +80,6 @@ struct FullScreenVideoContainer: View {
         })
         .zIndex(viewStore.isFullScreenVideoVisible ? 1 : 0)
         .opacity(viewStore.isFullScreenVideoVisible ? 1 : 0)
-        .onAppear {
-            // MARK: - Add MockData
-//#if PREVIEW
-//            if let sample = practices.first {
-//                viewStore.practice = sample
-//            }
-//            let url = Bundle.main.url(forResource: "20231107202138", withExtension: "m4a")
-//            if let url = url {
-//                viewStore.practice.audioPath = url
-//            }
-//            viewStore.isFullScreenTransition = true
-//            viewStore.isFullScreenVideoVisible = true
-//            isFullScreenVideoHover = true
-//#endif
-        }
     }
 }
 

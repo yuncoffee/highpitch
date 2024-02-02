@@ -65,8 +65,9 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
         }
         
     }
-    
 }
+
+
 
 enum NextView: String,Identifiable {
     case view1,view2

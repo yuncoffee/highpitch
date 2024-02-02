@@ -8,6 +8,7 @@
 #if os(macOS)
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 struct MainWindowView: View {
     // MARK: - 데이터 컨트롤을 위한 매니저 객체
@@ -135,6 +136,8 @@ extension MainWindowView {
         } else {
             SystemManager.shared.isDarkMode = false
         }
+        // MARK: 노티피케이션 삭제
+        UNUserNotificationCenter.current().setBadgeCount(0)
     }
     private func checkAudioPermission() {
         if(!mediaManager.checkMicrophonePermission()) {

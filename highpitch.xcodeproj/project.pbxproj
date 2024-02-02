@@ -121,8 +121,6 @@
 		1DDB9D4C2AF7542C001CA7CC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB9D4B2AF7542C001CA7CC /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		1DDB9D4E2AF7542C001CA7CC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1DDB9D4D2AF7542C001CA7CC /* FirebaseAuth */; };
 		1DDB9D502AF75529001CA7CC /* GAManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDB9D4F2AF75529001CA7CC /* GAManager.swift */; };
-		1DE15A522B1CBFE600A89946 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE15A502B1CBFE600A89946 /* SecretKey.plist */; };
-		1DE15A532B1CBFE600A89946 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DE15A512B1CBFE600A89946 /* GoogleService-Info.plist */; };
 		1DE82ACE2AEDF2FD009925FC /* MenubarExtraFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE82ACD2AEDF2FD009925FC /* MenubarExtraFooter.swift */; };
 		1DE8B6452AECD0C500E0746E /* HPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8B6442AECD0C500E0746E /* HPButton.swift */; };
 		1DE8B64C2AECD4C400E0746E /* BaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE8B64B2AECD4C400E0746E /* BaseStyle.swift */; };
@@ -155,6 +153,8 @@
 		205990A32B12E64E00CA364A /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 205990A22B12E64E00CA364A /* Pretendard-Regular.otf */; };
 		205990A52B12E65F00CA364A /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 205990A42B12E65F00CA364A /* Pretendard-SemiBold.otf */; };
 		205990A72B12E67000CA364A /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 205990A62B12E67000CA364A /* Pretendard-Thin.otf */; };
+		20C82A242B6C9F77007B7FDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20C82A222B6C9F77007B7FDD /* GoogleService-Info.plist */; };
+		20C82A252B6C9F77007B7FDD /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20C82A232B6C9F77007B7FDD /* SecretKey.plist */; };
 		20E0EE7D2B1B76CD00587D45 /* SamplePractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E0EE7C2B1B76CD00587D45 /* SamplePractice.swift */; };
 		43556EA92ADE809F00B3E7B7 /* PracticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43556EA82ADE809F00B3E7B7 /* PracticeModel.swift */; };
 		43556EAB2ADE80A900B3E7B7 /* UtteranceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43556EAA2ADE80A900B3E7B7 /* UtteranceModel.swift */; };
@@ -299,8 +299,6 @@
 		1DDB9D002AEF1F95001CA7CC /* HPListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPListCell.swift; sourceTree = "<group>"; };
 		1DDB9D062AF2B1D4001CA7CC /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
 		1DDB9D4F2AF75529001CA7CC /* GAManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAManager.swift; sourceTree = "<group>"; };
-		1DE15A502B1CBFE600A89946 /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
-		1DE15A512B1CBFE600A89946 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DE82ACD2AEDF2FD009925FC /* MenubarExtraFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenubarExtraFooter.swift; sourceTree = "<group>"; };
 		1DE8B6442AECD0C500E0746E /* HPButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPButton.swift; sourceTree = "<group>"; };
 		1DE8B64B2AECD4C400E0746E /* BaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStyle.swift; sourceTree = "<group>"; };
@@ -338,6 +336,8 @@
 		205990A22B12E64E00CA364A /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		205990A42B12E65F00CA364A /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		205990A62B12E67000CA364A /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		20C82A222B6C9F77007B7FDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/plist/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		20C82A232B6C9F77007B7FDD /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SecretKey.plist; path = ../../../../Downloads/plist/SecretKey.plist; sourceTree = "<group>"; };
 		20E0EE7C2B1B76CD00587D45 /* SamplePractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePractice.swift; sourceTree = "<group>"; };
 		43556EA82ADE809F00B3E7B7 /* PracticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModel.swift; sourceTree = "<group>"; };
 		43556EAA2ADE80A900B3E7B7 /* UtteranceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtteranceModel.swift; sourceTree = "<group>"; };
@@ -1050,8 +1050,8 @@
 		1DF659882AD594BD00AE5601 /* highpitch */ = {
 			isa = PBXGroup;
 			children = (
-				1DE15A512B1CBFE600A89946 /* GoogleService-Info.plist */,
-				1DE15A502B1CBFE600A89946 /* SecretKey.plist */,
+				20C82A222B6C9F77007B7FDD /* GoogleService-Info.plist */,
+				20C82A232B6C9F77007B7FDD /* SecretKey.plist */,
 				1D30E6162AD59E0C00623A58 /* Models */,
 				1DF659BC2AD595E100AE5601 /* Presentation */,
 				1D30E6222AD6113C00623A58 /* Managers */,
@@ -1258,7 +1258,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					1DF659852AD594BD00AE5601 = {
 						CreatedOnToolsVersion = 15.0;
@@ -1307,17 +1307,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				205990A72B12E67000CA364A /* Pretendard-Thin.otf in Resources */,
-				1DE15A522B1CBFE600A89946 /* SecretKey.plist in Resources */,
 				205990A52B12E65F00CA364A /* Pretendard-SemiBold.otf in Resources */,
 				205990A32B12E64E00CA364A /* Pretendard-Regular.otf in Resources */,
+				20C82A252B6C9F77007B7FDD /* SecretKey.plist in Resources */,
 				205990A12B12E63700CA364A /* Pretendard-Medium.otf in Resources */,
 				2059909F2B12E62900CA364A /* Pretendard-Light.otf in Resources */,
 				2059909D2B12E61C00CA364A /* Pretendard-ExtraLight.otf in Resources */,
 				2059909B2B12E60800CA364A /* Pretendard-ExtraBold.otf in Resources */,
 				205990992B12E5F400CA364A /* Pretendard-Bold.otf in Resources */,
-				1DE15A532B1CBFE600A89946 /* GoogleService-Info.plist in Resources */,
 				205990972B12E5E200CA364A /* Pretendard-Black.otf in Resources */,
 				1D09AF8C2ADA271300C1400E /* Colors.xcassets in Resources */,
+				20C82A242B6C9F77007B7FDD /* GoogleService-Info.plist in Resources */,
 				1D30E62C2AD6E88500623A58 /* .swiftlint.yml in Resources */,
 				1DAABBE02B00C27B00AF4449 /* 20231107202138.m4a in Resources */,
 				1DF659942AD594BF00AE5601 /* Preview Assets.xcassets in Resources */,
@@ -1467,7 +1467,6 @@
 				10F3F2842B05FD8C00CFC817 /* AudioRecorder.swift in Sources */,
 				437373A02B0224BD00DEEDBD /* PanelController.swift in Sources */,
 				1D2251F22B0EDA750056719B /* OnboardingNoticeSheet.swift in Sources */,
-				437373A02B0224BD00DEEDBD /* PanelController.swift in Sources */,
 				1DED4EF02AFCAAA2000109B3 /* SwiftDataMockManager.swift in Sources */,
 				1D0ECD7A2ADDA35400B95A74 /* HPTopToolbar.swift in Sources */,
 				1D0ECD752ADD9B3D00B95A74 /* Space.swift in Sources */,
@@ -1547,6 +1546,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1576,6 +1576,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1614,6 +1615,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 20231205;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"highpitch/App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V7Y39HNV38;
@@ -1663,6 +1665,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = V7Y39HNV38;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1685,6 +1688,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = V7Y39HNV38;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1706,6 +1710,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1735,6 +1740,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1767,6 +1773,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1796,6 +1803,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1827,6 +1835,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 20231205;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"highpitch/App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V7Y39HNV38;
@@ -1880,6 +1889,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 20231205;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"highpitch/App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = V7Y39HNV38;
@@ -1929,6 +1939,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = V7Y39HNV38;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1952,6 +1963,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = V7Y39HNV38;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1974,6 +1986,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = V7Y39HNV38;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -1996,6 +2009,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = V7Y39HNV38;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;

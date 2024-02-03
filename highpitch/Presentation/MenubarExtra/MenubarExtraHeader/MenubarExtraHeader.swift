@@ -90,51 +90,27 @@ extension MenubarExtraHeader {
     
     @ViewBuilder
     private var playAndPauseButton: some View {
-        let labels = if !mediaManager.isRecording {
-            (
-                label:"연습 시작",
-                image: "play.fill",
-                color: Color.HPPrimary.dark
-            )
-        } else if mediaManager.isPause {
-            (
-                label:"연습 시작",
-                image: "play.fill",
-                color: Color.HPPrimary.dark
-            )
-        } else {
-            (
-                label:"일시 정지",
-                image: "pause.fill",
-                color: Color.HPGray.system800
-            )
-        }
+        let labels = (label:"연습 시작", image: "play.fill", color: Color.HPPrimary.dark)
         HPButton(type: .text, size: .medium, color: labels.color) {
             Task {
                 do {
-                    if mediaManager.checkMicrophonePermission() {
-                        projectManager.isMicRecordpermitted = false
-                    } else {
-                        projectManager.isMicRecordpermitted = true
-                        return
-                    }
                     if await ScreenRecordManager.canRecord {
                         projectManager.isScreenRecordpermitted = false
                     } else {
                         projectManager.isScreenRecordpermitted = true
                         return
                     }
+                    if mediaManager.checkMicrophonePermission() {
+                        projectManager.isMicRecordpermitted = false
+                    } else {
+                        projectManager.isMicRecordpermitted = true
+                        return
+                    }
                     let available = try await SpeechRecognizerManager().isSpeechAvailable()
                     if available {
-                        if !mediaManager.isRecording {
-                            mediaManager.isDictationUnavailable = false
-                            mediaManager.isStart = true
-                            GAManager.shared.analyticsOnClick(.play)
-                        } else if mediaManager.isPause {
-                            playPractice()
-                        } else {
-                            pausePractice()
-                        }
+                        mediaManager.isDictationUnavailable = false
+                        mediaManager.isStart = true
+                        GAManager.shared.analyticsOnClick(.play)
                     } else {
                         mediaManager.isDictationUnavailable = true
                     }
@@ -153,6 +129,7 @@ extension MenubarExtraHeader {
             )
         }
         .frame(width: ButtonSize.medium.labelSize.height, height: ButtonSize.medium.labelSize.height)
+        .disabled(mediaManager.isRecording)
         .keyboardShortcut(!mediaManager.isRecording ? "a" : .space, modifiers: [.command, .option] )
     }
     

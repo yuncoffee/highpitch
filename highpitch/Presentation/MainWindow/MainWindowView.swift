@@ -307,67 +307,49 @@ extension MainWindowView {
     var projectToolbar: some View {
         if let projectName = projectManager.current?.projectName {
             HPTopToolbar(title: projectName, completion: {
-                if mediaManager.isRecording {
-                    HPButton(type: .text, color: .HPSecondary.base) {
-                        SystemManager.shared.isMainWindowPracticeSaveSheetActive = true
-                    } label: { type, size, color, expandable in
-                        HPLabel(
-                            content: (label: "일시 정지", icon: "pause.fill"),
-                            type: type,
-                            size: size,
-                            color: color,
-                            alignStyle: .iconWithTextVertical,
-                            expandable: expandable,
-                            fontStyle: .system(.caption2)
-                        )
+                HPButton(color: .HPSecondary.base) {
+                    Task {
+                        do {
+                            if mediaManager.checkMicrophonePermission() {
+                                projectManager.isMicRecordpermitted = false
+                            } else {
+                                projectManager.isMicRecordpermitted = true
+                                return
+                            }
+                            if await ScreenRecordManager.canRecord {
+                                projectManager.isScreenRecordpermitted = false
+                            } else {
+                                projectManager.isScreenRecordpermitted = true
+                                return
+                            }
+                            let available = try await SpeechRecognizerManager().isSpeechAvailable()
+                            if available {
+                                mediaManager.isDictationUnavailable = false
+                                mediaManager.isStart = true
+                                // MARK: - 현재 프로젝트로 설정하는 부분에 문제가 있는가?
+                                if let currentProject = projectManager.current {
+                                    currentSelectedProject = currentProject
+                                }
+                            } else {
+                                mediaManager.isDictationUnavailable = true
+                                return
+                            }
+                        } catch { }
                     }
-                    .frame(width: 40)
-                    .padding(.trailing, .HPSpacing.medium)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                } else {
-                    HPButton(color: .HPSecondary.base) {
-                        Task {
-                            do {
-                                if mediaManager.checkMicrophonePermission() {
-                                    projectManager.isMicRecordpermitted = false
-                                } else {
-                                    projectManager.isMicRecordpermitted = true
-                                    return
-                                }
-                                if await ScreenRecordManager.canRecord {
-                                    projectManager.isScreenRecordpermitted = false
-                                } else {
-                                    projectManager.isScreenRecordpermitted = true
-                                    return
-                                }
-                                let available = try await SpeechRecognizerManager().isSpeechAvailable()
-                                if available {
-                                    mediaManager.isDictationUnavailable = false
-                                    mediaManager.isStart = true
-                                    // MARK: - 현재 프로젝트로 설정하는 부분에 문제가 있는가?
-                                    if let currentProject = projectManager.current {
-                                        currentSelectedProject = currentProject
-                                    }
-                                } else {
-                                    mediaManager.isDictationUnavailable = true
-                                    return
-                                }
-                            } catch { }
-                        }
-                    } label: { type, size, color, expandable in
-                        HPLabel(
-                            content: (label: "연습 시작하기", icon: nil),
-                            type: type,
-                            size: size,
-                            color: color,
-                            expandable: expandable,
-                            fontStyle: .system(.footnote)
-                        )
-                    }
-                    .frame(width: 120)
-                    .padding(.trailing, .HPSpacing.medium)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                } label: { type, size, color, expandable in
+                    HPLabel(
+                        content: (label: "연습 시작하기", icon: nil),
+                        type: type,
+                        size: size,
+                        color: color,
+                        expandable: expandable,
+                        fontStyle: .system(.footnote)
+                    )
                 }
+                .frame(width: 120)
+                .padding(.trailing, .HPSpacing.medium)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .disabled(mediaManager.isRecording)
             }, popOverContent: {
                 VStack(alignment: .leading, spacing: .HPSpacing.xxxxsmall) {
                     Text("프로젝트 명 변경하기")
@@ -408,62 +390,44 @@ extension MainWindowView {
             })
         } else {
             HPTopToolbar(title: "내 연습 분석") {
-                if mediaManager.isRecording {
-                    HPButton(type: .text, color: .HPSecondary.base) {
-                        SystemManager.shared.isMainWindowPracticeSaveSheetActive = true
-                    } label: { type, size, color, expandable in
-                        HPLabel(
-                            content: (label: "일시 정지", icon: "pause.fill"),
-                            type: type,
-                            size: size,
-                            color: color,
-                            alignStyle: .iconWithTextVertical,
-                            expandable: expandable,
-                            fontStyle: .system(.caption2)
-                        )
+                HPButton(color: .HPSecondary.base) {
+                    Task {
+                        do {
+                            if mediaManager.checkMicrophonePermission() {
+                                projectManager.isMicRecordpermitted = false
+                            } else {
+                                projectManager.isMicRecordpermitted = true
+                                return
+                            }
+                            if await ScreenRecordManager.canRecord {
+                                projectManager.isScreenRecordpermitted = false
+                            } else {
+                                projectManager.isScreenRecordpermitted = true
+                                return
+                            }
+                            let available = try await SpeechRecognizerManager().isSpeechAvailable()
+                            if available {
+                                mediaManager.isDictationUnavailable = false
+                                mediaManager.isStart = true
+                            } else {
+                                mediaManager.isDictationUnavailable = true
+                            }
+                        } catch { }
                     }
-                    .frame(width: 40)
-                    .padding(.trailing, .HPSpacing.medium)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                } else {
-                    HPButton(color: .HPSecondary.base) {
-                        Task {
-                            do {
-                                if mediaManager.checkMicrophonePermission() {
-                                    projectManager.isMicRecordpermitted = false
-                                } else {
-                                    projectManager.isMicRecordpermitted = true
-                                    return
-                                }
-                                if await ScreenRecordManager.canRecord {
-                                    projectManager.isScreenRecordpermitted = false
-                                } else {
-                                    projectManager.isScreenRecordpermitted = true
-                                    return
-                                }
-                                let available = try await SpeechRecognizerManager().isSpeechAvailable()
-                                if available {
-                                    mediaManager.isDictationUnavailable = false
-                                    mediaManager.isStart = true
-                                } else {
-                                    mediaManager.isDictationUnavailable = true
-                                }
-                            } catch { }
-                        }
-                    } label: { type, size, color, expandable in
-                        HPLabel(
-                            content: (label: "연습 시작하기", icon: nil),
-                            type: type,
-                            size: size,
-                            color: color,
-                            expandable: expandable,
-                            fontStyle: .system(.footnote)
-                        )
-                    }
-                    .frame(width: 120)
-                    .padding(.trailing, .HPSpacing.medium)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                } label: { type, size, color, expandable in
+                    HPLabel(
+                        content: (label: "연습 시작하기", icon: nil),
+                        type: type,
+                        size: size,
+                        color: color,
+                        expandable: expandable,
+                        fontStyle: .system(.footnote)
+                    )
                 }
+                .frame(width: 120)
+                .padding(.trailing, .HPSpacing.medium)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .disabled(mediaManager.isRecording)
             }
         }
     }

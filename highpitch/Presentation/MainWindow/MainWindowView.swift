@@ -68,9 +68,10 @@ struct MainWindowView: View {
         }
         .toolbarBackground(.hidden)
         .navigationTitle("Sidebar")
+        // MARK: - ContentSize 조정 시 특이사항, maxWidth가 디스플레이 사이즈를 넘어갈 시 FullScreenMode가 활성화된다.
         .frame(
             minWidth: 1000,
-            maxWidth: 1512,
+            maxWidth: 1511,
             minHeight: 600,
             maxHeight: .infinity
         )

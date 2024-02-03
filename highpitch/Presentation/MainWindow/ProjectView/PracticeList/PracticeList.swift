@@ -88,6 +88,10 @@ struct PracticeList: View {
                                         ),
                                         title: projectManager.current?.projectName
                                     )
+                                    .onAppear {
+                                        isEditMode = false
+                                    }
+                                    
                                 }
                                 .padding(.bottom, .HPSpacing.xxsmall)
                             }

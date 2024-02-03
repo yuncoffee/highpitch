@@ -90,8 +90,8 @@ struct MainWindowView: View {
             }
         })
         .onChange(of: projects) { _, newValue in
+            projectManager.projects = newValue
             if !newValue.isEmpty {
-                projectManager.projects = newValue
                 projectManager.current = newValue.last
             }
         }
@@ -344,6 +344,7 @@ extension MainWindowView {
                                 if available {
                                     mediaManager.isDictationUnavailable = false
                                     mediaManager.isStart = true
+                                    // MARK: - 현재 프로젝트로 설정하는 부분에 문제가 있는가?
                                     if let currentProject = projectManager.current {
                                         currentSelectedProject = currentProject
                                     }

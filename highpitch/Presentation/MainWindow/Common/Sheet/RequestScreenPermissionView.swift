@@ -29,6 +29,10 @@ struct RequestScreenPermissionView: View {
             Text("시스템 설정 - 화면 기록에서 화면 기록을 허용해주세요")
                 .systemFont(.caption, weight: .regular)
                 .foregroundColor(Color.HPTextStyle.base)
+                .padding(.bottom,.HPSpacing.xxxsmall)
+            Text("(화면 기록 허용 후에도 해당 팝업이 보인다면 앱을 재실행해주세요.)")
+                .systemFont(.caption, weight: .regular)
+                .foregroundColor(Color.HPTextStyle.base)
                 .padding(.bottom,.HPSpacing.small)
             HStack {
                 HPButton(type: .blockFill(8), size: .large, color: .HPGray.system200) {
@@ -59,7 +63,9 @@ struct RequestScreenPermissionView: View {
                 .frame(width: 144)
             }
             Spacer()
-        }.frame(width: 420, height: 280)
+        }
+        .frame(width: 420)
+        .padding(.bottom, 24)
     }
 }
 extension RequestScreenPermissionView {

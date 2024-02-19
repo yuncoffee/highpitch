@@ -54,7 +54,7 @@ struct ProjectLinkItem: View {
             .textFieldStyle(.plain)
             .padding(.horizontal, .HPSpacing.xsmall)
             .frame(maxWidth: .infinity, minHeight: 36, maxHeight: 36)
-            .background(Color.white)
+            .background(Color.HPGray.systemWhite)
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(Color.HPPrimary.base, lineWidth: 1)

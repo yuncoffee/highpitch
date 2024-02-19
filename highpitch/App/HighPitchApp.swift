@@ -150,14 +150,14 @@ struct HighpitchApp: App {
             practice7.sentences = SampleDigDaPracticesMock7.shared.sentences
             project.practices.append(practice7)
             #endif
-            #if DEBUG
+//            #if DEBUG
             let storeURL = URL.getStorePath(fileName: "database.sqlite")
 //            let storeURL = URL.getStorePath(fileName: "sample.sqlite")
             let config = ModelConfiguration(url: storeURL)
             container = try ModelContainer(
                 for: ProjectModel.self,
                 configurations: config)
-            #endif
+//            #endif
         } catch {
             fatalError("Could not initialize ModelContainer")
         }
